@@ -1,11 +1,15 @@
 import I18n from 'i18n';
 import Config from '~/services/config';
 
-export default function (req, res, next) {
+export default function () {
 
-    I18n.configure(Config.get("i18n"));
+    return function (req, res, next) {
 
-    I18n.init(req, res);
+        I18n.configure(Config.get("i18n"));
 
-    return next();
-};
+        I18n.init(req, res);
+
+        return next();
+    };
+
+}

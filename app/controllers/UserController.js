@@ -11,7 +11,7 @@ export default class extends Controller {
      */
     findOne(req, res) {
 
-        var id = req.param("id");
+        let id = req.param("id");
 
         User.findById(id, function (error, user) {
             if (error) return res.serverError(error);
@@ -29,7 +29,7 @@ export default class extends Controller {
      */
     find(req, res) {
 
-        User.find(function (error, users) {
+        User.find().populate("role").exec(function (error, users) {
             if (error) return res.serverError(error);
             return res.ok(users);
         });
@@ -44,7 +44,7 @@ export default class extends Controller {
      */
     create(req, res) {
 
-        var user = new User({
+        let user = new User({
             username: req.param("username"),
             email: req.param("email"),
             password: req.param("password"),
@@ -75,7 +75,7 @@ export default class extends Controller {
      */
     update(req, res) {
 
-        var id = req.param("id");
+        let id = req.param("id");
 
         User.findById(id, function (error, user) {
 
@@ -116,7 +116,7 @@ export default class extends Controller {
      */
     destroy(req, res) {
 
-        var id = req.param("id");
+        let id = req.param("id");
 
         User.findById(id, function (error, user) {
 

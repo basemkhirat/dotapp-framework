@@ -1,21 +1,42 @@
 import jwt from "jsonwebtoken";
+import Auth from '~/services/auth';
 
-export default function (req, res, next) {
+export default function () {
 
-    let token = req.param("token");
+    return function (req, res, next) {
 
-    if (token) {
+        req.user = false;
+        req.token = false;
+        req.can = Auth.can.bind({req});
 
-        jwt.verify(token, _config('jwt.secret'), (error, token) => {
+        // Parse token from request headers
 
-            if (!error && token) {
-                req.user = token;
+        if (req.headers.authorization) {
+            const parts = req.headers.authorization.split(' ');
+            if (parts.length === 2 && parts[0] === 'Bearer') {
+                req.token = parts[1];
             }
+        }
 
+        if (req.token) {
+
+            jwt.verify(req.token, _config('jwt.secret'), (error, user) => {
+
+                if (!error && user) {
+
+                    Auth.user(user.id, function (error, user) {
+                        req.user = user;
+                        next();
+                    });
+
+                } else {
+                    next();
+                }
+            });
+
+        } else {
             next();
-        });
-
-    } else {
-        return next();
+        }
     }
+
 }

@@ -42,14 +42,14 @@ class Index {
             r.handler = this.parseHandler(value.handler);
             r.middleware = [...r.middleware, ...this.parseMiddleware(value.middleware)];
             r.name = value.name;
-            routeGroup = value.group;
+            routeGroup = this.parseGroup(value);
         }
 
         delete r.parent;
 
         this.rs.push(r);
 
-        if(r.handler){
+        if (r.handler) {
             this.translate({
                 method: r.method,
                 path: r.path,
@@ -83,6 +83,15 @@ class Index {
         return path.startsWith('/') ? path : '/' + path;
     }
 
+    parseGroup(value) {
+
+        if (typeof value.group === 'function') {
+            return value.group.call(value, value);
+        }
+
+        return value.group;
+    }
+
     parseMiddleware(value) {
 
         if (typeof value === "undefined") {
@@ -106,7 +115,9 @@ class Index {
                 let params = [];
 
                 if (args != undefined) {
-                    params = args.split(",");
+                    params = args.split(",").map((param) => {
+                        return param.trim();
+                    });
                 }
 
                 middleware = path.join(process.cwd(), "app/middlewares/" + middleware + ".js");

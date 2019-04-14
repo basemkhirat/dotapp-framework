@@ -1,10 +1,8 @@
-import Auth from '~/services/auth';
-
-export default function () {
+export default function (permissions) {
 
     return function (req, res, next) {
 
-        if (!req.user) {
+        if (!req.can(permissions)) {
             return res.forbidden();
         }
 

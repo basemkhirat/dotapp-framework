@@ -1,3 +1,5 @@
 import BodyParser from 'body-parser';
 
-export default BodyParser.json();
+export default function () {
+    return BodyParser.json();
+}

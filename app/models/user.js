@@ -1,7 +1,9 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 
-let schema = mongoose.Schema({
+let Schema = mongoose.Schema;
+
+let schema = Schema({
 
         username: {
             type: String,
@@ -27,7 +29,15 @@ let schema = mongoose.Schema({
         lang: {
             type: String,
             default: 'en'
-        }
+        },
+        permissions: {
+            type: Array
+        },
+
+        role: {
+            type: Schema.Types.ObjectId,
+            ref: 'role'
+        },
 
     }, {
         versionKey: false,

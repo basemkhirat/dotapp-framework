@@ -6,6 +6,8 @@ class Index {
 
     constructor(config) {
 
+        mongoose.set('useCreateIndex', true);
+
         mongoose.connect(config.url, config.options);
 
         mongoose.connection.on('connected', function () {
