@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     /**
      * The extended option allows to choose between parsing the URL-encoded data with the querystring library
@@ -40,4 +40,4 @@ module.exports = {
      */
 
     type: 'application/x-www-form-urlencoded'
-}
+};

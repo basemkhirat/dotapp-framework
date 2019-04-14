@@ -1,4 +1,7 @@
-module.exports = {
+
+import Controller from './Controller';
+
+export default class extends Controller{
 
     /**
      * Show homepage
@@ -6,26 +9,9 @@ module.exports = {
      * @param res
      * @param next
      */
-    index: function (req, res, next) {
-
-        // Logging In
-
-        /*
-        req.login({id: "59f4856fd3b99e1d311ef94a"}, function (error) {
-            if (error) return next(error);
-            return res.redirect("/profile");
+    index(req, res, next) {
+        return res.ok({
+            health: true
         });
-        */
-
-        return res.render("hello");
-    },
-
-    /**
-     * Get current user
-     * @param req
-     * @param res
-     */
-    profile: function (req, res) {
-        return res.json(req.user.toJSON());
     }
 };

@@ -1,7 +1,7 @@
-var mongoose = require("mongoose");
-var bcrypt = require("bcrypt");
+import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
 
-var schema = mongoose.Schema({
+let schema = mongoose.Schema({
 
         username: {
             type: String,
@@ -80,6 +80,6 @@ schema.methods.comparePassword = function (password, callback) {
             callback(error, false);
         }
     });
-}
+};
 
 module.exports = mongoose.model("user", schema, "user");

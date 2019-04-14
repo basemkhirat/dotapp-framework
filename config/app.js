@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     /**
      * The runtime "environment" of your app is either typically
@@ -44,12 +44,6 @@ module.exports = {
      * The views directory path
      */
 
-    views: require('path').join(__basepath, 'app/views'),
-
-    /**
-     * The api url prefix
-     */
-
-    api_prefix: "api"
+    views: "app/views",
 };
 

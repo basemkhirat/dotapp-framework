@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     /**
      * you may alter a site wide default locale
@@ -24,7 +24,7 @@ module.exports = {
      * where to store json files - defaults to './locales' relative to modules directory
      */
 
-    directory: __basepath + '/app/lang',
+    directory: process.cwd() + '/app/lang',
 
     /**
      * sets a custom cookie name to parse locale settings from  - defaults to NULL

@@ -1,6 +1,6 @@
-module.exports = function (data) {
+export default function (data) {
 
-    var error = new Error();
+    let error = new Error();
 
     error.message = "Internal Server Error";
     error.status = 500;
@@ -16,9 +16,5 @@ module.exports = function (data) {
 
     this.res.status(error.status);
 
-    if (this.req.isAPI) {
-        return this.res.json(error);
-    }
-
-    return this.res.render("errors/500", error);
+    return this.res.json(error);
 };

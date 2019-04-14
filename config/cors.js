@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     /**
      * Boolean - set origin to true to reflect the request origin, as defined by req.header('Origin'),

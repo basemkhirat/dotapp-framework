@@ -1,18 +1,15 @@
-/**
- * UsersController
- * @description :: Server-side logic for managing users
- */
+import Controller from "~/controllers/Controller";
+import User from '~/models/user';
+import jwt from "jsonwebtoken";
 
-var jwt = require("jsonwebtoken");
-
-module.exports = {
+export default class extends Controller {
 
     /**
      * Find one user
      * @param req
      * @param res
      */
-    findOne: function (req, res) {
+    findOne(req, res) {
 
         var id = req.param("id");
 
@@ -23,22 +20,21 @@ module.exports = {
             return res.ok(user);
         });
 
-    },
+    }
 
     /**
      * Find all users
      * @param req
      * @param res
      */
-    find: function (req, res) {
+    find(req, res) {
 
         User.find(function (error, users) {
             if (error) return res.serverError(error);
-
             return res.ok(users);
         });
 
-    },
+    }
 
     /**
      * Create a new user
@@ -46,7 +42,7 @@ module.exports = {
      * @param res
      * @returns {*}
      */
-    create: function (req, res) {
+    create(req, res) {
 
         var user = new User({
             username: req.param("username"),
@@ -70,18 +66,16 @@ module.exports = {
                 expires: _config("jwt.expires")
             });
         });
-    },
+    }
 
     /**
      * Update user by id
      * @param req
      * @param res
      */
-    update: function (req, res) {
+    update(req, res) {
 
         var id = req.param("id");
-
-        console.log(req.user);
 
         User.findById(id, function (error, user) {
 
@@ -110,18 +104,17 @@ module.exports = {
 
             user.save(function (error, user) {
                 if (error) return res.serverError(error);
-
                 return res.ok(user);
             });
         });
-    },
+    }
 
     /**
      * Delete user by id
      * @param req
      * @param res
      */
-    destroy: function (req, res) {
+    destroy(req, res) {
 
         var id = req.param("id");
 
@@ -131,7 +124,7 @@ module.exports = {
             if (!user) return res.notFound("User not found");
 
             user.remove(function (error, user) {
-                if (error) return res.serverError(error);
+                if (error) res.serverError(error);
 
                 return res.ok(user);
             });

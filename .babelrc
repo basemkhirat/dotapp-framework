@@ -1,0 +1,17 @@
+{
+    "presets": [
+        "es2015"
+    ],
+    "plugins": [
+        [
+            "babel-plugin-transform-class-properties"
+        ],
+        [
+            "babel-plugin-root-import",
+            {
+                "rootPathPrefix": "~",
+                "rootPathSuffix": "app"
+            }
+        ]
+    ]
+}

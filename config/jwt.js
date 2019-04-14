@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     /**
      * is a string, buffer, or object containing either the secret for HMAC algorithms
@@ -16,4 +16,4 @@ module.exports = {
      */
 
     expires: 99999999
-}
+};

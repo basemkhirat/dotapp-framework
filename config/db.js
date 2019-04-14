@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     /**
      * The database connection string
