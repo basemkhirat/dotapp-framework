@@ -8,8 +8,8 @@ import Router from '~/services/router';
  * @returns {*}
  * @private
  */
-export const _config = function (name) {
-    return Config.get(name);
+export const _config = function (name, defaultValue = null) {
+    return Config.get(name, defaultValue);
 };
 
 /**
@@ -18,8 +18,23 @@ export const _config = function (name) {
  * @returns {*}
  * @private
  */
-export const _lang = function (phrase) {
-    return this.res.__(phrase);
+export const _lang = function (value, variables = {}, locale = this.res.getLocale()) {
+
+    let phrase_parts = value.split(".");
+
+    if (phrase_parts.length === 1) return phrase_parts[0];
+
+    let response = this.res.__({phrase: phrase_parts[1], locale: locale + "/" + phrase_parts[0]});
+
+    let result = phrase_parts.splice(2).reduce((response, key) => {
+        return typeof response == "object" && key in response ? response[key] : key;
+    }, response);
+
+    for (let variable in variables) {
+        result = result.replace(":" + variable, variables[variable]);
+    }
+
+    return result;
 };
 
 /**

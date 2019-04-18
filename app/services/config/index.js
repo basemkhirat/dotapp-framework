@@ -29,15 +29,15 @@ class Index {
         this.configurations = configurations;
     }
 
-    get(name) {
+    get(name, defaultValue) {
 
         try {
             var value = eval("this.configurations." + name);
         } catch (err) {
-            return null;
+            return defaultValue;
         }
 
-        return value != undefined ? value : null;
+        return value != undefined ? value : defaultValue;
     }
 
 }

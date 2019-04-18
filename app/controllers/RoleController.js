@@ -10,13 +10,15 @@ export default class extends Controller {
      */
     findOne(req, res) {
 
-        var id = req.param("id");
+        if (!req.can("role.view")) return res.forbidden();
+
+        let id = req.param("id");
 
         Role.findById(id, function (error, role) {
             if (error) return res.serverError(error);
             if (!role) return res.notFound("Role not found");
 
-            return res.ok(role);
+            return res.ok(res.attachPolicies(role, "role"));
         });
 
     }
@@ -28,9 +30,11 @@ export default class extends Controller {
      */
     find(req, res) {
 
+        if (!req.can("role.view")) return res.forbidden();
+
         Role.find(function (error, roles) {
             if (error) return res.serverError(error);
-            return res.ok(roles);
+            return res.ok(res.attachPolicies(roles, "role"));
         });
 
     }
@@ -42,6 +46,8 @@ export default class extends Controller {
      * @returns {*}
      */
     create(req, res) {
+
+        if (!req.can("role.create")) return res.forbidden();
 
         let role = new Role({
             name: req.param("name")
@@ -65,6 +71,7 @@ export default class extends Controller {
         Role.findById(id, function (error, role) {
 
             if (error) return res.serverError(error);
+            if (!req.can("role.update", role)) return res.forbidden();
             if (!role) return res.notFound("Role not found");
 
             if (req.param("name")) {
@@ -90,6 +97,7 @@ export default class extends Controller {
         Role.findById(id, function (error, role) {
 
             if (error) return res.serverError(error);
+            if (!req.can("role.update", role)) return res.forbidden();
             if (!role) return res.notFound("Role not found");
 
             Role.remove(function (error, role) {

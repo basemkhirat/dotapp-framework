@@ -1,7 +1,6 @@
 import Controller from './Controller';
-import Role from '~/models/role';
 
-export default class extends Controller{
+export default class extends Controller {
 
     /**
      * Show homepage
@@ -10,12 +9,8 @@ export default class extends Controller{
      * @param next
      */
     index(req, res, next) {
+            res.send(_config("app.env"));
 
-        console.log(req.can("createPost"));
-
-        return res.ok({
-            user: req.user,
-            token: req.token
-        });
+        //
     }
 };

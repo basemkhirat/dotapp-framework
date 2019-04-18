@@ -1,8 +1,8 @@
-export default function (data, code = 403) {
+export default function (data, code = 401) {
 
     let error = new Error();
 
-    error.message = "Not Authorized";
+    error.message = "Not Authenticated";
     error.status = code;
     error.success = false;
 

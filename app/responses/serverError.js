@@ -1,9 +1,9 @@
-export default function (data) {
+export default function (data, code = 500) {
 
     let error = new Error();
 
     error.message = "Internal Server Error";
-    error.status = 500;
+    error.status = code;
     error.success = false;
 
     if (_config("app.env") != "production") {
@@ -13,6 +13,11 @@ export default function (data) {
             error.message = data
         }
     }
+
+    error.debug = {
+        user: this.req.user,
+        token: this.req.token
+    };
 
     this.res.status(error.status);
 

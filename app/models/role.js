@@ -1,21 +1,13 @@
-import mongoose from 'mongoose';
+import { Mongoose, Schema } from './model';
 
-let schema = mongoose.Schema({
-
-        name: {
-            type: String,
-            unique: true
-        },
-
-        permissions: {
-            type: Array
-        },
-
+let schema = Schema(
+    {
+        name: {type: String, unique: true},
+        permissions: {type: Array},
     }, {
         versionKey: false,
         timestamps: false
     }
 );
 
-
-module.exports = mongoose.model("role", schema, "role");
+export default Mongoose.model("role", schema, "role");

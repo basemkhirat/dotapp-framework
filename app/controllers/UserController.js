@@ -11,13 +11,14 @@ export default class extends Controller {
      */
     findOne(req, res) {
 
+        if (!req.can("user.view")) return res.forbidden();
+
         let id = req.param("id");
 
         User.findById(id, function (error, user) {
             if (error) return res.serverError(error);
             if (!user) return res.notFound("User not found");
-
-            return res.ok(user);
+            return res.ok(res.attachPolicies(user, "user"));
         });
 
     }
@@ -29,11 +30,12 @@ export default class extends Controller {
      */
     find(req, res) {
 
+        if (!req.can("user.view")) return res.forbidden();
+
         User.find().populate("role").exec(function (error, users) {
             if (error) return res.serverError(error);
-            return res.ok(users);
+            return res.ok(res.attachPolicies(users, "user"));
         });
-
     }
 
     /**
@@ -44,6 +46,8 @@ export default class extends Controller {
      */
     create(req, res) {
 
+        if (!req.can("user.create")) return res.forbidden();
+
         let user = new User({
             username: req.param("username"),
             email: req.param("email"),
@@ -53,9 +57,7 @@ export default class extends Controller {
         });
 
         user.save(function (error, user) {
-
             if (error) return res.serverError(error);
-
             return res.ok({
                 user: user,
                 token: jwt.sign(
@@ -78,8 +80,8 @@ export default class extends Controller {
         let id = req.param("id");
 
         User.findById(id, function (error, user) {
-
             if (error) return res.serverError(error);
+            if (!req.can("user.update", user)) return res.forbidden();
             if (!user) return res.notFound("User not found");
 
             if (req.param("username")) {
@@ -119,13 +121,12 @@ export default class extends Controller {
         let id = req.param("id");
 
         User.findById(id, function (error, user) {
-
             if (error) return res.serverError(error);
+            if (!req.can("user.delete", user)) return res.forbidden();
             if (!user) return res.notFound("User not found");
 
             user.remove(function (error, user) {
                 if (error) res.serverError(error);
-
                 return res.ok(user);
             });
         });

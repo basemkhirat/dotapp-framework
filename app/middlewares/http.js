@@ -23,7 +23,7 @@ export default function () {
             let request = require(path.join(requests_path, file)).default;
 
             if (typeof request === "function") {
-                req[path.parse(file).name] = request.bind({req});
+                req[path.parse(file).name] = request.bind(req);
             }
         });
 

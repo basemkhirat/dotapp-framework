@@ -1,10 +1,18 @@
-export default function (data) {
+export default function (data, code = 200) {
 
     let response = {};
 
+    if(typeof data == 'object' && data.constructor.name === 'model'){
+        data = data.toObject({ virtuals: true, getters: true });
+    }
+
     response.data = data;
-    response.status = 200;
+    response.status = code;
     response.success = true;
+    response.debug = {
+        user: this.req.user,
+        token: this.req.token
+    };
 
     this.res.status(response.status);
 

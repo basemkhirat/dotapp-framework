@@ -1,44 +1,15 @@
-import mongoose from 'mongoose';
+import { Mongoose, Schema } from './model';
 import bcrypt from 'bcrypt';
 
-let Schema = mongoose.Schema;
-
 let schema = Schema({
-
-        username: {
-            type: String,
-            unique: true
-        },
-        email: {
-            type: String,
-            required: true,
-            unique: true
-        },
-        password: {
-            type: String,
-            required: true
-        },
-        first_name: {
-            type: String,
-            required: true
-        },
-        score: {
-            type: Number,
-            default: 0
-        },
-        lang: {
-            type: String,
-            default: 'en'
-        },
-        permissions: {
-            type: Array
-        },
-
-        role: {
-            type: Schema.Types.ObjectId,
-            ref: 'role'
-        },
-
+        username: {type: String, unique: false},
+        email: {type: String, required: true, unique: true},
+        password: {type: String, required: true},
+        first_name: {type: String, required: false},
+        score: {type: Number, default: 0},
+        lang: {type: String, default: 'en'},
+        permissions: {type: Array},
+        role: {type: Schema.Types.ObjectId, ref: 'role'},
     }, {
         versionKey: false,
         timestamps: true
@@ -46,33 +17,17 @@ let schema = Schema({
 );
 
 schema.pre('save', function (next) {
-
-    var user = this;
-
-    // generate a salt
-
-    if (user.isModified("password") || user.isNew) {
-
-        bcrypt.genSalt(10, function (error, salt) {
-
+    if (this.isModified("password") || this.isNew) {
+        bcrypt.genSalt(10, (error, salt) => {
             if (error) return next(error);
-
-            // hash the password along with our new salt
-
-            bcrypt.hash(user.password, salt, function (error, hash) {
-
+            bcrypt.hash(this.password, salt, (error, hash) => {
                 if (error) return next(error);
-
-                // override the cleartext password with the hashed one
-
-                user.password = hash;
-
-                next(null, user);
+                this.password = hash;
+                next(null, this);
             });
         });
-
     } else {
-        next(null, user);
+        next(null, this);
     }
 });
 
@@ -81,7 +36,7 @@ schema.pre('save', function (next) {
  * @param password
  * @param callback
  */
-schema.methods.comparePassword = function (password, callback) {
+schema.method('comparePassword', function (password, callback) {
     bcrypt.compare(password, this.password, function (error, match) {
         if (error) callback(error);
         if (match) {
@@ -90,6 +45,6 @@ schema.methods.comparePassword = function (password, callback) {
             callback(error, false);
         }
     });
-};
+});
 
-module.exports = mongoose.model("user", schema, "user");
+export default Mongoose.model("user", schema, "user");

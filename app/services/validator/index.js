@@ -1,11 +1,13 @@
+const { check } = require('express-validator/check');
+
 class Index {
 
     /**
-     * check user policies
+     * validate a resource
      * @param permission
      * @returns {boolean}
      */
-    can(permission, ...params) {
+    validate(permission, ...params) {
 
         if (this.req.role === 'superadmin') return true;
 
