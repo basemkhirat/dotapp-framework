@@ -14,6 +14,13 @@ export default {
         "delete",
     ],
 
+    media: [
+        "view",
+        "create",
+        "update",
+        "delete",
+    ],
+
     post: [
         "view",
         "create",

@@ -1,7 +1,0 @@
-{
-    "required" : "the value of :name required :age",
-
-    "user" : {
-        "name" : "ahmed"
-    }
-}

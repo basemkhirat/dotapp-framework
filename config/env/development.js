@@ -1,10 +1,5 @@
 export default {
-
-    app: {
-        views: "app/views",
-    },
-
-    db: {
+    database: {
         url: 'mongodb://localhost/express'
     }
 };

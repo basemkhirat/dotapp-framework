@@ -10,7 +10,7 @@
             "babel-plugin-root-import",
             {
                 "rootPathPrefix": "~",
-                "rootPathSuffix": "app"
+                "rootPathSuffix": ""
             }
         ]
     ]

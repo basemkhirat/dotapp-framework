@@ -24,7 +24,7 @@ export default {
      * where to store json files - defaults to './locales' relative to modules directory
      */
 
-    directory: process.cwd() + '/app/lang',
+    directory: process.cwd() + '/lang',
 
     /**
      * sets a custom cookie name to parse locale settings from  - defaults to NULL

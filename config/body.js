@@ -6,7 +6,7 @@ export default {
      * to be encoded into the URL-encoded format, allowing for a JSON-like experience with URL-encoded.
      */
 
-    extended: false,
+    extended: true,
 
     /**
      * When set to true, then deflated (compressed) bodies will be inflated;

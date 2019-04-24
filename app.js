@@ -6,6 +6,7 @@ import Config from '~/services/config';
 import Log from '~/services/log';
 import Router from '~/services/router';
 import express from 'express';
+import Compression from "~/middlewares/compression";
 import Http from "~/middlewares/http";
 import Token from "~/middlewares/token";
 import Assets from "~/middlewares/assets";
@@ -15,7 +16,6 @@ import BodyParser from "~/middlewares/body";
 import Json from "~/middlewares/json";
 import Logger from "~/middlewares/logger";
 import Views from "~/middlewares/views";
-import Validator from '~/middlewares/validator';
 import Docs from '~/middlewares/docs';
 import NotFound from "~/middlewares/notFound";
 import ServerError from "~/middlewares/serverError";
@@ -23,20 +23,19 @@ import routes from "~/routes";
 
 const app = express();
 
-
-app.set("env", Config.get("app.env"));
+app.set("env", process.env.NODE_ENV);
 app.set("views", Config.get("app.views"));
 app.set("view engine", Config.get("app.view_engine"));
 app.set("x-powered-by", Config.get("app.x_powered_by"));
 app.set('trust proxy', Config.get("app.trust_proxy"));
 
+app.use(Compression());
 app.use(Http());
 app.use(Token());
+app.use(I18n());
 app.use(Logger());
 app.use(Assets());
 app.use(Cors());
-app.use(Validator());
-app.use(I18n());
 app.use(BodyParser());
 app.use(Json());
 app.use(Views());

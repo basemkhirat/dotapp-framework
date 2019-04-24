@@ -1,13 +1,6 @@
 export default {
 
     /**
-     * The runtime "environment" of your app is either typically
-     * 'development' or 'production'.
-     */
-
-    env: process.env.NODE_ENV || 'development',
-
-    /**
      * The application base url
      */
 
@@ -44,6 +37,6 @@ export default {
      * The views directory path
      */
 
-    views: "app/views",
+    views: "views",
 };
 
