@@ -1,4 +1,7 @@
 import {Mongoose, Schema} from './model';
+import Config from '~/services/config';
+
+let base_url = "http://localhost:3000/uploads";
 
 let schema = Schema({
 
@@ -27,7 +30,10 @@ let schema = Schema({
 
     data: {
         storage: {type: String, index: true},
-        path: {type: String, index: true},
+        path: {
+            type: String,
+            index: true
+        },
         mime: {type: String, index: true},
         width: {type: Number, index: true},
         height: {type: Number, index: true},
@@ -41,10 +47,18 @@ let schema = Schema({
     }
 });
 
+schema.virtual("url").get(function () {
+    return base_url + "/" + this.data.path;
+});
 
+schema.virtual("thumbnails").get(function () {
 
+    return Config.get("media.image.thumbnails")
+        .map(thumbnail => thumbnail.name)
+        .map(name => {
+            return name;
+        });
 
-
-
+});
 
 export default Mongoose.model("media", schema, "media");
