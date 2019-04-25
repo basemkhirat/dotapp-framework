@@ -1,0 +1,77 @@
+
+const users = [
+    {
+        id: '1',
+        imgUrl: 'https://gatheringofthevibes.com/wp-content/uploads/steve-hat.jpg',
+        name: 'user name one',
+        email: 'test@email.test',
+        date: '1 month ago',
+        role: 'Superadmin',
+    },
+    {
+        id: '2',
+        imgUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzqdkKrUelWIexqJr0DzGhKqvu3IX1SIR5stE4KjzPdwCdTIsh',
+        name: 'user name Two',
+        email: 'test@email.test',
+        date: '1 month ago',
+        role: 'Superadmin',
+    },
+    {
+        id: '3',
+        imgUrl: 'https://gatheringofthevibes.com/wp-content/uploads/steve-hat.jpg',
+        name: 'user name Three',
+        email: 'test@email.test',
+        date: '1 month ago',
+        role: 'Superadmin',
+    },
+    {
+        id: '4',
+        imgUrl: 'https://www.irishcapsusa.com/wp-content/uploads/2015/01/Blue-Model-1000.jpg',
+        name: 'user name Four',
+        email: 'test@email.test',
+        date: '1 month ago',
+        role: 'Superadmin',
+    },
+    {
+        id: '5',
+        imgUrl: 'http://www.liberaldictionary.com/wp-content/uploads/2018/11/sarah.jpg',
+        name: 'user name Five',
+        email: 'test@email.test',
+        date: '1 month ago',
+        role: 'Superadmin',
+    },
+    {
+        id: '6',
+        imgUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzqdkKrUelWIexqJr0DzGhKqvu3IX1SIR5stE4KjzPdwCdTIsh',
+        name: 'user name Two',
+        email: 'test@email.test',
+        date: '1 month ago',
+        role: 'Superadmin',
+    },
+    {
+        id: '7',
+        imgUrl: 'https://gatheringofthevibes.com/wp-content/uploads/steve-hat.jpg',
+        name: 'user name Three',
+        email: 'test@email.test',
+        date: '1 month ago',
+        role: 'Superadmin',
+    },
+    {
+        id: '8',
+        imgUrl: 'https://www.irishcapsusa.com/wp-content/uploads/2015/01/Blue-Model-1000.jpg',
+        name: 'user name Four',
+        email: 'test@email.test',
+        date: '1 month ago',
+        role: 'Superadmin',
+    },
+    {
+        id: '9',
+        imgUrl: 'http://www.liberaldictionary.com/wp-content/uploads/2018/11/sarah.jpg',
+        name: 'user name Five',
+        email: 'test@email.test',
+        date: '1 month ago',
+        role: 'Superadmin',
+    },
+]
+
+export default users;

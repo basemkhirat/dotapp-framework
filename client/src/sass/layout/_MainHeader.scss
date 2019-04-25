@@ -1,0 +1,33 @@
+.main--header{
+     width: calc(100% - 250px);
+     position: fixed;
+     left: 250px;
+     top: 0;
+     z-index: 98;
+     // background-color: #141925;
+     // box-shadow: 1px 1px 3px rgba(88,88,88,.1);
+     padding: 0 30px;
+     height: 70px;
+     background-color: #fff;
+     @include prefixer (transition, all .25s ease-in-out, webkit moz o);
+     .dropdown-trigger{
+          height: 40px;
+     }
+     .nav-item{
+          a{
+               color: $textColor;
+          }
+     }
+     .logo--name{
+          font-weight: 500;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+     }
+     .nav--links{
+          li{
+               margin-left: 24px;
+          }
+     }
+}
+
+

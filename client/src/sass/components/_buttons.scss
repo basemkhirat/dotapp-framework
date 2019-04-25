@@ -1,0 +1,84 @@
+
+// Buttons
+.button{
+    font-family: $mainFont;
+    font-weight: 700;
+    align-self: flex-start;
+    -ms-flex-item-align: start;
+    position: relative;
+    padding: 10px 20px !important;
+    cursor: pointer;
+    display: inline-block;
+    box-shadow: 0 0 6px rgba(0, 0, 0, .2) !important;
+    white-space: nowrap;
+    z-index: 2;
+    transition: background-color .25s ease-out;
+    // color: #fff;
+    height: auto;
+    font-size: 15px;
+}
+button{
+    outline: 0;
+    cursor: pointer;
+}
+
+.button--circle{
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: inline-block;
+    background-color: #fff;
+    position: relative;
+    -webkit-transition: opacity .2s;
+    transition: opacity .2s;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    will-change: opacity;
+    border: 0;
+    margin: 5px;
+    cursor: pointer;
+    color: #818e94;
+    outline: 0;
+    &:hover{
+        opacity: .8;
+    }
+    i{
+        font-size: 15px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+}
+.button--group{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.is-primary-light{
+    color: #1089f9;
+    background-color: rgba(16,137,249,.1);
+}
+.is-success-light{
+    color: #35c635;
+    background-color: rgba(53,198,53,.1);
+}
+.is-warning-light{
+    color: #ff9513;
+    background-color: rgba(255,149,19,.1);
+}
+.is-purple-light{
+    color: #876cff;
+    background-color: rgba(135,108,255,.1);
+}
+.is-danger-light{
+    color: #ee3034;
+    background-color: rgba(238,48,52,.1);
+}
+.button--group{
+    .button{
+        margin: 5px;
+    }
+}
