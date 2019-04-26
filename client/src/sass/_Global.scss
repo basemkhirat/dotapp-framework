@@ -39,6 +39,11 @@ body {
     @include prefixer (transition, all .25s ease-in-out, webkit moz o);
     padding: 80px 30px 100px 280px;
     min-height: calc(100vh - 70px);
+    @media #{$mwlg}{
+        width: 100%;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
     
 }
 
@@ -217,6 +222,10 @@ button.is-rounded, .button.is-rounded {
     padding: 20px 15px 15px 60px;
     border: 1px solid $borderColor;
     position: relative;
+    @media #{$mwlg}{
+        padding-left: 20px;
+        padding-top: 36px;
+    }
     &:hover{
         z-index: 1;
         -webkit-box-shadow: 0 10px 10px 0 rgba(12, 20, 39, .05);
@@ -228,6 +237,11 @@ button.is-rounded, .button.is-rounded {
         position: absolute;
         left: 20px;
         z-index: 2;
+        @media #{$mwlg}{
+            right: 8px;
+            top: 15px;
+            left: auto;
+        }
     }
     .block--item--title{
         .item--avatar--img{
@@ -236,6 +250,10 @@ button.is-rounded, .button.is-rounded {
             border-radius: 50%;
             overflow: hidden;
             padding: 0;
+            @media #{$mwlg}{
+                width: 46px;
+                height: 46px;
+            }
             img{
                 width: 100%;
                 height: 100%;
@@ -273,12 +291,16 @@ button.is-rounded, .button.is-rounded {
     left: 250px;
     z-index: 4;
     width: calc(100% - 250px);
-    padding: 20px 30px 20px 25px;
+    padding: 15px 30px 15px 25px;
     border-top: 1px solid $borderColor;
     @include prefixer(transition, all .25s ease-in-out, webkit moz o);
+    @media #{$mwlg}{
+        width: 100%;
+        left: 0;
+        text-align: center;
+    }
     .button{
-        margin-left: 5px;
-        margin-right: 5px;
+        margin: 5px;
     }
     &.show--action--bottom{
         bottom: 0;
@@ -309,10 +331,9 @@ button.is-rounded, .button.is-rounded {
 }
 
 .filter--items{
-    display: flex;
-    justify-content: space-between;
     padding: 15px 0;
     margin-top: 15px;
+    
     .search{
         min-width: 300px;
     }

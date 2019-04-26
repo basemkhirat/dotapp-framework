@@ -10,7 +10,8 @@
                 </div>
             </div>
             
-            <vue-perfect-scrollbar class="menu--scroll" :settings="scrollSettings">
+            <!-- <vue-perfect-scrollbar class="menu--scroll" :settings="scrollSettings"> -->
+                <div class="menu--scroll">
                 <ul class="menu-list">
                     <li v-for="(list,i) in AsideLinks" :key="i">
                         <router-link v-if="!list.childLinks" :to="list.link" class="navbar-item" exact-active-class="is-active">
@@ -20,15 +21,18 @@
                             <span class="text-aside">{{ list.name }}</span>
                         </router-link>
 
-                        <menu-item v-if="list.childLinks" :list="list" />
+                        <menu-item v-if="list.childLinks" :toggleNavSlide="toggleNavSlide" :list="list" />
                     </li>
                 </ul>
 
-            </vue-perfect-scrollbar>
+            <!-- </vue-perfect-scrollbar> -->
+            </div>
         </aside>
         <transition name="fade">
              <div @click="closeSidebar()" v-if="isMainMenuOpen" class="overlay--mainSidebar"></div>
         </transition>
+
+        <div class="overlay--sidebar" @click="closeNavMenu"></div>
 
     </div>
 
@@ -56,6 +60,12 @@
                         { name: 'Item four', link: '/sd'},
                     ]},
                     { name: 'Articles', link: '/articles', icon: 'far fa-newspaper'},
+                    { name: 'Item Dropdown2', link: '/', icon: 'fas fa-columns', childLinks:[
+                        { name: 'Item One a', link: '/a'},
+                        { name: 'Item Two asds', link: '/sd'},
+                        { name: 'Item three ads', link: '/sd'},
+                        { name: 'Item four', link: '/sd'},
+                    ]},
 
                 ],
                 toggleNavSlide: false,
@@ -83,6 +93,9 @@
                     document.body.classList.remove("sidebar--mini")
                 }
             },
+            closeNavMenu(){
+                document.body.classList.remove("is--mainSidebar--open")
+            }
         }
     }
 

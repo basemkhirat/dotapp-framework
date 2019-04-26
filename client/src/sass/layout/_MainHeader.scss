@@ -10,6 +10,11 @@
      height: 70px;
      background-color: #fff;
      @include prefixer (transition, all .25s ease-in-out, webkit moz o);
+     @media #{$mwlg}{
+          width: 100%;
+          left: 0;
+          padding: 0 25px 0 15px;
+     }
      .dropdown-trigger{
           height: 40px;
      }
