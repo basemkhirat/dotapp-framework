@@ -149,20 +149,6 @@ button.is-rounded, .button.is-rounded {
         }
     } 
 }
-// .card{
-//     padding: 15px;
-//     box-shadow: none;
-// }
-
-
-
-// .wrapper--content{
-//     background-color: white;
-//     min-height: calc(100vh - 70px);
-//     border-radius: 6px;
-//     -webkit-box-shadow: 0 1px 15px 0 hsla(0,0%,48.2%,.05);
-//     box-shadow: 0 1px 15px 0 hsla(0,0%,48.2%,.05); 
-// }
 
 .card{
     margin-top: 20px;
@@ -185,8 +171,6 @@ button.is-rounded, .button.is-rounded {
     -webkit-box-shadow .2s;
     &:hover{
         z-index: 1;
-        // -webkit-box-shadow: 0 40px 40px 0 rgba(12, 20, 39, .08);
-        // box-shadow: 0 40px 40px 0 rgba(12, 20, 39, .08);
     }
     .card--hreader{
         display: flex;
@@ -230,8 +214,6 @@ button.is-rounded, .button.is-rounded {
         z-index: 1;
         -webkit-box-shadow: 0 10px 10px 0 rgba(12, 20, 39, .05);
         box-shadow: 0 10px 10px 0 rgba(12, 20, 39, .05);
-        // margin-top: 13px;
-        // margin-bottom: 13px;
     }
     .item--checkbox{
         position: absolute;
