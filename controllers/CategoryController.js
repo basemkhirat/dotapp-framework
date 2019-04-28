@@ -1,5 +1,5 @@
 import Controller from "~/controllers/Controller";
-import Category from '~/models/Category';
+import Category from '~/models/category';
 
 export default class extends Controller {
 
