@@ -65,7 +65,37 @@
                 "tags": [
                     "Media"
                 ],
-                "summary": "Find all media files",
+                "summary": "Find all media",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page Number",
+                        "type": "integer",
+                        "default": 1
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Records Count",
+                        "type": "integer",
+                        "default": 10
+                    },
+                    {
+                        "name": "sort_field",
+                        "in": "query",
+                        "description": "Sorting field",
+                        "type": "string",
+                        "default": "_id"
+                    },
+                    {
+                        "name": "sort_type",
+                        "in": "query",
+                        "description": "Sorting Direction",
+                        "type": "string",
+                        "default": "desc"
+                    }
+                ],
                 "responses": {
                     "$ref": "#/responses"
                 },
@@ -79,7 +109,7 @@
                 "tags": [
                     "Media"
                 ],
-                "summary": "Add a new file",
+                "summary": "Add a new media",
                 "parameters": [
                     {
                         "name": "title",
@@ -118,12 +148,12 @@
                 "tags": [
                     "Media"
                 ],
-                "summary": "Get media file by id",
+                "summary": "Get media by id",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Media file id",
+                        "description": "Media ID",
                         "required": true,
                         "type": "string"
                     }
@@ -141,12 +171,12 @@
                 "tags": [
                     "Media"
                 ],
-                "summary": "Update media file meta data by id",
+                "summary": "Update media by id",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Media file id",
+                        "description": "Media ID",
                         "required": true,
                         "type": "string"
                     },
@@ -178,12 +208,12 @@
                 "tags": [
                     "Media"
                 ],
-                "summary": "delete user by id",
+                "summary": "delete media by id",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Media file id",
+                        "description": "Media ID",
                         "required": true,
                         "type": "string"
                     }
@@ -204,6 +234,15 @@
                     "Users"
                 ],
                 "summary": "Get user by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "User ID",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
                 "responses": {
                     "$ref": "#/responses"
                 },
@@ -218,6 +257,80 @@
                     "Users"
                 ],
                 "summary": "Update user by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "User ID",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Email",
+                        "type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "Password",
+                        "type": "string"
+                    },
+                    {
+                        "name": "first_name",
+                        "in": "query",
+                        "description": "First Name",
+                        "type": "string"
+                    },
+                    {
+                        "name": "last_name",
+                        "in": "query",
+                        "description": "Last Name",
+                        "type": "string"
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Status",
+                        "type": "integer",
+                        "enum": [
+                            0,
+                            1
+                        ]
+                    },
+                    {
+                        "name": "lang",
+                        "in": "query",
+                        "description": "Lang",
+                        "type": "string",
+                        "enum": [
+                            "en",
+                            "ar"
+                        ]
+                    },
+                    {
+                        "name": "photo",
+                        "in": "query",
+                        "description": "Media ID",
+                        "type": "string"
+                    },
+                    {
+                        "name": "role",
+                        "in": "query",
+                        "description": "Role ID",
+                        "type": "string"
+                    },
+                    {
+                        "name": "permissions",
+                        "in": "query",
+                        "description": "Direct permissions",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "$ref": "#/responses"
                 },
@@ -231,12 +344,12 @@
                 "tags": [
                     "Users"
                 ],
-                "summary": "delete user by id",
+                "summary": "Delete user by id",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "User id",
+                        "description": "User ID",
                         "required": true,
                         "type": "string"
                     }
@@ -257,6 +370,62 @@
                     "Users"
                 ],
                 "summary": "Find all users",
+                "parameters": [
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "User Status",
+                        "type": "integer",
+                        "enum": [
+                            1,
+                            0
+                        ]
+                    },
+                    {
+                        "name": "lang",
+                        "in": "query",
+                        "description": "User Lang",
+                        "type": "string",
+                        "enum": [
+                            "en",
+                            "ar"
+                        ]
+                    },
+                    {
+                        "name": "role",
+                        "in": "query",
+                        "description": "Role ID",
+                        "type": "string"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page Number",
+                        "type": "integer",
+                        "default": 1
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Records count",
+                        "type": "integer",
+                        "default": 10
+                    },
+                    {
+                        "name": "sort_field",
+                        "in": "query",
+                        "description": "Sorting Field",
+                        "type": "string",
+                        "default": "_id"
+                    },
+                    {
+                        "name": "sort_type",
+                        "in": "query",
+                        "description": "Sorting Direction",
+                        "type": "string",
+                        "default": "desc"
+                    }
+                ],
                 "responses": {
                     "$ref": "#/responses"
                 },
@@ -271,6 +440,76 @@
                     "Users"
                 ],
                 "summary": "Create new user",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Email",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "Password",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "first_name",
+                        "in": "query",
+                        "description": "First Name",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "last_name",
+                        "in": "query",
+                        "description": "Last Name",
+                        "type": "string"
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Status",
+                        "type": "integer",
+                        "enum": [
+                            0,
+                            1
+                        ]
+                    },
+                    {
+                        "name": "lang",
+                        "in": "query",
+                        "description": "Lang",
+                        "type": "string",
+                        "enum": [
+                            "en",
+                            "ar"
+                        ]
+                    },
+                    {
+                        "name": "photo",
+                        "in": "query",
+                        "description": "Media ID",
+                        "type": "string"
+                    },
+                    {
+                        "name": "role",
+                        "in": "query",
+                        "description": "Role ID",
+                        "type": "string"
+                    },
+                    {
+                        "name": "permissions",
+                        "in": "query",
+                        "description": "Direct permissions",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "$ref": "#/responses"
                 },
@@ -287,6 +526,36 @@
                     "Roles"
                 ],
                 "summary": "Find all roles",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page Number",
+                        "type": "integer",
+                        "default": 1
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Records Count",
+                        "type": "integer",
+                        "default": 10
+                    },
+                    {
+                        "name": "sort_field",
+                        "in": "query",
+                        "description": "Sorting Field",
+                        "type": "string",
+                        "default": "_id"
+                    },
+                    {
+                        "name": "sort_type",
+                        "in": "query",
+                        "description": "Sorting Direction",
+                        "type": "string",
+                        "default": "desc"
+                    }
+                ],
                 "responses": {
                     "$ref": "#/responses"
                 },
@@ -301,6 +570,24 @@
                     "Roles"
                 ],
                 "summary": "Create new role",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Role Name",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "permissions",
+                        "in": "query",
+                        "description": "Role Permissions",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "$ref": "#/responses"
                 },
@@ -317,6 +604,15 @@
                     "Roles"
                 ],
                 "summary": "Get role by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Role ID",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
                 "responses": {
                     "$ref": "#/responses"
                 },
@@ -331,6 +627,30 @@
                     "Roles"
                 ],
                 "summary": "Update role by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Role ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Role Name",
+                        "type": "string"
+                    },
+                    {
+                        "name": "permissions",
+                        "in": "query",
+                        "description": "Role Permissions",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "$ref": "#/responses"
                 },
@@ -344,7 +664,180 @@
                 "tags": [
                     "Roles"
                 ],
-                "summary": "delete role by id",
+                "summary": "Delete role by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Role ID",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/responses"
+                },
+                "security": [
+                    {
+                        "bearer token": []
+                    }
+                ]
+            }
+        },
+        "/category": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Find all categories",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "query",
+                        "description": "User ID",
+                        "type": "string"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page Number",
+                        "type": "integer",
+                        "default": 1
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Records Count",
+                        "type": "integer",
+                        "default": 10
+                    },
+                    {
+                        "name": "sort_field",
+                        "in": "query",
+                        "description": "Sorting Field",
+                        "type": "string",
+                        "default": "_id"
+                    },
+                    {
+                        "name": "sort_type",
+                        "in": "query",
+                        "description": "Sorting Direction",
+                        "type": "string",
+                        "default": "desc"
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/responses"
+                },
+                "security": [
+                    {
+                        "bearer token": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Create a new category",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Category Name",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "description": "Category Description",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/responses"
+                },
+                "security": [
+                    {
+                        "bearer token": []
+                    }
+                ]
+            }
+        },
+        "/category/{id}": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Get category by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Category ID",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/responses"
+                },
+                "security": [
+                    {
+                        "bearer token": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Update category by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Category ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Category Name",
+                        "type": "string"
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "description": "Category Description",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/responses"
+                },
+                "security": [
+                    {
+                        "bearer token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Delete category by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Category ID",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
                 "responses": {
                     "$ref": "#/responses"
                 },
@@ -374,10 +867,13 @@
             "description": "Access denied"
         },
         "404": {
-            "description": "API endpoint not found"
+            "description": "API not found"
         },
         "422": {
             "description": "Validation error"
+        },
+        "429": {
+            "description": "Rate limit exceeded"
         },
         "500": {
             "description": "Internal server error"

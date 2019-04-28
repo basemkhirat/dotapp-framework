@@ -1,5 +1,5 @@
 export default {
-    db: {
+    database: {
         url: 'mongodb://localhost/express'
     }
 }

@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import Log from "~/services/log";
 import Config from '~/services/config';
 
-class Index {
+export default new class {
 
     constructor() {
 
@@ -51,7 +51,4 @@ class Index {
         });
 
     }
-
 }
-
-export default new Index()

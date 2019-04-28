@@ -32,11 +32,16 @@ export default class extends Controller {
 
         if (!req.can("media.view")) return res.forbidden();
 
-        Media.find(function (error, medias) {
+        let query = Media.find();
+
+        query.page(req.param("page"), req.param("limit"));
+
+        query.order(req.param("sort_field", "created_at"), req.param("sort_type", "desc"));
+
+        query.exec((error, medias) => {
             if (error) return res.serverError(error);
             return res.ok(res.attachPolicies(medias, "media"));
         });
-
     }
 
     /**
@@ -52,12 +57,15 @@ export default class extends Controller {
         let payload = req.param("payload");
 
         Resource.create(payload, function (error, media) {
-            if(error) return res.serverError(error);
+            if (error) return res.serverError(error);
+
+            media.user = req.user.id;
             media.title = req.param("title", media.title);
             media.description = req.param("description", media.description);
+
             media.save((error, media) => {
                 if (error) return res.serverError(error);
-                if (media) return res.ok(media);
+                if (media) return res.ok(media.id);
             });
         });
     }
@@ -75,11 +83,13 @@ export default class extends Controller {
             if (error) return res.serverError(error);
             if (!req.can("media.update", media)) return res.forbidden();
             if (!media) return res.notFound("Media not found");
+
             media.title = req.param("title", media.title);
             media.description = req.param("description", media.description);
-            media.save(function (error, media) {
+
+            media.save(error => {
                 if (error) return res.serverError(error);
-                return res.ok(media);
+                return res.ok(id);
             });
         });
     }
@@ -95,11 +105,11 @@ export default class extends Controller {
 
         Media.findById(id, function (error, media) {
             if (error) return res.serverError(error);
-            if (!req.can("media.update", media)) return res.forbidden();
+            if (!req.can("media.delete", media)) return res.forbidden();
             if (!media) return res.notFound("Media not found");
-            Media.remove(function (error, media) {
+            media.remove(error => {
                 if (error) res.serverError(error);
-                return res.ok(media);
+                return res.ok(id);
             });
         });
     }

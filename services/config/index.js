@@ -2,16 +2,23 @@ import path from 'path';
 import fs from 'fs';
 import merge from 'merge-deep';
 import walkSync from 'walk-sync';
+import dotenv from 'dotenv';
 
-class Index {
+module.exports = new class {
 
     configurations = [];
 
     constructor() {
 
+        const envConfig = dotenv.parse(fs.readFileSync(path.join(process.cwd(), '.env')));
+
+        for (let k in envConfig) {
+            process.env[k] = envConfig[k];
+        }
+
         let configurations = [];
 
-        var directory = path.join(process.cwd(), "config");
+        let directory = path.join(process.cwd(), "config");
 
         walkSync(directory).forEach(function (file) {
             if (fs.statSync(path.join(directory, file)).isFile()) {
@@ -19,7 +26,7 @@ class Index {
             }
         });
 
-        var env_config_path = path.join(process.cwd(), "config/env/" + process.env.NODE_ENV);
+        let env_config_path = path.join(process.cwd(), "config/env/" + process.env.NODE_ENV);
 
         if (fs.existsSync(env_config_path + ".js")) {
             var env_config = require(env_config_path).default;
@@ -29,6 +36,12 @@ class Index {
         this.configurations = configurations;
     }
 
+    /**
+     * get config value by key
+     * @param name
+     * @param defaultValue
+     * @returns {*}
+     */
     get(name, defaultValue) {
 
         try {
@@ -37,9 +50,35 @@ class Index {
             return defaultValue;
         }
 
-        return value != undefined ? value : defaultValue;
+        if (value !== undefined) {
+            return this.parseValue(value);
+        }
+
+        return defaultValue;
     }
 
-}
 
-export default new Index();
+    /**
+     * detect value type
+     * @param string
+     * @returns {boolean|number}
+     */
+    parseValue(string) {
+        switch (String(string).toLowerCase()) {
+            case "true":
+                return true;
+            case "false":
+                return false;
+            case "null":
+                return null;
+            default:
+                return !isNaN(string) && string !== "" ? Number(string) : string;
+        }
+    }
+
+    all() {
+        return this.configurations;
+    }
+
+
+}

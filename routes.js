@@ -28,7 +28,7 @@ export default {
 
                     "/user": {
 
-                      //  middleware: "authenticate",
+                        middleware: "authenticate",
 
                         group: {
                             "GET /": "UserController.find",
@@ -48,7 +48,7 @@ export default {
 
                     "/media": {
 
-                       // middleware: "authenticate",
+                        middleware: "authenticate",
 
                         group: {
                             "GET /": "MediaController.find",
@@ -78,24 +78,24 @@ export default {
                         }
                     },
 
-                    "/post": {
-
-                        middleware: "authenticate",
-
-                        group: {
-                            "GET /": "PostController.find",
-                            "GET /:id": "PostController.findOne",
-                            "POST /": {
-                                middleware: "validate:post",
-                                handler: "PostController.create"
-                            },
-                            "PUT /:id": {
-                                middleware: "validate:post",
-                                handler: "PostController.update"
-                            },
-                            "DELETE /:id": "PostController.destroy",
-                        }
-                    },
+                    // "/post": {
+                    //
+                    //     middleware: "authenticate",
+                    //
+                    //     group: {
+                    //         "GET /": "PostController.find",
+                    //         "GET /:id": "PostController.findOne",
+                    //         "POST /": {
+                    //             middleware: "validate:post",
+                    //             handler: "PostController.create"
+                    //         },
+                    //         "PUT /:id": {
+                    //             middleware: "validate:post",
+                    //             handler: "PostController.update"
+                    //         },
+                    //         "DELETE /:id": "PostController.destroy",
+                    //     }
+                    // },
 
                     "/category": {
 

@@ -7,8 +7,6 @@ class Index {
      */
     can(permission, ...params) {
 
-        console.log(this.req.role);
-
         if (this.req.role === 'superadmin') return true;
 
         let policy_check = false;

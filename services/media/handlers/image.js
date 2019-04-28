@@ -61,4 +61,15 @@ export default class Image {
                 return callback(null, this.resource);
             });
     }
+
+    /**
+     *
+     * @param path
+     * @param thumbnail
+     * @returns {string}
+     */
+    static getThumbnailFileName(path, thumbnail) {
+        let segments = path.split("/");
+        return segments[0] + "/" + segments[1] + "/" + thumbnail + "-" + segments[2];
+    }
 }
