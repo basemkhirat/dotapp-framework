@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import Controller from "~/controllers/controller";
+import Controller from "~/controllers/Controller";
 import User from '~/models/user';
 
 export default class extends Controller {
