@@ -2,9 +2,11 @@
      <header class="main--header">
           <div class="row align-items-center h-100">
                <div class="col-6">
-                    <h3 class="logo--name">
-                         Dashboard
-                    </h3>
+                    <div class="btn-open--sidebar" @click="toggleNavOpen">
+                         <span class="icon">
+                              <i class="mdi mdi-menu"></i>
+                         </span>
+                    </div>
                </div>
                <div class="col-6 d-flex">
                     <ul class="d-flex justify-content-end ml-auto align-items-center nav--links">
@@ -67,7 +69,15 @@
           methods:{
                openMediaModal(){
                     this.$store.commit('openMediaModal')
-               }
+               },
+               toggleNavOpen(){
+                    this.toggleNavOpen =! this.toggleNavOpen
+                    if(this.toggleNavOpen){
+                         document.body.classList.add("is--mainSidebar--open")
+                    } else {
+                         document.body.classList.remove("is--mainSidebar--open")
+                    }
+               },
           }
      }
 </script>

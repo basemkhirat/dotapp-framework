@@ -13,28 +13,28 @@
           <form class="row justify-content-center">
               <div class="col-12 col-lg-8">
                     <div class="row">
-                         <div class="col-12 col-sm-6">
+                         <div class="col-12 col-md-6">
                               <b-field class="field-group">
                                    <b-input type="text" rounded placeholder="First name" v-model="firstName" />
                               </b-field>
                          </div>
-                         <div class="col-12 col-sm-6">
+                         <div class="col-12 col-md-6">
                               <b-field class="field-group">
                                    <b-input type="email" rounded placeholder="User Email" v-model="email" />
                               </b-field>
                          </div>
-                         <div class="col-12 col-sm-6">
+                         <div class="col-12 col-md-6">
                               <b-field class="field-group">
                                    <b-input type="password" rounded placeholder="Password" v-model="password" />
                               </b-field>
                          </div>
-                         <div class="col-12 col-sm-6">
+                         <div class="col-12 col-md-6">
                               <b-field class="field-group">
                                    <b-input type="password" rounded placeholder="Confirm Password"
                                         v-model="confirmPassword" />
                               </b-field>
                          </div>
-                         <div class="col-12 col-sm-6">
+                         <div class="col-12 col-md-6">
                               <b-field class="field-group">
                                    <v-select :options="groups" v-model="group" label="title" placeholder="Group" class="select--with--icon w-100 v--select--scroll">
                                         <template slot="option" slot-scope="option">
@@ -44,9 +44,7 @@
                                    </v-select>
                               </b-field>
                          </div>
-                         <div class="col-12 text-center button--save--form">
-                              <button class="button is-primary is-rounded">Add User</button>
-                         </div>
+                         
                     </div>
                </div>
                <div class="col-12 col-lg-4">
@@ -61,6 +59,9 @@
                               </b-upload>
                          </div>
                     </b-field>
+               </div>
+               <div class="col-12 text-center button--save--form">
+                    <button class="button is-primary is-rounded">Add User</button>
                </div>
          </form>
       </div>

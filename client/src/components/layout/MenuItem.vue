@@ -25,10 +25,19 @@
 
 <script>
 export default {
-    props:['list'],
+    props:['list', 'toggleNavSlide'],
     data(){
         return{
             itemOpen: false
+        }
+    },
+    watch:{
+        toggleNavSlide(){
+            if(this.toggleNavSlide){
+                this.itemOpen = true
+            } else {
+                this.itemOpen = false
+            }
         }
     },
     methods:{
