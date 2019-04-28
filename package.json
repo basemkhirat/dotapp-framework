@@ -7,8 +7,10 @@
     "main": "server.js",
     "scripts": {
         "dev": "nodemon --ignore 'storage/' --exec babel-node app.js",
-        "up": "pm2 start app --env production",
-        "down": "pm2 stop app"
+        "up": "pm2 start --env production",
+        "down": "pm2 stop all",
+        "status": "pm2 status",
+        "list": "pm2 list"
     },
     "dependencies": {
         "@ffmpeg-installer/ffmpeg": "^1.0.17",
