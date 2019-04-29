@@ -4,12 +4,12 @@
      left: 250px;
      top: 0;
      z-index: 98;
-     // background-color: #141925;
-     // box-shadow: 1px 1px 3px rgba(88,88,88,.1);
      padding: 0 30px;
      height: 70px;
      background-color: #fff;
      @include prefixer (transition, all .25s ease-in-out, webkit moz o);
+     border-bottom: 1px solid $borderColor;
+
      @media #{$mwlg}{
           width: 100%;
           left: 0;

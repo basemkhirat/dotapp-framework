@@ -2,9 +2,14 @@
      <header class="main--header">
           <div class="row align-items-center h-100">
                <div class="col-6">
-                    <div class="btn-open--sidebar" @click="toggleNavOpen">
+                    <div class="btn-open--sidebar" @click="navMenuOpen">
                          <span class="icon">
                               <i class="mdi mdi-menu"></i>
+                         </span>
+                    </div>
+                    <div class="btn-close--sidebar" @click="navMenuClose">
+                         <span class="icon">
+                              <i class="mdi mdi-close"></i>
                          </span>
                     </div>
                </div>
@@ -70,13 +75,11 @@
                openMediaModal(){
                     this.$store.commit('openMediaModal')
                },
-               toggleNavOpen(){
-                    this.toggleNavOpen =! this.toggleNavOpen
-                    if(this.toggleNavOpen){
-                         document.body.classList.add("is--mainSidebar--open")
-                    } else {
-                         document.body.classList.remove("is--mainSidebar--open")
-                    }
+               navMenuOpen(){
+                    document.body.classList.add("is--mainSidebar--open")               
+               },
+               navMenuClose(){               
+                    document.body.classList.remove("is--mainSidebar--open")
                },
           }
      }
