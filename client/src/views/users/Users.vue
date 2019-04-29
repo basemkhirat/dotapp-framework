@@ -12,10 +12,14 @@
       </div>
     </div>
     <div class="card-filter--herader">
-        <filter-items @selectAllUsers="selectAllUsers" />
+        <filter-items @selectAllItems="selectAllItems" />
     </div>
-    <list-users :allUserSelected="allUserSelected" :data="users"/>
-    
+    <template v-if="dataLoading">
+          <loading-data></loading-data>
+    </template>
+    <template v-else>
+        <list-users :allUserSelected="allUserSelected" :data="users"/>
+    </template>
   </div>
 </template>
 
@@ -24,22 +28,37 @@ import users from '../../mocks/users.js'
 import ListUsers from '../../components/users/list'
 import FilterItems from '../../components/users/Filter'
 
+// Repository Data
+import { RepositoryFactory } from '../../repositories/RepositoryFactory'
+const usersRepository = RepositoryFactory.get('users')
+
 export default {
   name: 'users',
   data () {
         return {
             users,
-            allUserSelected: false
+            allUserSelected: false,
+            page: 1, 
+            limit: 10,
+            dataLoading: true
         };
     },
   components: {
     ListUsers,
-    FilterItems
+    FilterItems,
+  },
+  created(){
+    this.fetchAllUsers()
   },
   methods:{
-    selectAllUsers(){
+    selectAllItems(){
       this.allUserSelected =! this.allUserSelected 
-    }
+    },
+    async fetchAllUsers() {
+        const users = await usersRepository.getAllUsers(this.page, this.limit)
+        this.users = users;
+        this.dataLoading = false;
+    },
   }
 }
 </script>

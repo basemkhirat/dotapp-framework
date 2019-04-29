@@ -4,94 +4,92 @@ import Wrapper from './Wrapper'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
     {
       path: '/login',
       name: 'login',
-      component: () => import('./views/pages/Login.vue')
+      component: () => import('./views/pages/Login.vue'),
     },
     {
       path: '/',
       component: Wrapper,
+      meta: {requiresAuth: true},
+      redirect: '/',
       children:[
         {
           path: '',
           name: 'dashboard',
-          component: () => import('./views/dashboard/Dashboard')
+          component: () => import('./views/dashboard/Dashboard'),
+          meta: {requiresAuth: true},
         },
         {
           path: '/users',
           name: 'users',
-          component: () => import('./views/users/Users.vue')
+          component: () => import('./views/users/Users.vue'),
+          meta: {requiresAuth: true},
         },
         {
           path: '/addNewUser',
           name: 'addNewUser',
-          component: () => import('./views/users/Form.vue')
+          component: () => import('./views/users/Form.vue'),
+          meta: {requiresAuth: true},
         },
         {
           path: '/groups',
           name: 'groups',
-          component: () => import('./views/groups/Groups.vue')
+          component: () => import('./views/groups/Groups.vue'),
+          meta: {requiresAuth: true},
         },
         {
           path: '/groupForm',
           name: 'groupForm',
-          component: () => import('./views/groups/Form.vue')
+          component: () => import('./views/groups/Form.vue'),
+          meta: {requiresAuth: true},
         },
         {
           path: '/media',
           name: 'media',
-          component: () => import('./views/media/Media.vue')
+          component: () => import('./views/media/Media.vue'),
+          meta: {requiresAuth: true},
         },
         {
           path: '/articles',
           name: 'articles',
-          component: () => import('./views/articles/Articles.vue')
+          component: () => import('./views/articles/Articles.vue'),
+          meta: {requiresAuth: true},
         },
         {
           path: '/articleForm',
           name: 'articleForm',
-          component: () => import('./views/articles/Form.vue')
+          component: () => import('./views/articles/Form.vue'),
+          meta: {requiresAuth: true},
         },
-        // {
-        //   path: '/gallery',
-        //   name: 'gallery',
-        //   component: () => import('./views/gallery/Gallery'),
-        //   children:[
-        //     {
-        //       path: '',
-        //       name: 'media',
-        //       component: () => import('./views/gallery/Media')
-        //     },
-        //     {
-        //       path: '/gallery/albums',
-        //       name: 'albums',
-        //       component: () => import('./views/gallery/Albums')
-        //     },
-        //     {
-        //       path: '/gallery/photos',
-        //       name: 'photos',
-        //       component: () => import('./views/gallery/Photos')
-        //     },
-        //     {
-        //       path: '/gallery/videos',
-        //       name: 'videos',
-        //       component: () => import('./views/gallery/Videos')
-        //     },
-        //     {
-        //       path: '/gallery/files',
-        //       name: 'files',
-        //       component: () => import('./views/gallery/Files')
-        //     },
-        //   ]
-        // },
-        // Gallery Components
+        
         
       ]
     }
-  ]
+  ],
+  scrollBehavior (to, from, savedPosition) {
+    return { x: 0, y: 0 }
+    
+  }
 })
+
+
+router.beforeEach((to, from, next) => {
+	const token = localStorage.getItem('token') ? localStorage.getItem('token') : sessionStorage.getItem('token');
+	if (to.meta.requiresAuth) {
+		if (token) {
+			next()
+		} else {
+			next({ name: 'login' })
+		}
+	} else {
+		next();
+	}
+});	
+
+export default router;

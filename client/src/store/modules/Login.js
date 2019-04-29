@@ -1,40 +1,53 @@
 import axios from 'axios'
-const Media = {
+import router from './../../router'
+const Login = {
      state: {
           isLoading: false,
-          loginError: null,
-          loginSuccessful: false
+          loginErrorMessage: null,
+          loginSuccessful: false,
+          userData: {},
+
         },
         mutations: {
-          loginStart: state => state.loggingIn = true,
-          loginStop: (state, errorMessage) => {
-            state.loggingIn = false;
-            state.loginError = errorMessage;
-            state.loginSuccessful = !errorMessage;
+          resetState(state){
+            state.isLoading = true
+            state.loginErrorMessage = null
+            state.loginSuccessful = false
+          },
+          // Logout
+          logout(){
+            localStorage.removeItem('token');
+            router.push('/login')
           }
         },
         actions: {
-          doLogin({ commit, state }, loginData) {
-               state.isLoading = true
-            commit('loginStart');
-               console.log(loginData)
+          doLogin({ commit, state, dispatch }, loginData) {
+              commit('resetState');
             axios.post('/auth/token', loginData)
-            .then((response) => {
-              commit('loginStop', null)
-              console.log(response.data.data)
-              state.isLoading = false
-               localStorage.setItem('token', response.data.data.token)
-            })
-            .catch(error => {
-               commit('loginStop', error.response.data.error)
-              console.log(error)
-              state.isLoading = false
-            })
+              .then((response) => {
+                state.isLoading = false
+                localStorage.setItem('token', response.data.data.token)
+                router.push('/')
+                dispatch('checkUserData');
+              })
+              .catch(error => {
+                state.loginErrorMessage = error.data.data[0]
+                state.isLoading = false
+              })
 
+          },
+          checkUserData({ commit, state }, loginData) {
+            axios.get('/auth/user')
+              .then((response) => {
+                state.userData = response.data.data                
+              })
+              .catch(error => {
+                // state.loginErrorMessage = error.data.data[0]
+              })
 
           }
         },
      getters: {}
 }
 
-export default Media
+export default Login

@@ -19,9 +19,6 @@ import VueClipboard from 'vue-clipboard2'
 Vue.use(VueClipboard)
 
 
-
-
-
 // config file with base endpoint url
 import { baseEndpointUrl } from './../env';
 axios.defaults.baseURL = baseEndpointUrl;
@@ -30,19 +27,16 @@ const  accessToken  =  (localStorage.getItem('token')) ? 'Bearer ' + localStorag
 
 if (accessToken) {
     axios.defaults.headers.common['Authorization'] =  accessToken
-    console.log(accessToken)
 }
 
 axios.interceptors.response.use((response) => {
-  console.log(accessToken)
+  console.log(response)
     return response;
 }, function (error) {
+  console.log(error)
     // Do something with response error
     if (error.response.status === 401) {
         localStorage.removeItem('token');
-        localStorage.removeItem('loggedInUseId');
-
-        // get return url from route parameters or default to '/'
         return router.push('/login')
     }
     return Promise.reject(error.response);
@@ -50,6 +44,26 @@ axios.interceptors.response.use((response) => {
 
 
 Vue.config.productionTip = false
+
+// Global Components
+Vue.component('loading-data', {
+  data: function () {
+    return {
+      isLoading: true
+    }
+  },
+  template: `
+  <div class="loading--data">
+        <b-loading :is-full-page="false" :active.sync="isLoading" :can-cancel="false">
+            <b-icon
+                pack="fas"
+                icon="spinner"
+                size="is-large"
+                custom-class="fa-spin">
+            </b-icon>
+        </b-loading>
+    </div>`
+})
 
 new Vue({
   router,

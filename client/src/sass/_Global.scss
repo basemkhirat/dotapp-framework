@@ -12,6 +12,7 @@ html,body {
 }
 body {
     color: $textColor;
+    font-size: .9rem;
 }
 
 .sidebar--mini{
@@ -220,11 +221,12 @@ button.is-rounded, .button.is-rounded {
     }
     .block--item--title{
         .item--avatar--img{
-            width: 60px;
-            height: 60px;
+            width: 54px;
+            height: 54px;
             border-radius: 50%;
             overflow: hidden;
             padding: 0;
+            margin-right: 5px;
             @media #{$mwlg}{
                 width: 46px;
                 height: 46px;
@@ -236,7 +238,7 @@ button.is-rounded, .button.is-rounded {
             } 
         }
         .text--title{
-            margin-left: 10px;
+            margin-left: 5px;
         }
     }
     .item--text{
@@ -244,8 +246,8 @@ button.is-rounded, .button.is-rounded {
         margin-bottom: 5px;
     }
     .icon{
-        margin-right: 8px;
-        font-size: 18px;
+        margin-right: 5px;
+        font-size: 16px;
     }
     .all--item--action{
         text-align: right;
@@ -462,8 +464,29 @@ button.is-rounded, .button.is-rounded {
         margin-top: 20px;
         margin-bottom: 20px;
     }
+    .item-checkbox{
+        padding: 8px 15px 5px;
+    }
 }
 
+
+.bounce-enter-active {
+    animation: bounce-in .4s;
+  }
+  .bounce-leave-active {
+    animation: bounce-in .4s reverse;
+  }
+  @keyframes bounce-in {
+    0% {
+      transform: scale(.9);
+      opacity: 0;
+    }
+    
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
 
 
 // Login Page
@@ -497,5 +520,22 @@ button.is-rounded, .button.is-rounded {
         .button{
             margin-top: 20px;
         }
+    }
+}
+
+.message{
+    .media{
+        align-items: center;
+    }
+}
+
+// Loading
+.loading--data{
+    width: 100%;
+    height: 350px;
+    position: relative;
+    @extend .card--block ;
+    i{
+        color: $mainColor;
     }
 }

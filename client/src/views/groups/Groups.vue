@@ -1,40 +1,46 @@
+
 <template>
-  <div class="groups">
+  <div class="users">
     <div class="page--title">
-      <h1 class="title--text">Groups</h1>
+      <h1 class="title--text">
+        Groups
+        <span class="badge--count">
+          (40)
+        </span>
+      </h1>
       <div class="page--title--action ml-auto">
           <router-link to="/groupForm" class="button is-primary is-rounded">Add New Group</router-link>
       </div>
     </div>
-    <div class="card--block">
-      <div class="card--hreader">
-        <div class="card--header--title">
-          All Groups
-        </div>
-        <div class="card--header--action">
-        </div>
-      </div>
-      <div class="card--content">
-        <list-groups  :data="groups"/>
-      </div>
+    <div class="card-filter--herader">
+        <filter-items @selectAllItems="selectAllItems" />
     </div>
-
+    <list :allItemsSelected="allItemsSelected" :data="groups"/>
     
   </div>
 </template>
 
 <script>
 import groups from '../../mocks/groups.js'
-import ListGroups from '../../components/groups/list'
+import List from '../../components/groups/list'
+import FilterItems from '../../components/groups/Filter'
+
 export default {
   name: 'groups',
   data () {
         return {
             groups,
+            allItemsSelected: false
         };
     },
   components: {
-    ListGroups,
+    List,
+    FilterItems
+  },
+  methods:{
+    selectAllItems(){
+      this.allItemsSelected =! this.allItemsSelected 
+    }
   }
 }
 </script>

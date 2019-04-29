@@ -31,14 +31,14 @@
                                         <img src="../../assets/images/user/user-64.png" alt="user name">
                                    </a>
                                    <b-dropdown-item custom>
-                                        Logged as <b>Rafael Beraldo</b>
+                                        Logged as <b>{{userData.first_name}}  {{userData.last_name}}</b>
                                    </b-dropdown-item>
                                    <hr class="dropdown-divider">
                                    <b-dropdown-item value="settings">
                                         <b-icon pack="fa" icon="cog"></b-icon>
                                         Settings
                                    </b-dropdown-item>
-                                   <b-dropdown-item value="logout">
+                                   <b-dropdown-item value="logout" @click="logout()">
                                         <b-icon pack="fa" icon="sign-out-alt"></b-icon>
                                         Logout
                                    </b-dropdown-item>
@@ -60,6 +60,8 @@
 
 <script>
      import Search from '../search/Search'
+     import { mapState} from 'vuex';
+
      export default {
           data() {
                return {
@@ -70,7 +72,14 @@
           components:{
                Search,
           },
-
+          computed: {
+               ...mapState({
+                    userData: state => state.login.userData,
+               })
+          },
+          created(){
+               this.$store.dispatch('checkUserData');
+          },
           methods:{
                openMediaModal(){
                     this.$store.commit('openMediaModal')
@@ -81,6 +90,9 @@
                navMenuClose(){               
                     document.body.classList.remove("is--mainSidebar--open")
                },
+               logout(){
+                    this.$store.commit('logout')
+               }
           }
      }
 </script>

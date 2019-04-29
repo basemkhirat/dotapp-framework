@@ -1,9 +1,23 @@
 <template>
   <div id="app">
-    <router-view/>
+    <transition name="bounce" mode="out-in">
+      <router-view/>
+    </transition>
   </div>
 </template>
 
 <style lang="scss">
   @import 'sass/core';
 </style>
+
+<script>
+export default {
+  data(){
+    return{
+
+    }
+  },
+  created(){
+  }
+}
+</script>

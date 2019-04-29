@@ -1,3 +1,237 @@
+// // Forms Style
+
+// .label {
+//     font-weight: 500;
+//     margin-bottom: 5px !important;
+// }
+
+// .input,
+// .taginput .taginput-container.is-focusable,
+// .textarea,
+// .select select,
+// .multiselect .multiselect__tags,
+// .v-select .dropdown-toggle,
+// .v-select .vs__dropdown-toggle {
+//     border-color: $borderColor !important;
+//     outline: 0;
+//     box-shadow: none !important;
+//     border-radius: 0;
+
+// }
+
+// .control.has-icons-left .input, .control.has-icons-left .taginput .taginput-container.is-focusable,
+//  .taginput .control.has-icons-left .taginput-container.is-focusable, .control.has-icons-left .select select{
+//     padding-left: 2.8em;
+//  }
+//  .control.has-icons-left .icon, .control.has-icons-right .icon {
+//     width: 2.8em;
+// }
+
+// .has-icons-left .textarea {
+//     padding: 0.3rem 2.3rem
+// }
+
+// label.label {
+//     color: #75787d !important;
+//     font-size: 15px;
+//     letter-spacing: 1px;
+//     font-weight: 500;
+// }
+
+// .new-tag-input {
+//     min-height: 30px;
+// }
+
+// .vue-tags-input .input {
+//     padding: 0;
+// }
+
+// .input {
+//     min-height: 42px;
+// }
+
+// .control.has-icons-left .icon,
+// .control.has-icons-right .icon {
+//     height: 100%;
+// }
+// .vs__selected {
+//     background-color: #f0f0f0;
+//     border: 1px solid rgba(60,60,60,.26);
+//     color: #333;
+//     line-height: 1;
+//     margin: 8px 2px 0;
+//     padding: 0 10px;
+//     font-size: 14px;
+//     height: 26px;
+//     border-radius: 15px;
+// }
+
+
+// .input--fuild{
+//     margin-top: 5px;
+//     margin-bottom: 5px;
+// }
+
+// // .select--image{
+// //     z-index: 9 !important;
+// //     background-color: #fff;
+// //     .multiselect__content-wrapper{
+// //         z-index: 9999 !important;;
+// //         background-color: #fff;
+// //         display: block;
+// //     }
+// //     .multiselect__select{
+// //         height: 100%;
+// //     }
+// //     img{
+// //         width: 45px;
+// //         height: 45px;
+// //         display: inline-block;
+// //         border-radius: 50%;
+// //     }
+// //     .option__desc{
+// //         display: inline-block;
+// //         margin-left: 10px;
+// //     }
+// //     .multiselect__option,
+// //     .multiselect__single{
+// //         display: flex;
+// //         align-items: center;
+// //     }
+// // }
+
+// .croppie-container {
+//     width: 100%;
+//     height: 320px !important;
+// }
+
+
+
+// .v-select.select--with--icon {
+//     width: auto;
+//     min-width: 200px;
+//     display: inline-block;
+
+//     .dropdown-toggle,
+//     .vs__dropdown-toggle {
+//         width: 100%;
+//         min-height: 42px;
+//         border-radius: 25px;
+//         padding: 0;
+//         background-color: #F8F9FC !important;
+//     }
+
+//     &.vs--open{
+//         .vs__dropdown-toggle {
+//             border-bottom-left-radius: 0;
+//             border-bottom-right-radius: 0;
+//         }
+//         .vs__selected{
+//             position: relative;
+//         }
+    
+//     }
+
+//     .vs__actions {
+//         padding: 0 15px 0 10px;
+//     }
+
+//     .vs__selected-options {
+//         min-height: 42px;
+//         padding: 0 10px;
+//     }
+
+//     &.vs--single .selected-tag {
+//         position: relative !important;
+//         font-weight: 600;
+//         color: $textColor;
+//     }
+
+//     .dropdown-menu,
+//     .vs__dropdown-menu {
+//         background-color: #F8F9FC !important;
+//         box-shadow: none;
+//         border-color: #E3E3E3;
+//         border-bottom-left-radius: 15px;
+//         border-bottom-right-radius: 15px;
+//         padding: 0 !important;
+//     }
+
+//     .dropdown-menu li,
+//     .vs__dropdown-menu li {
+//         border-bottom: 1px solid #E3E3E3;
+//     }
+
+//     .dropdown-menu li:last-child,
+//     .vs__dropdown-menu li:last-child {
+//         border-bottom: none;        
+//     }
+
+//     .dropdown-menu li a,.vs__dropdown-menu li a {
+//         padding: 10px 20px;
+//         display: flex;
+//         width: 100%;
+//         align-items: center;
+//         font-size: .95rem;
+//         vertical-align: middle;
+//         color: $textColor;
+//         font-weight: 500;
+//         background-color: #F8F9FC;
+
+//         &:hover {
+//             background-color: $mainColor;
+//             color: #fff;
+//         }
+
+//         span {
+//             margin-right: 10px;
+//         }
+//     }
+
+// }
+
+
+// .v--select--scroll {
+//     .dropdown-menu,
+//     .vs__dropdown-menu {
+//         overflow: hidden !important;
+//     }
+// }
+
+
+// ::-webkit-input-placeholder { /* Edge */
+//     color: #888 !important;
+//   }
+  
+//   :-ms-input-placeholder { /* Internet Explorer 10-11 */
+//     color: #888 !important;
+//   }
+  
+//   ::placeholder {
+//     color: #888 !important;
+//   }
+
+//   .field-group{
+//       margin-bottom: 15px;
+//   }
+
+// .file--upload{
+//     border: 1px dashed $borderColor;
+//     padding: 15px;
+//     text-align: center;
+//     cursor: pointer;
+//     margin-top: 15px;
+//     text-transform: capitalize;
+//     @include prefixer(transition, all .25s ease-in-out, webkit moz o);
+//     &:hover{
+//         border-color: $textColor;
+//     }
+// }
+
+
+
+
+
 // Forms Style
 
 .label {
@@ -18,6 +252,8 @@
     border-radius: 0;
 
 }
+
+
 
 .control.has-icons-left .input, .control.has-icons-left .taginput .taginput-container.is-focusable,
  .taginput .control.has-icons-left .taginput-container.is-focusable, .control.has-icons-left .select select{
@@ -46,10 +282,12 @@ label.label {
     padding: 0;
 }
 
-.input {
-    min-height: 42px;
+.tag:not(body).is-medium {
+    font-size: .88rem;
 }
-
+.input, .taginput .taginput-container.is-focusable{
+    min-height: 44px;
+}
 .control.has-icons-left .icon,
 .control.has-icons-right .icon {
     height: 100%;
@@ -70,35 +308,10 @@ label.label {
 .input--fuild{
     margin-top: 5px;
     margin-bottom: 5px;
+    .button{
+        margin-bottom: 5px;
+    }
 }
-
-// .select--image{
-//     z-index: 9 !important;
-//     background-color: #fff;
-//     .multiselect__content-wrapper{
-//         z-index: 9999 !important;;
-//         background-color: #fff;
-//         display: block;
-//     }
-//     .multiselect__select{
-//         height: 100%;
-//     }
-//     img{
-//         width: 45px;
-//         height: 45px;
-//         display: inline-block;
-//         border-radius: 50%;
-//     }
-//     .option__desc{
-//         display: inline-block;
-//         margin-left: 10px;
-//     }
-//     .multiselect__option,
-//     .multiselect__single{
-//         display: flex;
-//         align-items: center;
-//     }
-// }
 
 .croppie-container {
     width: 100%;
@@ -118,7 +331,7 @@ label.label {
         min-height: 42px;
         border-radius: 25px;
         padding: 0;
-        background-color: #F8F9FC !important;
+        background-color: #fff !important;
     }
 
     &.vs--open{
@@ -149,7 +362,7 @@ label.label {
 
     .dropdown-menu,
     .vs__dropdown-menu {
-        background-color: #F8F9FC !important;
+        background-color: #fff !important;
         box-shadow: none;
         border-color: #E3E3E3;
         border-bottom-left-radius: 15px;
@@ -160,6 +373,7 @@ label.label {
     .dropdown-menu li,
     .vs__dropdown-menu li {
         border-bottom: 1px solid #E3E3E3;
+        padding: 8px 20px !important;
     }
 
     .dropdown-menu li:last-child,
@@ -168,7 +382,7 @@ label.label {
     }
 
     .dropdown-menu li a,.vs__dropdown-menu li a {
-        padding: 10px 20px;
+        padding: 10px 20px !important;
         display: flex;
         width: 100%;
         align-items: center;
@@ -225,5 +439,32 @@ label.label {
     @include prefixer(transition, all .25s ease-in-out, webkit moz o);
     &:hover{
         border-color: $textColor;
+    }
+}
+
+.filter--items--left{
+    display: flex;
+    .input--fuild:not(:first-child){
+        margin-left: 20px;
+    }
+    @media #{$mwmd}{
+        display: block;
+        .input--fuild:not(:first-child){
+            margin-left: 0;
+        }
+    }
+}
+
+.filter--items--right{
+    display: flex;
+    justify-content: flex-end;
+    .input--fuild:not(:first-child){
+        margin-left: 20px;
+    }
+    @media #{$mwmd}{
+        display: block;
+        .input--fuild:not(:first-child){
+            margin-left: 0;
+        }
     }
 }
