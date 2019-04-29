@@ -5,27 +5,47 @@ mongoose.plugin(function (schema) {
 
     schema.set("versionKey", false);
 
-    if(schema.options.timestamps === undefined){
+    schema.virtual("created").get(function () {
+        return this.created_at ? moment(this.created_at).fromNow(): undefined;
+    });
 
-        schema.set("timestamps", {
-            createdAt: 'created_at',
-            updatedAt: 'updated_at'
-        });
+    schema.virtual("updated").get(function () {
+        return this.created_at ? moment(this.created_at).fromNow(): undefined;
+    });
 
-        schema.virtual("created").get(function () {
-            return moment(this.created_at).fromNow();
-        });
+    /**
+     * page query scope
+     * @param page
+     * @param limit
+     * @returns {*}
+     */
+    schema.query.page = function (page = 1, limit = 10) {
 
-        schema.virtual("updated").get(function () {
-            return moment(this.updated_at).fromNow();
-        });
-    }
+        limit = parseInt(limit), page = parseInt(page);
 
+        limit = limit < 50 ? limit : 50;
+
+        return this.limit(limit).skip((page - 1) * limit);
+    };
+
+    /**
+     * order query scope
+     * @param field
+     * @param direction
+     * @returns {*}
+     */
+    schema.query.order = function (field = "_id", direction = "desc") {
+        return this.sort({[field]: direction === "desc" ? -1 : 1});
+    };
 });
 
 mongoose.plugin(function (schema) {
 
-    var toHide = ["_id", "created_at", "updated_at"];
+    var toHide = [
+        "_id",
+        "created_at",
+        "updated_at"
+    ];
 
     schema.eachPath(function (pathname, schemaType) {
         if (schemaType.options && schemaType.options.hide) {

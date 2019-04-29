@@ -3,8 +3,8 @@ import path from 'path';
 
 export default class Local {
 
-    constructor(storage) {
-        this.storage = storage;
+    constructor(config) {
+        this.config = config;
     }
 
     /**
@@ -14,6 +14,7 @@ export default class Local {
      * @param encoding
      * @param callback
      */
+
     save(file, data, encoding, callback) {
 
         let directory = this.path(path.dirname(file));
@@ -33,9 +34,19 @@ export default class Local {
      * @param file
      * @param callback
      */
+
     delete(file, callback) {
-        let path = this.path(file);
-        fs.unlink(path, callback)
+        fs.unlink(this.path(file), callback)
+    }
+
+    /**
+     * check file exists
+     * @param file
+     * @param callback
+     */
+
+    exists(file, callback) {
+        fs.access(this.path(file), fs.F_OK, callback);
     }
 
     /**
@@ -43,8 +54,9 @@ export default class Local {
      * @param file
      * @returns {string}
      */
+
     url(file) {
-        return this.storage.url + "/" + file;
+        return file ? this.config.url + "/" + file : this.config.url;
     }
 
     /**
@@ -52,8 +64,8 @@ export default class Local {
      * @param file
      * @returns {string}
      */
-    path(file) {
-        return this.storage.path + "/" + file;
-    }
 
+    path(file) {
+        return file ? this.config.path + "/" + file : this.config.path;
+    }
 }

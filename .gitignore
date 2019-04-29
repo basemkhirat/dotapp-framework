@@ -1,4 +1,7 @@
+/public/uploads/*
 /storage/logs/*
+/storage/temp/*
+/storage/cache/*
 /config/env/*
 package-lock.json
 node_modules
@@ -15,3 +18,9 @@ npm-debug.log
 nbproject
 .idea
 .node_history
+.env
+
+
+
+
+

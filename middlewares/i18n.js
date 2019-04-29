@@ -8,22 +8,19 @@ export default function () {
 
         let config = Config.get("i18n");
 
-        if(req.user) {
-
-            let locales = _config("i18n.locales");
-
-            if(locales.indexOf(req.user.lang) > -1){
-                config.defaultLocale = req.user.lang;
-            }
-        }
-
-        moment.locale(config.defaultLocale);
-
         I18n.configure(config);
 
         I18n.init(req, res);
 
+        let default_locale = config.defaultLocale;
+
+        if (req.user && config.locales.indexOf(req.user.lang) > -1) {
+            default_locale = req.user.lang;
+        }
+
+        req.setLocale(default_locale);
+        moment.locale(default_locale);
+
         return next();
     };
-
 }

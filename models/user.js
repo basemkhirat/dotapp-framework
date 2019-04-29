@@ -3,57 +3,64 @@ import Bcrypt from 'bcrypt';
 
 let schema = Schema({
 
-    email: {
-        type: String,
-        index: true
-    },
+        email: {
+            type: String,
+            index: true
+        },
 
-    password: {
-        type: String,
-        hide: true
-    },
+        password: {
+            type: String,
+            hide: true
+        },
 
-    first_name: {
-        type: String,
-        default: "",
-        index: true
-    },
+        first_name: {
+            type: String,
+            default: "",
+            index: true
+        },
 
-    last_name: {
-        type: String,
-        default: "",
-        index: true
-    },
+        last_name: {
+            type: String,
+            default: "",
+            index: true
+        },
 
-    status: {
-        type: Number,
-        default: 0,
-        index: true
-    },
+        status: {
+            type: Number,
+            default: 0,
+            index: true
+        },
 
-    lang: {
-        type: String,
-        default: 'en',
-        index: true
-    },
+        lang: {
+            type: String,
+            default: 'en',
+            index: true
+        },
 
-    permissions: {
-        type: Array,
-        default: []
-    },
+        permissions: {
+            type: Array,
+            default: []
+        },
 
-    role: {
-        type: Schema.Types.ObjectId,
-        ref: 'role',
-        index: true
-    },
+        role: {
+            type: Schema.Types.ObjectId,
+            ref: 'role',
+            index: true
+        },
 
-    photo: {
-        type: Schema.Types.ObjectId,
-        ref: 'media',
-        index: true
+        photo: {
+            type: Schema.Types.ObjectId,
+            ref: 'media',
+            index: true
+        }
+    },
+    {
+        timestamps: {
+            createdAt: "created_at",
+            updatedAt: "updated_at"
+        }
     }
-});
+);
 
 /**
  * generate password salt

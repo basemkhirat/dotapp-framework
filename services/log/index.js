@@ -1,10 +1,11 @@
 import winston from 'winston';
 import path from 'path';
-import Config from '~/services/config';
 
-class Index {
+export default new class {
 
-    constructor(env) {
+    constructor() {
+
+        let env = process.env.NODE_ENV;
 
         this.logger = winston.createLogger({
             transports: [
@@ -38,8 +39,6 @@ class Index {
         });
     }
 }
-
-export default new Index(process.env.NODE_ENV);
 
 
 

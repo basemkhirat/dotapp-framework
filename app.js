@@ -1,11 +1,14 @@
 #!/usr/bin/env node
 
+let Config = require('~/services/config');
+
 require('~/services/database');
 
-import Config from '~/services/config';
 import Log from '~/services/log';
 import Router from '~/services/router';
 import express from 'express';
+import Rates from "~/middlewares/rates";
+import Security from "~/middlewares/security";
 import Compression from "~/middlewares/compression";
 import Http from "~/middlewares/http";
 import Token from "~/middlewares/token";
@@ -26,19 +29,20 @@ const app = express();
 app.set("env", process.env.NODE_ENV);
 app.set("views", Config.get("app.views"));
 app.set("view engine", Config.get("app.view_engine"));
-app.set("x-powered-by", Config.get("app.x_powered_by"));
 app.set('trust proxy', Config.get("app.trust_proxy"));
 
+app.use(Cors());
+app.use(Security());
 app.use(Compression());
 app.use(Http());
 app.use(Token());
 app.use(I18n());
 app.use(Logger());
 app.use(Assets());
-app.use(Cors());
 app.use(BodyParser());
 app.use(Json());
 app.use(Views());
+app.use(Rates());
 
 app.use("/", Router.map(routes));
 app.use('/docs', Docs());

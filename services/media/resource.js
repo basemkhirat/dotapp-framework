@@ -1,6 +1,6 @@
 import mime from "mime-types";
 import Config from '~/services/config';
-import Storage from '~/services/media/storage';
+import Storage from '~/services/storage';
 import url from "url";
 import path from "path";
 import fs from "fs";
@@ -13,9 +13,9 @@ export default class Resource {
      */
     file = {};
 
-    constructor(payload, storage = new Storage()) {
+    constructor(payload) {
         this.payload = payload;
-        this.storage = storage;
+        this.storage = Storage.disk("uploads");
         let payload_class = require("~/services/media/payloads/" + this.getType()).default;
         this.payload_object = new payload_class(payload);
         this.media = Config.get('media');
@@ -59,7 +59,7 @@ export default class Resource {
      * set resource provider
      * @param name
      */
-    setProvider(name = 'local'){
+    setProvider(name = 'local') {
         this.provider = name;
     }
 
@@ -98,7 +98,7 @@ export default class Resource {
     validate(callback) {
 
         if (this.file.size > this.media.max_file_size) {
-            return callback("File size is too high");
+            return callback("File size is too large");
         }
 
         if (this.media.allowed_file_types.indexOf(this.file.extension) === -1) {

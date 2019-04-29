@@ -9,9 +9,15 @@ let schema = Schema({
 
         permissions: {
             type: Array,
-            default:[],
+            default: [],
             index: true
         },
+    },
+    {
+        timestamps: {
+            createdAt: "created_at",
+            updatedAt: "updated_at"
+        }
     }
 );
 

@@ -26,15 +26,11 @@ export default class extends Controller {
             query.where("role", req.param("role"));
         }
 
-        let page = req.param("page", 1), limit = req.param("limit", 1);
-
-        query.limit(limit).skip((page - 1) * limit);
-
-        query.sort({
-            [req.param("sort_field", "createdAt")]: req.param("sort_type", "desc") === "desc" ? "-1" : "1"
-        });
-
         query.populate("role").populate("photo");
+
+        query.page(req.param("page"), req.param("limit"));
+
+        query.order(req.param("sort_field", "created_at"), req.param("sort_type", "desc"));
 
         query.exec((error, users) => {
             if (error) return res.serverError(error);
@@ -85,7 +81,7 @@ export default class extends Controller {
 
         user.save((error, user) => {
             if (error) return res.serverError(error);
-            return res.ok(user);
+            return res.ok(user.id);
         });
     }
 
@@ -117,9 +113,9 @@ export default class extends Controller {
                 user.password = req.param("password");
             }
 
-            user.save((error, user) => {
+            user.save(error => {
                 if (error) return res.serverError(error);
-                return res.ok(user);
+                return res.ok(id);
             });
         });
     }
@@ -138,11 +134,10 @@ export default class extends Controller {
             if (!req.can("user.delete", user)) return res.forbidden();
             if (!user) return res.notFound("User not found");
 
-            user.remove((error, user) => {
+            user.remove(error => {
                 if (error) res.serverError(error);
-                return res.ok(user);
+                return res.ok(id);
             });
         });
     }
 };
-

@@ -2,14 +2,24 @@ import express from "express";
 import fs from 'fs';
 import path from "path";
 
-class Index {
+export default new class {
 
+    /**
+     * all routes
+     * @type {Array}
+     */
     rs = [];
 
     constructor() {
         this.router = express.Router();
     }
 
+    /**
+     * Route handler
+     * @param route
+     * @param routes
+     * @param parent
+     */
     route(route, routes, parent = false) {
 
         let r = {};
@@ -65,6 +75,10 @@ class Index {
         }
     }
 
+    /**
+     * express routes conversion
+     * @param routes
+     */
     map(routes = {}) {
 
         for (let route in routes) {
@@ -74,15 +88,30 @@ class Index {
         return this.router;
     }
 
+    /**
+     * get route method
+     * @param path_parts
+     * @returns {string}
+     */
     parseMethod(path_parts) {
         return path_parts.length === 1 ? "all" : path_parts[0].toLocaleLowerCase();
     }
 
+    /**
+     * get route path
+     * @param path_parts
+     * @returns {string}
+     */
     parsePath(path_parts) {
         let path = path_parts.length === 1 ? path_parts[0] : path_parts[1];
         return path.startsWith('/') ? path : '/' + path;
     }
 
+    /**
+     * get route group
+     * @param value
+     * @returns {*}
+     */
     parseGroup(value) {
 
         if (typeof value.group === 'function') {
@@ -92,6 +121,11 @@ class Index {
         return value.group;
     }
 
+    /**
+     * get route middleware
+     * @param value
+     * @returns {Array}
+     */
     parseMiddleware(value) {
 
         if (typeof value === "undefined") {
@@ -135,6 +169,11 @@ class Index {
         return m;
     }
 
+    /**
+     * get route handler function
+     * @param value
+     * @returns {boolean|Function}
+     */
     parseHandler(value) {
 
         if (typeof value === 'function') {
@@ -170,10 +209,23 @@ class Index {
         return handler;
     }
 
+    /**
+     * pass data to express router
+     * @param method
+     * @param path
+     * @param handler
+     * @param middleware
+     */
     translate({method, path, handler, middleware}) {
         this.router.route(path)[method](middleware, handler);
     }
 
+    /**
+     * get route url by route name
+     * @param name
+     * @param params
+     * @returns {boolean|*}
+     */
     name(name, params = {}) {
 
         let route = this.rs.filter(route => route.name === name);
@@ -200,7 +252,7 @@ class Index {
             path = path + query_string;
 
             if (path) {
-                return _url(path.replace(/^\/|\/$/g, ''))
+                return Config.get("app.url") + "/" + path.replace(/^\/|\/$/g, '');
             }
 
             return false;
@@ -209,11 +261,12 @@ class Index {
         return false;
     }
 
+    /**
+     * get all routes
+     * @returns {Array}
+     */
     all() {
         return this.rs;
     }
-
 }
-
-export default new Index();
 

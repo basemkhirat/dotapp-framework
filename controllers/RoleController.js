@@ -32,11 +32,16 @@ export default class extends Controller {
 
         if (!req.can("role.view")) return res.forbidden();
 
-        Role.find(function (error, roles) {
+        let query = Role.find();
+
+        query.page(req.param("page"), req.param("limit"));
+
+        query.order(req.param("sort_field", "created_at"), req.param("sort_type", "desc"));
+
+        query.exec((error, roles) => {
             if (error) return res.serverError(error);
             return res.ok(res.attachPolicies(roles, "role"));
         });
-
     }
 
     /**
@@ -49,13 +54,14 @@ export default class extends Controller {
 
         if (!req.can("role.create")) return res.forbidden();
 
-        let role = new Role({
-            name: req.param("name")
-        });
+        let role = new Role();
+
+        role.name = req.param("name", role.name);
+        role.permissions = req.param("permissions", role.permissions);
 
         role.save(function (error, role) {
             if (error) return res.serverError(error);
-            return res.ok(role);
+            return res.ok(role.id);
         });
     }
 
@@ -74,13 +80,12 @@ export default class extends Controller {
             if (!req.can("role.update", role)) return res.forbidden();
             if (!role) return res.notFound("Role not found");
 
-            if (req.param("name")) {
-                role.name = req.param("name");
-            }
+            role.name = req.param("name", role.name);
+            role.permissions = req.param("permissions", role.permissions);
 
             role.save(function (error, role) {
                 if (error) return res.serverError(error);
-                return res.ok(role);
+                return res.ok(id);
             });
         });
     }
@@ -97,13 +102,12 @@ export default class extends Controller {
         Role.findById(id, function (error, role) {
 
             if (error) return res.serverError(error);
-            if (!req.can("role.update", role)) return res.forbidden();
+            if (!req.can("role.delete", role)) return res.forbidden();
             if (!role) return res.notFound("Role not found");
 
-            Role.remove(function (error, role) {
+            role.remove(error => {
                 if (error) res.serverError(error);
-
-                return res.ok(role);
+                return res.ok(id);
             });
         });
     }
