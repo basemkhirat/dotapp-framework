@@ -41,13 +41,13 @@ let schema = Schema({
                 permissions.forEach(permission => {
                     permission.split(",").forEach(item => {
                         item = item.trim();
-                        if(perms.indexOf(item) < 0){
+                        if (perms.indexOf(item) < 0) {
                             perms.push(item);
                         }
                     });
                 });
 
-                return  perms;
+                return perms;
             }
         },
 
@@ -69,18 +69,21 @@ let schema = Schema({
     }
 );
 
+
+schema.index({permissions: 1});
+schema.index({status: 1});
+schema.index({photo: 1});
+schema.index({role: 1});
+schema.index({created_at: -1});
+schema.index({updated_at: -1});
+
 schema.index({
-    email: 'text',
-    first_name: 'text',
-    last_name: 'text',
-    lang: 'text',
-    status: 1,
-    photo: 1,
-    permissions: 1,
-    role: 1,
-    created_at: -1,
-    updated_at: -1
+    email: "text",
+    first_name: "text",
+    last_name: "text",
+    lang: "text"
 });
+
 
 /**
  * generate password salt
@@ -116,5 +119,6 @@ schema.method('comparePassword', function (password, callback) {
     });
 });
 
+export default  Mongoose.model("user", schema, "user");
 
-export default Mongoose.model("user", schema, "user");
+

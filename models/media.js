@@ -47,6 +47,13 @@ let schema = Schema({
     }
 );
 
+schema.index({'data.width': 1});
+schema.index({'data.height': 1});
+schema.index({'data.size': 1});
+schema.index({'data.duration': 1});
+schema.index({'user': 1});
+schema.index({'created_at': -1});
+schema.index({'updated_at': -1});
 
 schema.index({
     type: 'text',
@@ -56,15 +63,7 @@ schema.index({
     'data.storage': 'text',
     'data.path': 'text',
     'data.mime': 'text',
-    'data.width': 1,
-    'data.height': 1,
-    'data.size': 1,
-    'data.duration': 1,
-    user: 1,
-    created_at: -1,
-    updated_at: -1
 });
-
 
 schema.virtual("url").get(function () {
     return Storage.disk(this.data.storage).url(this.data.path);

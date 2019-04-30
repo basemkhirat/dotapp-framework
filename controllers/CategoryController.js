@@ -99,7 +99,7 @@ export default class extends Controller {
 
             category.save(error => {
                 if (error) return res.serverError(error);
-                return res.ok(category);
+                return res.ok(id);
             });
         });
     }
@@ -122,6 +122,7 @@ export default class extends Controller {
                 if (error) res.serverError(error);
                 return res.ok(id);
             });
+
         });
     }
 };

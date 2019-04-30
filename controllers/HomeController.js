@@ -1,4 +1,9 @@
 import Controller from './Controller';
+import User from '~/models/user';
+
+
+var mongoose = require('mongoose');
+
 
 export default class extends Controller {
 
@@ -11,7 +16,9 @@ export default class extends Controller {
 
     index(req, res, next) {
 
-        res.end
+
+        res.ok("Hii");
+
 
 
     }

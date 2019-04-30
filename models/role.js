@@ -33,11 +33,8 @@ let schema = Schema({
     }
 );
 
-schema.index({
-    name: 'text',
-    permissions: 1,
-    created_at: -1,
-    updated_at: -1
-});
+
+schema.index({permissions: 1});
+schema.index({name: "text"});
 
 export default Mongoose.model("role", schema, "role");

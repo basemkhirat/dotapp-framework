@@ -1,38 +1,35 @@
 import mongoose from 'mongoose';
 import moment from "moment";
+import mongooseSlugUpdater from 'mongoose-slug-updater';
 
-var slug = require('mongoose-slug-updater');
-
-mongoose.plugin(slug);
+mongoose.plugin(mongooseSlugUpdater);
 
 mongoose.plugin(function (schema) {
 
     schema.set("versionKey", false);
 
     schema.virtual("created").get(function () {
-        return this.created_at ? moment(this.created_at).fromNow(): undefined;
+        return this.created_at ? moment(this.created_at).fromNow() : undefined;
     });
 
     schema.virtual("updated").get(function () {
-        return this.created_at ? moment(this.created_at).fromNow(): undefined;
+        return this.created_at ? moment(this.created_at).fromNow() : undefined;
     });
 
-    schema.query.execWithCount = function(callback){
+    schema.query.execWithCount = function (callback) {
 
         return this.exec((error, docs) => {
-            if(error) return callback(error);
+            if (error) return callback(error);
 
-            this.limit(undefined);
-            this.skip(undefined);
-            this.sort(undefined);
+            this.limit(undefined).skip(undefined).sort(undefined);
 
             this.countDocuments((error, total) => {
-                if(error) return callback(error);
+                if (error) return callback(error);
                 callback(null, {
                     total: total,
                     docs: docs
                 })
-            })
+            });
         });
     };
 

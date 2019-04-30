@@ -72,7 +72,6 @@ export default {
 
         connectTimeoutMS: 30000,
 
-
         /**
          * How long the MongoDB driver will wait before killing a socket due to inactivity after initial connection.
          * A socket may be inactive because of either no activity or a long-running operation.

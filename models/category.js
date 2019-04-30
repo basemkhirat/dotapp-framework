@@ -10,7 +10,7 @@ let schema = Schema({
             type: String,
             slug: "name",
             slugPaddingSize: 4,
-            unique: true,
+            uniqueSlug:true,
             permanent: true
         },
 
@@ -32,12 +32,10 @@ let schema = Schema({
     }
 );
 
-schema.index({
-    name: 'text',
-    description: 'text',
-    user: 1,
-    created_at: -1,
-    updated_at: -1
-});
+
+schema.index({user: 1});
+schema.index({created_at: -1});
+schema.index({updated_at: -1});
+schema.index({name: 'text', slug: 'text', description: 'text'});
 
 export default Mongoose.model("category", schema, "category");

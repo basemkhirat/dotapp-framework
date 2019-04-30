@@ -772,6 +772,12 @@
                         "required": true
                     },
                     {
+                        "name": "slug",
+                        "in": "query",
+                        "description": "Category Slug",
+                        "type": "string"
+                    },
+                    {
                         "name": "description",
                         "in": "query",
                         "description": "Category Description",
