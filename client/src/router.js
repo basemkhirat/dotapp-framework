@@ -80,7 +80,7 @@ const router = new Router({
 
 
 router.beforeEach((to, from, next) => {
-	const token = localStorage.getItem('token') ? localStorage.getItem('token') : sessionStorage.getItem('token');
+	const token = localStorage.getItem('token');
 	if (to.meta.requiresAuth) {
 		if (token) {
 			next()

@@ -11,6 +11,21 @@ export default {
             }
         });
     },
+    updateUser(id, data) {
+        return Repository.put(`${resource}/${id}`, data).then((response) => {
+            if (response.data.success) {
+                return response.data.data;
+            }
+        });
+    },
+    deleteUser(id) {
+        return Repository.delete(`${resource}/${id}`).then((response) => {
+            if (response.data.success) {
+                return response.data.data;
+            }
+            console.log(response.data)
+        });
+    },
     getAllUsers(page, limit) {
         return Repository.get(`${resource}?page=${page}&limit=${limit}`).then((response) => {
             if (response.data.success) {
@@ -19,7 +34,6 @@ export default {
         });
     },
     newUser(data) {
-        console.log(data)
         return Repository.post(`${resource}`, data).then((response) => {
             if (response.data.success) {
                 return response.data.data;
