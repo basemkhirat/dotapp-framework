@@ -13,6 +13,19 @@ mongoose.plugin(function (schema) {
         return this.created_at ? moment(this.created_at).fromNow(): undefined;
     });
 
+    schema.query.execWithCount = function(callback){
+        return this.exec((error, docs) => {
+            if(error) return callback(error);
+            this.countDocuments((error, total) => {
+                if(error) return callback(error);
+                callback(null, {
+                    total: total,
+                    docs: docs
+                })
+            })
+        });
+    };
+
     /**
      * page query scope
      * @param page

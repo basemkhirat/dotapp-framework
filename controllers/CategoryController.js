@@ -33,8 +33,8 @@ export default class extends Controller {
 
         let query = Category.find();
 
-        if (req.has("user")) {
-            query.where("user", req.get("user"));
+        if (req.filled("user")) {
+            query.where("user", req.param("user"));
         }
 
         query.page(req.param("page"), req.param("limit"));
@@ -43,9 +43,12 @@ export default class extends Controller {
 
         query.populate("user");
 
-        query.exec((error, categories) => {
+        query.execWithCount((error, result) => {
             if (error) return res.serverError(error);
-            return res.ok(res.attachPolicies(categories, "category"));
+            return res.ok({
+                total: result.total,
+                docs: res.attachPolicies(result.docs, "category")
+            });
         });
     }
 

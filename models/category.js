@@ -3,22 +3,18 @@ import {Mongoose, Schema} from './model';
 let schema = Schema({
 
         name: {
-            type: String,
-            index: true
+            type: String
         },
 
         description: {
             type: String,
-            default: "",
-            index: true
+            default: ""
         },
 
         user: {
             type: Schema.Types.ObjectId,
-            ref: 'user',
-            index: true
+            ref: 'user'
         }
-
     },
     {
         timestamps: {
@@ -27,5 +23,13 @@ let schema = Schema({
         }
     }
 );
+
+schema.index({
+    name: 'text',
+    description: 'text',
+    user: 1,
+    created_at: -1,
+    updated_at: -1
+});
 
 export default Mongoose.model("category", schema, "category");

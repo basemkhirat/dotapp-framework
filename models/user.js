@@ -4,8 +4,7 @@ import Bcrypt from 'bcrypt';
 let schema = Schema({
 
         email: {
-            type: String,
-            index: true
+            type: String
         },
 
         password: {
@@ -15,43 +14,51 @@ let schema = Schema({
 
         first_name: {
             type: String,
-            default: "",
-            index: true
+            default: ""
         },
 
         last_name: {
             type: String,
-            default: "",
-            index: true
+            default: ""
         },
 
         status: {
             type: Number,
-            default: 0,
-            index: true
+            default: 0
         },
 
         lang: {
             type: String,
-            default: 'en',
-            index: true
+            default: 'en'
         },
 
         permissions: {
-            type: Array,
-            default: []
+            type: [String],
+            default: [],
+            set: function (permissions) {
+                permissions = Array.isArray(permissions) ? permissions : [permissions];
+                let perms = [];
+                permissions.forEach(permission => {
+                    permission.split(",").forEach(item => {
+                        item = item.trim();
+                        if(perms.indexOf(item) < 0){
+                            perms.push(item);
+                        }
+                    });
+                });
+
+                return  perms;
+            }
         },
 
         role: {
             type: Schema.Types.ObjectId,
-            ref: 'role',
-            index: true
+            ref: 'role'
         },
 
         photo: {
             type: Schema.Types.ObjectId,
-            ref: 'media',
-            index: true
+            ref: 'media'
         }
     },
     {
@@ -61,6 +68,19 @@ let schema = Schema({
         }
     }
 );
+
+schema.index({
+    email: 'text',
+    first_name: 'text',
+    last_name: 'text',
+    lang: 'text',
+    status: 1,
+    photo: 1,
+    permissions: 1,
+    role: 1,
+    created_at: -1,
+    updated_at: -1
+});
 
 /**
  * generate password salt

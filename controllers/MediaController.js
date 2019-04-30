@@ -38,9 +38,12 @@ export default class extends Controller {
 
         query.order(req.param("sort_field", "created_at"), req.param("sort_type", "desc"));
 
-        query.exec((error, medias) => {
+        query.execWithCount((error, result) => {
             if (error) return res.serverError(error);
-            return res.ok(res.attachPolicies(medias, "media"));
+            return res.ok({
+                total: result.total,
+                docs: res.attachPolicies(result.docs, "media")
+            });
         });
     }
 

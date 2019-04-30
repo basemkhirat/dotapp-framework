@@ -14,37 +14,34 @@ export default class extends Controller {
 
         let query = User.find();
 
-        if (req.has("status")) {
+        if (req.filled("status")) {
             query.where("status", req.param("status"));
         }
 
-        if (req.has("lang")) {
+        if (req.filled("lang")) {
             query.where("lang", req.param("lang"));
         }
 
-        if (req.has("role")) {
+        if (req.filled("role")) {
             query.where("role", req.param("role"));
+        }
+
+        if (req.filled("q")) {
+            query.where({$text: {$search: req.param("q")}});
         }
 
         query.populate("role").populate("photo");
 
         query.page(req.param("page"), req.param("limit"));
 
+        query.order(req.param("sort_field", "created_at"), req.param("sort_type", "desc"));
 
-        let theQuery = query.order(req.param("sort_field", "created_at"), req.param("sort_type", "desc"));
-
-        theQuery.exec(function (error, users) {
+        query.execWithCount((error, result) => {
             if (error) return res.serverError(error);
-
-            theQuery.countDocuments((error, total) => {
-                if (error) return res.serverError(error);
-
-                return res.ok({
-                    total: total,
-                    items: res.attachPolicies(users, "user")
-                });
+            return res.ok({
+                total: result.total,
+                docs: res.attachPolicies(result.docs, "user")
             });
-
         });
 
     }

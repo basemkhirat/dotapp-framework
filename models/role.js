@@ -4,13 +4,25 @@ let schema = Schema({
 
         name: {
             type: String,
-            index: true
         },
 
         permissions: {
-            type: Array,
+            type: [String],
             default: [],
-            index: true
+            set: function (permissions) {
+                permissions = Array.isArray(permissions) ? permissions : [permissions];
+                let perms = [];
+                permissions.forEach(permission => {
+                    permission.split(",").forEach(item => {
+                        item = item.trim();
+                        if(perms.indexOf(item) < 0){
+                            perms.push(item);
+                        }
+                    });
+                });
+
+                return  perms;
+            }
         },
     },
     {
@@ -20,5 +32,12 @@ let schema = Schema({
         }
     }
 );
+
+schema.index({
+    name: 'text',
+    permissions: 1,
+    created_at: -1,
+    updated_at: -1
+});
 
 export default Mongoose.model("role", schema, "role");

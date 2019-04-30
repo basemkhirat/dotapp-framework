@@ -5,7 +5,7 @@
         "description": "The API documentation",
         "version": "1.0.0"
     },
-    "host": "34.249.21.189:3000",
+    "host": "localhost:3000",
     "basePath": "/api",
     "paths": {
         "/auth/token": {

@@ -1,5 +1,4 @@
 import Controller from './Controller';
-import moment from 'moment';
 
 export default class extends Controller {
 
@@ -11,6 +10,9 @@ export default class extends Controller {
      */
 
     index(req, res, next) {
-        res.ok("online");
+
+      
+
+
     }
 };
