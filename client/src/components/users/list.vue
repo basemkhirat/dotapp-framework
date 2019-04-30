@@ -1,94 +1,11 @@
 <template>
     <div>
-        <div class="block--item" v-for="user in data" :key="user.id">
-            <div class="row align-items-center">
-                <div class="item--checkbox">
-                    <b-checkbox 
-                        v-model="usersSelected"
-                        :native-value="user.id">
-                    </b-checkbox>
-                </div>
-                <div class="col-12 col-sm-6 col-xl">
-                    <div class="block--item--title d-flex align-items-center item--text">
-                        <div class="item--avatar--img" >
-                            <template v-if="user.photo">
-                                <img :src="user.photo.thumbnails.small" :alt="user.photo.title">
-                            </template>
-                            <img src="./../../assets/images/user/64.png" >
-                        </div>
-                        <div class="text--title text-capitalize">
-                            {{user.first_name}}
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-xl">
-                    <div class="item--text">
-                        <span class="icon">
-                            <i class="fas fa-envelope"></i>
-                        </span>
-                        {{user.email}}
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-xl">
-                    <div class="item--text">
-                        <span class="icon">
-                            <i class="fas fa-clock"></i>
-                        </span>
-                        {{user.created}}
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-xl">
-                    <div class="item--text">
-                        <template v-if="user.role">
-                            <span class="icon">
-                            <i class="fas fa-award"></i>
-                            </span>
-                            {{user.role.name}}
-                        </template>
-                        <template v-else>
-                            --------
-                        </template>
-                        
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-xl-1">
-                    <div class="item--text text-center">
-                        <b-tag rounded type="is-success" v-if="user.status == 1">Active</b-tag>
-                        <b-tag rounded  type="is-danger" v-else>Not Active</b-tag>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-12 col-xl item--text">
-                    <div class="all--item--action d-flex align-item-center">
-                        <button class="button--circle is-primary-light"><i class="fas fa-pen"></i></button>
-                        <button class="button--circle is-warning-light"><i class="fas fa-ban"></i></button>
-                        <button class="button--circle is-danger-light"><i class="fas fa-trash"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-         <div class="pagination--custom--number">
-            <ul class="d-flex justify-content-end">
-                <li class="nav-item">
-                    <span class="page--count">
-                            3 of 15
-                    </span>
-                </li>
-                <li class="nav-item">
-                <a>
-                    <i class="fas fa-angle-left"></i>
-                </a>
-                </li>
-                <li class="nav-item">
-                    <a>
-                        <i class="fas fa-angle-right"></i>
-                    </a>
-                </li>
-            </ul>
-        </div>
+        <item  v-for="user in data" :key="user.id" :user="user" @checkboxUser="checkboxUserStatus"/>
+         
         <template>
             <div class="alluser--action" :class="{'show--action--bottom': usersSelected.length}">
                 <button class="button is-warning is-rounded">Ban All Selected</button>
-                <button class="button is-danger is-rounded">Delete All Selected</button>
+                <button class="button is-danger is-rounded" @click="deleteItems()">Delete All Selected</button>
             </div>
         </template>
         
@@ -98,15 +15,21 @@
 
 
 <script>
+
+import Item from './ListItem'
+// Repository Data
+import { RepositoryFactory } from '../../repositories/RepositoryFactory'
+const usersRepository = RepositoryFactory.get('users')
+
 export default {
     props:['data', 'allUserSelected'],
     data () {
             return {
-                usersSelected:[]
+                usersSelected:[],
             };
         },
     components: {
-        
+        Item
     },
     watch:{
         allUserSelected(){
@@ -117,6 +40,49 @@ export default {
             } else {
                  this.usersSelected = []
             }
+        },
+       
+    },
+    methods:{
+         checkboxUserStatus(data){
+            if(data.status == true){
+                if(!this.usersSelected.indexOf(data.id) > -1){
+                    this.usersSelected.push(data.id)
+                }
+            } else {
+                if(this.usersSelected.indexOf(data.id) > -1){
+                    for(var i = 0; i < this.usersSelected.length; i++){
+                        if(this.usersSelected[i] == data.id){
+                            this.usersSelected.splice(i, 1)
+                        }
+                    }
+                }
+            }
+        },
+        deleteItems(){
+            for(var i = 0; i < this.usersSelected.length; i++){
+                // this.deleteUser(this.usersSelected[i])
+                if(this.usersSelected.length === (i + 1)){
+                   this.usersSelected = []
+                }
+            }
+        },
+        // Delete Items
+        async deleteUser(id) {
+            const user = await usersRepository.deleteUser(id)
+            this.$emit('fetchAllUsers')
+            this.aleartMessage()
+        },
+        aleartMessage(){
+            this.$snackbar.open({
+                message: 'user has been successfully Deleted',
+                type: 'is-success',
+                position: 'is-bottom-right',
+                actionText: 'OK',
+                queue: false,
+                duration: 3000,
+                indefinite: false,
+            })
         }
     }
 }

@@ -29,18 +29,15 @@ if (accessToken) {
     axios.defaults.headers.common['Authorization'] =  accessToken
 }
 
-axios.interceptors.response.use((response) => {
-  console.log(response)
-    return response;
-}, function (error) {
-  console.log(error)
-    // Do something with response error
-    if (error.response.status === 401) {
-        localStorage.removeItem('token');
-        return router.push('/login')
-    }
-    return Promise.reject(error.response);
-});
+// axios.interceptors.response.use((response) => {
+//     return response;
+// }, function (error) {
+//     if (error.response.status === 401) {
+//         localStorage.removeItem('token');
+//         return router.push('/login')
+//     }
+//     return Promise.reject(error.response);
+// });
 
 
 Vue.config.productionTip = false

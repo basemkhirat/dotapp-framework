@@ -26,15 +26,14 @@ const Login = {
             axios.post('/auth/token', loginData)
               .then((response) => {
                 state.isLoading = false
-                localStorage.setItem('token', response.data.data.token)
-                router.push('/')
+                localStorage.setItem('token', response.data.data.token)                
                 dispatch('checkUserData');
+                router.push('/')
               })
               .catch(error => {
-                state.loginErrorMessage = error.data.data[0]
+                state.loginErrorMessage = error.response.data.data[0]
                 state.isLoading = false
               })
-
           },
           checkUserData({ commit, state }, loginData) {
             axios.get('/auth/user')

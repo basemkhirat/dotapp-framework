@@ -4,7 +4,7 @@
       <h1 class="title--text">
         Users
         <span class="badge--count">
-          (450)
+          ({{total}})
         </span>
       </h1>
       <div class="page--title--action ml-auto">
@@ -18,13 +18,21 @@
           <loading-data></loading-data>
     </template>
     <template v-else>
-        <list-users :allUserSelected="allUserSelected" :data="users"/>
+        <list-users @fetchAllUsers="fetchAllUsers" :allUserSelected="allUserSelected" :data="users"/>
+        <div class="pagination--custom--number">
+            <b-pagination
+                :total="total"
+                :current.sync="page"
+                :order="order"
+                :rounded="true"
+                :per-page="limit">
+            </b-pagination>
+        </div>
     </template>
   </div>
 </template>
 
 <script>
-import users from '../../mocks/users.js'
 import ListUsers from '../../components/users/list'
 import FilterItems from '../../components/users/Filter'
 
@@ -36,10 +44,12 @@ export default {
   name: 'users',
   data () {
         return {
-            users,
+            users: [],
+            total: null,
             allUserSelected: false,
             page: 1, 
             limit: 10,
+            order: 'is-centered',
             dataLoading: true
         };
     },
@@ -50,15 +60,23 @@ export default {
   created(){
     this.fetchAllUsers()
   },
+  watch:{
+    page(){
+      this.fetchAllUsers()
+    }
+  },
   methods:{
     selectAllItems(){
       this.allUserSelected =! this.allUserSelected 
     },
     async fetchAllUsers() {
-        const users = await usersRepository.getAllUsers(this.page, this.limit)
-        this.users = users;
+        const data = await usersRepository.getAllUsers(this.page, this.limit)
+        this.users = data.docs;
+        this.total = data.total;
+        console.log(data.docs)
         this.dataLoading = false;
     },
+    
   }
 }
 </script>
