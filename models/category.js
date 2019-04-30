@@ -6,6 +6,14 @@ let schema = Schema({
             type: String
         },
 
+        slug: {
+            type: String,
+            slug: "name",
+            slugPaddingSize: 4,
+            unique: true,
+            permanent: true
+        },
+
         description: {
             type: String,
             default: ""

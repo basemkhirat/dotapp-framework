@@ -69,6 +69,7 @@ export default class extends Controller {
         let category = new Category();
 
         category.name = req.param("name", category.name);
+        category.slug = req.param("slug", category.slug);
         category.description = req.param("description", category.description);
         category.user = req.user.id;
 
@@ -93,6 +94,7 @@ export default class extends Controller {
             if (!category) return res.notFound("Category not found");
 
             category.name = req.param("name", category.name);
+            category.slug = req.param("slug", category.slug);
             category.description = req.param("description", category.description);
 
             category.save(error => {

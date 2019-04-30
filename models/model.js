@@ -1,6 +1,10 @@
 import mongoose from 'mongoose';
 import moment from "moment";
 
+var slug = require('mongoose-slug-updater');
+
+mongoose.plugin(slug);
+
 mongoose.plugin(function (schema) {
 
     schema.set("versionKey", false);
@@ -14,8 +18,14 @@ mongoose.plugin(function (schema) {
     });
 
     schema.query.execWithCount = function(callback){
+
         return this.exec((error, docs) => {
             if(error) return callback(error);
+
+            this.limit(undefined);
+            this.skip(undefined);
+            this.sort(undefined);
+
             this.countDocuments((error, total) => {
                 if(error) return callback(error);
                 callback(null, {

@@ -11,7 +11,8 @@ export default class extends Controller {
 
     index(req, res, next) {
 
-        res.send("Hi");
+        res.end
+
 
     }
 };
