@@ -108,6 +108,10 @@ export default class extends Controller {
             if (!req.can("user.update", user)) return res.forbidden();
             if (!user) return res.notFound("User not found");
 
+            if(req.user.id === user.id && user.status !== req.param("status")) {
+                return res.forbidden("Unable to change your status");
+            }
+
             user.email = req.param("email", user.email);
             user.first_name = req.param("first_name", user.first_name);
             user.last_name = req.param("last_name", user.last_name);

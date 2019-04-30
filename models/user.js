@@ -108,16 +108,16 @@ schema.pre('save', function (next) {
  * @param password
  * @param callback
  */
-schema.method('comparePassword', function (password, callback) {
+schema.methods.comparePassword = function (password, callback) {
     Bcrypt.compare(password, this.password, function (error, match) {
-        if (error) callback(error);
+        if (error) return callback(error);
         if (match) {
             callback(null, true);
         } else {
             callback(error, false);
         }
     });
-});
+};
 
 export default  Mongoose.model("user", schema, "user");
 

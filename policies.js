@@ -12,7 +12,7 @@ export default {
          * @returns {boolean}
          */
         update: (req, user) => {
-            return req.role === 'superadmin' || req.hasPermission("user.update") || req.user.id === user.id;
+            return (req.role === 'superadmin' || req.hasPermission("user.update")) && req.user.id === user.id;
         },
 
         /**
