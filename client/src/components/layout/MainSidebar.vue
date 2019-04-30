@@ -1,6 +1,6 @@
 <template>
     <div>
-        <aside class="menu shadow main--sidebar" :class="{'is--mainSidebar--open': isMainMenuOpen, 'toggleNavSlide': toggleNavSlide}">
+        <aside class="menu shadow main--sidebar" :class="{ 'toggleNavSlide': toggleNavSlide}">
             <div class="wrap--upper--nav">
                 <span class="icon" @click="toggleNavOpen">
                     <i class="mdi mdi-menu"></i>
@@ -29,7 +29,7 @@
             </div>
         </aside>
         <transition name="fade">
-             <div @click="closeSidebar()" v-if="isMainMenuOpen" class="overlay--mainSidebar"></div>
+             <div @click="closeSidebar()" class="overlay--mainSidebar"></div>
         </transition>
 
         <div class="overlay--sidebar" @click="closeNavMenu"></div>
@@ -72,9 +72,9 @@
             }
         },
         computed:{
-            isMainMenuOpen(){
-                return this.$store.state.isMainMenuOpen
-            }
+            // isMainMenuOpen(){
+            //     return this.$store.state.isMainMenuOpen
+            // }
         },
         components: {
             VuePerfectScrollbar,

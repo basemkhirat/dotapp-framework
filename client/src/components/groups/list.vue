@@ -1,62 +1,78 @@
 <template>
     <div>
-         <b-table
-                :data="data"
-                :paginated="false"
-                :default-sort-direction="defaultSortDirection"
-                :checked-rows.sync="checkedRows"
-                checkable
-                :striped="false"
-                default-sort="id">
-                <template slot-scope="props">
-                    <b-table-column field="id" label="Id" sortable centered width="50">
-                        {{ props.row.id }}
-                    </b-table-column>
-                    <b-table-column field="name" label="Name" sortable centered>
-                        {{ props.row.name }}
-                    </b-table-column>
-                    <b-table-column field="userCount" label="Users"  sortable centered>
-                        {{props.row.usersCount}}
-                    </b-table-column>
-                    <b-table-column label="Actions" centered width="200">
-                        <button class="button--circle is-primary-light"><i class="fas fa-pen"></i></button>
-                        <button class="button--circle is-danger-light"><i class="fas fa-trash"></i></button>
-                    </b-table-column>
-
-                </template>
-                <template slot="bottom-left">
-                    <button class="button is-danger is-rounded" v-if="checkedRows.length">
-                        Delete Checked
-                    </button>
-                </template>
-                <template slot="empty">
-                    <section class="section table--loading">
-                        <div class="content has-text-grey has-text-centered">
-                            <template v-if="!isLoadingData">
-                                <p>
-                                    <b-icon
-                                        icon="emoticon-sad"
-                                        size="is-large">
-                                    </b-icon>
-                                </p>
-                                <p>Nothing here.</p>
-                            </template>
-                            <template v-else>
-                                <b-loading :is-full-page="false" :active.sync="isLoadingData"></b-loading>
-                            </template>
-
+        <div class="block--item" v-for="item in data" :key="item.id">
+            <div class="row align-items-center">
+                <div class="item--checkbox">
+                    <b-checkbox 
+                        v-model="itemsSelected"
+                        :native-value="item.id">
+                    </b-checkbox>
+                </div>
+                <div class="col-12 col-sm-6 col-xl">
+                    <div class="block--item--title d-flex align-items-center item--text">
+                        <div class="text--title">
+                            {{item.name}} 
                         </div>
-                    </section>
-                </template>
-
-            </b-table>
-            <b-pagination
-                :total="totalArticles"
-                :current.sync="pageCurrent"
-                :order="order"
-                :rounded="isRounded"
-                :per-page="defaultPerPage">
-            </b-pagination>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-xl">
+                    <div class="item--text">
+                        <span class="icon">
+                            <i class="fas fa-users"></i>
+                        </span>
+                        {{item.usersCount}} <span class="mx-1">User</span>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-xl">
+                    <div class="item--text">
+                        <span class="icon">
+                            <i class="fas fa-clock"></i>
+                        </span>
+                        {{item.date}}
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-xl">
+                    <div class="item--text text-center">
+                        <b-tag rounded type="is-success" v-if="item.status">Published</b-tag>
+                        <b-tag rounded  type="is-danger" v-else>Not Published</b-tag>
+                    </div>
+                </div>
+            
+                <div class="col-12 col-sm-12 col-xl item--text">
+                    <div class="all--item--action d-flex align-item-center">
+                        <button class="button--circle is-primary-light"><i class="fas fa-pen"></i></button>
+                        <button class="button--circle is-warning-light"><i class="fas fa-ban"></i></button>
+                        <button class="button--circle is-danger-light"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <div class="pagination--custom--number">
+            <ul class="d-flex justify-content-end">
+                <li class="nav-item">
+                    <span class="page--count">
+                            3 of 15
+                    </span>
+                </li>
+                <li class="nav-item">
+                <a>
+                    <i class="fas fa-angle-left"></i>
+                </a>
+                </li>
+                <li class="nav-item">
+                    <a>
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <template>
+            <div class="alluser--action" :class="{'show--action--bottom': itemsSelected.length}">
+                <button class="button is-warning is-rounded">Ban All Selected</button>
+                <button class="button is-danger is-rounded">Delete All Selected</button>
+            </div>
+        </template>
+        
     </div>
 </template>
 
@@ -64,24 +80,25 @@
 
 <script>
 export default {
-    props:['data'],
+    props:['data', 'allItemsSelected'],
     data () {
             return {
-                modalViewArticle: false,
-                checkedRows: [],
-                defaultSortDirection: 'desc',
-                totalArticles: 100,
-                defaultPerPage: 25,
-                pageCurrent: 1,
-                order: 'is-centered',
-                size: '',
-                isRounded: true,
-                isLoadingData: true,
-                userDefaultStage: null,
+                itemsSelected:[]
             };
         },
     components: {
         
+    },
+    watch:{
+        allItemsSelected(){
+            if(this.allItemsSelected){
+                this.data.map(item => {
+                    this.itemsSelected.push(item.id)
+                })
+            } else {
+                 this.itemsSelected = []
+            }
+        }
     }
 }
 </script>

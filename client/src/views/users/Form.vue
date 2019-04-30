@@ -10,35 +10,35 @@
         </div>
       </div>
       <div class="card--content">
-          <form class="row justify-content-center">
+          <form class="row justify-content-center" @submit.prevent="submitForm()">
               <div class="col-12 col-lg-8">
                     <div class="row">
                          <div class="col-12 col-md-6">
                               <b-field class="field-group">
-                                   <b-input type="text" rounded placeholder="First name" v-model="firstName" />
+                                   <b-input type="text" required rounded placeholder="First name" v-model="firstName" />
                               </b-field>
                          </div>
                          <div class="col-12 col-md-6">
                               <b-field class="field-group">
-                                   <b-input type="email" rounded placeholder="User Email" v-model="email" />
+                                   <b-input type="email" required rounded placeholder="User Email" v-model="email" />
                               </b-field>
                          </div>
                          <div class="col-12 col-md-6">
                               <b-field class="field-group">
-                                   <b-input type="password" rounded placeholder="Password" v-model="password" />
+                                   <b-input type="password" required rounded placeholder="Password" v-model="password" />
                               </b-field>
                          </div>
                          <div class="col-12 col-md-6">
                               <b-field class="field-group">
-                                   <b-input type="password" rounded placeholder="Confirm Password"
+                                   <b-input type="password" required rounded placeholder="Confirm Password"
                                         v-model="confirmPassword" />
                               </b-field>
+                              <p class="help is-danger mt-0" v-if="errorConfirmPassword">Please fill the same password.</p>
                          </div>
                          <div class="col-12 col-md-6">
                               <b-field class="field-group">
                                    <v-select :options="groups" v-model="group" label="title" placeholder="Group" class="select--with--icon w-100 v--select--scroll">
                                         <template slot="option" slot-scope="option">
-                                             <!-- <span :class="option.icon"></span> -->
                                              {{ option.title }}
                                         </template>
                                    </v-select>
@@ -61,7 +61,7 @@
                     </b-field>
                </div>
                <div class="col-12 text-center button--save--form">
-                    <button class="button is-primary is-rounded">Add User</button>
+                    <button class="button is-primary is-rounded" :class="{'is-loading': isLoading}">Add User</button>
                </div>
          </form>
       </div>
@@ -97,6 +97,10 @@
      import 'croppie/croppie.css' // import the croppie css manually
      Vue.use(VueCroppie);
 
+     // Repository Data
+     import { RepositoryFactory } from '../../repositories/RepositoryFactory'
+     const usersRepository = RepositoryFactory.get('users')
+
      export default {
           name: 'userForm',
           data() {
@@ -109,7 +113,9 @@
                     files: [],
                     ModalCropUserPhoto: false,
                     group: '',
-                    groups: ['admin', 'user' ]
+                    groups: ['admin', 'user' ],
+                    isLoading: false,
+                    errorConfirmPassword: false
                };
           },
           
@@ -150,7 +156,32 @@
                },
                closeModalNewUser(){
                     this.$emit('closeModalNewUser')
-               }
+               },
+
+               submitForm() {
+                    this.errorConfirmPassword = true
+                    this.isLoading = false
+                    let data = {}
+                    data.first_name = this.firstName
+                    data.email = this.email
+                    data.password = this.password
+                    if(this.firstName&&this.email&&this.password&&this.confirmPassword){
+                         if(this.password === this.confirmPassword){
+                              this.errorConfirmPassword = false
+                              this.isLoading = true
+                              this.newUser(data)
+                         } else {
+                              this.isLoading = false
+                              this.errorConfirmPassword = true
+                         }
+                    }
+               },
+
+               async newUser(data) {
+                    const user = await usersRepository.newUser(data)
+                    // console.log(user)
+                    this.isLoading = false
+               },
           }
      }
 </script>

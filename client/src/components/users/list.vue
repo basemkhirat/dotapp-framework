@@ -10,11 +10,14 @@
                 </div>
                 <div class="col-12 col-sm-6 col-xl">
                     <div class="block--item--title d-flex align-items-center item--text">
-                        <div class="item--avatar--img">
-                            <img :src="user.imgUrl" alt="">
+                        <div class="item--avatar--img" >
+                            <template v-if="user.photo">
+                                <img :src="user.photo.thumbnails.small" :alt="user.photo.title">
+                            </template>
+                            <img src="./../../assets/images/user/64.png" >
                         </div>
-                        <div class="text--title">
-                            {{user.name}}
+                        <div class="text--title text-capitalize">
+                            {{user.first_name}}
                         </div>
                     </div>
                 </div>
@@ -31,15 +34,27 @@
                         <span class="icon">
                             <i class="fas fa-clock"></i>
                         </span>
-                        {{user.date}}
+                        {{user.created}}
                     </div>
                 </div>
                 <div class="col-12 col-sm-6 col-xl">
                     <div class="item--text">
-                        <span class="icon">
-                           <i class="fas fa-award"></i>
-                        </span>
-                        {{user.role}}
+                        <template v-if="user.role">
+                            <span class="icon">
+                            <i class="fas fa-award"></i>
+                            </span>
+                            {{user.role.name}}
+                        </template>
+                        <template v-else>
+                            --------
+                        </template>
+                        
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-xl-1">
+                    <div class="item--text text-center">
+                        <b-tag rounded type="is-success" v-if="user.status == 1">Active</b-tag>
+                        <b-tag rounded  type="is-danger" v-else>Not Active</b-tag>
                     </div>
                 </div>
                 <div class="col-12 col-sm-12 col-xl item--text">
