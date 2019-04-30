@@ -30,12 +30,23 @@ export default class extends Controller {
 
         query.page(req.param("page"), req.param("limit"));
 
-        query.order(req.param("sort_field", "created_at"), req.param("sort_type", "desc"));
 
-        query.exec((error, users) => {
+        let theQuery = query.order(req.param("sort_field", "created_at"), req.param("sort_type", "desc"));
+
+        theQuery.exec(function (error, users) {
             if (error) return res.serverError(error);
-            return res.ok(res.attachPolicies(users, "user"));
+
+            theQuery.countDocuments((error, total) => {
+                if (error) return res.serverError(error);
+
+                return res.ok({
+                    total: total,
+                    items: res.attachPolicies(users, "user")
+                });
+            });
+
         });
+
     }
 
     /**
