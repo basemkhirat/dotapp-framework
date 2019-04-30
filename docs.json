@@ -5,7 +5,6 @@
         "description": "The API documentation",
         "version": "1.0.0"
     },
-    "host": "localhost:3000",
     "basePath": "/api",
     "paths": {
         "/auth/token": {
@@ -67,6 +66,12 @@
                 ],
                 "summary": "Find all media",
                 "parameters": [
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "description": "Search Keyword",
+                        "type": "string"
+                    },
                     {
                         "name": "page",
                         "in": "query",
@@ -392,6 +397,12 @@
                         ]
                     },
                     {
+                        "name": "q",
+                        "in": "query",
+                        "description": "Search Keyword",
+                        "type": "string"
+                    },
+                    {
                         "name": "role",
                         "in": "query",
                         "description": "Role ID",
@@ -527,6 +538,12 @@
                 ],
                 "summary": "Find all roles",
                 "parameters": [
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "description": "Search Keyword",
+                        "type": "string"
+                    },
                     {
                         "name": "page",
                         "in": "query",
@@ -695,6 +712,12 @@
                         "name": "user",
                         "in": "query",
                         "description": "User ID",
+                        "type": "string"
+                    },
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "description": "Search Keyword",
                         "type": "string"
                     },
                     {

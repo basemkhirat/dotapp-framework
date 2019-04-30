@@ -37,6 +37,10 @@ export default class extends Controller {
             query.where("user", req.param("user"));
         }
 
+        if (req.filled("q")) {
+            query.where({$text: {$search: req.param("q")}});
+        }
+
         query.page(req.param("page"), req.param("limit"));
 
         query.order(req.param("sort_field", "created_at"), req.param("sort_type", "desc"));
