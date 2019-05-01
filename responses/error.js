@@ -6,11 +6,14 @@ export default function (data, code = 500) {
     error.data = data;
     error.status = code;
     error.success = false;
-    error.debug = {
-        env: process.env.NODE_ENV,
-        user: this.req.user,
-        token: this.req.token
-    };
+
+    if (process.env.NODE_ENV !== 'production') {
+        error.debug = {
+            env: process.env.NODE_ENV,
+            user: this.req.user,
+            token: this.req.token
+        };
+    }
 
     this.res.status(error.status);
 
