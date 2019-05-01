@@ -13,7 +13,7 @@ export default class extends Controller {
     token(req, res) {
 
         let email = req.param("email");
-        let password = req.param("password");
+        let password = String(req.param("password"));
 
         User.findOne({email: email}, function (error, user) {
 

@@ -25,7 +25,7 @@ export default {
          * @returns {boolean}
          */
         delete: (req, user) => {
-            return (req.hasPermission("user.delete") || req.role === 'superadmin') && req.user.id !== user.id;
+            return (req.role === 'superadmin' || req.hasPermission("user.delete")) && req.user.id !== user.id;
         }
     },
 
