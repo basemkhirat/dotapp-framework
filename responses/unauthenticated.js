@@ -1,3 +1,6 @@
-export default function (data = "Not Authenticated", code = 401) {
-    return this.res.error(data, code);
+export default function (data) {
+
+    this.res.smessage = this.res.smessage || "Not Authenticated";
+
+    return this.res.error(data, 401);
 };

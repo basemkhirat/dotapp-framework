@@ -1,9 +1,8 @@
-export default function (data = [], code = 422) {
-
-    if (data.length === 0) {
-        return this.res.error("No validation errors attached to response");
-    }
+export default function (data = []) {
 
     data = Array.isArray(data) ? data : [data];
-    return this.res.error(data, code);
+
+    this.res.smessage = this.res.smessage || "Validation Error";
+
+    return this.res.error(data, 422);
 };

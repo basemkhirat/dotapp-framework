@@ -68,7 +68,7 @@ export default class extends Controller {
 
         role.save(function (error, role) {
             if (error) return res.serverError(error);
-            return res.ok(role.id);
+            return res.message(req.lang("role.events.created")).ok(role.id);
         });
     }
 
@@ -92,7 +92,7 @@ export default class extends Controller {
 
             role.save(function (error, role) {
                 if (error) return res.serverError(error);
-                return res.ok(id);
+                return res.message(req.lang("role.events.updated")).ok(id);
             });
         });
     }
@@ -114,7 +114,7 @@ export default class extends Controller {
 
             role.remove(error => {
                 if (error) res.serverError(error);
-                return res.ok(id);
+                return res.message(req.lang("role.events.deleted")).ok(id);
             });
         });
     }

@@ -34,6 +34,7 @@ app.set('trust proxy', Config.get("app.trust_proxy"));
 app.use(Cors());
 app.use(Security());
 app.use(Compression());
+
 app.use(Http());
 app.use(Token());
 app.use(I18n());

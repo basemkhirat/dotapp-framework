@@ -1,8 +1,6 @@
 import Role from '~/models/role';
 import Validator from 'validatorjs';
 
-
-
 export default function (req, res) {
 
     Validator.registerAsync('role_name_available', function (name, id, x, passes) {

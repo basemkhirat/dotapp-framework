@@ -29,7 +29,7 @@ export default function (req, res) {
     }
 
     if (creating || req.has("first_name")) {
-        rules.first_name = 'required|alpha_num|min:2';
+        rules.first_name = 'required|min:2';
     }
 
     if (creating || req.has("last_name")) {

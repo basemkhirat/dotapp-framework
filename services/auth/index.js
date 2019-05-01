@@ -13,6 +13,8 @@ class Index {
         let policies = this.req.policies;
         let [module, action] = permission.split(".");
 
+        console.log(action);
+
         if (module) {
 
             if (module in policies) {
@@ -40,9 +42,20 @@ class Index {
                         if (typeof handler == 'function') {
                             policy_check = handler(this.req, ...params);
                         }
+                    }else{
+
+                        // Action is not registered in policies
+
+                        return this.req.hasPermission(permission);
                     }
                 }
+            } else{
+
+                // Module is not registered in policies
+
+                return this.req.hasPermission(permission);
             }
+
         }
 
         return policy_check;

@@ -1,11 +1,13 @@
-export default function (data, code = 200) {
+export default function (data) {
 
     let response = {};
 
-    response.data = data;
-    response.status = code;
+    response.message = this.res.smessage || "OK";
+    response.status = 200;
     response.success = true;
+    response.data = data || undefined;
     response.debug = {
+        env: process.env.NODE_ENV,
         user: this.req.user,
         token: this.req.token
     };

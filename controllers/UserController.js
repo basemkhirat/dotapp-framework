@@ -89,7 +89,7 @@ export default class extends Controller {
 
         user.save((error, user) => {
             if (error) return res.serverError(error);
-            return res.ok(user.id);
+            return res.message(req.lang("user.events.created")).ok(user.id);
         });
     }
 
@@ -127,7 +127,7 @@ export default class extends Controller {
 
             user.save(error => {
                 if (error) return res.serverError(error);
-                return res.ok(id);
+                return res.message(req.lang("user.events.updated")).ok(id);
             });
         });
     }
@@ -148,7 +148,7 @@ export default class extends Controller {
 
             user.remove(error => {
                 if (error) res.serverError(error);
-                return res.ok(id);
+                return res.message(req.lang("user.events.deleted")).ok(id);
             });
         });
     }

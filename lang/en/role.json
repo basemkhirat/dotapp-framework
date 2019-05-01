@@ -1,3 +1,9 @@
 {
-    "name_taken": "Role name is already taken"
+    "name_taken": "Role name is already taken",
+
+    "events": {
+        "created": "Role created successfully",
+        "updated": "Role updated successfully",
+        "deleted": "Role deleted successfully"
+    }
 }

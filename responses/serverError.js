@@ -1,6 +1,6 @@
-export default function (data, code = 500) {
+export default function (data) {
 
-    let error = "Internal Server Error";
+    let error = undefined;
 
     if (process.env.NODE_ENV !== 'production') {
         if (data instanceof Error) {
@@ -16,5 +16,7 @@ export default function (data, code = 500) {
         }
     }
 
-    return this.res.error(error, code);
+    this.res.smessage = this.res.smessage || "Internal Server Error";
+
+    return this.res.error(error, 500);
 };

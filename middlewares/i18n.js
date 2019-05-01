@@ -4,13 +4,11 @@ import moment from "moment";
 
 export default function () {
 
+    let config = Config.get("i18n");
+
+    I18n.configure(config);
+
     return function (req, res, next) {
-
-        let config = Config.get("i18n");
-
-        I18n.configure(config);
-
-        I18n.init(req, res);
 
         let default_locale = config.defaultLocale;
 
@@ -18,9 +16,9 @@ export default function () {
             default_locale = req.user.lang;
         }
 
-        req.setLocale(default_locale);
+        req.language = default_locale;
         moment.locale(default_locale);
 
-        return next();
-    };
+        next();
+    }
 }

@@ -1,0 +1,7 @@
+{
+    "events": {
+        "created": "Media created successfully",
+        "updated": "Media updated successfully",
+        "deleted": "Media deleted successfully"
+    }
+}

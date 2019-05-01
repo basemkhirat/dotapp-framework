@@ -1,4 +1,10 @@
 {
     "name_taken": "Category name is already taken",
-    "slug_taken": "Category slug is already taken"
+    "slug_taken": "Category slug is already taken",
+
+    "events": {
+        "created": "Category created successfully",
+        "updated": "Category updated successfully",
+        "deleted": "Category deleted successfully"
+    }
 }
