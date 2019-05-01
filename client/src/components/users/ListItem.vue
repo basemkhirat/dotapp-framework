@@ -72,7 +72,7 @@
      import { RepositoryFactory } from '../../repositories/RepositoryFactory'
      const usersRepository = RepositoryFactory.get('users')
     export default {
-        props: ['user'],
+        props: ['user', 'usersSelected'],
         data () {
             return {
                 userSelected: false,
@@ -88,6 +88,18 @@
                     data.status = 0
                 }
                 this.updateUser(this.user.id, data)
+            },
+            usersSelected(){
+                if(this.usersSelected.length){
+                     this.usersSelected.map(item => {
+                        if(item == this.user.id){
+                            this.userSelected = true
+                        }
+                    })
+                } else {
+                     this.userSelected = false
+                }
+               
             }
         },
         methods: {

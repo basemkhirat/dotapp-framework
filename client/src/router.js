@@ -32,8 +32,9 @@ const router = new Router({
           meta: {requiresAuth: true},
         },
         {
-          path: '/addNewUser',
-          name: 'addNewUser',
+          path: '/userForm/:id?',
+          name: 'userForm',
+          props: true,
           component: () => import('./views/users/Form.vue'),
           meta: {requiresAuth: true},
         },
