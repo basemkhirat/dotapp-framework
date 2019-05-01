@@ -2,8 +2,6 @@ export default {
 
     user: {
 
-        view: true,
-
         /**
          * users allowed to update:
          * - super admins
