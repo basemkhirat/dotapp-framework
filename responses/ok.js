@@ -2,7 +2,7 @@ export default function (data) {
 
     let response = {};
 
-    response.message = this.res.smessage || "OK";
+    response.message = this.res.smessage || this.req.lang("messages.ok");
     response.status = 200;
     response.success = true;
     response.data = data || undefined;

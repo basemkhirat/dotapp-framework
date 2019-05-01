@@ -1,0 +1,10 @@
+{
+    "rate_limit_exceeded": "Too Many Requests",
+    "bad_request": "Bad Request",
+    "forbidden": "Access Denied",
+    "not_found": "Page Not Found",
+    "server_error": "Internal Server Error",
+    "not_authenticated": "Not Authenticated",
+    "validation_error": "Validation Error",
+    "ok": "OK"
+}

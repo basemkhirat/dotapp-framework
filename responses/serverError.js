@@ -16,7 +16,7 @@ export default function (data) {
         }
     }
 
-    this.res.smessage = this.res.smessage || "Internal Server Error";
+    this.res.smessage = this.res.smessage || this.req.lang("messages.server_error");
 
     return this.res.error(error, 500);
 };

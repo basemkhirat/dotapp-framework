@@ -45,7 +45,7 @@ export default {
      */
 
     handler: function (req, res, /*next*/) {
-        res.error(req.lang("errors.rate_limit_exceeded"), 429);
+        res.error(req.lang("messages.rate_limit_exceeded"), 429);
     },
 
     /**

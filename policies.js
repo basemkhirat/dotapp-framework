@@ -12,9 +12,19 @@ export default {
          * @returns {boolean}
          */
 
-        update: (req, user) => {
-            return req.role === 'superadmin' || req.hasPermission("user.update") || req.user.id === user.id;
-        },
+        update: (req, user) => req.role === 'superadmin' || req.hasPermission("user.update") || req.user.id === user.id,
+
+        /**
+         * users allowed to change status:
+         * - super admins and cannot change status of themselves
+         * - users have user.status permission and cannot change status of themselves
+         * -
+         * @param req
+         * @param user
+         * @returns {boolean}
+         */
+
+        status: (req, user) => (req.role === 'superadmin' || req.hasPermission("user.status")) && req.user.id !== user.id,
 
         /**
          * users allowed to delete:
@@ -26,9 +36,7 @@ export default {
          * @returns {boolean}
          */
 
-        delete: (req, user) => {
-            return (req.role === 'superadmin' || req.hasPermission("user.delete")) && req.user.id !== user.id;
-        }
+        delete: (req, user) => (req.role === 'superadmin' || req.hasPermission("user.delete")) && req.user.id !== user.id,
     },
 
     role: req => req.role === 'superadmin',

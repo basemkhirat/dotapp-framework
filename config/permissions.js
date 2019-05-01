@@ -4,6 +4,7 @@ export default {
         "view",
         "create",
         "update",
+        "status",
         "delete"
     ],
 
@@ -19,14 +20,6 @@ export default {
         "create",
         "update",
         "delete",
-    ],
-
-    post: [
-        "view",
-        "create",
-        "update",
-        "delete",
-        "status",
     ],
 
     category: [
