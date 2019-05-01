@@ -1,3 +1,5 @@
+import Config from '~/services/config';
+
 class Index {
 
     /**
@@ -6,8 +8,6 @@ class Index {
      * @returns {boolean}
      */
     can(permission, ...params) {
-
-        if (this.req.role === 'superadmin') return true;
 
         let policy_check = false;
         let policies = this.req.policies;
@@ -59,25 +59,22 @@ class Index {
 
         let [module, action] = permission.split(".");
 
-        // match if user has at least one action of module
-
         if (action === undefined) {
 
-            let actions = _config("permissions." + module);
+            // match if user has at least one action of module
 
-            return actions.some(action => {
-                return this.req.permissions.indexOf(module + "." + action) > -1;
-            });
+            let actions = Config.get("permissions." + module);
 
-            // match if user has all actions of module
+            return actions.some(action => this.req.permissions.indexOf(module + "." + action) > -1);
+
 
         } else if (action === "*") {
 
-            let actions = _config("permissions." + module);
+            // match if user has all actions of module
 
-            return actions.every(action => {
-                return this.req.permissions.indexOf(module + "." + action) > -1;
-            });
+            let actions = Config.get("permissions." + module);
+
+            return actions.every(action => this.req.permissions.indexOf(module + "." + action) > -1);
 
         }
 
