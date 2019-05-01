@@ -4,7 +4,7 @@ import axios from "axios/index";
 const resource = "/user";
 
 export default {
-    getOne(id) {
+    getUser(id) {
         return Repository.get(`${resource}/${id}`).then((response) => {
             if (response.data.success) {
                 return response.data.data;
@@ -36,8 +36,10 @@ export default {
     newUser(data) {
         return Repository.post(`${resource}`, data).then((response) => {
             if (response.data.success) {
-                return response.data.data;
-            } 
+                return response.data;
+            }
+        }).catch(error => {
+            return error.response.data;
         })
     },
 };

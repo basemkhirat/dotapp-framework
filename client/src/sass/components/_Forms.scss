@@ -473,3 +473,7 @@ label.label {
     min-width: 90px;
     text-align: left;
 }
+
+.vs__search, .vs__search:focus{
+    margin: 0 !important;
+}

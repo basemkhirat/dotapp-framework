@@ -8,17 +8,24 @@
         </span>
       </h1>
       <div class="page--title--action ml-auto">
-          <router-link to="/addNewUser" class="button is-primary is-rounded">Add New User</router-link>
+          <router-link to="/userForm" class="button is-primary is-rounded">Add New User</router-link>
       </div>
     </div>
     <div class="card-filter--herader">
         <filter-items @selectAllItems="selectAllItems" />
     </div>
     <template v-if="dataLoading">
+      <transition name="slide-left" mode="out-in">
           <loading-data></loading-data>
+      </transition>
     </template>
     <template v-else>
-        <list-users @fetchAllUsers="fetchAllUsers" :allUserSelected="allUserSelected" :data="users"/>
+        <transition name="slide-left" mode="out-in">
+          <list-users @fetchAllUsers="fetchAllUsers" :allUserSelected="allUserSelected" :data="users"/>
+        </transition>
+        
+    </template>
+    <template v-if="users">
         <div class="pagination--custom--number">
             <b-pagination
                 :total="total"
@@ -29,6 +36,7 @@
             </b-pagination>
         </div>
     </template>
+    
   </div>
 </template>
 
@@ -70,6 +78,7 @@ export default {
       this.allUserSelected =! this.allUserSelected 
     },
     async fetchAllUsers() {
+      this.dataLoading = true
         const data = await usersRepository.getAllUsers(this.page, this.limit)
         this.users = data.docs;
         this.total = data.total;

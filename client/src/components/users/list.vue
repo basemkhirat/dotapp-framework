@@ -1,6 +1,6 @@
 <template>
     <div>
-        <item  v-for="user in data" :key="user.id" :user="user" @checkboxUser="checkboxUserStatus"/>
+        <item  v-for="user in data" :key="user.id" :user="user" @checkboxUser="checkboxUserStatus" :usersSelected="usersSelected"/>
          
         <template>
             <div class="alluser--action" :class="{'show--action--bottom': usersSelected.length}">
@@ -61,7 +61,7 @@ export default {
         },
         deleteItems(){
             for(var i = 0; i < this.usersSelected.length; i++){
-                // this.deleteUser(this.usersSelected[i])
+                this.deleteUser(this.usersSelected[i])
                 if(this.usersSelected.length === (i + 1)){
                    this.usersSelected = []
                 }
