@@ -1,10 +1,13 @@
 <template>
     <div>
-        <item  v-for="user in data" :key="user.id" :user="user" @checkboxUser="checkboxUserStatus" :usersSelected="usersSelected"/>
+        <item  v-for="user in data" :key="user.id" :user="user" 
+        @fetchAllUsers="fetchAllUsers"
+        @checkboxUser="checkboxUserStatus" 
+        :usersSelected="usersSelected"/>
          
         <template>
             <div class="alluser--action" :class="{'show--action--bottom': usersSelected.length}">
-                <button class="button is-warning is-rounded">Ban All Selected</button>
+                <button class="button is-warning is-rounded" @click="banItems()">Ban All Selected</button>
                 <button class="button is-danger is-rounded" @click="deleteItems()">Delete All Selected</button>
             </div>
         </template>
@@ -67,15 +70,39 @@ export default {
                 }
             }
         },
+        banItems(){
+            for(var i = 0; i < this.usersSelected.length; i++){
+                this.updateUser(this.usersSelected[i],{status: 0})
+                if(this.usersSelected.length === (i + 1)){
+                   this.usersSelected = []
+                }
+            }
+        },
         // Delete Items
         async deleteUser(id) {
             const user = await usersRepository.deleteUser(id)
             this.$emit('fetchAllUsers')
             this.aleartMessage()
         },
-        aleartMessage(){
+        // Ban Items
+        // async banItems(id) {
+        //     const user = await usersRepository.deleteUser(id)
+        //     this.$emit('fetchAllUsers')
+        //     this.aleartMessage()
+        // },
+         async updateUser(id, data) {
+             console.log(id, data)
+            const user = await usersRepository.updateUser(id, data)
+            console.log(user)
+            this.$emit('fetchAllUsers')
+            this.aleartMessage(user.message)
+        },
+        fetchAllUsers(){
+            this.$emit('fetchAllUsers')
+        },
+        aleartMessage(textMessage){
             this.$snackbar.open({
-                message: 'user has been successfully Deleted',
+                message: textMessage,
                 type: 'is-success',
                 position: 'is-bottom-right',
                 actionText: 'OK',

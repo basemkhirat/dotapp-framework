@@ -1,180 +1,276 @@
 <template>
-  <div class="users">
-    <div class="page--title">
-      <h1 class="title--text">
-        Users
-      </h1>
-      <div class="page--title--action ml-auto" v-if="this.$route.params.id">
-          <router-link to="/userForm" class="button is-primary is-rounded">Add New User</router-link>
-      </div>
-    </div>
-    <div class="card--block">
-      <div class="card--hreader">
-        <div class="card--header--title">
-          {{this.$route.params.id ? 'Update User' : 'Add New User'}}
+    <div class="users">
+        <div class="page--title">
+            <h1 class="title--text">
+                Users
+            </h1>
+            <div class="page--title--action ml-auto" v-if="this.$route.params.id">
+                <router-link to="/userForm" class="button is-primary is-rounded">Add New User</router-link>
+            </div>
         </div>
-      </div>
-      <div class="card--content">
-          <form class="row justify-content-center" @submit.prevent="submitForm()">
-              <div class="col-12 col-lg-8 col-xl-6">
-                    <div class="row">
-                         <div class="col-12">
-                              <b-field class="field-group">
-                                   <div class="text-center">
+        <div class="card--block">
+            <div class="card--hreader">
+                <div class="card--header--title">
+                    {{this.$route.params.id ? 'Update User' : 'Add New User'}}
+                </div>
+            </div>
+            <div class="card--content">
+                <form class="row justify-content-center" @submit.prevent="submitForm()">
+                    <div class="col-12 col-lg-8 col-xl-6">
+                        <div class="row align-items-center">
+                            <div class="col-12">
+                                <b-field class="field-group">
+                                    <div class="text-center">
                                         <div class="user--photo field-group">
-                                             <!-- <img v-if="userPhoto" :src="userPhoto" alt="user" class="avatar-l"> -->
-                                             <img src="./../../assets/images/user/user-128.png" class="avatar-l" alt="">
+                                            <!-- <img v-if="userPhoto" :src="userPhoto" alt="user" class="avatar-l"> -->
+                                            <img src="./../../assets/images/user/user-128.png" class="avatar-l" alt="">
                                         </div>
                                         <!-- <b-upload accept="image/*" @input="handleUserPhoto(files)"> -->
-                                             <a class="button is-dark is-rounded m-2 is-small">Change Photo</a>
+                                        <a class="button is-dark is-rounded m-2 is-small">Change Photo</a>
                                         <!-- </b-upload> -->
-                                   </div>
-                              </b-field>
-                         </div>
-                         <div class="col-12">
-                              <b-field class="field-group">
-                                   <b-input type="text" required rounded placeholder="First name" v-model="firstName" />
-                              </b-field>
-                         </div>
-                         <div class="col-12">
-                              <b-field class="field-group">
-                                   <b-input type="email" required rounded placeholder="User Email" v-model="email" />
-                              </b-field>
-                         </div>
-                          <div class="col-12">
-                              <b-field class="field-group" v-if="this.$route.params.id">
-                                   <b-input minlength="7" type="password" required rounded placeholder="Old Password" v-model="oldPassword" />
-                              </b-field>
-                         </div>
-                         <div class="col-12">
-                              <b-field class="field-group">
-                                   <b-input minlength="7" type="password" required rounded :placeholder="this.$route.params.id ? 'New Password' : 'Password'" v-model="password" />
-                              </b-field>
-                         </div>
-                         <div class="col-12">
-                              <b-field class="field-group">
-                                   <b-input type="password" minlength="7" required rounded placeholder="Confirm Password"
-                                        v-model="confirmPassword" />
-                              </b-field>
-                              <p class="help is-danger mt-0" v-if="errorConfirmPassword">Please fill the same password.</p>
-                         </div>
-                         <div class="col-12">
-                              <b-field class="field-group">
-                                   <v-select :options="groups" v-model="group" label="title" placeholder="Group" class="select--with--icon w-100 v--select--scroll">
+                                    </div>
+                                </b-field>
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <b-field class="field-group">
+                                    <b-input type="text" required rounded placeholder="First name"
+                                        v-model="firstName" />
+                                </b-field>
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <b-field class="field-group">
+                                    <b-input type="text" rounded placeholder="Last name" v-model="lastName" />
+                                </b-field>
+                            </div>
+                            <div class="col-12">
+                                <b-field class="field-group">
+                                    <b-input type="email" required rounded placeholder="User Email" v-model="email" />
+                                </b-field>
+                            </div>
+                            
+                            <div class="col-12 col-sm-6">
+                                <b-field class="field-group">
+                                    <v-select :options="groups" v-model="group" label="title" placeholder="Group"
+                                        class="select--with--icon w-100 v--select--scroll">
                                         <template slot="option" slot-scope="option">
-                                             {{ option.title }}
+                                            {{ option.title }}
                                         </template>
-                                   </v-select>
-                              </b-field>
-                         </div>
-                        
+                                    </v-select>
+                                </b-field>
+                            </div>
+                            <div class="col-12 col-sm-6" v-if="policies.indexOf('user.status') > -1">
+                                <b-field class="field-group text-center">
+                                    <b-switch v-model="userStatus" true-value="Active" false-value="Not Active">
+                                        {{userStatus}}
+                                    </b-switch>
+                                </b-field>
+                            </div>
+                            <div class="col-12" v-if="this.$route.params.id">
+                                <b-field class="field-group">
+                                    <span class="change--password" @click="changePassword =! changePassword">Change Password</span>
+                                </b-field>
+                            </div>
+                            <!-- <div class="col-12">
+                                <b-field class="field-group" v-if="this.$route.params.id">
+                                    <b-input minlength="7" type="password" required rounded placeholder="Old Password"
+                                        v-model="oldPassword" />
+                                </b-field>
+                            </div> -->
+                            <template v-if="changePassword">
+                                  <div class="col-12">
+                                        <b-field class="field-group">
+                                             <b-input minlength="7" type="password" required rounded
+                                                  :placeholder="this.$route.params.id ? 'New Password' : 'Password'"
+                                                  v-model="password" />
+                                        </b-field>
+                                   </div>
+                                   <div class="col-12">
+                                        <b-field class="field-group">
+                                             <b-input type="password" minlength="7" required rounded
+                                                  placeholder="Confirm Password" v-model="confirmPassword" />
+                                        </b-field>
+                                        <p class="help is-danger mt-0" v-if="errorConfirmPassword">Please fill the same
+                                             password.</p>
+                                   </div>
+                            </template>
+                           
+
+                        </div>
                     </div>
-               </div>
-               
-               <div class="col-12 text-center button--save--form">
-                    <button class="button is-primary is-rounded" :class="{'is-loading': isLoading}">{{this.$route.params.id ? 'Save Changes' : 'Add User'}}</button>
-               </div>
-         </form>
-      </div>
-    </div>     
-    
-  </div>
+
+                    <div class="col-12 text-center button--save--form">
+                        <button class="button is-primary is-rounded"
+                            :class="{'is-loading': isLoading}">{{this.$route.params.id ? 'Save Changes' : 'Add User'}}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
 </template>
 
 
 <script>
-     // Repository Data
-     import { RepositoryFactory } from '../../repositories/RepositoryFactory'
-     const usersRepository = RepositoryFactory.get('users')
+    // Repository Data
+    import {
+        RepositoryFactory
+    } from '../../repositories/RepositoryFactory'
+    const usersRepository = RepositoryFactory.get('users')
 
-     export default {
-          name: 'userForm',
-          data() {
-               return {
-                    firstName: '',
-                    email: '',
-                    oldPassword: '',
-                    password: '',
-                    confirmPassword: '',
-                    group: '',
-                    groups: ['admin', 'user' ],
-                    isLoading: false,
-                    errorConfirmPassword: false,
-               };
-          },
-         
-          methods: {
-               submitForm() {
-                    this.errorConfirmPassword = true
-                    this.isLoading = false
-                    let data = {}
-                    data.first_name = this.firstName
-                    data.email = this.email
+    export default {
+        name: 'userForm',
+        data() {
+            return {
+                firstName: '',
+                lastName: '',
+                email: '',
+                oldPassword: '',
+                password: '',
+                confirmPassword: '',
+                group: '',
+                groups: ['admin', 'user'],
+                isLoading: false,
+                errorConfirmPassword: false,
+                userStatus: 'Not Active',
+                status: 0,
+                changePassword: true,
+                policies: [],
+            };
+        },
+
+        watch: {
+            '$route'(to, from) {
+                if (this.$route.params.id) {
+                    this.getUser(this.$route.params.id)
+                     this.changePassword =  false
+                } else {
+                     this.resetfuild()
+                     this.changePassword =  true
+                }
+            },
+            userStatus() {
+                if (this.userStatus == 'Active') {
+                    this.status = 1
+                } else {
+                    this.status = 0
+                }
+            },
+            status(){
+               if (this.status == 1) {
+                    this.userStatus = 'Active'
+                } else {
+                    this.userStatus = 'Not Active'
+                }
+            }
+        },
+        created() {
+            if (this.$route.params.id) {
+                this.getUser(this.$route.params.id)
+            }
+        },
+
+        methods: {
+             resetfuild(){
+                this.firstName = ''
+                this.lastName = ''
+                this.email = ''
+                this.status = 0
+                this.password = ''
+                this.confirmPassword = ''
+             },
+            submitForm() {
+                this.errorConfirmPassword = true
+                this.isLoading = false
+                let data = {}
+                data.first_name = this.firstName
+                data.last_name = this.lastName
+                data.email = this.email
+                data.status = this.status
+                if (this.firstName && this.email && this.password && this.confirmPassword) {
                     data.password = this.password
-                    if(this.firstName&&this.email&&this.password&&this.confirmPassword){
-                         if(this.password === this.confirmPassword){
-                              this.errorConfirmPassword = false
-                              this.isLoading = true
-                              this.newUser(data)
-                         } else {
-                              this.isLoading = false
-                              this.errorConfirmPassword = true
-                         }
-                    }
-               },
-               
-
-               async newUser(data) {
-                    const user = await usersRepository.newUser(data)
-                    if(user.success){
-                         this.successMessage()
-                         this.router.push('/userForm/' + user)
-                         // this.getUser()
+                    if (this.password === this.confirmPassword) {
+                        this.errorConfirmPassword = false
+                        this.isLoading = true
+                        if(this.$route.params.id){
+                             this.updateUser(this.$route.params.id, data)
+                        } else {
+                             this.newUser(data)
+                        }
+                        
                     } else {
-                         user.data.map(item => {
-                              this.errorMessage(item)
-                         })
-                         
+                        this.isLoading = false
+                        this.errorConfirmPassword = true
                     }
-                    this.isLoading = false
-               },
+                } else if(this.firstName && this.email && this.$route.params.id){
+                      this.isLoading = true
+                      this.updateUser(this.$route.params.id, data)
+                }
+            },
 
-               async getUser(data) {
-                    const user = await usersRepository.getUser(data)
-                    if(user.success){
-                         this.successMessage()
-                    } else {
-                         user.data.map(item => {
-                              this.errorMessage(item)
-                         })
-                         
-                    }
-                    this.isLoading = false
-               },
 
-               errorMessage(textMessage){
-                    this.$snackbar.open({
-                         message: textMessage,
-                         type: 'is-danger',
-                         position: 'is-bottom-right',
-                         actionText: 'OK',
-                         queue: false,
-                         duration: 10000,
-                         indefinite: false,
+            async newUser(data) {
+                const user = await usersRepository.newUser(data)
+                if (user.success) {
+                    this.successMessage(user.message)
+                    this.$router.push('/userForm/' + user.data)
+                } else {
+                    user.data.map(item => {
+                        this.errorMessage(item)
                     })
-               },
-               successMessage(){
-                    this.$snackbar.open({
-                         message: 'user has been successfully created',
-                         type: 'is-success',
-                         position: 'is-bottom-right',
-                         actionText: 'OK',
-                         queue: false,
-                         duration: 10000,
-                         indefinite: false,
+
+                }
+                this.isLoading = false
+            },
+
+            async getUser(data) {
+                const user = await usersRepository.getUser(data)
+                console.log(user)
+                this.firstName = user.first_name
+                this.lastName = user.last_name
+                this.email = user.email
+                this.status = user.status
+                this.password = ''
+                this.confirmPassword = ''
+                this.policies = user.policies
+
+            },
+            async updateUser(id, data) {
+                const user = await usersRepository.updateUser(id, data)
+                if (user.success) {
+                    this.successMessage(user.message)
+                } else {
+                    user.data.map(item => {
+                        this.errorMessage(item)
                     })
-               },
-               
-          }
-     }
+                }
+                this.isLoading = false
+                this.password = ''
+                this.confirmPassword = ''
+            },
+
+            errorMessage(textMessage) {
+                this.$snackbar.open({
+                    message: textMessage,
+                    type: 'is-danger',
+                    position: 'is-bottom-right',
+                    actionText: 'OK',
+                    queue: false,
+                    duration: 10000,
+                    indefinite: false,
+                })
+            },
+            successMessage(textMessage) {
+                this.$snackbar.open({
+                    message: textMessage,
+                    type: 'is-success',
+                    position: 'is-bottom-right',
+                    actionText: 'OK',
+                    queue: false,
+                    duration: 10000,
+                    indefinite: false,
+                })
+            },
+
+        }
+    }
 </script>
