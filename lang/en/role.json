@@ -5,5 +5,12 @@
         "created": "Role created successfully",
         "updated": "Role updated successfully",
         "deleted": "Role deleted successfully"
+    },
+
+    "permissions": {
+        "view": "Viewing roles",
+        "create": "Creating roles",
+        "update": "Updating roles",
+        "delete": "Deleting roles"
     }
 }

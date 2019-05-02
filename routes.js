@@ -46,6 +46,17 @@ export default {
                     },
 
 
+                    "/permission": {
+
+                        middleware: "authenticate",
+
+                        group: {
+                            "GET /": "PermissionController.find",
+                            "GET /me": "PermissionController.me",
+                        }
+                    },
+
+
                     "/media": {
 
                         middleware: "authenticate",

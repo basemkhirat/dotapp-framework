@@ -1,9 +1,17 @@
 {
     "email_taken": "Email is already taken",
-
     "events": {
         "created": "User created successfully",
         "updated": "User updated successfully",
         "deleted": "User deleted successfully"
+    },
+    "permissions": {
+        "view": "Viewing users",
+        "create": "Creating users",
+        "update": "Updating users data",
+        "status": "Changing users status",
+        "role": "Changing users role",
+        "permissions": "Changing users permissions",
+        "delete": "Deleting users"
     }
 }

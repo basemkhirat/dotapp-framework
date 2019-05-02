@@ -3,5 +3,12 @@
         "created": "Media created successfully",
         "updated": "Media updated successfully",
         "deleted": "Media deleted successfully"
+    },
+
+    "permissions": {
+        "view": "Viewing media",
+        "create": "Creating media",
+        "update": "Updating media",
+        "delete": "Deleting media"
     }
 }

@@ -43,7 +43,6 @@ export default class extends Controller {
                 docs: res.attachPolicies(result.docs, "user")
             });
         });
-
     }
 
     /**
@@ -62,7 +61,6 @@ export default class extends Controller {
             if (!user) return res.notFound("User not found");
             return res.ok(res.attachPolicies(user, "user"));
         });
-
     }
 
     /**
@@ -81,10 +79,11 @@ export default class extends Controller {
         user.password = req.param("password", user.password);
         user.first_name = req.param("first_name", user.first_name);
         user.last_name = req.param("last_name", user.last_name);
-        user.role = req.param("role", user.role);
-        user.status = req.param("status", user.status);
         user.lang = req.param("lang", user.lang);
         user.photo = req.param("photo", user.photo);
+
+        user.role = req.param("role", user.role);
+        user.status = req.param("status", user.status);
         user.permissions = req.param("permissions", user.permissions);
 
         user.save((error, user) => {

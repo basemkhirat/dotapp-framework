@@ -6,5 +6,12 @@
         "created": "Category created successfully",
         "updated": "Category updated successfully",
         "deleted": "Category deleted successfully"
+    },
+
+    "permissions": {
+        "view": "Viewing categories",
+        "create": "Creating categories",
+        "update": "Updating categories",
+        "delete": "Deleting categories"
     }
 }
