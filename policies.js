@@ -27,6 +27,30 @@ export default {
         status: (req, user) => (req.role === 'superadmin' || req.hasPermission("user.status")) && req.user.id !== user.id,
 
         /**
+         * users allowed to change role:
+         * - super admins and cannot change role of themselves
+         * - users have user.role permission and cannot change role of themselves
+         * -
+         * @param req
+         * @param user
+         * @returns {boolean}
+         */
+
+        role: (req, user) => (req.role === 'superadmin' || req.hasPermission("user.role")) && req.user.id !== user.id,
+
+        /**
+         * users allowed to change permissions:
+         * - super admins and cannot change permissions of themselves
+         * - users have user.permissions permission and cannot change permissions of themselves
+         * -
+         * @param req
+         * @param user
+         * @returns {boolean}
+         */
+
+        permissions: (req, user) => (req.role === 'superadmin' || req.hasPermission("user.permissions")) && req.user.id !== user.id,
+
+        /**
          * users allowed to delete:
          * - super admins and cannot delete themselves
          * - users have user.delete permission and cannot delete themselves

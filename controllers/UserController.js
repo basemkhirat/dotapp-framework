@@ -103,23 +103,27 @@ export default class extends Controller {
         let id = req.param("id");
 
         User.findById(id, (error, user) => {
-
             if (error) return res.serverError(error);
-            if (!req.can("user.update", user)) return res.forbidden();
             if (!user) return res.notFound("User not found");
-
-            if(req.user.id === user.id && user.status !== req.param("status")) {
-                return res.forbidden("Unable to change your status");
-            }
+            if (!req.can("user.update", user)) return res.forbidden();
 
             user.email = req.param("email", user.email);
             user.first_name = req.param("first_name", user.first_name);
             user.last_name = req.param("last_name", user.last_name);
-            user.status = req.param("status", user.status);
             user.lang = req.param("lang", user.lang);
             user.photo = req.param("photo", user.photo);
-            user.role = req.param("role", user.role);
-            user.permissions = req.param("permissions", user.permissions);
+
+            if(req.filled("status") && !req.can("user.status", user)) {
+                user.status = req.param("status", user.status);
+            }
+
+            if(req.filled("role") && !req.can("user.role", user)) {
+                user.role = req.param("role", user.role);
+            }
+
+            if(req.filled("permissions") && !req.can("user.permissions", user)) {
+                user.permissions = req.param("permissions", user.permissions);
+            }
 
             if (req.filled("password")) {
                 user.password = req.param("password");
@@ -143,8 +147,8 @@ export default class extends Controller {
 
         User.findById(id, function (error, user) {
             if (error) return res.serverError(error);
-            if (!req.can("user.delete", user)) return res.forbidden();
             if (!user) return res.notFound("User not found");
+            if (!req.can("user.delete", user)) return res.forbidden();
 
             user.remove(error => {
                 if (error) res.serverError(error);

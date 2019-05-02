@@ -5,6 +5,8 @@ export default {
         "create",
         "update",
         "status",
+        "role",
+        "permissions",
         "delete"
     ],
 
