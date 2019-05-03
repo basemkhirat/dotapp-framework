@@ -45,7 +45,7 @@ describe("Media", function () {
 
     it("create a new video from url", function (done) {
 
-        this.timeout(60000);
+        this.timeout(120000);
 
         media.payload = "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4";
 
