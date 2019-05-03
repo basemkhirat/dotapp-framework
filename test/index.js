@@ -1,5 +1,5 @@
-process.env.NODE_ENV = "testing";
 import request from 'supertest';
+
 let server = request.agent('http://localhost:3000');
 let user = {email: 'basem@gmail.com', password: '1234567'};
 
@@ -16,7 +16,6 @@ before(function (done) {
 });
 
 after(function (done) {
-
     done();
 });
 

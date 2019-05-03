@@ -1,10 +1,14 @@
-import { server, token } from './index';
+import {server, token} from './index';
 import faker from 'faker';
 
 let user = {
     email: faker.internet.email(),
     first_name: faker.name.firstName(),
-    password: faker.internet.password()
+    last_name: faker.name.lastName(),
+    password: faker.internet.password(),
+    status: 1,
+    lang: "en",
+    permissions: ["category.create", "category.delete"]
 };
 
 describe("User", function () {
@@ -15,7 +19,7 @@ describe("User", function () {
             .send(user)
             .expect(200)
             .end(function (error, response) {
-                if(error) throw error;
+                if (error) throw error;
                 user.id = response.body.data;
                 done();
             });
@@ -37,7 +41,6 @@ describe("User", function () {
             })
             .expect(200, done);
     });
-
 
     it("list all users", function (done) {
         server.get('/api/user')

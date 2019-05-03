@@ -34,7 +34,6 @@ describe("Role", function () {
             .expect(200, done);
     });
 
-
     it("list all users", function (done) {
         server.get('/api/role')
             .set('Authorization', 'Bearer ' + token)
