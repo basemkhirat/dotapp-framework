@@ -19,7 +19,7 @@ export default new class {
             ]
         });
 
-        if (env !== 'production') {
+        if (env !== 'production' && env !== 'testing') {
             this.logger.add(
                 new winston.transports.Console({
                     format: winston.format.combine(
@@ -33,10 +33,15 @@ export default new class {
     }
 
     message(message, level = 'error') {
-        this.logger.log({
-            level: level,
-            message: message
-        });
+
+        let env = process.env.NODE_ENV;
+
+        if (env !== 'production' && env !== 'testing') {
+            this.logger.log({
+                level: level,
+                message: message
+            });
+        }
     }
 }
 

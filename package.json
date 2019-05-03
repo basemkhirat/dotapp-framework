@@ -1,13 +1,11 @@
 {
-    "name": "express-mvc",
+    "description": "CMS JS",
     "author": "basem khirat",
-    "license": "MIT",
-    "version": "0.0.1",
-    "description": "express light-weight mvc",
-    "main": "server.js",
+    "main": "app.js",
     "scripts": {
         "dev": "nodemon --ignore 'storage/' --exec babel-node app.js",
         "up": "pm2 start --env production",
+        "test": "./node_modules/.bin/mocha test/**/*.js --require babel-register",
         "down": "pm2 stop all",
         "status": "pm2 status",
         "list": "pm2 list"
@@ -51,7 +49,11 @@
         "babel-plugin-root-import": "^6.1.0",
         "babel-plugin-transform-class-properties": "^6.24.1",
         "babel-preset-es2015": "^6.24.1",
+        "chai": "^4.2.0",
+        "faker": "^4.1.0",
+        "mocha": "^6.1.4",
         "nodemon": "^1.18.11",
-        "pm2": "^3.5.0"
+        "pm2": "^3.5.0",
+        "supertest": "^4.0.2"
     }
 }

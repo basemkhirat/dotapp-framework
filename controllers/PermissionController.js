@@ -15,14 +15,13 @@ export default class extends Controller {
         let allPermissions = {};
 
         for (let module in permissions) {
-            console.log(module);
             permissions[module].forEach(action => {
 
-                if(!(module in allPermissions)){
+                if (!(module in allPermissions)) {
                     allPermissions[module] = {};
                 }
 
-                allPermissions[module][module + "." + action] = req.lang(module  + ".permissions." + action);
+                allPermissions[module][module + "." + action] = req.lang(module + ".permissions." + action);
             });
         }
 
