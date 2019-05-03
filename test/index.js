@@ -1,5 +1,3 @@
-process.env.NODE_ENV = "testing";
-
 require('~/services/database');
 
 import User from '~/models/user';

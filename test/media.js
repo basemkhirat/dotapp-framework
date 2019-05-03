@@ -37,8 +37,9 @@ describe("Media", function () {
             .expect(200)
             .end(function (error, response) {
                 if(error) throw error;
-                media.id = response.body.data;
-                done();
+                server.delete("/api/media/" + response.body.data)
+                    .set('Authorization', 'Bearer ' + token)
+                    .expect(200, done);
             });
     });
 
@@ -54,8 +55,9 @@ describe("Media", function () {
             .expect(200)
             .end(function (error, response) {
                 if(error) throw error;
-                media.id = response.body.data;
-                done();
+                server.delete("/api/media/" + response.body.data)
+                    .set('Authorization', 'Bearer ' + token)
+                    .expect(200, done);
             });
     });
 
