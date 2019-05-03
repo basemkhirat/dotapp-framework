@@ -6,5 +6,5 @@
     "server_error": "Internal Server Error",
     "not_authenticated": "Not Authenticated",
     "validation_error": "Validation Error",
-    "ok": "Success"
+    "ok": "SUCCESS"
 }
