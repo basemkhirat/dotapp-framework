@@ -1,9 +1,8 @@
-require('~/services/database');
-
 import User from '~/models/user';
 import Role from '~/models/role';
+import app from '../app';
 
-let server = require('supertest').agent(process.env.APP_URL);
+let server = require('supertest')(app);
 let fakeUser = {email: "testy.mail.dev@me.com", password: "k14l2134421n5l215DSF@$", first_name: "Testy"};
 
 before(function (done) {

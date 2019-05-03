@@ -13,8 +13,6 @@ class Index {
         let policies = this.req.policies;
         let [module, action] = permission.split(".");
 
-        console.log(action);
-
         if (module) {
 
             if (module in policies) {

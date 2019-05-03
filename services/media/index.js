@@ -26,7 +26,6 @@ export default new class Index {
 
             if(resource.file.type === "image"){
 
-                console.log(resource.storage);
                 media.data = {
                     storage: resource.storage.disk,
                     path: resource.file.relative_directory + "/" + resource.file.file,
