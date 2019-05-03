@@ -6,7 +6,7 @@ let media = {
     description: faker.company.companyName()
 };
 
-describe("media", function () {
+describe("Media", function () {
 
     it("create a new image from url", function (done) {
 

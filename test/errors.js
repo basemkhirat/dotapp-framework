@@ -1,7 +1,7 @@
 import { server, token } from './index';
 import faker from 'faker';
 
-describe("errors", function () {
+describe("Errors", function () {
 
     it("Test Not Found", function (done) {
 
