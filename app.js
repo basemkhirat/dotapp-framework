@@ -50,8 +50,4 @@ app.use('/docs', Docs());
 app.use(NotFound());
 app.use(ServerError());
 
-//export default app;
-
-app.listen(Config.get('app.port'), function () {
-    Log.message('Server is listening at port ' + Config.get('app.port'), 'info');
-});
+export default app;

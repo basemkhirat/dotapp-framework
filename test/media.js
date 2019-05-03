@@ -10,6 +10,8 @@ describe("Media", function () {
 
     it("create a new image from url", function (done) {
 
+        this.timeout(60000);
+
         media.payload = "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png";
 
         server.post("/api/media")
@@ -24,6 +26,8 @@ describe("Media", function () {
     });
 
     it("create a new image from base64 data", function (done) {
+
+        this.timeout(60000);
 
         media.payload = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg==";
 

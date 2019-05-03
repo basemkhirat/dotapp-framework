@@ -3,7 +3,7 @@
     "author": "basem khirat",
     "main": "app.js",
     "scripts": {
-        "dev": "nodemon --ignore 'storage/' --exec babel-node app.js",
+        "dev": "nodemon --ignore 'storage/' --exec babel-node server.js",
         "up": "pm2 start --env production",
         "test": "./node_modules/.bin/mocha test/**/*.js --require babel-register",
         "down": "pm2 stop all",

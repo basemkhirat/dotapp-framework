@@ -3,17 +3,13 @@ import faker from 'faker';
 
 describe("Errors", function () {
 
-    it("Test Not Found", function (done) {
-
+    it("test not found", function (done) {
         server.get("/other/path")
             .expect(404, done);
-
     });
 
-    it("Test Not Authenticated", function (done) {
-
+    it("test not authenticated", function (done) {
         server.get("/api/user")
             .expect(401, done);
-
     });
 });

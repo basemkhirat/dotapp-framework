@@ -79,6 +79,4 @@ module.exports = new class {
     all() {
         return this.configurations;
     }
-
-
-}
+};
