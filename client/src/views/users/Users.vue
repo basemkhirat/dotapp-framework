@@ -3,7 +3,7 @@
     <div class="page--title">
       <h1 class="title--text">
         Users
-        <span class="badge--count">
+        <span class="badge--count" v-if="total">
           ({{total}})
         </span>
       </h1>
@@ -15,15 +15,10 @@
         <filter-items @selectAllItems="selectAllItems" />
     </div>
     <template v-if="dataLoading">
-      <transition name="slide-left" mode="out-in">
           <loading-data></loading-data>
-      </transition>
     </template>
     <template v-else>
-        <transition name="slide-left" mode="out-in">
-          <list-users @fetchAllUsers="fetchAllUsers" :allUserSelected="allUserSelected" :data="users"/>
-        </transition>
-        
+          <list-users @fetchAllUsers="fetchAllUsers" :allUserSelected="allUserSelected" :data="users"/>        
     </template>
     <template v-if="users">
         <div class="pagination--custom--number">

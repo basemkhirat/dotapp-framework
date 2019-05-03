@@ -12,7 +12,7 @@
 // .multiselect .multiselect__tags,
 // .v-select .dropdown-toggle,
 // .v-select .vs__dropdown-toggle {
-//     border-color: $borderColor !important;
+//     border-color: $borderColorForm !important;
 //     outline: 0;
 //     box-shadow: none !important;
 //     border-radius: 0;
@@ -151,7 +151,7 @@
 //     .vs__dropdown-menu {
 //         background-color: #F8F9FC !important;
 //         box-shadow: none;
-//         border-color: #E3E3E3;
+//         border-color: $borderColorForm;
 //         border-bottom-left-radius: 15px;
 //         border-bottom-right-radius: 15px;
 //         padding: 0 !important;
@@ -159,7 +159,7 @@
 
 //     .dropdown-menu li,
 //     .vs__dropdown-menu li {
-//         border-bottom: 1px solid #E3E3E3;
+//         border-bottom: 1px solid $borderColorForm;
 //     }
 
 //     .dropdown-menu li:last-child,
@@ -216,7 +216,7 @@
 //   }
 
 // .file--upload{
-//     border: 1px dashed $borderColor;
+//     border: 1px dashed $borderColorForm;
 //     padding: 15px;
 //     text-align: center;
 //     cursor: pointer;
@@ -246,7 +246,7 @@
 .multiselect .multiselect__tags,
 .v-select .dropdown-toggle,
 .v-select .vs__dropdown-toggle {
-    border-color: $borderColor !important;
+    border-color: $borderColorForm !important;
     outline: 0;
     box-shadow: none !important;
     border-radius: 0;
@@ -364,7 +364,7 @@ label.label {
     .vs__dropdown-menu {
         background-color: #fff !important;
         box-shadow: none;
-        border-color: #E3E3E3;
+        border-color: $borderColorForm;
         border-bottom-left-radius: 15px;
         border-bottom-right-radius: 15px;
         padding: 0 !important;
@@ -372,7 +372,7 @@ label.label {
 
     .dropdown-menu li,
     .vs__dropdown-menu li {
-        border-bottom: 1px solid #E3E3E3;
+        border-bottom: 1px solid $borderColorForm;
         padding: 8px 20px !important;
     }
 
@@ -430,7 +430,7 @@ label.label {
   }
 
 .file--upload{
-    border: 1px dashed $borderColor;
+    border: 1px dashed $borderColorForm;
     padding: 15px;
     text-align: center;
     cursor: pointer;
@@ -476,4 +476,16 @@ label.label {
 
 .vs__search, .vs__search:focus{
     margin: 0 !important;
+}
+.change--password{
+    cursor: pointer;
+    color: $textColor;
+    opacity: .84;
+    font-size: .85rem;
+    margin-left: 10px;
+    margin-right: 10px;
+    @include prefixer(transition, all .25s ease-in-out, webkit moz o);
+    &:hover{
+        opacity: 1;
+    }
 }

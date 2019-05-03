@@ -49,7 +49,7 @@
             </div>
             <div class="col-12 col-sm-6 col-xl-1">
                 <div class="item--text text-center">
-                    <div class="field">
+                    <div class="field" v-if="user.policies.indexOf('user.status') > -1">
                         <b-switch v-model="userStatus" true-value="Active" false-value="Not Active">
                             {{userStatus}}
                         </b-switch>
@@ -58,8 +58,8 @@
             </div>
             <div class="col-12 col-sm-12 col-xl item--text">
                 <div class="all--item--action d-flex align-item-center">
-                    <button class="button--circle is-primary-light"><i class="fas fa-pen"></i></button>
-                    <button class="button--circle is-danger-light"><i class="fas fa-trash"></i></button>
+                    <router-link :to="'/userForm/' + user.id" v-if="user.policies.indexOf('user.update') > -1" class="button--circle is-primary-light"><i class="fas fa-pen"></i></router-link>
+                    <button class="button--circle is-danger-light" @click="deleteUser(user.id)" v-if="user.policies.indexOf('user.delete') > -1"><i class="fas fa-trash"></i></button>
                 </div>
             </div>
         </div>
@@ -107,15 +107,19 @@
                 this.$emit('checkboxUser', {id: this.user.id, status: this.userSelected})
             },
             async updateUser(id, data) {
-
                 const user = await usersRepository.updateUser(id, data)
                 // console.log(user)
                 // this.isLoading = false
-                this.aleartMessage()
+                this.aleartMessage(user.message)
             },
-            aleartMessage(){
+            async deleteUser(id) {
+                const user = await usersRepository.deleteUser(id)
+                this.aleartMessage(user.message)
+                this.$emit('fetchAllUsers')
+            },
+            aleartMessage(textMessage){
                 this.$snackbar.open({
-                    message: 'user has been successfully updated',
+                    message: textMessage,
                     type: 'is-success',
                     position: 'is-bottom-right',
                     actionText: 'OK',

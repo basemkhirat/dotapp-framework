@@ -14,16 +14,15 @@ export default {
     updateUser(id, data) {
         return Repository.put(`${resource}/${id}`, data).then((response) => {
             if (response.data.success) {
-                return response.data.data;
+                return response.data;
             }
         });
     },
     deleteUser(id) {
         return Repository.delete(`${resource}/${id}`).then((response) => {
             if (response.data.success) {
-                return response.data.data;
+                return response.data;
             }
-            console.log(response.data)
         });
     },
     getAllUsers(page, limit) {

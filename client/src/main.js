@@ -3,6 +3,8 @@ import router from './router'
 import store from './store/store'
 import axios from 'axios'
 
+import mixins from './mixins/mixins'
+
 // Vue Select
 import vSelect from 'vue-select'
 Vue.component('v-select', vSelect)
@@ -38,6 +40,14 @@ if (accessToken) {
 //     }
 //     return Promise.reject(error.response);
 // });
+
+
+// Vue Mixins
+Vue.mixin({
+  mixins: [mixins]
+})
+
+
 
 
 Vue.config.productionTip = false
