@@ -5,7 +5,7 @@
     "scripts": {
         "dev": "nodemon --ignore 'storage/' --exec babel-node server.js",
         "up": "pm2 start --env production",
-        "test": "./node_modules/.bin/mocha test/**/*.js --require babel-register --exit",
+        "test": "export APP_CONSOLE=true && ./node_modules/.bin/mocha test/**/*.js --require babel-register --exit",
         "down": "pm2 stop all",
         "status": "pm2 status",
         "list": "pm2 list"

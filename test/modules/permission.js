@@ -1,4 +1,4 @@
-import {server, token} from './index';
+import {server, token} from '../index';
 
 describe("Permission", function () {
 

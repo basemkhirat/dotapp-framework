@@ -1,4 +1,4 @@
-import {server, user} from './index';
+import {server, user} from '../index';
 
 describe("Authentication", function () {
 
