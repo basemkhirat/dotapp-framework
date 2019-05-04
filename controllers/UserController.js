@@ -82,9 +82,17 @@ export default class extends Controller {
         user.lang = req.param("lang", user.lang);
         user.photo = req.param("photo", user.photo);
 
-        user.role = req.param("role", user.role);
-        user.status = req.param("status", user.status);
-        user.permissions = req.param("permissions", user.permissions);
+        if(req.filled("status") && req.can("user.status")) {
+            user.role = req.param("role", user.role);
+        }
+
+        if(req.filled("role") && req.can("user.role")) {
+            user.status = req.param("status", user.status);
+        }
+
+        if(req.filled("permissions") && req.can("user.permissions")) {
+            user.permissions = req.param("permissions", user.permissions);
+        }
 
         user.save((error, user) => {
             if (error) return res.serverError(error);

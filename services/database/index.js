@@ -4,6 +4,10 @@ import Config from '~/services/config';
 
 export default new class {
 
+    /**
+     * setting global mongoose params
+     * and debugging option
+     */
     constructor() {
 
         mongoose.set('debug', Config.get("app.debug") && !Boolean(process.env.APP_CONSOLE));
@@ -25,6 +29,9 @@ export default new class {
         this.connect();
     }
 
+    /**
+     * initializing connection
+     */
     connect() {
 
         let config = Config.get("database");
@@ -52,6 +59,9 @@ export default new class {
 
     }
 
+    /**
+     * closing connection
+     */
     close(){
         mongoose.connection.close();
     }

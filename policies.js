@@ -12,7 +12,7 @@ export default {
          * @returns {boolean}
          */
 
-        update: (req, user) => req.role === 'superadmin' || req.hasPermission("user.update") || req.user.id === user.id,
+        update: (req, user = false) => req.role === 'superadmin' || req.hasPermission("user.update") || req.user.id === user.id,
 
         /**
          * users allowed to change status:
@@ -24,7 +24,7 @@ export default {
          * @returns {boolean}
          */
 
-        status: (req, user) => (req.role === 'superadmin' || req.hasPermission("user.status")) && req.user.id !== user.id,
+        status: (req, user = false) => (req.role === 'superadmin' || req.hasPermission("user.status")) && req.user.id !== user.id,
 
         /**
          * users allowed to change role:
@@ -36,7 +36,7 @@ export default {
          * @returns {boolean}
          */
 
-        role: (req, user) => (req.role === 'superadmin' || req.hasPermission("user.role")) && req.user.id !== user.id,
+        role: (req, user = false) => (req.role === 'superadmin' || req.hasPermission("user.role")) && req.user.id !== user.id,
 
         /**
          * users allowed to change permissions:
@@ -48,7 +48,7 @@ export default {
          * @returns {boolean}
          */
 
-        permissions: (req, user) => (req.role === 'superadmin' || req.hasPermission("user.permissions")) && req.user.id !== user.id,
+        permissions: (req, user = false) => (req.role === 'superadmin' || req.hasPermission("user.permissions")) && req.user.id !== user.id,
 
         /**
          * users allowed to delete:
@@ -60,7 +60,7 @@ export default {
          * @returns {boolean}
          */
 
-        delete: (req, user) => (req.role === 'superadmin' || req.hasPermission("user.delete")) && req.user.id !== user.id,
+        delete: (req, user = false) => (req.role === 'superadmin' || req.hasPermission("user.delete")) && req.user.id !== user.id,
     },
 
     role: req => req.role === 'superadmin',
