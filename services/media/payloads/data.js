@@ -1,8 +1,10 @@
+import Log from '~/services/log';
+
 export default class Data {
 
     store(callback) {
 
-        _info("getting file from base64 data");
+        Log.message("getting file from base64 data", "info");
 
         this.setProvider("local");
 

@@ -6,9 +6,7 @@ export default new class {
 
     constructor() {
 
-        if(process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== "testing") {
-            mongoose.set('debug', true);
-        }
+        mongoose.set('debug', Config.get("app.debug") && !Boolean(process.env.APP_CONSOLE));
 
         mongoose.set('toObject', {
             getters: true,
@@ -52,5 +50,9 @@ export default new class {
             });
         });
 
+    }
+
+    close(){
+        mongoose.connection.close();
     }
 }

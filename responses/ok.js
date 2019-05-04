@@ -1,3 +1,5 @@
+import Config from '~/services/config';
+
 export default function (data) {
 
     let response = {};
@@ -7,7 +9,7 @@ export default function (data) {
     response.success = true;
     response.data = data || undefined;
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (Config.get("app.debug")) {
         response.debug = {
             env: process.env.NODE_ENV,
             user: this.req.user,

@@ -1,0 +1,7 @@
+#!/usr/bin/env node
+
+process.env.APP_CONSOLE = true;
+
+require('babel-register');
+
+require('./services/command');

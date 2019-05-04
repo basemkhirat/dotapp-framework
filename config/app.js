@@ -7,6 +7,12 @@ export default {
     url: process.env.APP_URL || 'http://localhost',
 
     /**
+     * The application base url
+     */
+
+    debug: process.env.APP_DEBUG || true,
+
+    /**
      * The `port` setting determines which TCP port your app will be deployed on.
      */
 

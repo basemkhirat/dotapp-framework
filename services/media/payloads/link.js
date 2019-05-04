@@ -1,10 +1,11 @@
 import request from 'request';
+import Log from '~/services/log';
 
 export default class Link {
 
     store(callback) {
 
-        _info("getting file from link");
+        Log.message("getting file from link", "info");
 
         this.setProvider("local");
 

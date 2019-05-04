@@ -6,5 +6,6 @@
     "server_error": "خطأ في السيرفر",
     "not_authenticated": "غير مسجل",
     "validation_error": "بعض البيانات المدخلة غير صحيحة",
-    "ok": "طلب صحيح"
+    "ok": "طلب صحيح",
+    "something_wrong": "حدث خطأ"
 }

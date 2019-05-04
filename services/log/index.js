@@ -3,46 +3,55 @@ import path from 'path';
 
 export default new class {
 
+    /**
+     * Logger initialization
+     * file and console logger
+     */
     constructor() {
 
-        let env = process.env.NODE_ENV;
-
         this.logger = winston.createLogger({
+
+            format: winston.format.printf(info => `${new Date().toISOString()} ${info.message}`),
+
             transports: [
+
+                /**
+                 * log all error messages only to error.log file
+                 * in all environments
+                 */
                 new winston.transports.File({
                     filename: path.join(process.cwd(), 'storage/logs/error.log'),
                     level: 'error'
                 }),
-                new winston.transports.File({
-                    filename: path.join(process.cwd(), 'storage/logs/combined.log')
-                })
-            ]
-        });
 
-        if (env !== 'production' && env !== 'testing') {
-            this.logger.add(
+                /**
+                 * log all messages to console
+                 * in all environments
+                 */
                 new winston.transports.Console({
+                    level: Boolean(process.env.APP_CONSOLE) ? 'error' : undefined,
                     format: winston.format.combine(
                         winston.format.colorize(),
                         winston.format.simple()
                     )
                 })
-            );
-        }
 
+            ]
+        });
     }
 
+    /**
+     * set log message
+     * @param message
+     * @param level
+     */
     message(message, level = 'error') {
-
-        let env = process.env.NODE_ENV;
-
-        if (env !== 'production' && env !== 'testing') {
-            this.logger.log({
-                level: level,
-                message: message
-            });
-        }
+        this.logger.log({
+            level: level,
+            message: message
+        });
     }
+
 }
 
 

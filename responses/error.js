@@ -1,3 +1,5 @@
+import Config from '~/services/config';
+
 export default function (data, code = 500) {
 
     let error = new Error();
@@ -7,7 +9,7 @@ export default function (data, code = 500) {
     error.status = code;
     error.success = false;
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (Config.get("app.debug")) {
         error.debug = {
             env: process.env.NODE_ENV,
             user: this.req.user,
