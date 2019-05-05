@@ -11,6 +11,6 @@ export default class extends Controller {
      */
 
     index(req, res, next) {
-        res.ok("Hi " + process.env.NODE_ENV);
+        res.ok("Hi " + req.remote_address());
     }
 };
