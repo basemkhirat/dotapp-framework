@@ -18,7 +18,7 @@
           <loading-data></loading-data>
     </template>
     <template v-else>
-          <list-users @fetchAllUsers="fetchAllUsers" :allUserSelected="allUserSelected" :data="users"/>        
+          <list-users @fetchAllItems="fetchAllItems" :allUserSelected="allUserSelected" :data="users"/>        
     </template>
     <template v-if="users">
         <div class="pagination--custom--number">
@@ -61,18 +61,18 @@ export default {
     FilterItems,
   },
   created(){
-    this.fetchAllUsers()
+    this.fetchAllItems()
   },
   watch:{
     page(){
-      this.fetchAllUsers()
+      this.fetchAllItems()
     }
   },
   methods:{
     selectAllItems(){
       this.allUserSelected =! this.allUserSelected 
     },
-    async fetchAllUsers() {
+    async fetchAllItems() {
       this.dataLoading = true
         const data = await usersRepository.getAllUsers(this.page, this.limit)
         this.users = data.docs;
