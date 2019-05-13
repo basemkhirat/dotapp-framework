@@ -13,5 +13,10 @@
         "role": "Changing users role",
         "permissions": "Changing users permissions",
         "delete": "Deleting users"
+    },
+    "errors": {
+        "status_denied" : "you don't have policy to set user status",
+        "role_denied" : "you don't have policy to set user role",
+        "permissions_denied" : "you don't have policy to set user permissions"
     }
 }

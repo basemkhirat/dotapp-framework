@@ -72,6 +72,9 @@ export default class extends Controller {
     create(req, res) {
 
         if (!req.can("user.create")) return res.forbidden();
+        if (req.filled("status") && !req.can("user.status")) return res.forbidden();
+        if (req.filled("role") && !req.can("user.role")) return res.forbidden();
+        if (req.filled("permissions") && !req.can("user.permissions")) return res.forbidden();
 
         let user = new User();
 
@@ -81,18 +84,9 @@ export default class extends Controller {
         user.last_name = req.param("last_name", user.last_name);
         user.lang = req.param("lang", user.lang);
         user.photo = req.param("photo", user.photo);
-
-        if(req.filled("status") && req.can("user.status")) {
-            user.role = req.param("role", user.role);
-        }
-
-        if(req.filled("role") && req.can("user.role")) {
-            user.status = req.param("status", user.status);
-        }
-
-        if(req.filled("permissions") && req.can("user.permissions")) {
-            user.permissions = req.param("permissions", user.permissions);
-        }
+        user.role = req.param("role", user.role);
+        user.status = req.param("status", user.status);
+        user.permissions = req.param("permissions", user.permissions);
 
         user.save((error, user) => {
             if (error) return res.serverError(error);
@@ -112,25 +106,23 @@ export default class extends Controller {
         User.findById(id, (error, user) => {
             if (error) return res.serverError(error);
             if (!user) return res.notFound("User not found");
+
             if (!req.can("user.update", user)) return res.forbidden();
+            if (req.filled("status") && !req.can("user.status", user))
+                return res.forbidden(req.lang("user.errors.status_denied"));
+            if (req.filled("role") && !req.can("user.role", user))
+                return res.forbidden(req.lang("user.errors.role_denied"));
+            if (req.filled("permissions") && !req.can("user.permissions", user))
+                return res.forbidden(req.lang("user.errors.permissions_denied"));
 
             user.email = req.param("email", user.email);
             user.first_name = req.param("first_name", user.first_name);
             user.last_name = req.param("last_name", user.last_name);
             user.lang = req.param("lang", user.lang);
             user.photo = req.param("photo", user.photo);
-
-            if(req.filled("status") && req.can("user.status", user)) {
-                user.status = req.param("status", user.status);
-            }
-
-            if(req.filled("role") && req.can("user.role", user)) {
-                user.role = req.param("role", user.role);
-            }
-
-            if(req.filled("permissions") && req.can("user.permissions", user)) {
-                user.permissions = req.param("permissions", user.permissions);
-            }
+            user.status = req.param("status", user.status);
+            user.role = req.param("role", user.role);
+            user.permissions = req.param("permissions", user.permissions);
 
             if (req.filled("password")) {
                 user.password = req.param("password");
