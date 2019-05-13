@@ -2,8 +2,8 @@
     <div>
           <div class="row" v-if="data">
                <div class="col-6 col-md-4 col-lg-3 col-xl-2" v-for="item in data" :key="item.id">
-                    <div class="media--item">
-                         <img :src="item.images" alt="" @click="quickEdit(item)">
+                    <div class="media--item" v-if="item.thumbnails">
+                         <img :src="item.thumbnails.medium" :alt="itemSelected.title" @click="quickEdit(item)">
                          <div class="media--action d-flex justify-content-between"  :class="{'showItemAction': checkItemsGroup.length}">
                               <a class="media--action--check custom--ckeckbox">
                                    <b-checkbox :native-value="item.id" v-model="checkItemsGroup"></b-checkbox>
@@ -16,12 +16,16 @@
                     </div>
                </div>          
           </div>
+          
           <!-- Modal Quick Edit -->
           <b-modal :canCancel="false" :width="640" :active.sync="modalQuickEdit" scroll="keep" class="modal--custom modal--edit--images">
                <div class="modal--content">
                     <h3 class="modal-card-title">Edit Image</h3>
                     <section class="modal-card-body" v-if="itemSelected">
-                         <img :src="itemSelected.images" alt="">
+                         <template v-if="itemSelected.thumbnails">
+                              <img :src="itemSelected.thumbnails.medium" :alt="itemSelected.title">
+                         </template>
+                         
                          <div class="content--edit--image mt-3">
                               <b-field>
                                    <b-input 
@@ -40,7 +44,7 @@
                               <div class="field has-addons justify-content-center">
                                    <p class="control flex-fill">
                                         <a class="button is-rounded w-100"
-                                        v-clipboard:copy="itemSelected.images"
+                                        v-clipboard:copy="itemSelected.url"
                                         v-clipboard:success="onCopy"
                                         v-clipboard:error="onError"
                                         >
@@ -59,7 +63,7 @@
                                         </a>
                                    </p>
                                    <p class="control flex-fill">
-                                        <a class="button w-100" target="_blank" :href="itemSelected.images">
+                                        <a class="button w-100" target="_blank" :href="itemSelected.url">
                                              <span class="icon is-small">
                                                   <i class="fas fa-external-link-square-alt"></i>
                                              </span>

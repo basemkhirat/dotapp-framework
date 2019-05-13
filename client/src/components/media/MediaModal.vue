@@ -11,10 +11,17 @@
 
                     <!-- Items Media -->
                     <div class="row">
+                         
 
                          <vue-perfect-scrollbar class="media--items--wrap" :settings="scrollSettingsMedia">
                               <div class="media--items">
-                                   <media-items :data="images"/>
+                                   
+                                   <template v-if="dataLoading">
+                                        <loading-data></loading-data>
+                                   </template>
+                                   <template v-else>
+                                             <media-items :data="items"/>
+                                   </template>
                               </div>
                          </vue-perfect-scrollbar>
 
@@ -24,12 +31,12 @@
                          <div class="d-flex align-items-center">
                               <div v-if="itemsSelectedCount">Selected: <strong class="ml-2">{{itemsSelectedCount}}</strong></div>
                               <div class="ml-auto buttons">
-                                   <button :class="{'showActionButton': itemsSelectedCount}" 
+                                   <!-- <button :class="{'showActionButton': itemsSelectedCount}" 
                                    class="button showButtonAddAlbum is-rounded" 
                                    @click="changeModalCreateAlbum">
                                         Add to album 
                                         <i class="fas fa-clone ml-2"></i>
-                                   </button>
+                                   </button> -->
                                    <button :class="{'showActionButton': itemsSelectedCount}" 
                                    class="button is-rounded showButtonDeleteImage" 
                                    @click="confirmCustomDelete">
@@ -67,6 +74,13 @@ import uploadFiles from './UploadFiles'
 import createAlbum from './CreateAlbum'
 import {images} from './../../mocks/media/images.js'
 import VuePerfectScrollbar from 'vue-perfect-scrollbar';
+
+// Repository Data
+import { RepositoryFactory } from '../../repositories/RepositoryFactory'
+const mediaRepository = RepositoryFactory.get('media')
+
+
+
 export default {
      data(){
           return {
@@ -77,7 +91,17 @@ export default {
                scrollSettingsMedia: {
                     maxScrollbarLength: 160
                 },
+               items: [],
+               total: null,
+               allUserSelected: false,
+               page: 1, 
+               limit: 50,
+               order: 'is-centered',
+               dataLoading: true
           }
+     },
+     created(){
+          this.fetchAllItems()
      },
      components:{
           filterMedia,
@@ -101,12 +125,27 @@ export default {
           closeMediaModal(){
                this.$store.commit('closeMediaModal')
           },
-          changeModalUploadFiles(){
+          changeModalUploadFiles(data){
                this.mediaModalUploadFile = !this.mediaModalUploadFile
+               console.log(data.newItem)
+               if(data.newItem == true){
+                    this.fetchAllItems()
+               }
           },
           changeModalCreateAlbum(){
                this.modalCreateAlbum = !this.modalCreateAlbum
           },
+
+          // Get All Media
+          async fetchAllItems() {
+               this.dataLoading = true
+               const data = await mediaRepository.getAllMedia(this.page, this.limit)
+               this.items = data.docs;
+               this.total = data.total;
+               console.log(data)
+               this.dataLoading = false;
+          },
+    
 
           confirmCustomDelete() {
                 this.$dialog.confirm({

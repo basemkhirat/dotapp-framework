@@ -59,6 +59,10 @@
           mapState
      } from 'vuex'
 
+     // Repository Data
+     import { RepositoryFactory } from '../../repositories/RepositoryFactory'
+     const mediaRepository = RepositoryFactory.get('media')
+
 
      export default {
           name: 'groups',
