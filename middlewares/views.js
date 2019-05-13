@@ -1,7 +1,7 @@
 export default function () {
     return function (req, res, next) {
 
-        var origRender = res.render;
+        let origRender = res.render;
 
         res.render = function (view, locals, callback) {
             if ('function' == typeof locals) {
@@ -17,5 +17,4 @@ export default function () {
 
         next();
     }
-
 }

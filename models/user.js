@@ -69,7 +69,6 @@ let schema = Schema({
     }
 );
 
-
 schema.index({permissions: 1});
 schema.index({status: 1});
 schema.index({photo: 1});
@@ -83,7 +82,6 @@ schema.index({
     last_name: "text",
     lang: "text"
 });
-
 
 /**
  * generate password salt

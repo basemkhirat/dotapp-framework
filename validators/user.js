@@ -1,6 +1,12 @@
 import User from '~/models/user';
 import Validator from 'validatorjs';
 
+/**
+ * validate user
+ * @param req
+ * @param res
+ * @returns {Validator}
+ */
 export default function (req, res) {
 
     Validator.registerAsync('email_available', function (email, id, x, passes) {

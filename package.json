@@ -5,7 +5,7 @@
     "scripts": {
         "dev": "nodemon --ignore 'storage/' --exec babel-node server.js",
         "up": "pm2 start --env production",
-        "test": "export APP_CONSOLE=true && ./node_modules/.bin/mocha test/**/*.js --require babel-register --exit",
+        "test": "export APP_CONSOLE=true && ./node_modules/.bin/mocha tests/**/*.js --require babel-register --exit",
         "down": "pm2 stop all",
         "status": "pm2 status",
         "list": "pm2 list"
@@ -14,6 +14,7 @@
         "@ffmpeg-installer/ffmpeg": "^1.0.17",
         "async": "^2.5.0",
         "bcrypt": "^3.0.6",
+        "better-queue": "^3.8.10",
         "body-parser": "^1.18.2",
         "cacheman": "^2.2.1",
         "cacheman-file": "^0.2.1",

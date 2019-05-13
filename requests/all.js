@@ -1,5 +1,8 @@
 import merge from 'merge-deep';
 
+/**
+ * get all request parameters
+ */
 export default function () {
     let params = this.req.params || {};
     let body = this.req.body || {};

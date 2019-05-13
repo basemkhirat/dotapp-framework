@@ -1,3 +1,11 @@
+import Config from '~/services/config';
+
+/**
+ * attach response with user policies
+ * @param data
+ * @param module
+ * @returns {*}
+ */
 export default function (data, module = false) {
 
     if (module) {
@@ -10,7 +18,7 @@ export default function (data, module = false) {
 
                     row = row.toObject();
 
-                    row.policies = _config("permissions." + module, [])
+                    row.policies = Config.get("permissions." + module, [])
                         .filter(action => {
                             return this.req.can(module + "." + action, row);
                         }).map(action => {
@@ -27,7 +35,7 @@ export default function (data, module = false) {
 
                 data = data.toObject();
 
-                data.policies = _config("permissions." + module, [])
+                data.policies = Config.get("permissions." + module, [])
                     .filter(action => {
                         return this.req.can(module + "." + action, data);
                     }).map(action => {

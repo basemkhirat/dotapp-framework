@@ -1,6 +1,11 @@
 import Log from '~/services/log';
 import Config from '~/services/config';
 
+/**
+ * send server error response
+ * @param data
+ * @returns {*}
+ */
 export default function (data) {
 
     let error = undefined;

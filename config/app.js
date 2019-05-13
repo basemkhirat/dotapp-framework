@@ -25,6 +25,10 @@ export default {
      * reverse proxy to tell the app whether it is https or http or even an invalid name.
      * This value is reflected by req.protocol.
      * The req.ip and req.ips values are populated with the list of addresses from X-Forwarded-For.
+     *
+     * If true, the client’s IP address is understood as the left-most entry in the X-Forwarded-* header.
+     * If false, the app is understood as directly facing the Internet and the client’s IP address
+     * is derived from req.connection.remoteAddress. This is the default setting.
      */
 
     trust_proxy: process.env.APP_PROXY || false,

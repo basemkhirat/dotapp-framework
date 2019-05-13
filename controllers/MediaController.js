@@ -15,7 +15,7 @@ export default class extends Controller {
 
         let id = req.param("id");
 
-        Media.findById(id, function (error, media) {
+        Media.findById(id).populate("user").exec(function (error, media) {
             if (error) return res.serverError(error);
             if (!media) return res.notFound("Media not found");
             return res.ok(res.attachPolicies(media, "media"));
@@ -41,6 +41,8 @@ export default class extends Controller {
         query.page(req.param("page"), req.param("limit"));
 
         query.order(req.param("sort_field", "created_at"), req.param("sort_type", "desc"));
+
+        query.populate("user");
 
         query.execWithCount((error, result) => {
             if (error) return res.serverError(error);

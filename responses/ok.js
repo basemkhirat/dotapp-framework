@@ -1,5 +1,10 @@
 import Config from '~/services/config';
 
+/**
+ * send success response
+ * @param data
+ * @returns {*}
+ */
 export default function (data) {
 
     let response = {};

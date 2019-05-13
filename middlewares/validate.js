@@ -11,7 +11,8 @@ export default function (resource) {
 
         let resource_validator = path.join(process.cwd(), "validators/" + resource + ".js");
 
-        if (fs.existsSync(resource_validator)) {
+        fs.access(resource_validator, error => {
+            if (error) return res.serverError(resource + " validator is not exist");
 
             let validation = require(resource_validator).default(req, res);
 
@@ -20,9 +21,6 @@ export default function (resource) {
             }, () => {
                 return res.validationError(Object.values(validation.errors.all()).map(error => error[0]));
             });
-
-        } else {
-            return res.serverError(resource + " validator is not exist");
-        }
+        });
     }
 }

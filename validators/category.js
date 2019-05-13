@@ -1,6 +1,12 @@
 import Category from '~/models/category';
 import Validator from 'validatorjs';
 
+/**
+ * validate category
+ * @param req
+ * @param res
+ * @returns {Validator}
+ */
 export default function (req, res) {
 
     Validator.registerAsync('category_name_available', function (name, id, x, passes) {

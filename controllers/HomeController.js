@@ -1,5 +1,4 @@
 import Controller from './Controller';
-//import Command from '~/services/command';
 
 export default class extends Controller {
 
@@ -11,6 +10,6 @@ export default class extends Controller {
      */
 
     index(req, res, next) {
-        res.ok("Hi " + req.remote_address());
+        res.ok("Hi " + req.ipAddress());
     }
 };

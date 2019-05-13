@@ -11,7 +11,7 @@ export default class {
         this.log("Listing all user");
 
         User.find().exec((error, users) => {
-            console.log(users);
+            this.log(users);
             done(error, users);
         });
     }

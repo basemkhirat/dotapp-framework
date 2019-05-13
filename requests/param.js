@@ -1,7 +1,18 @@
+/**
+ * cast value
+ * @param value
+ * @returns {number}
+ */
 let castValue = (value) => {
     return !isNaN(value) && value !== "" ? Number(value) : value;
-}
+};
 
+/**
+ * get request parameter value
+ * @param name
+ * @param defaultValue
+ * @returns {number | *|*}
+ */
 export default function (name, defaultValue) {
     let params = this.req.params || {};
     let body = this.req.body || {};
