@@ -32,10 +32,7 @@ export default {
         });
     },
     newMediaItem(data) {
-        return Repository.post(`${resource}`, {
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }, data }).then((response) => {
+        return Repository.post(`${resource}`, data).then((response) => {
             if (response.data.success) {
                 return response.data;
             }
