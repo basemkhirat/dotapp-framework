@@ -58,12 +58,22 @@
                                     </v-select>
                                 </b-field>
                             </div>
-                            <div class="col-12 col-sm-6" v-if="policies.indexOf('user.status') > -1">
-                                <b-field class="field-group text-center">
-                                    <b-switch v-model="userStatus" true-value="Active" false-value="Not Active">
-                                        {{userStatus}}
-                                    </b-switch>
-                                </b-field>
+                            <div class="col-12 col-sm-6">
+                                <template v-if="this.$route.params.id">
+                                    <b-field class="field-group text-center" v-if="policies.indexOf('user.status') > -1">
+                                        <b-switch v-model="userStatus" true-value="Active" false-value="Not Active">
+                                            {{userStatus}}
+                                        </b-switch>
+                                    </b-field>
+                                </template>
+                                <template v-else>
+                                    <b-field class="field-group text-center">
+                                        <b-switch v-model="userStatus" true-value="Active" false-value="Not Active">
+                                            {{userStatus}}
+                                        </b-switch>
+                                    </b-field>
+                                </template>
+                                
                             </div>
                             <div class="col-12" v-if="this.$route.params.id">
                                 <b-field class="field-group">

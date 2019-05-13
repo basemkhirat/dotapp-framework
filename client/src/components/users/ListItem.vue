@@ -59,7 +59,7 @@
             <div class="col-12 col-sm-12 col-xl item--text">
                 <div class="all--item--action d-flex align-item-center">
                     <router-link :to="'/userForm/' + user.id" v-if="user.policies.indexOf('user.update') > -1" class="button--circle is-primary-light"><i class="fas fa-pen"></i></router-link>
-                    <button class="button--circle is-danger-light" @click="deleteUser(user.id)" v-if="user.policies.indexOf('user.delete') > -1"><i class="fas fa-trash"></i></button>
+                    <button class="button--circle is-danger-light" @click="deleteItem(user.id)" v-if="user.policies.indexOf('user.delete') > -1"><i class="fas fa-trash"></i></button>
                 </div>
             </div>
         </div>
@@ -106,6 +106,9 @@
             updateCheckbox(){
                 this.$emit('checkboxUser', {id: this.user.id, status: this.userSelected})
             },
+            deleteItem(id){
+                this.confirmCustomDelete(id)
+            },
             async updateUser(id, data) {
                 const user = await usersRepository.updateUser(id, data)
                 // console.log(user)
@@ -115,7 +118,7 @@
             async deleteUser(id) {
                 const user = await usersRepository.deleteUser(id)
                 this.aleartMessage(user.message)
-                this.$emit('fetchAllUsers')
+                this.$emit('fetchAllItems')
             },
             aleartMessage(textMessage){
                 this.$snackbar.open({
@@ -126,6 +129,16 @@
                     queue: false,
                     duration: 3000,
                     indefinite: false,
+                })
+            },
+            confirmCustomDelete(id) {
+                this.$dialog.confirm({
+                    title: 'Deleting User',
+                    message: 'Are you sure you want to <b>delete</b> This User? This action cannot be undone.',
+                    confirmText: 'Delete User',
+                    type: 'is-danger',
+                    hasIcon: true,
+                    onConfirm: () => this.deleteUser(id)
                 })
             }
         }

@@ -45,7 +45,7 @@ const router = new Router({
           meta: {requiresAuth: true},
         },
         {
-          path: '/groupForm',
+          path: '/groupForm/:id?',
           name: 'groupForm',
           component: () => import('./views/groups/Form.vue'),
           meta: {requiresAuth: true},

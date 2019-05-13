@@ -1,7 +1,7 @@
 <template>
     <div>
         <item  v-for="user in data" :key="user.id" :user="user" 
-        @fetchAllUsers="fetchAllUsers"
+        @fetchAllItems="fetchAllItems"
         @checkboxUser="checkboxUserStatus" 
         :usersSelected="usersSelected"/>
          
@@ -81,24 +81,24 @@ export default {
         // Delete Items
         async deleteUser(id) {
             const user = await usersRepository.deleteUser(id)
-            this.$emit('fetchAllUsers')
+            this.$emit('fetchAllItems')
             this.aleartMessage()
         },
         // Ban Items
         // async banItems(id) {
         //     const user = await usersRepository.deleteUser(id)
-        //     this.$emit('fetchAllUsers')
+        //     this.$emit('fetchAllItems')
         //     this.aleartMessage()
         // },
          async updateUser(id, data) {
              console.log(id, data)
             const user = await usersRepository.updateUser(id, data)
             console.log(user)
-            this.$emit('fetchAllUsers')
+            this.$emit('fetchAllItems')
             this.aleartMessage(user.message)
         },
-        fetchAllUsers(){
-            this.$emit('fetchAllUsers')
+        fetchAllItems(){
+            this.$emit('fetchAllItems')
         },
         aleartMessage(textMessage){
             this.$snackbar.open({

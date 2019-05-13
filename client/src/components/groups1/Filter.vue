@@ -5,19 +5,19 @@
                 <div class="filter--items--left">
                     <div class="input--fuild">
                         <button class="button is-rounded w-100" 
-                              :class="{'is-primary' : checkItem}"
+                              :class="{'is-primary' : checkUsers}"
                               @click="selectAllItems">
                               Select All
                          </button>
                     </div>
-                    <!-- <div class="input--fuild">
+                    <div class="input--fuild">
                         <v-select :options="groups" v-model="group" label="title" placeholder="Sort By Group"
                             class="select--with--icon w-100 v--select--scroll">
                             <template slot="option" slot-scope="option">
                                 {{ option.title }}
                             </template>
                         </v-select>
-                    </div> -->
+                    </div>
                 </div>
             </div>
             <div class="col-12 col-lg-6">
@@ -31,6 +31,7 @@
                     
                 </div>
             </div>
+
         </div>
 
     </div>
@@ -38,29 +39,19 @@
 
 <script>
     export default {
-        props:['allItemChecked'],
         data() {
             return {
                 group: '',
                 groups: ['All', 'admin', 'editor', 'users'],
-                checkItem: false,
-            }
-        },
-        watch:{
-            allItemChecked(){
-                if(this.allItemChecked == 0){
-                    this.checkItem= false
-                }
+                checkUsers: false,
             }
         },
         methods: {
             selectAllItems() {
-                this.checkItem = !this.checkItem
-                this.$emit('selectAllItems', this.checkItem)
+                this.checkUsers = !this.checkUsers
+                this.$emit('selectAllItems')
             }
         }
     }
 
 </script>
-
-

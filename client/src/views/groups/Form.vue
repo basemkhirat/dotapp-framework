@@ -1,19 +1,22 @@
 <template>
-     <div class="users">
+     <div class="groups">
           <div class="page--title">
                <h1 class="title--text">Groups</h1>
+               <div class="page--title--action ml-auto" v-if="this.$route.params.id">
+                    <router-link to="/groupForm" class="button is-primary is-rounded">Add New Group</router-link>
+               </div>
           </div>
           <div class="card--block">
                <div class="card--hreader">
                     <div class="card--header--title">
-                         Add New Group
+                          {{this.$route.params.id ? 'Update Group' : 'Add New Group'}}
                     </div>
                </div>
                <div class="card--content">
-                    <form class="row mt-3">
+                    <form class="row mt-3" @submit.prevent="submitForm()">
                          <div class="col-12 col-sm-12 col-lg-8 col-xl-4">
                               <b-field class="field-group">
-                                   <b-input type="text" rounded placeholder="Group Name" v-model="groupName" />
+                                   <b-input type="text" rounded placeholder="Group Name" v-model="name" />
                               </b-field>
                               <hr class="mb-0">
                          </div>
@@ -24,42 +27,13 @@
                                    <div class="col-12">
                                         <table class="table is-bordered is-fullwidth is-striped ">
                                              <tbody>
-                                                  <tr>
-                                                       <th>Articles</th>
+                                                  <tr v-for="(value , name) in allPermissions" :key="name">
+                                                       <th>{{name}}</th>
                                                        <td>
-                                                            <div class="d-inline-block item-checkbox">
-                                                                 <b-checkbox v-model="permissions" native-value="sdds">
-                                                                      Edit To Post
-                                                                 </b-checkbox>
-                                                            </div>
-                                                            <div class="d-inline-block item-checkbox">
-                                                                 <b-checkbox v-model="permissions" native-value="sdaasds">
-                                                                      Edit To Post
-                                                                 </b-checkbox>
-                                                            </div>
-                                                            <div class="d-inline-block item-checkbox">
-                                                                 <b-checkbox v-model="permissions" native-value="sddseee">
-                                                                      Edit To Post
-                                                                 </b-checkbox>
-                                                            </div>
-                                                       </td>
-                                                  </tr>
-                                                  <tr>
-                                                       <th>Users</th>
-                                                       <td>
-                                                            <div class="d-inline-block item-checkbox">
-                                                                 <b-checkbox v-model="permissions" native-value="sddewewsds">
-                                                                      Edit To Post
-                                                                 </b-checkbox>
-                                                            </div>
-                                                            <div class="d-inline-block item-checkbox">
-                                                                 <b-checkbox v-model="permissions" native-value="sdaaqqwqsds">
-                                                                      Edit To Post
-                                                                 </b-checkbox>
-                                                            </div>
-                                                            <div class="d-inline-block item-checkbox">
-                                                                 <b-checkbox v-model="permissions" native-value="sddseewwwe">
-                                                                      Edit To Post
+                                                            
+                                                            <div class="d-inline-block item-checkbox" v-for="(checkLabel ,checkValue) in value" :key="checkLabel">
+                                                                 <b-checkbox v-model="permissions" :native-value="checkValue">
+                                                                      {{checkLabel}}
                                                                  </b-checkbox>
                                                             </div>
                                                        </td>
@@ -71,7 +45,8 @@
                          </div>
 
                          <div class="col-12 text-center button--save--form">
-                              <button class="button is-primary is-rounded">Add Group</button>
+                              <button class="button is-primary is-rounded"
+                              :class="{'is-loading': isLoading}">{{this.$route.params.id ? 'Save Changes' : 'Add Group'}}</button>
                          </div>
                     </form>
                </div>
@@ -82,18 +57,134 @@
 
 
 
+
 <script>
-     export default {
-          name: 'groupForm',
-          data() {
-               return {
-                    groupName: '',
-                    permissions: []
-               };
-          },
+    // Repository Data
+    import {
+        RepositoryFactory
+    } from '../../repositories/RepositoryFactory'
+    const groupsRepository = RepositoryFactory.get('groups')
+    const permissionRepository = RepositoryFactory.get('permissions')
 
-          methods: {
+    export default {
+        name: 'groupForm',
+        data() {
+            return {
+                name: '',
+                isLoading: false,
+                groupStatus: 0,
+                policies: [],
+                permissions: [],
+                allPermissions: []
+            };
+        },
 
-          }
-     }
+        watch: {
+            '$route'(to, from) {
+                if (this.$route.params.id) {
+                    this.getGroup(this.$route.params.id)
+                } else {
+                     this.resetfuild()
+                }
+            },
+        },
+        created() {
+            if (this.$route.params.id) {
+                this.getGroup(this.$route.params.id)
+            }
+            this.getAllPermissions()
+        },
+
+        methods: {
+             resetfuild(){
+                this.name = ''
+                this.permissions = []
+             },
+
+             submitForm() {
+                this.isLoading = false
+                let data = {}
+                data.name = this.name
+                if(this.permissions.length){
+                    data.permissions = this.permissions
+                }
+                if (this.name) {
+                    this.isLoading = true
+                    if(this.$route.params.id){
+                         this.updateGroup(this.$route.params.id, data)
+                    } else {
+                         this.newGroup(data)
+                    }
+                }
+            },
+
+
+            async newGroup(data) {
+                const group = await groupsRepository.newGroup(data)
+                if (group.success) {
+                    this.successMessage(group.message)
+                    this.$router.push('/groupForm/' + group.data)
+                } else if(group.status === 500) {
+                    this.errorMessage(group.data)
+                } else {
+                    group.data.map(item => {
+                        this.errorMessage(item)
+                    })
+                }
+                this.isLoading = false
+            },
+
+            async getGroup(data) {
+                const group = await groupsRepository.getGroup(data)
+                this.name = group.name
+                this.policies = group.policies
+                this.permissions = group.permissions
+
+            },
+            async updateGroup(id, data) {
+                const group = await groupsRepository.updateGroup(id, data)
+                if (group.success) {
+                    this.successMessage(group.message)
+                } else {
+                    group.data.map(item => {
+                        this.errorMessage(item)
+                    })
+                }
+                this.isLoading = false
+            },
+            
+            async getAllPermissions() {
+                const permissions = await permissionRepository.getAllPermissions()
+                this.allPermissions = permissions
+            },
+
+            errorMessage(textMessage) {
+                this.$snackbar.open({
+                    message: textMessage,
+                    type: 'is-danger',
+                    position: 'is-bottom-right',
+                    actionText: 'OK',
+                    queue: false,
+                    duration: 10000,
+                    indefinite: false,
+                })
+            },
+            successMessage(textMessage) {
+                this.$snackbar.open({
+                    message: textMessage,
+                    type: 'is-success',
+                    position: 'is-bottom-right',
+                    actionText: 'OK',
+                    queue: false,
+                    duration: 10000,
+                    indefinite: false,
+                })
+            },
+
+
+
+
+           
+        }
+    }
 </script>
