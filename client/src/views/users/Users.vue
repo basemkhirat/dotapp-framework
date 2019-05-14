@@ -77,7 +77,6 @@ export default {
         const data = await usersRepository.getAllUsers(this.page, this.limit)
         this.users = data.docs;
         this.total = data.total;
-        console.log(data.docs)
         this.dataLoading = false;
     },
     

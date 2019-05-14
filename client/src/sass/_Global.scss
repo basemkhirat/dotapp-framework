@@ -108,9 +108,11 @@ button.is-rounded, .button.is-rounded {
 }
 .modal--lg{
     &> .modal-content{
-        width: 1800px;
-        max-width: 90% !important;
-        height: 100%;
+        width: 100%;
+        max-width: 100% !important;
+        height: 100vh !important;
+        max-height: 100vh !important;
+        border-radius: 0;
         .card{
             height: 100%;
         }

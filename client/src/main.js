@@ -22,8 +22,7 @@ Vue.use(VueClipboard)
 
 
 // config file with base endpoint url
-import { baseEndpointUrl } from './../env';
-axios.defaults.baseURL = baseEndpointUrl;
+axios.defaults.baseURL = process.env.APP_URL + '/api';
 
 const  accessToken  =  (localStorage.getItem('token')) ? 'Bearer ' + localStorage.getItem('token').split('"').join(''): '';
 

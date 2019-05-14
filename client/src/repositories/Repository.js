@@ -1,9 +1,9 @@
 import axios from "axios";
 
-import { baseEndpointUrl } from './../../env';
+// import { baseEndpointUrl } from './../../env';
 
-const baseURL = `${baseEndpointUrl}`;
+// const baseURL = `${baseEndpointUrl}`;
 
 export default axios.create({
-    baseURL
+    
 });
