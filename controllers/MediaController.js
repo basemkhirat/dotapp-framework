@@ -65,6 +65,8 @@ export default class extends Controller {
 
         let payload = req.param("payload");
 
+        console.log(req.has("payload"));
+
         Resource.create(payload, function (error, media) {
             if (error) return res.serverError(error);
 

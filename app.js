@@ -31,12 +31,12 @@ app.set("views", Config.get("app.views"));
 app.set("view engine", Config.get("app.view_engine"));
 app.set('trust proxy', Config.get("app.trust_proxy"));
 
+app.use(Http());
 app.use(BodyParser());
 app.use(Json());
 app.use(Cors());
 app.use(Security());
 app.use(Compression());
-app.use(Http());
 app.use(Token());
 app.use(I18n());
 app.use(Logger());
