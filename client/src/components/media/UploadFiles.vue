@@ -3,7 +3,7 @@
         <div class="modal--content">
                <form @submit.prevent="submitForm">
                     <h3>Upload</h3>
-                    <section class="modal-card-body p-5">
+                    <section class="modal-card-body p-4">
                          <b-input icon-pack="fas" icon="link" :disabled="files.length >= 1" rounded placeholder="URL" type="url" v-model="itemLink"></b-input>
                          <div class="text-gray py-4 text-center">
                               Or
@@ -18,9 +18,9 @@
                     </section>
 
                     <hr class="mt-0">
-                    <div class="d-flex justify-content-center pb-4">
+                    <div class="d-flex justify-content-center ">
                          <button class="button is-rounded is-light mr-2" type="button" @click="closeModalUploadFile({newItem: false})">Cancel</button>
-                         <button class="button is-primary is-rounded" type="submit" :class="{'is-loading': isLoading}">Done</button>
+                         <button class="button is-primary is-rounded" type="submit" :class="{'is-loading': isLoading}">Add</button>
                     </div>
                </form>
         </div>
