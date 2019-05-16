@@ -28,7 +28,7 @@ export default {
 
                     "/user": {
 
-                        //middleware: "authenticate",
+                        middleware: "authenticate",
 
                         group: {
                             "GET /": "UserController.find",
