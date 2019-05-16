@@ -59,7 +59,7 @@ export default class extends Controller {
 
         User.findById(id).populate("role").exec((error, user) => {
             if (error) return res.serverError(error);
-            if (!user) return res.notFound("User not found");
+            if (!user) return res.notFound(req.lang("user.errors.user_not_found"));
             return res.ok(res.attachPolicies(user, "user"));
         });
     }
@@ -72,10 +72,21 @@ export default class extends Controller {
      */
     create(req, res) {
 
-        if (!req.can("user.create")) return res.forbidden();
-        if (req.filled("status") && !req.can("user.status")) return res.forbidden();
-        if (req.filled("role") && !req.can("user.role")) return res.forbidden();
-        if (req.filled("permissions") && !req.can("user.permissions")) return res.forbidden();
+        if (!req.can("user.create")) {
+            return res.forbidden();
+        }
+
+        if (req.filled("status") && !req.can("user.status")) {
+            return res.forbidden();
+        }
+
+        if (req.filled("role") && !req.can("user.role")) {
+            return res.forbidden();
+        }
+
+        if (req.filled("permissions") && !req.can("user.permissions")) {
+            return res.forbidden();
+        }
 
         let user = new User();
 
@@ -106,15 +117,23 @@ export default class extends Controller {
 
         User.findById(id, (error, user) => {
             if (error) return res.serverError(error);
-            if (!user) return res.notFound("User not found");
+            if (!user) return res.notFound(req.lang("user.errors.user_not_found"));
 
-            if (!req.can("user.update", user)) return res.forbidden();
-            if (req.filled("status") && !req.can("user.status", user))
-                return res.forbidden(req.lang("user.errors.status_denied"));
-            if (req.filled("role") && !req.can("user.role", user))
-                return res.forbidden(req.lang("user.errors.role_denied"));
-            if (req.filled("permissions") && !req.can("user.permissions", user))
-                return res.forbidden(req.lang("user.errors.permissions_denied"));
+            if (!req.can("user.update", user)) {
+                return res.forbidden();
+            }
+
+            if (req.filled("status") && !req.can("user.status", user)) {
+                return res.forbidden(req.lang("user.errors.status_denied", {user: user.email}));
+            }
+
+            if (req.filled("role") && !req.can("user.role", user)) {
+                return res.forbidden(req.lang("user.errors.role_denied", {user: user.email}));
+            }
+
+            if (req.filled("permissions") && !req.can("user.permissions", user)) {
+                return res.forbidden(req.lang("user.errors.permissions_denied", {user: user.email}));
+            }
 
             user.email = req.param("email", user.email);
             user.first_name = req.param("first_name", user.first_name);
@@ -147,8 +166,13 @@ export default class extends Controller {
 
         User.findById(id, function (error, user) {
             if (error) return res.serverError(error);
-            if (!user) return res.notFound("User not found");
-            if (!req.can("user.delete", user)) return res.forbidden();
+            if (!user) return res.notFound(req.lang("user.errors.user_not_found"));
+
+            if (!req.can("user.delete", user)) {
+                return res.forbidden(req.lang("user.errors.delete_denied", {
+                    "user": user.email
+                }));
+            }
 
             user.remove(error => {
                 if (error) res.serverError(error);
@@ -168,11 +192,14 @@ export default class extends Controller {
         let ids = req.param("ids");
         let data = req.param("data");
 
-        data = typeof data === 'object' ? data : JSON.parse(data);
         ids = Array.isArray(ids) ? ids : ids.toArray(",");
 
+        if (req.filled("data")) {
+            data = typeof data === 'object' ? data : JSON.parse(data);
+        }
+
         if (["delete", "update"].indexOf(operation) <= -1) {
-            return res.serverError("operation is not allowed");
+            return res.serverError(req.lang("user.errors.operation_not_allowed"));
         }
 
         async.mapSeries(ids, function (id, callback) {
@@ -180,11 +207,15 @@ export default class extends Controller {
                 User.findById(id, function (error, user) {
 
                     if (error) return res.serverError(error);
-                    if (!user) return res.notFound("User " + id + " not found");
+                    if (!user) return res.notFound(req.lang("user.errors.user_not_found"));
 
                     if (operation === "delete") {
 
-                        if (!req.can("user.delete", user)) return res.forbidden("Not allowed to delete " + id);
+                        if (!req.can("user.delete", user)) {
+                            return res.forbidden(req.lang("user.errors.delete_denied", {
+                                "user": user.email
+                            }));
+                        }
 
                         user.remove(error => {
                             if (error) return res.serverError(error);
@@ -195,24 +226,33 @@ export default class extends Controller {
 
                         if ("status" in data) {
 
-                            if (!req.can("user.status", user))
-                                return res.forbidden(req.lang("user.errors.status_denied"));
+                            if (!req.can("user.status", user)) {
+                                return res.forbidden(req.lang("user.errors.status_denied", {
+                                    "user": user.email
+                                }));
+                            }
 
                             user.status = data.status || user.status;
                         }
 
                         if ("role" in data) {
 
-                            if (!req.can("user.role", user))
-                                return res.forbidden(req.lang("user.errors.role_denied"));
+                            if (!req.can("user.role", user)) {
+                                return res.forbidden(req.lang("user.errors.role_denied", {
+                                    "user": user.email
+                                }));
+                            }
 
                             user.role = data.role || user.role;
                         }
 
                         if ("permissions" in data) {
 
-                            if (!req.can("user.permissions", user))
-                                return res.forbidden(req.lang("user.errors.permissions_denied"));
+                            if (!req.can("user.permissions", user)) {
+                                return res.forbidden(req.lang("user.errors.permissions_denied", {
+                                    "user": user.email
+                                }));
+                            }
 
                             user.permissions = data.permissions || user.permissions;
                         }

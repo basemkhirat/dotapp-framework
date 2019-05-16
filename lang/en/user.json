@@ -15,8 +15,11 @@
         "delete": "Deleting users"
     },
     "errors": {
-        "status_denied" : "you don't have policy to set user status",
-        "role_denied" : "you don't have policy to set user role",
-        "permissions_denied" : "you don't have policy to set user permissions"
+        "status_denied": "You don't have a policy to set user status of :user",
+        "role_denied": "You don't have a policy to set user role of :user",
+        "permissions_denied": "You don't have a policy to set user permissions of :user",
+        "delete_denied": "You don't have a policy to delete :user",
+        "operation_not_allowed": "Operation is not allowed",
+        "user_not_found": "User not found"
     }
 }
