@@ -3,6 +3,7 @@ import Repository from "./Repository";
 const resource = "/media";
 
 export default {
+
     getMediaItem(id) {
         return Repository.get(`${resource}/${id}`).then((response) => {
             if (response.data.success) {
@@ -10,6 +11,7 @@ export default {
             }
         });
     },
+
     updateMedia(id, data) {
         return Repository.put(`${resource}/${id}`, data).then((response) => {
             if (response.data.success) {
@@ -17,6 +19,7 @@ export default {
             }
         });
     },
+
     deleteMedia(id) {
         return Repository.delete(`${resource}/${id}`).then((response) => {
             if (response.data.success) {
@@ -24,12 +27,22 @@ export default {
             }
         });
     },
-    getAllMedia(page, limit) {
-        return Repository.get(`${resource}?page=${page}&limit=${limit}`).then((response) => {
+    
+    getAllMedia(page, limit, filters = {}) {
+
+        // let typeQuery = (filters.type) ? '&sort_type=' + filters.type : '';
+        // let orderQuery = (filters.order) ? '&order=' + filters.order : '';
+        // // let searchQuery = (filters.searchQuery && filters.searchQuery !== '') ? '&q=' + filters.searchQuery  + '&fieldsNames=title': '';
+
+        //     let filterQuery = typeQuery + orderQuery  + searchQuery;
+
+
+        return Repository.get(`${resource}?page=${page}&limit=${limit}&sort_field=id`).then((response) => {
             if (response.data.success) {
                 return response.data.data;
             }
         });
+
     },
     newMediaItem(data) {
         return Repository.post(`${resource}`, data).then((response) => {
