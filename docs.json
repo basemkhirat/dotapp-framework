@@ -67,6 +67,18 @@
                 "summary": "Find all media",
                 "parameters": [
                     {
+                        "name": "type",
+                        "in": "query",
+                        "description": "Type",
+                        "type": "string",
+                        "enum": [
+                            "image",
+                            "video",
+                            "sound",
+                            "document"
+                        ]
+                    },
+                    {
                         "name": "q",
                         "in": "query",
                         "description": "Search Keyword",
@@ -519,6 +531,50 @@
                         "items": {
                             "type": "string"
                         }
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/responses"
+                },
+                "security": [
+                    {
+                        "bearer token": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Bulk users delete/update",
+                "parameters": [
+                    {
+                        "name": "operation",
+                        "in": "query",
+                        "description": "operation",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "delete",
+                            "update"
+                        ]
+                    },
+                    {
+                        "name": "ids",
+                        "in": "query",
+                        "description": "IDs",
+                        "required": true,
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "data",
+                        "in": "query",
+                        "description": "Data for update",
+                        "type": "object",
+                        "default": {}
                     }
                 ],
                 "responses": {

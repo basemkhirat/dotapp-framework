@@ -28,7 +28,7 @@ export default {
 
                     "/user": {
 
-                        middleware: "authenticate",
+                        //middleware: "authenticate",
 
                         group: {
                             "GET /": "UserController.find",
@@ -42,6 +42,7 @@ export default {
                                 handler: "UserController.update"
                             },
                             "DELETE /:id": "UserController.destroy",
+                            "PATCH /": "UserController.bulk"
                         }
                     },
 

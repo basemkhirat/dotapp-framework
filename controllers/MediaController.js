@@ -38,6 +38,10 @@ export default class extends Controller {
             query.where({$text: {$search: req.param("q")}});
         }
 
+        if (req.filled("type")) {
+            query.where("type", req.param("type"));
+        }
+
         query.page(req.param("page"), req.param("limit"));
 
         query.order(req.param("sort_field", "created_at"), req.param("sort_type", "desc"));
@@ -64,8 +68,6 @@ export default class extends Controller {
         if (!req.can("media.create")) return res.forbidden();
 
         let payload = req.param("payload");
-
-        console.log(req.has("payload"));
 
         Resource.create(payload, function (error, media) {
             if (error) return res.serverError(error);

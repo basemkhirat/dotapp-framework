@@ -1,5 +1,6 @@
 import Controller from "~/controllers/Controller";
 import User from '~/models/user';
+import async from 'async';
 
 export default class extends Controller {
 
@@ -154,5 +155,88 @@ export default class extends Controller {
                 return res.message(req.lang("user.events.deleted")).ok(id);
             });
         });
+    }
+
+    /**
+     * Bulk operations
+     * @param req
+     * @param res
+     */
+    bulk(req, res) {
+
+        let operation = req.param("operation");
+        let ids = req.param("ids");
+        let data = req.param("data");
+
+        data = typeof data === 'object' ? data : JSON.parse(data);
+        ids = Array.isArray(ids) ? ids : ids.toArray(",");
+
+        if (["delete", "update"].indexOf(operation) <= -1) {
+            return res.serverError("operation is not allowed");
+        }
+
+        async.mapSeries(ids, function (id, callback) {
+
+                User.findById(id, function (error, user) {
+
+                    if (error) return res.serverError(error);
+                    if (!user) return res.notFound("User " + id + " not found");
+
+                    if (operation === "delete") {
+
+                        if (!req.can("user.delete", user)) return res.forbidden("Not allowed to delete " + id);
+
+                        user.remove(error => {
+                            if (error) return res.serverError(error);
+                            return callback(null, id);
+                        });
+
+                    } else if (operation === "update") {
+
+                        if ("status" in data) {
+
+                            if (!req.can("user.status", user))
+                                return res.forbidden(req.lang("user.errors.status_denied"));
+
+                            user.status = data.status || user.status;
+                        }
+
+                        if ("role" in data) {
+
+                            if (!req.can("user.role", user))
+                                return res.forbidden(req.lang("user.errors.role_denied"));
+
+                            user.role = data.role || user.role;
+                        }
+
+                        if ("permissions" in data) {
+
+                            if (!req.can("user.permissions", user))
+                                return res.forbidden(req.lang("user.errors.permissions_denied"));
+
+                            user.permissions = data.permissions || user.permissions;
+                        }
+
+                        user.save(error => {
+                            if (error) return res.serverError(error);
+                            return callback(null, id);
+                        });
+                    }
+                });
+
+            },
+
+            function (error, result = []) {
+
+                if (operation === "update") {
+                    return res.message(req.lang("user.events.updated")).ok(result);
+                }
+
+                if (operation === "delete") {
+                    return res.message(req.lang("user.events.deleted")).ok(result);
+                }
+            }
+        );
+
     }
 };
