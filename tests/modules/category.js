@@ -34,7 +34,7 @@ describe("Category", function () {
             .expect(200, done);
     });
 
-    it("list all users", function (done) {
+    it("list all categories", function (done) {
         server.get('/api/category')
             .set('Authorization', 'Bearer ' + token)
             .expect(200, done);

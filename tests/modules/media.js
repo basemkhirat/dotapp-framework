@@ -77,7 +77,7 @@ describe("Media", function () {
             .expect(200, done);
     });
 
-    it("list all users", function (done) {
+    it("list all media", function (done) {
         server.get('/api/media')
             .set('Authorization', 'Bearer ' + token)
             .expect(200, done);

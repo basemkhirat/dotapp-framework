@@ -53,4 +53,53 @@ describe("User", function () {
             .set('Authorization', 'Bearer ' + token)
             .expect(200, done);
     });
+
+
+    it("perform bulk delete/update operations", function (done) {
+
+        let user = {
+            email: faker.internet.email(),
+            first_name: faker.name.firstName(),
+            last_name: faker.name.lastName(),
+            password: faker.internet.password(),
+            status: 1,
+            lang: "en",
+            permissions: ["category.destroy", "category.read"]
+        };
+
+        server.post("/api/user")
+            .set('Authorization', 'Bearer ' + token)
+            .send(user)
+            .expect(200)
+            .end(function (error, response) {
+                if (error) throw error;
+                user.id = response.body.data;
+
+                server.patch("/api/user")
+                    .set('Authorization', 'Bearer ' + token)
+                    .send({
+                        operation: "update",
+                        ids: [user.id],
+                        data: {
+                            status: 1,
+                            permissions: ["category.create", "category.delete"]
+                        }
+                    })
+                    .expect(200)
+                    .end(function (error, response) {
+                        if (error) throw error;
+
+                        server.patch("/api/user")
+                            .set('Authorization', 'Bearer ' + token)
+                            .send({
+                                operation: "delete",
+                                ids: [user.id]
+                            })
+                            .expect(200, done);
+                    })
+
+            });
+
+
+    });
 });
