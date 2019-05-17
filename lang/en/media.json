@@ -10,5 +10,12 @@
         "create": "Creating media",
         "update": "Updating media",
         "delete": "Deleting media"
+    },
+
+    "errors": {
+        "media_not_found": "Media not found",
+        "update_denied": "You don't have a policy to update :media",
+        "delete_denied": "You don't have a policy to delete :media",
+        "operation_not_allowed": "Operation is not allowed"
     }
 }

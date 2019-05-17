@@ -1,5 +1,6 @@
 import Controller from "~/controllers/Controller";
 import Category from '~/models/category';
+import async from "async";
 
 export default class extends Controller {
 
@@ -16,7 +17,8 @@ export default class extends Controller {
 
         Category.findById(id).populate("user").exec(function (error, category) {
             if (error) return res.serverError(error);
-            if (!category) return res.notFound("Category not found");
+            if (!category) return res.notFound(req.lang("category.errors.category_not_found"));
+
             return res.ok(res.attachPolicies(category, "category"));
         });
 
@@ -75,7 +77,7 @@ export default class extends Controller {
 
         category.save(function (error, category) {
             if (error) return res.serverError(error);
-            return res.ok(category.id);
+            return res.message("category.events.created").ok(category.id);
         });
     }
 
@@ -90,8 +92,11 @@ export default class extends Controller {
 
         Category.findById(id, function (error, category) {
             if (error) return res.serverError(error);
-            if (!req.can("category.update", category)) return res.forbidden();
-            if (!category) return res.notFound("Category not found");
+            if (!category) return res.notFound(req.lang("category.errors.category_not_found"));
+
+            if (!req.can("category.update", category)) {
+                return res.forbidden(req.lang("category.errors.update_denied", {category: category.name}));
+            }
 
             category.name = req.param("name", category.name);
             category.slug = req.param("slug", category.slug);
@@ -99,7 +104,7 @@ export default class extends Controller {
 
             category.save(error => {
                 if (error) return res.serverError(error);
-                return res.ok(id);
+                return res.message("category.events.updated").ok(id);
             });
         });
     }
@@ -115,15 +120,74 @@ export default class extends Controller {
 
         Category.findById(id, function (error, category) {
             if (error) return res.serverError(error);
-            if (!req.can("category.delete", category)) return res.forbidden();
-            if (!category) return res.notFound("Category not found");
+            if (!category) return res.notFound(req.lang("category.errors.category_not_found"));
+
+            if (!req.can("category.delete", category)) {
+                return res.forbidden(req.lang("category.errors.delete_denied", {category: category.name}));
+            }
 
             category.remove(error => {
                 if (error) res.serverError(error);
-                return res.ok(id);
+                return res.message("category.events.deleted").ok(id);
             });
 
         });
+    }
+
+    /**
+     * Bulk operations
+     * @param req
+     * @param res
+     */
+    bulk(req, res) {
+
+        let operation = req.param("operation");
+        let ids = req.param("ids");
+        let data = req.param("data");
+
+        ids = Array.isArray(ids) ? ids : ids.toArray(",");
+
+        if (req.filled("data")) {
+            data = typeof data === 'object' ? data : JSON.parse(data);
+        }
+
+        if (["delete"].indexOf(operation) <= -1) {
+            return res.serverError(req.lang("category.errors.operation_not_allowed"));
+        }
+
+        async.mapSeries(ids, function (id, callback) {
+
+                Category.findById(id, function (error, category) {
+
+                    if (error) return res.serverError(error);
+                    if (!category) return res.notFound(req.lang("category.errors.category_not_found"));
+
+                    if (operation === "delete") {
+
+                        if (!req.can("category.delete", category)) {
+                            return res.forbidden(req.lang("category.errors.delete_denied", {
+                                category: category.name
+                            }));
+                        }
+
+                        category.remove(error => {
+                            if (error) return res.serverError(error);
+                            return callback(null, id);
+                        });
+
+                    }
+                });
+
+            },
+
+            function (error, result = []) {
+
+                if (operation === "delete") {
+                    return res.message(req.lang("category.events.deleted")).ok(result);
+                }
+            }
+        );
+
     }
 };
 

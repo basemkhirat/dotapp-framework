@@ -1,4 +1,4 @@
-import { server, token } from '../index';
+import {server, token} from '../index';
 import faker from 'faker';
 
 let media = {
@@ -19,7 +19,7 @@ describe("Media", function () {
             .send(media)
             .expect(200)
             .end(function (error, response) {
-                if(error) throw error;
+                if (error) throw error;
                 media.id = response.body.data;
                 done();
             });
@@ -36,7 +36,7 @@ describe("Media", function () {
             .send(media)
             .expect(200)
             .end(function (error, response) {
-                if(error) throw error;
+                if (error) throw error;
                 server.delete("/api/media/" + response.body.data)
                     .set('Authorization', 'Bearer ' + token)
                     .expect(200, done);
@@ -54,7 +54,7 @@ describe("Media", function () {
             .send(media)
             .expect(200)
             .end(function (error, response) {
-                if(error) throw error;
+                if (error) throw error;
                 server.delete("/api/media/" + response.body.data)
                     .set('Authorization', 'Bearer ' + token)
                     .expect(200, done);
@@ -72,7 +72,7 @@ describe("Media", function () {
             .set('Authorization', 'Bearer ' + token)
             .send({
                 title: faker.company.companyName(),
-                description: faker.company.companyName(),
+                description: faker.company.companyName()
             })
             .expect(200, done);
     });
@@ -87,5 +87,45 @@ describe("Media", function () {
         server.delete("/api/media/" + media.id)
             .set('Authorization', 'Bearer ' + token)
             .expect(200, done);
+    });
+
+    it("perform bulk delete/update operations", function (done) {
+
+        let media = {
+            payload: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg=="
+        };
+
+        server.post("/api/media")
+            .set('Authorization', 'Bearer ' + token)
+            .send(media)
+            .expect(200)
+            .end(function (error, response) {
+                if (error) throw error;
+
+                media.id = response.body.data;
+
+                server.patch("/api/media")
+                    .set('Authorization', 'Bearer ' + token)
+                    .send({
+                        operation: "update",
+                        ids: [media.id],
+                        data: {
+                            title: "new title",
+                            description: "new description"
+                        }
+                    })
+                    .expect(200)
+                    .end(function (error, response) {
+                        if (error) throw error;
+
+                        server.patch("/api/media")
+                            .set('Authorization', 'Bearer ' + token)
+                            .send({
+                                operation: "delete",
+                                ids: [media.id]
+                            })
+                            .expect(200, done);
+                    })
+            });
     });
 });

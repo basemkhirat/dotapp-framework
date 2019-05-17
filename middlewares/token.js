@@ -32,9 +32,8 @@ export default function () {
                     User.findById(user._id)
                         .where("status", 1)
                         .select('+permissions')
-                        .populate('role', '+permissions')
+                        .populate('role', '+permissions', {status: 1})
                         .exec((error, user) => {
-
                             if (error) return next(error);
 
                             if (user) {

@@ -120,19 +120,19 @@ export default class extends Controller {
             if (!user) return res.notFound(req.lang("user.errors.user_not_found"));
 
             if (!req.can("user.update", user)) {
-                return res.forbidden();
+                return res.forbidden(req.lang("user.errors.status_denied", {user: user.first_name}));
             }
 
             if (req.filled("status") && !req.can("user.status", user)) {
-                return res.forbidden(req.lang("user.errors.status_denied", {user: user.email}));
+                return res.forbidden(req.lang("user.errors.status_denied", {user: user.first_name}));
             }
 
             if (req.filled("role") && !req.can("user.role", user)) {
-                return res.forbidden(req.lang("user.errors.role_denied", {user: user.email}));
+                return res.forbidden(req.lang("user.errors.role_denied", {user: user.first_name}));
             }
 
             if (req.filled("permissions") && !req.can("user.permissions", user)) {
-                return res.forbidden(req.lang("user.errors.permissions_denied", {user: user.email}));
+                return res.forbidden(req.lang("user.errors.permissions_denied", {user: user.first_name}));
             }
 
             user.email = req.param("email", user.email);
@@ -170,7 +170,7 @@ export default class extends Controller {
 
             if (!req.can("user.delete", user)) {
                 return res.forbidden(req.lang("user.errors.delete_denied", {
-                    "user": user.email
+                    "user": user.first_name
                 }));
             }
 
@@ -213,7 +213,7 @@ export default class extends Controller {
 
                         if (!req.can("user.delete", user)) {
                             return res.forbidden(req.lang("user.errors.delete_denied", {
-                                user: user.email
+                                user: user.first_name
                             }));
                         }
 
@@ -228,7 +228,7 @@ export default class extends Controller {
 
                             if (!req.can("user.status", user)) {
                                 return res.forbidden(req.lang("user.errors.status_denied", {
-                                    user: user.email
+                                    user: user.first_name
                                 }));
                             }
 
@@ -239,7 +239,7 @@ export default class extends Controller {
 
                             if (!req.can("user.role", user)) {
                                 return res.forbidden(req.lang("user.errors.role_denied", {
-                                    user: user.email
+                                    user: user.first_name
                                 }));
                             }
 
@@ -250,7 +250,7 @@ export default class extends Controller {
 
                             if (!req.can("user.permissions", user)) {
                                 return res.forbidden(req.lang("user.errors.permissions_denied", {
-                                    user: user.email
+                                    user: user.first_name
                                 }));
                             }
 

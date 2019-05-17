@@ -68,6 +68,7 @@ export default {
                             "POST /": "MediaController.create",
                             "PUT /:id": "MediaController.update",
                             "DELETE /:id": "MediaController.destroy",
+                            "PATCH /": "MediaController.bulk"
                         }
                     },
 
@@ -87,6 +88,7 @@ export default {
                                 handler: "RoleController.update"
                             },
                             "DELETE /:id": "RoleController.destroy",
+                            "PATCH /": "RoleController.bulk"
                         }
                     },
 
@@ -106,6 +108,7 @@ export default {
                                 handler: "CategoryController.update"
                             },
                             "DELETE /:id": "CategoryController.destroy",
+                            "PATCH /": "CategoryController.bulk"
                         }
                     }
 

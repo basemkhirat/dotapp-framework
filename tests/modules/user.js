@@ -99,7 +99,5 @@ describe("User", function () {
                     })
 
             });
-
-
     });
 });

@@ -1,6 +1,7 @@
 import Controller from "~/controllers/Controller";
 import Media from '~/models/media';
 import Resource from '~/services/media';
+import async from "async";
 
 export default class extends Controller {
 
@@ -17,10 +18,9 @@ export default class extends Controller {
 
         Media.findById(id).populate("user").exec(function (error, media) {
             if (error) return res.serverError(error);
-            if (!media) return res.notFound("Media not found");
+            if (!media) return res.notFound(req.lang("media.errors.media_not_found"));
             return res.ok(res.attachPolicies(media, "media"));
         });
-
     }
 
     /**
@@ -94,8 +94,9 @@ export default class extends Controller {
 
         Media.findById(id, function (error, media) {
             if (error) return res.serverError(error);
+            if (!media) return res.notFound(req.lang("media.errors.media_not_found"));
+
             if (!req.can("media.update", media)) return res.forbidden();
-            if (!media) return res.notFound("Media not found");
 
             media.title = req.param("title", media.title);
             media.description = req.param("description", media.description);
@@ -118,13 +119,95 @@ export default class extends Controller {
 
         Media.findById(id, function (error, media) {
             if (error) return res.serverError(error);
+            if (!media) return res.notFound(req.lang("media.errors.media_not_found"));
+
             if (!req.can("media.delete", media)) return res.forbidden();
-            if (!media) return res.notFound("Media not found");
+
             media.remove(error => {
                 if (error) res.serverError(error);
                 return res.ok(id);
             });
         });
+    }
+
+    /**
+     * Bulk operations
+     * @param req
+     * @param res
+     */
+    bulk(req, res) {
+
+        let operation = req.param("operation");
+        let ids = req.param("ids");
+        let data = req.param("data");
+
+        ids = Array.isArray(ids) ? ids : ids.toArray(",");
+
+        if (req.filled("data")) {
+            data = typeof data === 'object' ? data : JSON.parse(data);
+        }
+
+        if (["update", "delete"].indexOf(operation) <= -1) {
+            return res.serverError(req.lang("media.errors.operation_not_allowed"));
+        }
+
+        async.mapSeries(ids, function (id, callback) {
+
+                Media.findById(id, function (error, media) {
+
+                    if (error) return res.serverError(error);
+                    if (!media) return res.notFound(req.lang("media.errors.media_not_found"));
+
+                    if (operation === "delete") {
+
+                        if (!req.can("media.delete", media)) {
+                            return res.forbidden(req.lang("media.errors.delete_denied", {
+                                media: media.name
+                            }));
+                        }
+
+                        media.remove(error => {
+                            if (error) return res.serverError(error);
+                            return callback(null, id);
+                        });
+
+                    } else if (operation === "update") {
+
+                        if (!req.can("media.update", media)) {
+                            return res.forbidden(req.lang("media.errors.update_denied", {
+                                media: media.id
+                            }));
+                        }
+
+                        if ("title" in data) {
+                            media.title = data.title || media.title;
+                        }
+
+                        if ("description" in data) {
+                            media.description = data.description || media.description;
+                        }
+
+                        media.save(error => {
+                            if (error) return res.serverError(error);
+                            return callback(null, id);
+                        });
+                    }
+                });
+
+            },
+
+            function (error, result = []) {
+
+                if (operation === "update") {
+                    return res.message(req.lang("media.events.updated")).ok(result);
+                }
+
+                if (operation === "delete") {
+                    return res.message(req.lang("media.events.deleted")).ok(result);
+                }
+            }
+        );
+
     }
 };
 

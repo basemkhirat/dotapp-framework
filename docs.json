@@ -158,6 +158,50 @@
                         "bearer token": []
                     }
                 ]
+            },
+            "patch": {
+                "tags": [
+                    "Media"
+                ],
+                "summary": "Bulk media delete/update",
+                "parameters": [
+                    {
+                        "name": "operation",
+                        "in": "query",
+                        "description": "operation",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "delete",
+                            "update"
+                        ]
+                    },
+                    {
+                        "name": "ids",
+                        "in": "query",
+                        "description": "IDs",
+                        "required": true,
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "data",
+                        "in": "query",
+                        "description": "Data for update",
+                        "type": "object",
+                        "default": {}
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/responses"
+                },
+                "security": [
+                    {
+                        "bearer token": []
+                    }
+                ]
             }
         },
         "/media/{id}": {
@@ -595,6 +639,16 @@
                 "summary": "Find all roles",
                 "parameters": [
                     {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Status",
+                        "type": "integer",
+                        "enum": [
+                            0,
+                            1
+                        ]
+                    },
+                    {
                         "name": "q",
                         "in": "query",
                         "description": "Search Keyword",
@@ -652,6 +706,16 @@
                         "required": true
                     },
                     {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Status",
+                        "type": "integer",
+                        "enum": [
+                            0,
+                            1
+                        ]
+                    },
+                    {
                         "name": "permissions",
                         "in": "query",
                         "description": "Role Permissions",
@@ -659,6 +723,50 @@
                         "items": {
                             "type": "string"
                         }
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/responses"
+                },
+                "security": [
+                    {
+                        "bearer token": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "Roles"
+                ],
+                "summary": "Bulk roles delete/update",
+                "parameters": [
+                    {
+                        "name": "operation",
+                        "in": "query",
+                        "description": "operation",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "delete",
+                            "update"
+                        ]
+                    },
+                    {
+                        "name": "ids",
+                        "in": "query",
+                        "description": "IDs",
+                        "required": true,
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "data",
+                        "in": "query",
+                        "description": "Data for update",
+                        "type": "object",
+                        "default": {}
                     }
                 ],
                 "responses": {
@@ -713,6 +821,16 @@
                         "in": "query",
                         "description": "Role Name",
                         "type": "string"
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Status",
+                        "type": "integer",
+                        "enum": [
+                            0,
+                            1
+                        ]
                     },
                     {
                         "name": "permissions",
@@ -838,6 +956,42 @@
                         "in": "query",
                         "description": "Category Description",
                         "type": "string"
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/responses"
+                },
+                "security": [
+                    {
+                        "bearer token": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Bulk categories delete",
+                "parameters": [
+                    {
+                        "name": "operation",
+                        "in": "query",
+                        "description": "operation",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "delete"
+                        ]
+                    },
+                    {
+                        "name": "ids",
+                        "in": "query",
+                        "description": "IDs",
+                        "required": true,
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {

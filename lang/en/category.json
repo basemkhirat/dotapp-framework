@@ -13,5 +13,12 @@
         "create": "Creating categories",
         "update": "Updating categories",
         "delete": "Deleting categories"
+    },
+
+    "errors": {
+        "category_not_found": "Category not found",
+        "update_denied": "You don't have a policy to update :category",
+        "delete_denied": "You don't have a policy to delete :category",
+        "operation_not_allowed": "Operation is not allowed"
     }
 }

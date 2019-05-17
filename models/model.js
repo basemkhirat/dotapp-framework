@@ -13,7 +13,7 @@ mongoose.plugin(function (schema) {
     });
 
     schema.virtual("updated").get(function () {
-        return this.created_at ? moment(this.created_at).fromNow() : undefined;
+        return this.updated_at ? moment(this.updated_at).fromNow() : undefined;
     });
 
     schema.query.execWithCount = function (callback) {

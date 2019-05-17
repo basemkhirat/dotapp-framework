@@ -6,6 +6,11 @@ let schema = Schema({
             type: String,
         },
 
+        status: {
+            type: Number,
+            default: 0
+        },
+
         permissions: {
             type: [String],
             default: [],
@@ -15,13 +20,13 @@ let schema = Schema({
                 permissions.forEach(permission => {
                     permission.split(",").forEach(item => {
                         item = item.trim();
-                        if(perms.indexOf(item) < 0){
+                        if (perms.indexOf(item) < 0) {
                             perms.push(item);
                         }
                     });
                 });
 
-                return  perms;
+                return perms;
             }
         },
     },
@@ -35,6 +40,7 @@ let schema = Schema({
 
 
 schema.index({permissions: 1});
+schema.index({status: 1});
 schema.index({name: "text"});
 
 export default Mongoose.model("role", schema, "role");

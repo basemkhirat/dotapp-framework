@@ -45,4 +45,29 @@ describe("Category", function () {
             .set('Authorization', 'Bearer ' + token)
             .expect(200, done);
     });
+
+    it("perform bulk delete/update operations", function (done) {
+
+        let category = {
+            name: faker.company.companyName()
+        };
+
+        server.post("/api/category")
+            .set('Authorization', 'Bearer ' + token)
+            .send(category)
+            .expect(200)
+            .end(function (error, response) {
+                if (error) throw error;
+
+                category.id = response.body.data;
+
+                server.patch("/api/category")
+                    .set('Authorization', 'Bearer ' + token)
+                    .send({
+                        operation: "delete",
+                        ids: [category.id]
+                    })
+                    .expect(200, done);
+            });
+    });
 });

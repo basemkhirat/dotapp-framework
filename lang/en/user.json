@@ -18,6 +18,7 @@
         "status_denied": "You don't have a policy to set user status of :user",
         "role_denied": "You don't have a policy to set user role of :user",
         "permissions_denied": "You don't have a policy to set user permissions of :user",
+        "update_denied": "You don't have a policy to update :user",
         "delete_denied": "You don't have a policy to delete :user",
         "operation_not_allowed": "Operation is not allowed",
         "user_not_found": "User not found"

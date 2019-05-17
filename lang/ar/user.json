@@ -18,6 +18,7 @@
         "status_denied": "غير مسموح بتغيير الحالة للمستخدم :user",
         "role_denied": "غير مسموح بتغيير المجموعة للمستخدم :user",
         "permissions_denied": "غير مسموح بتغيير الصلاحيات للمستخدم :user",
+        "update_denied": "غير مسموح بتحديث المستخدم :user",
         "delete_denied": "غير مسموح بحذف المستخدم :user",
         "operation_not_allowed": "العملية غير مسموح بها",
         "user_not_found": "المستخدم غير موجود"
