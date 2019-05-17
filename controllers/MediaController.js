@@ -96,7 +96,11 @@ export default class extends Controller {
             if (error) return res.serverError(error);
             if (!media) return res.notFound(req.lang("media.errors.media_not_found"));
 
-            if (!req.can("media.update", media)) return res.forbidden();
+            if (!req.can("media.update", media)) {
+                return res.forbidden(req.lang("media.errors.update_denied", {
+                    media: media.id
+                }));
+            }
 
             media.title = req.param("title", media.title);
             media.description = req.param("description", media.description);
@@ -121,7 +125,11 @@ export default class extends Controller {
             if (error) return res.serverError(error);
             if (!media) return res.notFound(req.lang("media.errors.media_not_found"));
 
-            if (!req.can("media.delete", media)) return res.forbidden();
+            if (!req.can("media.delete", media)) {
+                return res.forbidden(req.lang("media.errors.delete_denied", {
+                    media: media.name
+                }));
+            }
 
             media.remove(error => {
                 if (error) res.serverError(error);
