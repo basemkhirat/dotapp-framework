@@ -85,12 +85,10 @@ schema.index({
 });
 
 schema.path("url").get(function () {
-    if(this.provider === "file") {
-        if(this.type === "image"){
+    if (this.provider === "file") {
+        if (this.type === "image") {
             return Storage.disk(this.image.storage).url(this.image.path);
-        }
-
-        if(this.type === "video"){
+        } else {
             return Storage.disk(this.data.storage).url(this.data.path);
         }
     }
