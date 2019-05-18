@@ -86,7 +86,13 @@ schema.index({
 
 schema.path("url").get(function () {
     if(this.provider === "file") {
-        return Storage.disk(this.image.storage).url(this.image.path);
+        if(this.type === "image"){
+            return Storage.disk(this.image.storage).url(this.image.path);
+        }
+
+        if(this.type === "video"){
+            return Storage.disk(this.data.storage).url(this.data.path);
+        }
     }
 });
 
