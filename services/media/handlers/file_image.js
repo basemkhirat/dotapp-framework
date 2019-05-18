@@ -2,7 +2,7 @@ import Jimp from 'jimp';
 import async from 'async';
 import Config from '~/services/config';
 
-export default class Image {
+export default class {
 
     constructor(resource) {
         this.resource = resource;
@@ -17,9 +17,7 @@ export default class Image {
      */
     handle(callback) {
 
-        async.mapSeries(this.config.thumbnails,
-
-            (thumbnail, cb) => {
+        async.mapSeries(this.config.thumbnails, (thumbnail, cb) => {
 
                 Jimp.read(this.file.path, (error, jImage) => {
 
@@ -58,6 +56,16 @@ export default class Image {
 
             error => {
                 if (error) return callback(error);
+
+                this.resource.image = {
+                    storage: this.resource.storage.disk,
+                    path: this.resource.file.relative_directory + "/" + this.resource.file.file,
+                    width: this.resource.file.meta.width,
+                    height: this.resource.file.meta.height,
+                    mime: this.resource.file.mime_type,
+                    size: this.resource.file.size
+                };
+
                 return callback(null, this.resource);
             });
     }

@@ -86,6 +86,4 @@ export default class Index {
     static disk(disk) {
         return new Index(disk);
     }
-
-
 }

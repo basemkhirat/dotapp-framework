@@ -1,12 +1,12 @@
 import Log from '~/services/log';
 
-export default class Data {
+export default class {
 
     store(callback) {
 
         Log.message("getting file from base64 data", "info");
 
-        this.setProvider("local");
+        this.setProvider("file");
 
         let matches = this.payload.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
 
@@ -18,6 +18,7 @@ export default class Data {
 
         this.setFileType(type);
         this.setFileSize(Buffer.byteLength(data, 'base64'));
+
         this.validate((error) => {
             if (error) return callback(error);
 

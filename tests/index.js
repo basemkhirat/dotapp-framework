@@ -1,9 +1,16 @@
+import supertest from 'supertest';
 import User from '~/models/user';
 import Role from '~/models/role';
 import app from '../app';
+import faker from "faker";
 
-let server = require('supertest')(app);
-let fakeUser = {email: "testy.mail.dev@me.com", password: "k14l2134421n5l215DSF@$", first_name: "Testy"};
+let server = supertest(app);
+
+let fakeUser = {
+    email: faker.internet.email(),
+    first_name: faker.name.firstName(),
+    password: faker.internet.password()
+};
 
 before(function (done) {
 

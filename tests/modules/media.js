@@ -61,6 +61,42 @@ describe("Media", function () {
             });
     });
 
+    it("create a new youtube video from url", function (done) {
+
+        this.timeout(120000);
+
+        media.payload = "https://www.youtube.com/watch?v=L6_CoHNSbwc";
+
+        server.post("/api/media")
+            .set('Authorization', 'Bearer ' + token)
+            .send(media)
+            .expect(200)
+            .end(function (error, response) {
+                if (error) throw error;
+                server.delete("/api/media/" + response.body.data)
+                    .set('Authorization', 'Bearer ' + token)
+                    .expect(200, done);
+            });
+    });
+
+    it("create a new soundcloud track from url", function (done) {
+
+        this.timeout(120000);
+
+        media.payload = "https://soundcloud.com/user9175165/deep-shamanic-meditation-relaxing-powerful-meditation-music-for-deep-relaxation-sleep-music-030";
+
+        server.post("/api/media")
+            .set('Authorization', 'Bearer ' + token)
+            .send(media)
+            .expect(200)
+            .end(function (error, response) {
+                if (error) throw error;
+                server.delete("/api/media/" + response.body.data)
+                    .set('Authorization', 'Bearer ' + token)
+                    .expect(200, done);
+            });
+    });
+
     it("find media by id", function (done) {
         server.get("/api/media/" + media.id)
             .set('Authorization', 'Bearer ' + token)

@@ -1,7 +1,7 @@
 import ffmpeg_bin from '@ffmpeg-installer/ffmpeg';
 import ffmpeg from 'fluent-ffmpeg';
 
-export default class Video {
+export default class {
 
     constructor(resource) {
         this.resource = resource;
@@ -16,13 +16,16 @@ export default class Video {
      */
     handle(callback) {
 
-
         ffmpeg.ffprobe(this.file.path, (error, metadata) => {
 
             if (error) return callback(error);
 
-            this.file.meta = {
-                duration: parseInt(metadata.format.duration)
+            this.resource.data = {
+                storage: this.resource.storage.disk,
+                path: this.resource.file.relative_directory + "/" + this.resource.file.file,
+                duration: parseInt(metadata.format.duration),
+                mime: this.resource.file.mime_type,
+                size: this.resource.file.size
             };
 
             callback(null, this.resource);

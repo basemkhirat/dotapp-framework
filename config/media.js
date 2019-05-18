@@ -11,7 +11,7 @@ export default {
      *  allowed file types for upload
      */
 
-    allowed_file_types: ["jpg", "mp4", "png", "gif", "pdf"],
+    allowed_file_types: ["jpg", "png", "bmp", "mp4"],
 
 
     image: {
@@ -32,6 +32,21 @@ export default {
             {name: "large", width: 500, height: 400, mode: "contain", quality: 100},
             {name: "max", width: 1000, height: 600, mode: "contain", quality: 100}
         ]
+    },
+
+    /**
+     * Services auth key used for getting data
+     */
+    services: {
+
+        youtube: {
+            key: process.env.YOUTUBE_KEY || "AIzaSyBRmwHTeOMV071olVy-eddww5Hi1yDHd_8"
+        },
+
+        soundcloud: {
+            key: process.env.SOUNDCLOUD_KEY || "203ed54b9fd03054e1aa2b2cae337eae"
+        }
+
     }
 
 }

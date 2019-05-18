@@ -46,7 +46,7 @@ describe("Category", function () {
             .expect(200, done);
     });
 
-    it("perform bulk delete/update operations", function (done) {
+    it("perform bulk delete operations", function (done) {
 
         let category = {
             name: faker.company.companyName()

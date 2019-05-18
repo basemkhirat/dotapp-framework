@@ -15,10 +15,6 @@ export default class Resource {
 
     constructor(payload) {
         this.payload = payload;
-        this.storage = Storage.disk("uploads");
-        let payload_class = require("~/services/media/payloads/" + this.getType()).default;
-        this.payload_object = new payload_class(payload);
-        this.media = Config.get('media');
     }
 
     /**
@@ -27,11 +23,21 @@ export default class Resource {
      */
     store(callback) {
 
-        this.payload_object.store.call(this, (error, file) => {
+        this.storage = Storage.disk("uploads");
+        let payload_class = require("~/services/media/payloads/" + this.getType()).default;
+        this.payload_object = new payload_class(this.payload);
+        this.media = Config.get('media');
+
+        this.payload_object.store.call(this, error => {
 
             if (error) return callback(error);
 
-            let handler_path = path.join(process.cwd(), "services/media/handlers/" + file.type + ".js");
+            /**
+             * Handlers are function executed after payload processing to make
+             * trigger operations based on file provider and type setted in payload class.
+             */
+
+            let handler_path = path.join(process.cwd(), "services/media/handlers/" + this.provider + "_" + this.type + ".js");
 
             if (fs.existsSync(handler_path)) {
                 let handler = require(handler_path).default;
@@ -44,22 +50,32 @@ export default class Resource {
     }
 
     /**
-     * set file type
+     * set mime type
      * @param mime_type
      */
     setFileType(mime_type) {
+
+        if(mime_type === "image") mime_type = "image/jpeg";
+
         this.file.mime_type = mime_type;
-        this.file.type = mime_type.split("/")[0];
+        this.type = mime_type.split("/")[0];
         let extension = mime.extension(mime_type);
         this.file.extension = extension === "jpeg" ? "jpg" : extension;
     }
 
+    /**
+     * set file type
+     * @param type
+     */
+    setType(type) {
+        this.type = type;
+    }
 
     /**
      * set resource provider
      * @param name
      */
-    setProvider(name = 'local') {
+    setProvider(name = 'file') {
         this.provider = name;
     }
 
@@ -123,5 +139,61 @@ export default class Resource {
         }
 
         return false;
+    }
+
+    getData() {
+
+        if (/youtu\.?be/.test(this.payload)) {
+
+            let i, patterns = [
+                /youtu\.be\/([^#\&\?]{11})/,  // youtu.be/<id>
+                /\?v=([^#\&\?]{11})/,         // ?v=<id>
+                /\&v=([^#\&\?]{11})/,         // &v=<id>
+                /embed\/([^#\&\?]{11})/,      // embed/<id>
+                /\/v\/([^#\&\?]{11})/         // /v/<id>
+            ];
+
+            for (let i = 0; i < patterns.length; ++i) {
+                if (patterns[i].test(this.payload)) {
+                    return {
+                        provider: "youtube",
+                        type: "video"
+                    };
+                }
+            }
+        }
+
+        if (/dailymotion\.com/.test(this.payload)) {
+            return {
+                provider: "dailymotion",
+                type: "video"
+            };
+        }
+
+        if (/soundcloud\.com/.test(this.payload)) {
+            return {
+                provider: "soundcloud",
+                type: "audio"
+            };
+        }
+
+        return false;
+    }
+
+    /**
+     * get resource object
+     * @returns {*}
+     */
+    toObject(){
+
+        let resource = this;
+
+        resource.payload_object = undefined;
+        resource.media = undefined;
+        resource.file = undefined;
+        resource.storage = undefined;
+        resource.payload = undefined;
+
+        return resource;
     }
 }

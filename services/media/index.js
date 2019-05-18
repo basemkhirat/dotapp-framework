@@ -12,41 +12,15 @@ export default new class Index {
     upload(payload, callback) {
 
         if (!payload) {
-            return callback("Invalid media payload. Available protocols: data:, http:, https");
+            return reject("Invalid media payload. Available protocols: data:, http:, https");
         }
 
         let object = new Resource(payload);
 
         object.store((error, resource) => {
+            if (error) return callback(error);
 
-            let media = new Media();
-
-            media.provider = resource.provider;
-            media.type = resource.file.type;
-
-            if(resource.file.type === "image"){
-
-                media.data = {
-                    storage: resource.storage.disk,
-                    path: resource.file.relative_directory + "/" + resource.file.file,
-                    width: resource.file.meta.width,
-                    height: resource.file.meta.height,
-                    mime: resource.file.mime_type,
-                    size: resource.file.size
-                }
-            }
-
-            if(resource.file.type === "video"){
-                media.data = {
-                    storage: resource.storage.disk,
-                    path: resource.file.relative_directory + "/" + resource.file.file,
-                    duration: resource.file.meta.duration,
-                    mime: resource.file.mime_type,
-                    size: resource.file.size
-                }
-            }
-
-            callback(error, media);
+            callback(null, new Media(resource.toObject()));
         });
     }
 
@@ -59,13 +33,12 @@ export default new class Index {
     create(payload, callback) {
 
         this.upload(payload, (error, media) => {
-            if(error) return callback(error);
+            if (error) return callback(error);
 
             media.save((error, media) => {
-                if(error) return callback(error);
+                if (error) return callback(error);
                 callback(null, media);
             });
         });
-
     }
 }

@@ -1,7 +1,7 @@
 import {Mongoose, Schema} from './model';
 import Config from '~/services/config';
 import Storage from '~/services/storage';
-import Image from '~/services/media/handlers/image';
+import Image from '~/services/media/handlers/file_image';
 
 let schema = Schema({
 
@@ -24,14 +24,33 @@ let schema = Schema({
             default: "local"
         },
 
+        image: {
+            storage: {type: String},
+            path: {type: String},
+            mime: {type: String},
+            width: {type: Number},
+            height: {type: Number},
+            size: {type: Number}
+        },
+
         data: {
+            id: {type: Schema.Types.Mixed},
             storage: {type: String},
             path: {type: String},
             mime: {type: String},
             width: {type: Number},
             height: {type: Number},
             size: {type: Number},
-            duration: {type: Number}
+            duration: {type: Number},
+            embed: {type: Schema.Types.Mixed},
+        },
+
+        url: {
+            type: String
+        },
+
+        thumbnails: {
+            type: Object
         },
 
         user: {
@@ -65,11 +84,13 @@ schema.index({
     'data.mime': 'text',
 });
 
-schema.virtual("url").get(function () {
-    return Storage.disk(this.data.storage).url(this.data.path);
+schema.path("url").get(function () {
+    if(this.provider === "file") {
+        return Storage.disk(this.image.storage).url(this.image.path);
+    }
 });
 
-schema.virtual("thumbnails").get(function () {
+schema.path("thumbnails").get(function () {
 
     let sizes = Config.get("media.image.thumbnails")
         .map(thumbnail => thumbnail.name)
@@ -79,9 +100,9 @@ schema.virtual("thumbnails").get(function () {
 
     let thumbnails = {};
 
-    if (this.type === "image") {
+    if (this.image.path) {
         sizes.forEach((size) => {
-            thumbnails[size] = Storage.disk(this.data.storage).url(Image.getThumbnailFileName(this.data.path, size));
+            thumbnails[size] = Storage.disk(this.image.storage).url(Image.getThumbnailFileName(this.image.path, size));
         });
     }
 
