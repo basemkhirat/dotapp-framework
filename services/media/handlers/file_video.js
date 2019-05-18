@@ -37,9 +37,7 @@ export default class {
 
             ffmpeg(this.resource.file.directory + "/" + this.resource.file.file)
 
-                .screenshot(options, this.resource.file.directory)
-
-                .on(error => {
+                .on('error', () => {
                     callback("Failed to take video screenshot");
                 })
 
@@ -52,11 +50,13 @@ export default class {
 
                         this.resource.image = file.image;
 
-                        this.storage.delete(this.resource.file.relative_directory + "/screenshot.png");
+                        this.storage.delete(this.resource.file.relative_directory + "/screenshot.png", () => {});
 
                         callback(null, this.resource);
                     });
-                });
+                })
+
+                .screenshot(options, this.resource.file.directory)
 
         });
 
