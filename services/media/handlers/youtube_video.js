@@ -28,7 +28,6 @@ export default class {
 
                     if (error) return callback(error, this.resource);
 
-                    this.resource.data = video;
                     this.resource.data = {
                         id: video.id,
                         duration: this.getSeconds(video.raw.contentDetails.duration),

@@ -1,5 +1,6 @@
 import ffmpeg_bin from '@ffmpeg-installer/ffmpeg';
 import ffmpeg from 'fluent-ffmpeg';
+import Media from '~/services/media';
 
 export default class {
 
@@ -28,31 +29,35 @@ export default class {
                 size: this.resource.file.size
             };
 
-            callback(null, this.resource);
+            let options = {
+                count: 1,
+                filename: Date.now() + '.png',
+                timemarks: ['00:00:02.000']
+            };
 
-            // ffmpeg(this.file.path)
-            //     .on('end', (filenames) => {
-            //         this.file.meta.preview = filenames;
-            //         callback(null, this.file);
-            //     })
-            //     .on('error', (err, stdout, stderr) => {
-            //         callback(err);
-            //     })
-            //     .screenshots({
-            //         filename: "file.png",
-            //         timemarks: [520.929831],
-            //         folder: this.file.directory
-            //     });
+            ffmpeg(this.resource.file.directory + "/" + this.resource.file.file)
 
+                .screenshot(options, this.resource.file.directory)
 
-            // ffmpeg(this.file.path).on('error', function (err) {
-            //     if (err) return callback(err);
-            // }).takeScreenshots({count: 1, timemarks: ['00:00:02.000']}, this.file.directory, (error, filenames) => {
-            //     if (error) return callback(error);
-            //     console.log(filenames);
-            //     console.log('screenshots were saved');
-            //     callback(null, this.file);
-            // });
+                .on(error => {
+                    callback("Failed to take video screenshot");
+                })
+
+                .on('end', () => {
+
+                    let screenshot = this.resource.file.directory + "/" + options.filename;
+
+                    Media.upload(screenshot, (error, file) => {
+                        if (error) return callback(error);
+
+                        this.resource.image = file.image;
+
+                        this.storage.delete(this.resource.file.relative_directory + "/screenshot.png");
+
+                        callback(null, this.resource);
+                    });
+                });
+
         });
 
     }

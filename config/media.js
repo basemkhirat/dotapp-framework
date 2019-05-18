@@ -11,7 +11,7 @@ export default {
      *  allowed file types for upload
      */
 
-    allowed_file_types: ["jpg", "png", "bmp", "mp4"],
+    allowed_file_types: ["jpg", "png", "bmp", "mp4", "flv"],
 
 
     image: {

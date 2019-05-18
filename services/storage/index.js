@@ -41,7 +41,7 @@ export default class Index {
     delete(file, callback) {
         this.driver.delete(file, (error) => {
             if (error) return callback("File is not exist");
-            return callback(null);
+            if(callback) return callback(null);
         });
     }
 
@@ -54,7 +54,7 @@ export default class Index {
     exists(file, callback) {
         this.driver.exists(file, (error) => {
             if (error) return callback("File is not exist");
-            return callback(null);
+            if(callback) return callback(null);
         });
     }
 

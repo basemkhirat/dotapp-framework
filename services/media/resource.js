@@ -55,7 +55,7 @@ export default class Resource {
      */
     setFileType(mime_type) {
 
-        if(mime_type === "image") mime_type = "image/jpeg";
+        if (mime_type === "image") mime_type = "image/jpeg";
 
         this.file.mime_type = mime_type;
         this.type = mime_type.split("/")[0];
@@ -136,6 +136,8 @@ export default class Resource {
             return "data";
         } else if (protocol === "http:" || protocol === "https:") {
             return "link";
+        } else if (fs.statSync(this.payload).isFile()) {
+            return "path";
         }
 
         return false;
@@ -184,7 +186,7 @@ export default class Resource {
      * get resource object
      * @returns {*}
      */
-    toObject(){
+    toObject() {
 
         let resource = this;
 
