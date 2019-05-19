@@ -41,6 +41,8 @@
 <script>
     import VuePerfectScrollbar from 'vue-perfect-scrollbar';
     import MenuItem from './MenuItem';
+
+
     export default {
         data(){
             return{

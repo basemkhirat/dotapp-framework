@@ -3,27 +3,46 @@
           <b-modal @close="closeMediaModal" :canCancel="false" :has-modal-card="false" :active.sync="mediaModal" scroll="keep" class="modal--custom modal--lg media--content">
                <div class=" pb-0">
                     <div class="upper--media d-flex align-items-center">
-                         <h2 class="title--one">Media</h2>
-                         <button class="button is-primary is-rounded ml-auto" @click="changeModalUploadFiles">Upload <i class="fas fa-cloud-upload-alt ml-2"></i></button>
+                         <h2 class="title--one">
+                              Media
+                              <span class="badge--count" v-if="total">
+                                   ({{total}})
+                              </span>
+                         </h2>
+                         
+                         <button class="button is-primary is-rounded ml-auto" @click="changeModalUploadFiles">
+                              Upload 
+                              <i class="fas fa-cloud-upload-alt ml-2"></i>
+                         </button>
                     </div>
+
                     <!-- Filter Media -->
-                    <filter-media />
+                    <filter-media @changeFilters="changeFilters" />
 
                     <!-- Items Media -->
-                    <div class="row">
-                         
+                    <div class="">
 
-                         <vue-perfect-scrollbar class="media--items--wrap" :settings="scrollSettingsMedia">
-                              <div class="media--items">
-                                   
-                                   <template v-if="dataLoading">
-                                        <loading-data></loading-data>
-                                   </template>
-                                   <template v-else>
-                                             <media-items :data="items"/>
-                                   </template>
+                         <template v-if="dataLoading">
+                              <div class="media--items--wrap d-flex align-items-center justify-content-center w-100">
+                                   <loading-data></loading-data>
                               </div>
-                         </vue-perfect-scrollbar>
+                         </template>
+
+                          <template v-else>
+        
+                              <div  class="media--items--wrap">
+                                   <div class="media--items">
+                                        <media-items :data="items"/>
+                                        <div class="py-4 text-center w-100">
+                                             <infinite-loading @infinite="infiniteHandler">
+                                                  <div slot="no-more"></div>
+                                                  <div slot="no-results"></div>
+                                             </infinite-loading>
+                                        </div>
+                                   </div>
+                              </div>
+                                   
+                          </template>
 
                     </div>
 
@@ -72,47 +91,50 @@ import filterMedia from './FilterMedia'
 import mediaItems from './MediaItems'
 import uploadFiles from './UploadFiles'
 import createAlbum from './CreateAlbum'
-import {images} from './../../mocks/media/images.js'
-import VuePerfectScrollbar from 'vue-perfect-scrollbar';
 
 // Repository Data
 import { RepositoryFactory } from '../../repositories/RepositoryFactory'
 const mediaRepository = RepositoryFactory.get('media')
 
-
+import InfiniteLoading from 'vue-infinite-loading';
 
 export default {
      data(){
           return {
-               mediaModal: true,
+               mediaModal: false,
                mediaModalUploadFile: false,
                modalCreateAlbum: false,
-               images,
-               scrollSettingsMedia: {
-                    maxScrollbarLength: 160
-                },
                items: [],
                total: null,
                allUserSelected: false,
                page: 1, 
-               limit: 100,
+               pageLoadMore: 2, 
+               limit:25,
                order: 'is-centered',
-               dataLoading: true
+               dataLoading: false,
+               filters: {}
           }
      },
      created(){
-          this.fetchAllItems()
+          if(this.mediaModal === true){
+                this.fetchAllItems()
+          }
      },
      components:{
           filterMedia,
           mediaItems,
-          VuePerfectScrollbar,
           uploadFiles,
           createAlbum,
+          InfiniteLoading
      },
      watch:{
           stateMediaModal(){
                this.stateMediaModal ? this.mediaModal = true : this.mediaModal = false
+          },
+          mediaModal(){
+               if(this.mediaModal === true){
+                    this.fetchAllItems()
+               }
           }
      },
      computed:{
@@ -127,26 +149,25 @@ export default {
           },
           changeModalUploadFiles(data){
                this.mediaModalUploadFile = !this.mediaModalUploadFile
-               console.log(data.newItem)
                if(data.newItem == true){
                     this.fetchAllItems()
                }
           },
+
           changeModalCreateAlbum(){
                this.modalCreateAlbum = !this.modalCreateAlbum
           },
 
           // Get All Media
           async fetchAllItems() {
+               this.pageLoadMore = 2
                this.dataLoading = true
-               const data = await mediaRepository.getAllMedia(this.page, this.limit)
+               const data = await mediaRepository.getAllMedia(this.page, this.limit, this.filters)
                this.items = data.docs;
                this.total = data.total;
-               console.log(data)
                this.dataLoading = false;
           },
     
-
           confirmCustomDelete() {
                 this.$dialog.confirm({
                     title: 'Deleting Images',
@@ -163,7 +184,25 @@ export default {
                          })
                     }
                 })
-            }
+            },
+     
+           async infiniteHandler($state) {
+               const data =  await mediaRepository.getAllMedia(this.pageLoadMore, this.limit, this.filters)
+               if (data.docs.length) {
+                    this.pageLoadMore += 1;
+                    this.items.push(...data.docs);
+                    $state.loaded();
+               } else {
+                    $state.complete();
+               }
+            },
+
+          // Filters
+          changeFilters(filters){
+               this.filters = filters
+               this.fetchAllItems()
+          }
+
      }
 }
 </script>

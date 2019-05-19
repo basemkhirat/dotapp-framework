@@ -29,15 +29,14 @@ export default {
     },
     
     getAllMedia(page, limit, filters = {}) {
+        let typeQuery = (filters.type && filters.type !== '') ? '&type=' + filters.type : '';
+        let orderQuery = (filters.order) ? '&sort_type=' + filters.order : '';
+        let searchQuery = (filters.searchQuery && filters.searchQuery !== '') ? '&q=' + filters.searchQuery  + '&fieldsNames=title': '';
 
-        // let typeQuery = (filters.type) ? '&sort_type=' + filters.type : '';
-        // let orderQuery = (filters.order) ? '&order=' + filters.order : '';
-        // // let searchQuery = (filters.searchQuery && filters.searchQuery !== '') ? '&q=' + filters.searchQuery  + '&fieldsNames=title': '';
-
-        //     let filterQuery = typeQuery + orderQuery  + searchQuery;
+        let filterQuery = typeQuery + orderQuery  + searchQuery;
 
 
-        return Repository.get(`${resource}?page=${page}&limit=${limit}&sort_field=id`).then((response) => {
+        return Repository.get(`${resource}?page=${page}&limit=${limit}${filterQuery}`).then((response) => {
             if (response.data.success) {
                 return response.data.data;
             }
