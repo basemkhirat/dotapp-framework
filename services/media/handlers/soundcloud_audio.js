@@ -20,9 +20,7 @@ export default class {
                 this.resource.data = {
                     id: audio.id,
                     duration: audio.duration,
-                    embed: "https://w.soundcloud.com/player/?url=" + audio.uri,
-                    audio: audio
-
+                    embed: "https://w.soundcloud.com/player/?url=" + audio.uri
                 };
 
                 this.resource.url = audio.permalink_url;
