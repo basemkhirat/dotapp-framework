@@ -5,7 +5,7 @@ export default {
      * max file size for upload
      */
 
-    max_file_size: 9999999,
+    max_file_size: 100 * 1024 * 1024,
 
     /**
      *  allowed file types for upload
