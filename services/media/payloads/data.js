@@ -8,7 +8,7 @@ export default class {
 
         this.setProvider("file");
 
-        let matches = this.payload.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
+        let matches = this.payload.match(/^data:([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+);base64,(.+)$/);
 
         if (!matches || matches.length !== 3) {
             return callback('Invalid base64 data');

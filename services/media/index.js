@@ -12,7 +12,7 @@ export default new class Index {
     upload(payload, callback) {
 
         if (!payload) {
-            return reject("Invalid media payload. Available protocols: data:, http:, https");
+            return callback("Invalid media payload. Available protocols: data:, http:, https");
         }
 
         let object = new Resource(payload);

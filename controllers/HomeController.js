@@ -12,7 +12,4 @@ export default class extends Controller {
     index(req, res, next) {
         res.ok("Hi " + req.ipAddress());
     }
-
-
-
 };

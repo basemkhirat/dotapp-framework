@@ -50,7 +50,7 @@ export default class {
 
                         this.resource.image = file.image;
 
-                        this.storage.delete(this.resource.file.relative_directory + "/screenshot.png", () => {});
+                        this.storage.delete(this.resource.file.relative_directory + "/" + options.filename, () => {});
 
                         callback(null, this.resource);
                     });

@@ -33,36 +33,56 @@ export default class Resource {
             if (error) return callback(error);
 
             /**
-             * Handlers are function executed after payload processing to make
-             * trigger operations based on file provider and type setted in payload class.
+             * Default file handler
+             * @type {{path: string, size: *, mime: string, storage: (Index.disk|boolean)}}
              */
 
-            let handler_path = path.join(process.cwd(), "services/media/handlers/" + this.provider + "_" + this.type + ".js");
-
-            if (fs.existsSync(handler_path)) {
-
-                let handler = require(handler_path).default;
-                let handler_object = new handler(this);
-
-                return handler_object.handle(callback);
-
-            } else {
-
-                /**
-                 * use default file handler
-                 * @type {{path: string, size: *, mime: string, storage: (Index.disk|boolean)}}
-                 */
-
+            if (this.provider === 'file' && this.type !== "image") {
                 this.data = {
                     storage: this.storage.disk,
                     path: this.file.relative_directory + "/" + this.file.file,
                     mime: this.file.mime_type,
                     size: this.file.size
                 };
-
-                return callback(null, this);
             }
+
+            /**
+             * Handlers are function executed after payload processing to make
+             * trigger operations based on file provider and type setted in payload class.
+             */
+
+            let handler_path = this.getHandler();
+
+            fs.access(handler_path, fs.F_OK, (error) => {
+                if(error) return callback(null, this);
+
+                let handler = require(handler_path).default;
+                let handler_object = new handler(this);
+                return handler_object.handle(callback);
+            });
         });
+    }
+
+    /**
+     * get resource handler path
+     * @returns {*}
+     */
+    getHandler() {
+
+        let type = this.type;
+
+        if (this.provider === 'file') {
+
+            if (["jpg", "jpeg", "png", "bmp"].indexOf(this.file.extension) > -1) {
+                type = "image";
+            }else if (["mp4", "flv"].indexOf(this.file.extension) > -1) {
+                type = "video";
+            }else{
+                type = this.file.extension;
+            }
+        }
+
+        return path.join(process.cwd(), "services/media/handlers/" + this.provider + "_" + type + ".js");
     }
 
     /**
