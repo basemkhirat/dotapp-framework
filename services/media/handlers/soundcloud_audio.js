@@ -1,4 +1,5 @@
 import request from 'request';
+import Media from '~/services/media';
 import Config from '~/services/config';
 
 export default class {
@@ -19,14 +20,23 @@ export default class {
                 this.resource.data = {
                     id: audio.id,
                     duration: audio.duration,
-                    embed: "https://w.soundcloud.com/player/?url=" + audio.uri
+                    embed: "https://w.soundcloud.com/player/?url=" + audio.uri,
+                    audio: audio
+
                 };
 
                 this.resource.url = audio.permalink_url;
                 this.resource.title = audio.title;
                 this.resource.description = audio.description;
 
-                callback(null, this.resource);
+                if(audio.artwork_url){
+                    Media.upload(audio.artwork_url, (error, file) => {
+                        this.resource.image = file.image;
+                        callback(null, this.resource);
+                    });
+                }else{
+                    callback(null, this.resource);
+                }
             })
             .catch(error => {
                 return callback(error);
