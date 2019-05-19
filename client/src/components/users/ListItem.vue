@@ -111,8 +111,7 @@
             },
             async updateUser(id, data) {
                 const user = await usersRepository.updateUser(id, data)
-                // console.log(user)
-                // this.isLoading = false
+                this.isLoading = false
                 this.aleartMessage(user.message)
             },
             async deleteUser(id) {

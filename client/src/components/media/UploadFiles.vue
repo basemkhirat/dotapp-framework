@@ -95,9 +95,10 @@
                     this.closeModalUploadFile({newItem: true})
                 } else {
                      this.isLoading = false
-                    items.data.map(item => {
-                        this.errorMessage(item)
-                    })
+                    // items.data.map(item => {
+                    //     this.errorMessage(item)
+                    // })
+                    this.errorMessage(items.message)
 
                 }
                 this.isLoading = false

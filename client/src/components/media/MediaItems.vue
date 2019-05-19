@@ -3,11 +3,11 @@
         <div class="row" v-if="data">
             <div class="col-6 col-md-4 col-lg-3 col-xl-2" v-for="item in data" :key="item.id">
                 <div class="media--item" v-if="item.thumbnails">
-                    <img :src="item.thumbnails.medium" :alt="itemSelected.title" @click="quickEdit(item)">
+                    <img :src="item.thumbnails.medium? item.thumbnails.medium : item.thumbnails.default" :alt="itemSelected.title" @click="quickEdit(item)">
                     <div class="media--action d-flex justify-content-between"
-                        :class="{'showItemAction': checkItemsGroup.length}">
+                        :class="{'showItemAction': checkItemsMedia.length}">
                         <a class="media--action--check custom--ckeckbox">
-                            <b-checkbox :native-value="item.id" v-model="checkItemsGroup"></b-checkbox>
+                            <b-checkbox :native-value="item.id" v-model="checkItemsMedia"></b-checkbox>
                         </a>
                         <a class="media--action--edit" @click="quickEdit(item)">
                             Edit
@@ -26,16 +26,50 @@
                 <form @submit.prevent="submitForm()">
                     <h3 class="modal-card-title">Edit Image</h3>
                     <section class="modal-card-body" v-if="itemSelected">
-                        <template v-if="itemSelected.thumbnails">
-                            <img :src="itemSelected.thumbnails.medium" :alt="itemSelected.title">
+
+                        <!-- Audio -->
+                        <template v-if="itemSelected.type === 'audio'">
+                            <div v-if="itemSelected.provider === 'soundcloud'">
+                                <iframe width="100%" height="166" scrolling="no" 
+                                frameborder="no" 
+                                :src="itemSelected.data.embed">
+                                </iframe>
+                            </div>
                         </template>
 
+                        <!-- Video -->
+                        <template v-if="itemSelected.type === 'video'">
+                            <!-- Video Youtube -->
+                            <div v-if="itemSelected.provider === 'youtube'">
+                                <iframe width="400" 
+                                class="video--iframe"
+                                :src="itemSelected.data.embed" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                            <!-- Video File -->
+                            <div v-if="itemSelected.provider === 'file'">
+                                <vue-plyr>
+                                    <video poster="poster.png" :src="itemSelected.url">
+                                        <source :src="itemSelected.url" :type="itemSelected.data.mime" size="720">
+                                    </video>
+                                </vue-plyr>
+                            </div>
+                        </template>
+
+                        <!-- image -->
+                        <template v-if="itemSelected.type === 'image'">
+                            <template v-if="itemSelected.thumbnails">
+                                <img :src="itemSelected.thumbnails.medium" :alt="itemSelected.title">
+                            </template>
+                        </template>
+                        
                         <div class="content--edit--image mt-3">
                             <b-field>
                                 <b-input rounded v-model="itemSelected.title" placeholder="Title" type="text"></b-input>
                             </b-field>
                             <b-field>
-                                <b-input placeholder="Description" v-model="itemSelected.description" rows="2"
+                                <b-input placeholder="Description" v-model="itemSelected.description" rows="3"
                                     type="textarea"></b-input>
                             </b-field>
 
@@ -66,7 +100,7 @@
                                     </a>
                                 </p>
                                 <p class="control flex-fill">
-                                    <a class="button is-rounded w-100">
+                                    <a class="button is-rounded w-100" @click="confirmCustomDelete()">
                                         <span class="icon is-small">
                                             <i class="fas fa-trash"></i>
                                         </span>
@@ -98,20 +132,26 @@
     } from '../../repositories/RepositoryFactory'
     const mediaRepository = RepositoryFactory.get('media')
 
+// Video Media Player
+import Vue from 'vue'
+import VuePlyr from 'vue-plyr'
+import 'vue-plyr/dist/vue-plyr.css' // only if your build system can import css, otherwise import it wherever you would import your css.
+Vue.use(VuePlyr)
 
     export default {
         props: ['data'],
         data() {
             return {
-                checkItemsGroup: [],
+                checkItemsMedia: [],
                 modalQuickEdit: false,
                 itemSelected: {},
                 isLoading: false,
             }
         },
         watch: {
-            checkItemsGroup() {
-                this.$store.commit('checkItemsSelected', this.checkItemsGroup.length)
+            checkItemsMedia() {
+                this.$emit('checkItemsMedia', this.checkItemsMedia)
+                console.log(this.data)
             }
         },
         
@@ -119,6 +159,7 @@
             quickEdit(item) {
                 this.modalQuickEdit = true
                 this.itemSelected = item
+                console.log(item)
             },
 
             // Copy Link Function
@@ -158,6 +199,12 @@
                 this.isLoading = false
             },
 
+            async deleteItem(){
+                const item = await mediaRepository.deleteItem(this.itemSelected.id)
+                this.aleartMessage(item.message)
+                this.$emit('fetchAllItems')
+            },
+
             errorMessage(textMessage) {
                 this.$snackbar.open({
                     message: textMessage,
@@ -180,6 +227,29 @@
                     indefinite: false,
                 })
             },
+
+            confirmCustomDelete() {
+                this.$dialog.confirm({
+                    title: 'Deleting Item',
+                    message: 'Are you sure you want to <b>delete</b> this item? This action cannot be undone.',
+                    confirmText: 'Delete Item',
+                    type: 'is-danger',
+                    hasIcon: true,
+                    onConfirm: () => this.deleteItem()
+                })
+            },
+
+            aleartMessage(textMessage){
+               this.$snackbar.open({
+                    message: textMessage,
+                    type: 'is-success',
+                    position: 'is-bottom-right',
+                    actionText: 'OK',
+                    queue: false,
+                    duration: 3000,
+                    indefinite: false,
+               })
+          },
 
            
 

@@ -27,6 +27,21 @@ export default {
             }
         });
     },
+
+    deleteItems(ids) {
+        return Repository.patch(`${resource}/?operation=delete&ids=${ids}`).then((response) => {
+            if (response.data.success) {
+                return response.data;
+            }
+        });
+    },
+    deleteItem(id) {
+        return Repository.delete(`${resource}/${id}`).then((response) => {
+            if (response.data.success) {
+                return response.data;
+            }
+        });
+    },
     
     getAllMedia(page, limit, filters = {}) {
         let typeQuery = (filters.type && filters.type !== '') ? '&type=' + filters.type : '';
