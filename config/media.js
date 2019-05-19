@@ -11,7 +11,7 @@ export default {
      *  allowed file types for upload
      */
 
-    allowed_file_types: ["jpg", "png", "bmp", "mp4", "flv"],
+    allowed_file_types: ["jpg", "png", "bmp", "mp4", "flv", "pdf"],
 
 
     image: {
@@ -46,7 +46,5 @@ export default {
         soundcloud: {
             key: process.env.SOUNDCLOUD_KEY || "203ed54b9fd03054e1aa2b2cae337eae"
         }
-
     }
-
 }

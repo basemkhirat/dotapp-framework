@@ -2,6 +2,7 @@ import {Mongoose, Schema} from './model';
 import Config from '~/services/config';
 import Storage from '~/services/storage';
 import Image from '~/services/media/handlers/file_image';
+import path from 'path';
 
 let schema = Schema({
 
@@ -105,9 +106,21 @@ schema.path("thumbnails").get(function () {
     let thumbnails = {};
 
     if (this.image.path) {
+
         sizes.forEach((size) => {
             thumbnails[size] = Storage.disk(this.image.storage).url(Image.getThumbnailFileName(this.image.path, size));
         });
+
+        thumbnails.default = Storage.disk(this.image.storage).url(this.image.path);
+
+    }else if (this.data.path) {
+
+        thumbnails.default = _url("default/files/"+ path.extname(this.data.path).split(".").pop()) + ".png";
+
+    }else{
+
+        thumbnails.default = _url("default/providers/"+ this.provider + ".png");
+
     }
 
     return thumbnails;

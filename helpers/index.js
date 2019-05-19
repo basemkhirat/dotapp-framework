@@ -63,3 +63,8 @@ export const _uploads_path = function (path = false) {
 export const _route = function (name, params = {}) {
     return Router.name(name, params);
 };
+
+export const _url = function (path, params = {}) {
+    let url = Config.get("app.url");
+    return path ? url + "/" + path : url;
+};

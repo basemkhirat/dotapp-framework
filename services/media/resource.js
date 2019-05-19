@@ -40,10 +40,26 @@ export default class Resource {
             let handler_path = path.join(process.cwd(), "services/media/handlers/" + this.provider + "_" + this.type + ".js");
 
             if (fs.existsSync(handler_path)) {
+
                 let handler = require(handler_path).default;
                 let handler_object = new handler(this);
+
                 return handler_object.handle(callback);
+
             } else {
+
+                /**
+                 * use default file handler
+                 * @type {{path: string, size: *, mime: string, storage: (Index.disk|boolean)}}
+                 */
+
+                this.data = {
+                    storage: this.storage.disk,
+                    path: this.file.relative_directory + "/" + this.file.file,
+                    mime: this.file.mime_type,
+                    size: this.file.size
+                };
+
                 return callback(null, this);
             }
         });
