@@ -62,14 +62,14 @@
                                 <template v-if="this.$route.params.id">
                                     <b-field class="field-group text-center" v-if="policies.indexOf('user.status') > -1">
                                         <b-switch v-model="userStatus" true-value="Active" false-value="Not Active">
-                                            {{userStatus}}
+                                            Active
                                         </b-switch>
                                     </b-field>
                                 </template>
                                 <template v-else>
                                     <b-field class="field-group text-center">
                                         <b-switch v-model="userStatus" true-value="Active" false-value="Not Active">
-                                            {{userStatus}}
+                                            Active
                                         </b-switch>
                                     </b-field>
                                 </template>

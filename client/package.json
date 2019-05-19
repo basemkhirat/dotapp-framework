@@ -16,6 +16,7 @@
     "vue": "^2.6.10",
     "vue-clipboard2": "^0.3.0",
     "vue-croppie": "^2.0.1",
+    "vue-infinite-loading": "^2.4.4",
     "vue-perfect-scrollbar": "^0.1.0",
     "vue-router": "^3.0.3",
     "vue-select": "^3.0.2",

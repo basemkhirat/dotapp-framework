@@ -51,7 +51,7 @@
                 <div class="item--text text-center">
                     <div class="field" v-if="user.policies.indexOf('user.status') > -1">
                         <b-switch v-model="userStatus" true-value="Active" false-value="Not Active">
-                            {{userStatus}}
+                            Active
                         </b-switch>
                     </div>
                 </div>

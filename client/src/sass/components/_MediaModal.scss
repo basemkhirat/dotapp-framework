@@ -10,10 +10,14 @@
                max-width: 350px;
                margin-left: auto;
           }
+          .vs__clear{
+               display: none;
+          }
      }
 
      .media--items--wrap{
           height:calc(100vh - 268px); 
+          overflow: auto !important;
       }
 
      .media--items{

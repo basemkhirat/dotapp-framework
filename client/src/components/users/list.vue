@@ -63,12 +63,13 @@ export default {
             }
         },
         deleteItems(){
-            for(var i = 0; i < this.usersSelected.length; i++){
-                this.deleteUser(this.usersSelected[i])
-                if(this.usersSelected.length === (i + 1)){
-                   this.usersSelected = []
-                }
-            }
+            // for(var i = 0; i < this.usersSelected.length; i++){
+            //     this.deleteUser(this.usersSelected[i])
+            //     if(this.usersSelected.length === (i + 1)){
+            //        this.usersSelected = []
+            //     }
+            // }
+             this.deleteUsers(this.usersSelected)
         },
         banItems(){
             for(var i = 0; i < this.usersSelected.length; i++){
@@ -83,6 +84,11 @@ export default {
             const user = await usersRepository.deleteUser(id)
             this.$emit('fetchAllItems')
             this.aleartMessage()
+        },
+        async deleteUsers(ids) {
+            const users = await usersRepository.deleteUsers(ids)
+            // this.$emit('fetchAllItems')
+            // this.aleartMessage()
         },
         // Ban Items
         // async banItems(id) {

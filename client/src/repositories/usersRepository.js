@@ -25,6 +25,13 @@ export default {
             }
         });
     },
+    deleteUsers(ids) {
+        return Repository.patch(`${resource}/?operation=delete&ids[]=5ccac145873dcd4810b259a5&ids[]=5cc98d4f9109664fb4300821`).then((response) => {
+            if (response.data.success) {
+                return response.data;
+            }
+        });
+    },
     getAllUsers(page, limit) {
         return Repository.get(`${resource}?page=${page}&limit=${limit}`).then((response) => {
             if (response.data.success) {
