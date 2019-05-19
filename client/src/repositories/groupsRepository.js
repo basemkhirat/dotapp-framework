@@ -24,6 +24,13 @@ export default {
             }
         });
     },
+    deleteGroups(ids) {
+        return Repository.patch(`${resource}/?operation=delete&ids=${ids}`).then((response) => {
+            if (response.data.success) {
+                return response.data;
+            }
+        });
+    },
     getAllGroups(page, limit) {
         return Repository.get(`${resource}?page=${page}&limit=${limit}`).then((response) => {
             if (response.data.success) {

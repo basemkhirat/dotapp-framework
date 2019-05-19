@@ -28,13 +28,16 @@ const Login = {
                 state.isLoading = false
                 localStorage.setItem('token', response.data.data.token)                
                 dispatch('checkUserData');
-                router.push('/')
+                window.location.href = '/'
               })
               .catch(error => {
                 state.loginErrorMessage = error.response.data.data[0]
                 state.isLoading = false
               })
           },
+
+
+
           checkUserData({ commit, state }, loginData) {
             axios.get('/auth/user')
               .then((response) => {

@@ -51,9 +51,9 @@ export default {
                          value: 'video'
                     },
                     {
-                         title: 'Sound',
+                         title: 'Audio',
                          icon: 'fas fa-volume-up',
-                         value: 'sound'
+                         value: 'audio'
                     },
                     {
                          title: 'Document',
@@ -93,7 +93,11 @@ export default {
           },
           searchQuery(){
                this.filters.searchQuery = this.searchQuery
-               this.$emit('changeFilters', this.filters)
+                clearTimeout(this.debounce);
+                this.debounce = setTimeout(() => {
+                    this.$emit('changeFilters', this.filters)
+                }, 500);
+               
           }
      },
      

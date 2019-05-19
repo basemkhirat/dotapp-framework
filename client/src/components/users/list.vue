@@ -7,7 +7,7 @@
          
         <template>
             <div class="alluser--action" :class="{'show--action--bottom': usersSelected.length}">
-                <button class="button is-warning is-rounded" @click="banItems()">Ban All Selected</button>
+                <button class="button is-warning is-rounded" @click="confirmCustomUpdate()">Ban All Selected</button>
                 <button class="button is-danger is-rounded" @click="deleteItems()">Delete All Selected</button>
             </div>
         </template>
@@ -63,22 +63,9 @@ export default {
             }
         },
         deleteItems(){
-            // for(var i = 0; i < this.usersSelected.length; i++){
-            //     this.deleteUser(this.usersSelected[i])
-            //     if(this.usersSelected.length === (i + 1)){
-            //        this.usersSelected = []
-            //     }
-            // }
-             this.deleteUsers(this.usersSelected)
+             this.confirmCustomDelete(this.usersSelected)
         },
-        banItems(){
-            for(var i = 0; i < this.usersSelected.length; i++){
-                this.updateUser(this.usersSelected[i],{status: 0})
-                if(this.usersSelected.length === (i + 1)){
-                   this.usersSelected = []
-                }
-            }
-        },
+        
         // Delete Items
         async deleteUser(id) {
             const user = await usersRepository.deleteUser(id)
@@ -87,19 +74,17 @@ export default {
         },
         async deleteUsers(ids) {
             const users = await usersRepository.deleteUsers(ids)
-            // this.$emit('fetchAllItems')
-            // this.aleartMessage()
+            this.$emit('fetchAllItems')
+            this.aleartMessage(users.message)
         },
         // Ban Items
-        // async banItems(id) {
-        //     const user = await usersRepository.deleteUser(id)
-        //     this.$emit('fetchAllItems')
-        //     this.aleartMessage()
-        // },
+        async activeItems() {
+            const users = await usersRepository.updateUsers(this.usersSelected)
+            this.$emit('fetchAllItems')
+            this.aleartMessage(users.message)
+        },
          async updateUser(id, data) {
-             console.log(id, data)
             const user = await usersRepository.updateUser(id, data)
-            console.log(user)
             this.$emit('fetchAllItems')
             this.aleartMessage(user.message)
         },
@@ -115,6 +100,26 @@ export default {
                 queue: false,
                 duration: 3000,
                 indefinite: false,
+            })
+        },
+        confirmCustomDelete(ids) {
+            this.$dialog.confirm({
+                title: 'Deleting Users',
+                message: 'Are you sure you want to <b>delete</b> All Users? This action cannot be undone.',
+                confirmText: 'Delete Users',
+                type: 'is-danger',
+                hasIcon: true,
+                onConfirm: () => this.deleteUsers(ids)
+            })
+        },
+        confirmCustomUpdate() {
+            this.$dialog.confirm({
+                title: 'Ban Users',
+                message: 'Are you sure you want to <b>ban</b> All Users? This action cannot be undone.',
+                confirmText: 'Ban Users',
+                type: 'is-primary',
+                hasIcon: true,
+                onConfirm: () => this.activeItems()
             })
         }
     }

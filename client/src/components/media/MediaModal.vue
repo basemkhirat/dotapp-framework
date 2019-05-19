@@ -32,7 +32,7 @@
         
                               <div  class="media--items--wrap">
                                    <div class="media--items">
-                                        <media-items :data="items"/>
+                                        <media-items :data="items" @checkItemsMedia="checkItemsMedia" @fetchAllItems="fetchAllItems"/>
                                         <div class="py-4 text-center w-100">
                                              <infinite-loading @infinite="infiniteHandler">
                                                   <div slot="no-more"></div>
@@ -48,25 +48,25 @@
 
                     <div class="lower--media--modal pt-4">
                          <div class="d-flex align-items-center">
-                              <div v-if="itemsSelectedCount">Selected: <strong class="ml-2">{{itemsSelectedCount}}</strong></div>
+                              <div v-if="itemsSelectedMedia.length">Selected: <strong class="ml-2">{{itemsSelectedMedia.length}}</strong></div>
                               <div class="ml-auto buttons">
-                                   <!-- <button :class="{'showActionButton': itemsSelectedCount}" 
+                                   <!-- <button :class="{'showActionButton': itemsSelectedMedia}" 
                                    class="button showButtonAddAlbum is-rounded" 
                                    @click="changeModalCreateAlbum">
                                         Add to album 
                                         <i class="fas fa-clone ml-2"></i>
                                    </button> -->
-                                   <button :class="{'showActionButton': itemsSelectedCount}" 
+                                   <button :class="{'showActionButton': itemsSelectedMedia.length}" 
                                    class="button is-rounded showButtonDeleteImage" 
                                    @click="confirmCustomDelete">
                                         Delete 
                                         <i class="fas fa-trash ml-2"></i>
                                    </button>
-                                   <button :class="{'showActionButton': itemsSelectedCount}" 
+                                   <!-- <button :class="{'showActionButton': itemsSelectedMedia}" 
                                    class="button is-rounded showButtonInsert">
                                         Insert to post 
                                         <i class="fas fa-share ml-2"></i>
-                                   </button>
+                                   </button> -->
                                    <button class="button is-rounded is-light ml-4" @click="closeMediaModal">Cancel</button>
                               </div>
                          </div>
@@ -112,7 +112,8 @@ export default {
                limit:25,
                order: 'is-centered',
                dataLoading: false,
-               filters: {}
+               filters: {},
+               itemsSelectedMedia:[],
           }
      },
      created(){
@@ -140,7 +141,6 @@ export default {
      computed:{
           ...mapState({
                stateMediaModal: state => state.stateMediaModal,
-               itemsSelectedCount: state => state.media.itemsSelectedCount
           })
      },
      methods:{
@@ -166,25 +166,32 @@ export default {
                this.items = data.docs;
                this.total = data.total;
                this.dataLoading = false;
+               this.itemsSelectedMedia = []
+          },
+
+          checkItemsMedia(items){
+               this.itemsSelectedMedia = items
           },
     
           confirmCustomDelete() {
                 this.$dialog.confirm({
-                    title: 'Deleting Images',
-                    message: 'Are you sure you want to <b>delete</b> this images? This action cannot be undone.',
-                    confirmText: 'Delete',
+                    title: 'Deleting Items',
+                    message: 'Are you sure you want to <b>delete</b> this Items? This action cannot be undone.',
+                    confirmText: 'Delete Items',
                     type: 'is-danger',
                     hasIcon: true,
                     onConfirm: () =>{
-                         this.$toast.open({
-                              duration: 4000,
-                              message: `Images deleted!`,
-                              position: 'is-bottom-right',
-                              // type: 'is-success'
-                         })
+                         this.deleteItems()
                     }
                 })
             },
+
+            // Delete Items
+          async deleteItems(ids) {
+               const items = await mediaRepository.deleteItems(this.itemsSelectedMedia)
+               this.fetchAllItems()
+               this.aleartMessage(items.message)
+          },
      
            async infiniteHandler($state) {
                const data =  await mediaRepository.getAllMedia(this.pageLoadMore, this.limit, this.filters)
@@ -196,6 +203,17 @@ export default {
                     $state.complete();
                }
             },
+            aleartMessage(textMessage){
+               this.$snackbar.open({
+                    message: textMessage,
+                    type: 'is-success',
+                    position: 'is-bottom-right',
+                    actionText: 'OK',
+                    queue: false,
+                    duration: 3000,
+                    indefinite: false,
+               })
+          },
 
           // Filters
           changeFilters(filters){

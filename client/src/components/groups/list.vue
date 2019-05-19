@@ -67,26 +67,28 @@ export default {
             }
         },
         deleteItems(){
-            for(var i = 0; i < this.itemsSelected.length; i++){
-                this.deleteGroups(this.itemsSelected[i])
-                if(this.itemsSelected.length === (i + 1)){
-                   this.itemsSelected = []
-                }
-            }
+            this.confirmCustomDelete(this.itemsSelected)
+
         },
-        banItems(){
-            for(var i = 0; i < this.itemsSelected.length; i++){
-                this.updateGroups(this.itemsSelected[i],{status: 0})
-                if(this.itemsSelected.length === (i + 1)){
-                   this.itemsSelected = []
-                }
-            }
-        },
+        // banItems(){
+        //     for(var i = 0; i < this.itemsSelected.length; i++){
+        //         this.updateGroups(this.itemsSelected[i],{status: 0})
+        //         if(this.itemsSelected.length === (i + 1)){
+        //            this.itemsSelected = []
+        //         }
+        //     }
+        // },
         // Delete Items
         async deleteGroups(id) {
             const groups = await groupsRepository.deleteGroup(id)
             this.$emit('fetchAllItems')
             // this.aleartMessage(groups.message)
+        },
+        // Delete Items
+        async deleteGroups(ids) {
+            const groups = await groupsRepository.deleteGroups(ids)
+            this.$emit('fetchAllItems')
+            this.aleartMessage(groups.message)
         },
         // Ban Items
          async updateGroups(id, data) {
@@ -107,7 +109,17 @@ export default {
                 duration: 3000,
                 indefinite: false,
             })
-        }
+        },
+        confirmCustomDelete(ids) {
+            this.$dialog.confirm({
+                title: 'Deleting Groups',
+                message: 'Are you sure you want to <b>delete</b> all Groups? This action cannot be undone.',
+                confirmText: 'Delete Groups',
+                type: 'is-danger',
+                hasIcon: true,
+                onConfirm: () => this.deleteGroups(ids)
+            })
+        },
     }
 }
 </script>
