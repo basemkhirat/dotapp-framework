@@ -93,10 +93,17 @@ export default class Resource {
 
         if (mime_type === "image") mime_type = "image/jpeg";
 
-        this.file.mime_type = mime_type;
-        this.type = mime_type.split("/")[0];
         let extension = mime.extension(mime_type);
+
         this.file.extension = extension === "jpeg" ? "jpg" : extension;
+        this.file.mime_type = mime_type;
+
+        for(let type in this.media.types){
+            if(this.media.types[type].indexOf(extension) > -1){
+                this.type = type;
+                return type;
+            }
+        }
     }
 
     /**
@@ -153,7 +160,7 @@ export default class Resource {
             return callback("File size is too large");
         }
 
-        if (this.media.allowed_file_types.indexOf(this.file.extension) === -1) {
+        if ([].concat.apply([], Object.values(this.media.types)).indexOf(this.file.extension) === -1) {
             return callback("File type is not allowed");
         }
 
