@@ -57,7 +57,6 @@ export default class {
                 })
 
                 .screenshot(options, this.resource.file.directory)
-
         });
 
     }

@@ -8,25 +8,15 @@ export default {
     max_file_size: 100 * 1024 * 1024,
 
     /**
-     *  allowed file types for upload
+     *  allowed extensions grouped by type
      */
 
     types: {
-        image: ["jpg", "jpeg", "png", "bmp"],
-        video: ["mp4", "flv"],
-        audio: ["mp3", "wav"],
-        document: ['pdf']
+        image: ['jpg', 'jpeg', 'png', 'bmp'],
+        video: ['mp4', 'flv', 'avi', '3gp'],
+        audio: ['mp3', 'wav'],
+        document: ['txt', 'pdf', 'doc', 'docx', 'rtf', 'csv', 'xls', 'xlsx', 'ppt', 'pptx']
     },
-
-    // allowed_file_types: [
-    //     "jpg",
-    //     "png",
-    //     "bmp",
-    //     "mp4",
-    //     "flv",
-    //     "pdf"
-    // ],
-
 
     image: {
 
@@ -51,6 +41,7 @@ export default {
     /**
      * Services auth key used for getting data
      */
+
     services: {
 
         youtube: {

@@ -53,6 +53,8 @@ export default class Resource {
 
             let handler_path = this.getHandler();
 
+            console.log(handler_path);
+
             fs.access(handler_path, fs.F_OK, (error) => {
                 if(error) return callback(null, this);
 
@@ -73,9 +75,9 @@ export default class Resource {
 
         if (this.provider === 'file') {
 
-            if (["jpg", "jpeg", "png", "bmp"].indexOf(this.file.extension) > -1) {
+            if (this.media.types.image.indexOf(this.file.extension) > -1) {
                 type = "image";
-            }else if (["mp4", "flv"].indexOf(this.file.extension) > -1) {
+            }else if (this.media.types.video.indexOf(this.file.extension) > -1) {
                 type = "video";
             }else{
                 type = this.file.extension;
