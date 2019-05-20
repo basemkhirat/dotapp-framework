@@ -13,7 +13,7 @@ export default {
 
     types: {
         image: ['jpg', 'jpeg', 'png', 'bmp'],
-        video: ['mp4', 'flv', 'avi', '3gp'],
+        video: ['mp4', 'flv', 'avi', '3gp', 'webm'],
         audio: ['mp3', 'wav'],
         document: ['txt', 'pdf', 'doc', 'docx', 'rtf', 'csv', 'xls', 'xlsx', 'ppt', 'pptx']
     },
