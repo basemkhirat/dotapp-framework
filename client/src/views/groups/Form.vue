@@ -21,11 +21,28 @@
                               <hr class="mb-0">
                          </div>
 
-                         <div class="col-12 checkbox--group">
+                         <div class="col-12 checkbox--group permissions--items">
                               <h3> Add Permissions To Group </h3>
                               <div class="row">
                                    <div class="col-12">
-                                        <table class="table is-bordered is-fullwidth is-striped ">
+                                       <div class="permissions--item" v-for="(value , name) in allPermissions" :key="name">
+                                           <div class="row">
+                                               <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 permission--title">
+                                                   {{name}}
+                                               </div>
+                                               <!-- <div class="col-12 col-sm-6 col-md-8 col-lg-9 col-xl-10 permission--content">
+                                                   <div class="item-checkbox" v-for="(checkLabel ,checkValue) in value" :key="checkLabel">
+                                                       <template v-if="this.permissions && this.$route.params.id">
+                                                            <switch-item :label="checkLabel" :allPermissions="{permissions: permissions, value: checkValue}"  :value="checkValue" @switchValue="switchValue" />
+                                                       </template>
+                                                       <template v-else>
+                                                            <switch-item :label="checkLabel" :value="checkValue" @switchValue="switchValue" />
+                                                       </template>
+                                                    </div>
+                                               </div> -->
+                                           </div>
+                                       </div>
+                                        <!-- <table class="table is-bordered is-fullwidth is-striped ">
                                              <tbody>
                                                   <tr v-for="(value , name) in allPermissions" :key="name">
                                                        <th>{{name}}</th>
@@ -39,7 +56,7 @@
                                                        </td>
                                                   </tr>
                                              </tbody>
-                                        </table>
+                                        </table> -->
                                    </div>
                               </div>
                          </div>
@@ -65,7 +82,7 @@
     } from '../../repositories/RepositoryFactory'
     const groupsRepository = RepositoryFactory.get('groups')
     const permissionRepository = RepositoryFactory.get('permissions')
-
+    import SwitchItem from './../../components/groups/SwitchItem'
     export default {
         name: 'groupForm',
         data() {
@@ -75,7 +92,8 @@
                 groupStatus: 0,
                 policies: [],
                 permissions: [],
-                allPermissions: []
+                allPermissions: [],
+
             };
         },
 
@@ -93,6 +111,9 @@
                 this.getGroup(this.$route.params.id)
             }
             this.getAllPermissions()
+        },
+        components:{
+            SwitchItem
         },
 
         methods: {
@@ -118,6 +139,20 @@
                 }
             },
 
+            switchValue(value){
+
+                if(value.status == true && this.permissions.indexOf(value.value)){
+                    this.permissions.push(value.value)
+                } else{
+                    for (let i = 0; i < this.permissions.length; i++) {
+                        if(this.permissions[i] === value.value){
+                            this.permissions.splice(i, 1);
+                        }
+                    }
+                }               
+                
+            },
+
 
             async newGroup(data) {
                 const group = await groupsRepository.newGroup(data)
@@ -139,6 +174,7 @@
                 this.name = group.name
                 this.policies = group.policies
                 this.permissions = group.permissions
+                console.log(group.permissions)
 
             },
             async updateGroup(id, data) {
