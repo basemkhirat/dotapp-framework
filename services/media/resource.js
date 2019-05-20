@@ -53,8 +53,6 @@ export default class Resource {
 
             let handler_path = this.getHandler();
 
-            console.log(handler_path);
-
             fs.access(handler_path, fs.F_OK, (error) => {
                 if(error) return callback(null, this);
 
