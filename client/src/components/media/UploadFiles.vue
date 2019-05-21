@@ -94,12 +94,14 @@
                     this.successMessage(items.message)
                     this.closeModalUploadFile({newItem: true})
                      this.isLoading = false
+                     this.files = []
                 } else {
                      this.isLoading = false
                     // items.data.map(item => {
                     //     this.errorMessage(item)
                     // })
                     this.errorMessage(items.message)
+                    this.files = []
 
                 }
                 this.isLoading = false
