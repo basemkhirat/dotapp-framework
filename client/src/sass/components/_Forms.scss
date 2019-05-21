@@ -257,3 +257,76 @@ label.label {
         opacity: 1;
     }
 }
+
+.checkbox--switch{
+    .button{
+        padding: 0 !important;
+        font-weight: 400;
+        border: 0;
+        box-shadow: none !important;
+        width: 100%;
+        text-align: left;
+        justify-content: space-between;
+
+        &.is-light{
+            background-color: transparent;
+            .check{
+                background: rgba(95, 22, 248, 0.9);
+                &:before{
+                    -webkit-transform: translate3d(100%, 0, 0);
+                     transform: translate3d(100%, 0, 0);
+                }
+            }
+        }
+    }
+
+    .switch--item{
+        cursor: pointer;
+        display: -webkit-inline-box;
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        margin-left: 10px;
+        .check{
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -ms-flex-negative: 0;
+            flex-shrink: 0;
+            width: 2.75em;
+            height: 1.575em;
+            padding: 0.2em;
+            background: #b5b5b5;
+            border-radius: 1em;
+            -webkit-transition: background 150ms ease-out;
+            transition: background 150ms ease-out;
+            background: rgba(181, 181, 181, 0.9);
+            &:before{
+                content: "";
+                display: block;
+                border-radius: 1em;
+                width: 1.175em;
+                height: 1.175em;
+                background: whitesmoke;
+                -webkit-box-shadow: 0 3px 1px 0 rgba(0, 0, 0, 0.05), 0 2px 2px 0 rgba(0, 0, 0, 0.1), 0 3px 3px 0 rgba(0, 0, 0, 0.05);
+                box-shadow: 0 3px 1px 0 rgba(0, 0, 0, 0.05), 0 2px 2px 0 rgba(0, 0, 0, 0.1), 0 3px 3px 0 rgba(0, 0, 0, 0.05);
+                -webkit-transition: width 150ms ease-out, -webkit-transform 150ms ease-out;
+                transition: width 150ms ease-out, -webkit-transform 150ms ease-out;
+                transition: transform 150ms ease-out, width 150ms ease-out;
+                transition: transform 150ms ease-out, width 150ms ease-out, -webkit-transform 150ms ease-out;
+                will-change: transform;
+            }
+        }
+      
+    }
+}

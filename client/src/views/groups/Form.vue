@@ -13,17 +13,18 @@
                     </div>
                </div>
                <div class="card--content">
-                    <form class="row mt-3" @submit.prevent="submitForm()">
-                         <div class="col-12 col-sm-12 col-lg-8 col-xl-4">
+                    <form class="row mt-3 justify-content-center" @submit.prevent="submitForm()">
+                         <div class="col-12 col-md-10 col-lg-8">
                               <b-field class="field-group">
                                    <b-input type="text" rounded placeholder="Group Name" v-model="name" />
                               </b-field>
                               <hr class="mb-0">
                          </div>
 
-                         <div class="col-12 checkbox--group permissions--items">
+                         <div class="col-12 col-md-10 col-lg-8 checkbox--group permissions--items">
                               <h3> Add Permissions To Group </h3>
-                              <div class="row">
+                              <div class="row justify-content-center">
+
                                    <div class="col-12">
                                        <div class="permissions--item" v-for="(value , name) in allPermissions" :key="name">
                                            <div class="row">
@@ -31,38 +32,27 @@
                                                    {{name}}
                                                </div>
                                                <div class="col-12 col-sm-6 col-md-8 col-lg-9 col-xl-10 permission--content">
-                                                   <div class="item-checkbox" v-for="(checkLabel ,checkValue) in value" :key="checkLabel">
-                                                       <!-- <template v-if="this.permissions && this.$route.params.id">
-                                                            <switch-item :label="checkLabel" :allPermissions="{permissions: permissions, value: checkValue}"  :value="checkValue" @switchValue="switchValue" />
-                                                       </template> -->
-                                                       
-                                                       <template>
-                                                            <switch-item :label="checkLabel" :value="checkValue" @switchValue="switchValue" :permissions="permissions" />
-                                                       </template>
+                                                   <div class="item-checkbox checkbox--switch" v-for="(checkLabel , checkValue) in value" :key="checkLabel">                                                       
+                                                      <b-checkbox-button 
+                                                            v-model="permissions"
+                                                            :native-value="checkValue"
+                                                            type="is-light">
+                                                            <span>
+                                                                {{checkLabel}}
+                                                            </span>
+                                                            <span class="switch--item">
+                                                                <span class="check"></span>
+                                                            </span>
+                                                        </b-checkbox-button>                                                        
                                                     </div>
                                                </div>
                                            </div>
                                        </div>
-                                        <!-- <table class="table is-bordered is-fullwidth is-striped ">
-                                             <tbody>
-                                                  <tr v-for="(value , name) in allPermissions" :key="name">
-                                                       <th>{{name}}</th>
-                                                       <td>
-                                                            
-                                                            <div class="d-inline-block item-checkbox" v-for="(checkLabel ,checkValue) in value" :key="checkLabel">
-                                                                 <b-checkbox v-model="permissions" :native-value="checkValue">
-                                                                      {{checkLabel}}
-                                                                 </b-checkbox>
-                                                            </div>
-                                                       </td>
-                                                  </tr>
-                                             </tbody>
-                                        </table> -->
                                    </div>
                               </div>
                          </div>
 
-                         <div class="col-12 text-center button--save--form">
+                         <div class="col-12 text-center button--save--form mt-0">
                               <button class="button is-primary is-rounded"
                               :class="{'is-loading': isLoading}">{{this.$route.params.id ? 'Save Changes' : 'Add Group'}}</button>
                          </div>
@@ -83,7 +73,6 @@
     } from '../../repositories/RepositoryFactory'
     const groupsRepository = RepositoryFactory.get('groups')
     const permissionRepository = RepositoryFactory.get('permissions')
-    import SwitchItem from './../../components/groups/SwitchItem'
     export default {
         name: 'groupForm',
         data() {
@@ -114,10 +103,11 @@
             this.getAllPermissions()
         },
         components:{
-            SwitchItem
+            
         },
 
         methods: {
+
              resetfuild(){
                 this.name = ''
                 this.permissions = []
@@ -140,22 +130,6 @@
                 }
             },
 
-            switchValue(value){
-
-                if(value.status == true && this.permissions.indexOf(value.value)){
-                    this.permissions.push(value.value)
-                    
-                } else{
-                    for (let i = 0; i < this.permissions.length; i++) {
-                        if(this.permissions[i] === value.value){
-                            this.permissions.splice(i, 1);
-                        }
-                    }
-                }
-                
-            },
-
-
             async newGroup(data) {
                 const group = await groupsRepository.newGroup(data)
                 if (group.success) {
@@ -176,7 +150,6 @@
                 this.name = group.name
                 this.policies = group.policies
                 this.permissions = group.permissions
-                console.log(group.permissions)
 
             },
             async updateGroup(id, data) {
@@ -192,8 +165,8 @@
             },
             
             async getAllPermissions() {
-                const permissions = await permissionRepository.getAllPermissions()
-                this.allPermissions = permissions
+                const allPermissions = await permissionRepository.getAllPermissions()
+                this.allPermissions = allPermissions
             },
 
             errorMessage(textMessage) {
