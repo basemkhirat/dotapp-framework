@@ -13,9 +13,10 @@ export default {
 
     types: {
         image: ['jpg', 'jpeg', 'png', 'bmp'],
-        video: ['mp4', 'flv', 'avi', '3gp', 'webm'],
+        video: ['mp4', 'flv', 'avi', '3gp', 'webm', "mkv", "mov", "mpg", "wmv"],
         audio: ['mp3', 'wav'],
-        document: ['txt', 'pdf', 'doc', 'docx', 'rtf', 'csv', 'xls', 'xlsx', 'ppt', 'pptx']
+        document: ['txt', 'pdf', 'doc', 'docx', 'rtf', 'csv', 'xls', 'xlsx', 'ppt', 'pptx'],
+        link: ['html', 'html']
     },
 
     image: {

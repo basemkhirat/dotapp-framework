@@ -28,34 +28,18 @@ export default class Resource {
         this.payload_object = new payload_class(this.payload);
         this.media = Config.get('media');
 
-        this.payload_object.store.call(this, error => {
+        this.payload_object.handle.call(this, error => {
 
             if (error) return callback(error);
 
             /**
-             * Default file handler
-             * @type {{path: string, size: *, mime: string, storage: (Index.disk|boolean)}}
-             */
-
-            if (this.provider === 'file' && this.type !== "image") {
-                this.data = {
-                    storage: this.storage.disk,
-                    path: this.file.relative_directory + "/" + this.file.file,
-                    mime: this.file.mime_type,
-                    size: this.file.size
-                };
-            }
-
-            /**
              * Handlers are function executed after payload processing to make
              * trigger operations based on file provider and type setted in payload class.
+             *
+             * Takes payload and return a saved resource.
              */
 
-            let handler_path = this.getHandler();
-
-            fs.access(handler_path, fs.F_OK, (error) => {
-                if(error) return callback(null, this);
-
+            this.getHandler(handler_path => {
                 let handler = require(handler_path).default;
                 let handler_object = new handler(this);
                 return handler_object.handle(callback);
@@ -67,7 +51,7 @@ export default class Resource {
      * get resource handler path
      * @returns {*}
      */
-    getHandler() {
+    getHandler(callback) {
 
         let type = this.type;
 
@@ -75,14 +59,26 @@ export default class Resource {
 
             if (this.media.types.image.indexOf(this.file.extension) > -1) {
                 type = "image";
-            }else if (this.media.types.video.indexOf(this.file.extension) > -1) {
+            } else if (this.media.types.video.indexOf(this.file.extension) > -1) {
                 type = "video";
-            }else{
+            } else {
                 type = this.file.extension;
             }
         }
 
-        return path.join(process.cwd(), "services/media/handlers/" + this.provider + "_" + type + ".js");
+        let handler_path = path.join(process.cwd(), "services/media/handlers/" + this.provider + "_" + type + ".js");
+
+        fs.access(handler_path, fs.F_OK, (error) => {
+
+            if (error) {
+
+                // use default handler
+
+                return callback(path.join(process.cwd(), "services/media/handlers/" + this.provider + "_default" + ".js"));
+            }
+
+            callback(handler_path);
+        });
     }
 
     /**
@@ -95,15 +91,35 @@ export default class Resource {
 
         let extension = mime.extension(mime_type);
 
-        this.file.extension = extension === "jpeg" ? "jpg" : extension;
+        if (extension === "jpeg") {
+            extension = "jpg";
+        }
+
+        if (extension === "mpeg") {
+            extension = "mpg";
+        }
+
+        if (extension === "qt") {
+            extension = "mov";
+        }
+
+        this.file.extension = extension;
         this.file.mime_type = mime_type;
 
-        for(let type in this.media.types){
-            if(this.media.types[type].indexOf(extension) > -1){
+        for (let type in this.media.types) {
+            if (this.media.types[type].indexOf(extension) > -1) {
                 this.type = type;
                 return type;
             }
         }
+    }
+
+    /**
+     * set resource binary content
+     * @param content
+     */
+    setFileContent(content) {
+        this.file.content = content;
     }
 
     /**
@@ -186,7 +202,7 @@ export default class Resource {
         return false;
     }
 
-    getData() {
+    getProvider() {
 
         if (/youtu\.?be/.test(this.payload)) {
 
@@ -201,23 +217,16 @@ export default class Resource {
             for (let i = 0; i < patterns.length; ++i) {
                 if (patterns[i].test(this.payload)) {
                     return {
-                        provider: "youtube",
+                        name: "youtube",
                         type: "video"
                     };
                 }
             }
         }
 
-        if (/dailymotion\.com/.test(this.payload)) {
-            return {
-                provider: "dailymotion",
-                type: "video"
-            };
-        }
-
         if (/soundcloud\.com/.test(this.payload)) {
             return {
-                provider: "soundcloud",
+                name: "soundcloud",
                 type: "audio"
             };
         }

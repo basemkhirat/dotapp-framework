@@ -19,6 +19,7 @@
         "cacheman": "^2.2.1",
         "cacheman-file": "^0.2.1",
         "cacheman-redis": "^2.0.0",
+        "cheerio": "^1.0.0-rc.3",
         "compression": "^1.7.4",
         "cors": "^2.8.4",
         "dotenv": "^7.0.0",

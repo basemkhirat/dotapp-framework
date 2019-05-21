@@ -3,7 +3,7 @@ import Log from '~/services/log';
 
 export default class {
 
-    store(callback) {
+    handle(callback) {
 
         /**
          * here we will check if it's youtube link or soundcloud link etc.
@@ -11,11 +11,11 @@ export default class {
          * execute handler of this type&provider
          */
 
-        let link = this.getData(this.payload);
+        let provider = this.getProvider(this.payload);
 
-        if(link){
-            this.setProvider(link.provider);
-            this.setType(link.type);
+        if(provider){
+            this.setProvider(provider.name);
+            this.setType(provider.type);
             return callback(null, this.file);
         }
 
@@ -40,10 +40,9 @@ export default class {
                 this.generateFileName((error, file) => {
                     if (error) return callback(error);
 
-                    this.storage.save(file, data, 'binary', (error, file) => {
-                        if (error) return callback(error);
-                        return callback(null, this.file);
-                    });
+                    this.setFileContent(data);
+
+                    callback();
                 });
             });
         });

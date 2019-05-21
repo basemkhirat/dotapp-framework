@@ -1,5 +1,6 @@
 import Jimp from 'jimp';
 import async from 'async';
+import Log from '~/services/log';
 import Config from '~/services/config';
 
 export default class {
@@ -17,57 +18,65 @@ export default class {
      */
     handle(callback) {
 
-        async.mapSeries(this.config.thumbnails, (thumbnail, cb) => {
+        Log.message("processing image handler", "info");
 
-                Jimp.read(this.file.path, (error, jImage) => {
+        this.storage.save(this.file.relative_directory + '/' + this.file.file, this.resource.file.content, 'binary', error => {
 
-                    this.file.meta = {
-                        width: jImage.getWidth(),
-                        height: jImage.getHeight()
-                    };
+            if (error) return callback(error);
 
-                    if (error) return cb(error);
+            async.mapSeries(this.config.thumbnails, (thumbnail, cb) => {
 
-                    let mode = thumbnail.mode ? thumbnail.mode : "resize";
-                    let width = thumbnail.width ? thumbnail.width : jImage.AUTO;
-                    let height = thumbnail.height ? thumbnail.height : jImage.AUTO;
-                    let quality = thumbnail.quality ? thumbnail.quality : this.config.quality;
+                    Jimp.read(this.file.path, (error, jImage) => {
 
-                    let process = jImage[mode](width, height).quality(quality);
+                        this.file.meta = {
+                            width: jImage.getWidth(),
+                            height: jImage.getHeight()
+                        };
 
-                    process.getBase64(this.file.mime_type, (error, data) => {
                         if (error) return cb(error);
 
-                        let native_data = data.split(",").pop();
+                        let mode = thumbnail.mode ? thumbnail.mode : "resize";
+                        let width = thumbnail.width ? thumbnail.width : jImage.AUTO;
+                        let height = thumbnail.height ? thumbnail.height : jImage.AUTO;
+                        let quality = thumbnail.quality ? thumbnail.quality : this.config.quality;
 
-                        this.storage.save(
-                            this.file.relative_directory + "/" + thumbnail.name + "-" + this.file.file,
-                            native_data,
-                            "base64",
-                            () => {
-                                cb(null);
-                            }
-                        );
+                        let process = jImage[mode](width, height).quality(quality);
+
+                        process.getBase64(this.file.mime_type, (error, data) => {
+                            if (error) return cb(error);
+
+                            let native_data = data.split(",").pop();
+
+                            this.storage.save(
+                                this.file.relative_directory + "/" + thumbnail.name + "-" + this.file.file,
+                                native_data,
+                                "base64",
+                                () => {
+                                    cb(null);
+                                }
+                            );
+                        });
+
                     });
 
+                },
+
+                error => {
+                    if (error) return callback(error);
+
+                    this.resource.image = {
+                        storage: this.resource.storage.disk,
+                        path: this.resource.file.relative_directory + "/" + this.resource.file.file,
+                        width: this.resource.file.meta.width,
+                        height: this.resource.file.meta.height,
+                        mime: this.resource.file.mime_type,
+                        size: this.resource.file.size
+                    };
+
+                    return callback(null, this.resource);
                 });
+        });
 
-            },
-
-            error => {
-                if (error) return callback(error);
-
-                this.resource.image = {
-                    storage: this.resource.storage.disk,
-                    path: this.resource.file.relative_directory + "/" + this.resource.file.file,
-                    width: this.resource.file.meta.width,
-                    height: this.resource.file.meta.height,
-                    mime: this.resource.file.mime_type,
-                    size: this.resource.file.size
-                };
-
-                return callback(null, this.resource);
-            });
     }
 
     /**

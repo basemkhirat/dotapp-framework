@@ -4,7 +4,7 @@ import mime from 'mime-types';
 
 export default class {
 
-    store(callback) {
+    handle(callback) {
 
         Log.message("getting file from path", "info");
 
@@ -21,10 +21,11 @@ export default class {
             this.generateFileName((error, file) => {
                 if (error) return callback(error);
 
-                this.storage.save(file, data, 'base64', (error, file) => {
-                    if (error) return callback(error);
-                    return callback(error, this.file);
-                });
+                data = Buffer.from(data, 'base64');
+
+                this.setFileContent(data);
+
+                callback();
             });
         });
     }

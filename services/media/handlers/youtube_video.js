@@ -1,8 +1,8 @@
 import Media from '~/services/media';
 import Config from '~/services/config';
+import Log from '~/services/log';
 
 const YouTube = require('simple-youtube-api');
-
 
 export default class {
 
@@ -16,37 +16,36 @@ export default class {
      */
     handle(callback) {
 
+        Log.message("processing youtube handler", "info");
+
         let id = this.getID(this.resource.payload);
         let url = 'https://www.youtube.com/watch?v=' + id;
 
         let youtube = new YouTube(Config.get("media.services.youtube.key"));
 
-        youtube.getVideo(url)
-            .then(video => {
+        youtube.getVideo(url).then(video => {
 
-                Media.upload(video.thumbnails.maxres.url, (error, file) => {
+            Media.upload(video.thumbnails.maxres.url, (error, file) => {
 
-                    if (error) return callback(error, this.resource);
+                if (error) return callback(error, this.resource);
 
-                    this.resource.data = {
-                        id: video.id,
-                        duration: this.getSeconds(video.raw.contentDetails.duration),
-                        embed: "https://www.youtube.com/embed/" + video.id
-                    };
+                this.resource.data = {
+                    id: video.id,
+                    duration: this.getSeconds(video.raw.contentDetails.duration),
+                    embed: "https://www.youtube.com/embed/" + video.id
+                };
 
-                    this.resource.url = url;
-                    this.resource.title = video.title;
-                    this.resource.description = video.description;
-                    this.resource.image = file.image;
+                this.resource.url = url;
+                this.resource.title = video.title;
+                this.resource.description = video.description;
+                this.resource.image = file.image;
 
-                    callback(null, this.resource);
-                });
-
-            })
-            .catch(error => {
-                return callback("Unable to fetch video details from youtube");
+                callback(null, this.resource);
             });
 
+        }).catch(error => {
+            return callback("Unable to fetch video details from youtube");
+        });
     }
 
     getID() {

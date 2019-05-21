@@ -1,6 +1,7 @@
 import request from 'request';
 import Media from '~/services/media';
 import Config from '~/services/config';
+import Log from '~/services/log';
 
 export default class {
 
@@ -14,31 +15,32 @@ export default class {
      */
     handle(callback) {
 
-        this.getTrack(this.resource.payload)
-            .then(audio => {
+        Log.message("processing soundcloud handler", "info");
 
-                this.resource.data = {
-                    id: audio.id,
-                    duration: audio.duration,
-                    embed: "https://w.soundcloud.com/player/?url=" + audio.uri
-                };
+        this.getTrack(this.resource.payload).then(audio => {
 
-                this.resource.url = audio.permalink_url;
-                this.resource.title = audio.title;
-                this.resource.description = audio.description;
+            this.resource.data = {
+                id: audio.id,
+                duration: audio.duration,
+                embed: "https://w.soundcloud.com/player/?url=" + audio.uri
+            };
 
-                if(audio.artwork_url){
-                    Media.upload(audio.artwork_url, (error, file) => {
-                        this.resource.image = file.image;
-                        callback(null, this.resource);
-                    });
-                }else{
+            this.resource.url = audio.permalink_url;
+            this.resource.title = audio.title;
+            this.resource.description = audio.description;
+
+            if (audio.artwork_url) {
+                Media.upload(audio.artwork_url, (error, file) => {
+                    this.resource.image = file.image;
                     callback(null, this.resource);
-                }
-            })
-            .catch(error => {
-                return callback(error);
-            });
+                });
+            } else {
+                callback(null, this.resource);
+            }
+
+        }).catch(error => {
+            return callback(error);
+        });
     }
 
     getTrack(url) {
