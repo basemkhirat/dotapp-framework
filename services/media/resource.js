@@ -61,6 +61,8 @@ export default class Resource {
                 type = "image";
             } else if (this.media.types.video.indexOf(this.file.extension) > -1) {
                 type = "video";
+            } else if (this.media.types.audio.indexOf(this.file.extension) > -1) {
+                type = "audio";
             } else {
                 type = this.file.extension;
             }
@@ -95,12 +97,16 @@ export default class Resource {
             extension = "jpg";
         }
 
-        if (extension === "mpeg") {
+        if (extension === "qt") {
+            extension = "mov";
+        }
+
+        if (mime_type === "video/mpeg") {
             extension = "mpg";
         }
 
-        if (extension === "qt") {
-            extension = "mov";
+        if (mime_type === "audio/mpeg") {
+            extension = "mp3";
         }
 
         this.file.extension = extension;
@@ -185,7 +191,7 @@ export default class Resource {
 
     /**
      * get resource type
-     * @returns {string|boolean}
+         * @returns {string|boolean}
      */
     getType() {
 
