@@ -542,3 +542,25 @@ button.is-rounded, .button.is-rounded {
     }
 }
 
+// Permissions Items
+.permissions--items{
+    padding: 30px;
+    .permissions--item{
+        border: 1px solid $borderColor;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        .permission--title{
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: capitalize;
+            border-right: 1px solid $borderColor;
+        }
+        .permission--content{
+            padding: 20px;
+        }
+    }
+}
