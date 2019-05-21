@@ -30,16 +30,17 @@
                                                <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 permission--title">
                                                    {{name}}
                                                </div>
-                                               <!-- <div class="col-12 col-sm-6 col-md-8 col-lg-9 col-xl-10 permission--content">
+                                               <div class="col-12 col-sm-6 col-md-8 col-lg-9 col-xl-10 permission--content">
                                                    <div class="item-checkbox" v-for="(checkLabel ,checkValue) in value" :key="checkLabel">
-                                                       <template v-if="this.permissions && this.$route.params.id">
+                                                       <!-- <template v-if="this.permissions && this.$route.params.id">
                                                             <switch-item :label="checkLabel" :allPermissions="{permissions: permissions, value: checkValue}"  :value="checkValue" @switchValue="switchValue" />
-                                                       </template>
-                                                       <template v-else>
-                                                            <switch-item :label="checkLabel" :value="checkValue" @switchValue="switchValue" />
+                                                       </template> -->
+                                                       
+                                                       <template>
+                                                            <switch-item :label="checkLabel" :value="checkValue" @switchValue="switchValue" :permissions="permissions" />
                                                        </template>
                                                     </div>
-                                               </div> -->
+                                               </div>
                                            </div>
                                        </div>
                                         <!-- <table class="table is-bordered is-fullwidth is-striped ">
@@ -143,13 +144,14 @@
 
                 if(value.status == true && this.permissions.indexOf(value.value)){
                     this.permissions.push(value.value)
+                    
                 } else{
                     for (let i = 0; i < this.permissions.length; i++) {
                         if(this.permissions[i] === value.value){
                             this.permissions.splice(i, 1);
                         }
                     }
-                }               
+                }
                 
             },
 

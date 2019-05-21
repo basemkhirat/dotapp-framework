@@ -93,6 +93,7 @@
                 if (items.success) {
                     this.successMessage(items.message)
                     this.closeModalUploadFile({newItem: true})
+                     this.isLoading = false
                 } else {
                      this.isLoading = false
                     // items.data.map(item => {

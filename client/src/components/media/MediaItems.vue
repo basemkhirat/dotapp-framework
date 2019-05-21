@@ -3,7 +3,12 @@
         <div class="row" v-if="data">
             <div class="col-6 col-md-4 col-lg-3 col-xl-2" v-for="item in data" :key="item.id">
                 <div class="media--item" v-if="item.thumbnails">
-                    <img :src="item.thumbnails.medium? item.thumbnails.medium : item.thumbnails.default" :alt="itemSelected.title" @click="quickEdit(item)">
+                    <div @click="quickEdit(item)" class="h-100">
+                        <img 
+                        :class="item.thumbnails.medium? '' : 'imgCover'" 
+                        :src="item.thumbnails.medium? item.thumbnails.medium : item.thumbnails.default" :alt="itemSelected.title" >
+                    </div>
+                    
                     <div class="media--action d-flex justify-content-between"
                         :class="{'showItemAction': checkItemsMedia.length}">
                         <a class="media--action--check custom--ckeckbox">
@@ -35,17 +40,29 @@
                                 :src="itemSelected.data.embed">
                                 </iframe>
                             </div>
+                            <div v-if="itemSelected.provider === 'file'" class="py-4">
+                                <vue-plyr>
+                                    <audio>
+                                        <source :src="itemSelected.url" :type="itemSelected.data.mime"/>
+                                    </audio>
+                                </vue-plyr>
+                            </div>
                         </template>
 
                         <!-- Video -->
                         <template v-if="itemSelected.type === 'video'">
                             <!-- Video Youtube -->
                             <div v-if="itemSelected.provider === 'youtube'">
-                                <iframe width="400" 
-                                class="video--iframe"
-                                :src="itemSelected.data.embed" 
-                                frameborder="0" 
-                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+                                <vue-plyr>
+                                    <div class="plyr__video-embed">
+                                         <iframe width="400" 
+                                            class="video--iframe"
+                                            :src="itemSelected.data.embed" 
+                                            frameborder="0" 
+                                            allowfullscreen allowtransparency allow="autoplay"></iframe>
+                                    </div>
+                                </vue-plyr>
                             </div>
                             <!-- Video File -->
                             <div v-if="itemSelected.provider === 'file'">
