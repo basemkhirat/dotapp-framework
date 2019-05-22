@@ -152,3 +152,72 @@
 .video--iframe{
      height: 200px
 }
+
+
+.modal--preview--media{
+     .media--preview--left{
+          background-color: #000;
+          display: flex;
+          padding: 20px;
+          align-items: center;
+          justify-content: center;
+     }
+     .modal-content{
+          background-color: #000;
+          padding: 0 15px;
+     }
+     .media--preview--right{
+          background-color: #fff;
+          position: relative;
+          padding-bottom: 85px;
+          .action--preview--media{
+               position: absolute;
+               bottom: 0;
+               right: 0;
+               background-color: #fff;
+               z-index: 2;
+               padding: 20px 15px;
+               width: 100%;
+               border-top: 1px solid $borderColor;
+          }
+          .modal-card-title{
+               font-size: 22px;
+               border-bottom: 4px solid $borderColor;
+               display: inline-block;
+               padding-bottom: 14px;
+               margin-top: 20px;
+               margin-bottom: 20px;
+          }
+     }
+     .modal--content{
+          height: 100%;
+     }
+     form{
+          height: 100%
+     }
+     .media--content--preview{
+          min-width: 300px;
+          min-height: 100px;
+          max-width: 90%;
+          max-height: 90%;
+          iframe{
+               width: 100%
+          }
+          .plyr--full-ui{
+               width: 800px;
+               max-width: 100%;
+          }
+     }
+}
+
+.createdBy{
+     font-size: 15px;
+     color: $textColor;
+     margin-bottom: 10px;
+     .avatar{
+          margin-right: 10px;
+     }
+     span{
+          font-weight: 500;
+     }
+}
