@@ -4,11 +4,11 @@
             <div class="col-6 col-md-4 col-lg-3 col-xl-2" v-for="item in data" :key="item.id">
                 <div class="media--item" v-if="item.thumbnails">
                     <div @click="quickEdit(item)" class="h-100">
-                        <img 
-                        :class="item.thumbnails.medium? '' : 'imgCover'" 
-                        :src="item.thumbnails.medium? item.thumbnails.medium : item.thumbnails.default" :alt="itemSelected.title" >
+                        <img :class="item.thumbnails.medium? '' : 'imgCover'"
+                            :src="item.thumbnails.medium? item.thumbnails.medium : item.thumbnails.default"
+                            :alt="itemSelected.title">
                     </div>
-                    
+
                     <div class="media--action d-flex justify-content-between"
                         :class="{'showItemAction': checkItemsMedia.length}">
                         <a class="media--action--check custom--ckeckbox">
@@ -21,7 +21,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
 
         <!-- Modal Quick Edit -->
@@ -36,15 +36,14 @@
                                 <!-- Audio -->
                                 <template v-if="itemSelected.type === 'audio'">
                                     <div v-if="itemSelected.provider === 'soundcloud'">
-                                        <iframe width="100%" height="166" scrolling="no" 
-                                        frameborder="no" 
-                                        :src="itemSelected.data.embed">
+                                        <iframe width="100%" height="166" scrolling="no" frameborder="no"
+                                            :src="itemSelected.data.embed">
                                         </iframe>
                                     </div>
                                     <div v-if="itemSelected.provider === 'file'" class="py-4">
                                         <vue-plyr>
                                             <audio>
-                                                <source :src="itemSelected.url" :type="itemSelected.data.mime"/>
+                                                <source :src="itemSelected.url" :type="itemSelected.data.mime" />
                                             </audio>
                                         </vue-plyr>
                                     </div>
@@ -57,11 +56,9 @@
 
                                         <vue-plyr>
                                             <div class="plyr__video-embed">
-                                                <iframe width="80%" 
-                                                    class="video--iframe"
-                                                    :src="itemSelected.data.embed" 
-                                                    frameborder="0" 
-                                                    allowfullscreen allowtransparency allow="autoplay"></iframe>
+                                                <iframe width="80%" class="video--iframe" :src="itemSelected.data.embed"
+                                                    frameborder="0" allowfullscreen allowtransparency
+                                                    allow="autoplay"></iframe>
                                             </div>
                                         </vue-plyr>
                                     </div>
@@ -69,7 +66,8 @@
                                     <div v-if="itemSelected.provider === 'file'">
                                         <vue-plyr>
                                             <video poster="poster.png" :src="itemSelected.url">
-                                                <source :src="itemSelected.url" :type="itemSelected.data.mime" size="720">
+                                                <source :src="itemSelected.url" :type="itemSelected.data.mime"
+                                                    size="720">
                                             </video>
                                         </vue-plyr>
                                     </div>
@@ -85,55 +83,32 @@
                                 <!-- Document -->
                                 <template v-if="itemSelected.type === 'document'">
                                     <!-- <object :data="itemSelected.url" :type="data.mime" width="750px" height="750px"> -->
-                                        <embed :src="itemSelected.url" :type="data.mime">
-                                            <p>This browser does not support this files. Please download the file to view it: 
-                                            <a :href="itemSelected.url">Download PDF</a>.</p>
-                                        </embed>
+                                    <embed :src="itemSelected.url" :type="data.mime">
+                                    <p>This browser does not support this files. Please download the file to view it:
+                                        <a :href="itemSelected.url">Download PDF</a>.</p>
+                                    </embed>
                                     <!-- </object> -->
                                 </template>
-                                
+
                             </div>
                         </div>
 
                         <div class="col-12 col-md-4 col-xl-3 media--preview--right">
-                             <div class="text-left">
-                                <h3 class="modal-card-title text-left">Edit Image</h3>
-                                <div class="createdBy d-flex align-items-center" v-if="itemSelected.user">
-                                    <div class="d-flex align-items-center">
-                                        <div class="avatar mr-2">
-                                            <!-- <img :src="itemSelected.user.photo" v-if="itemSelected.user.photo" :alt="itemSelected.user.first_name"> -->
-                                            <img src="./../../assets/images/user/64.png">
-                                        </div>
-                                       <span class="text-capitalize">  {{itemSelected.user.first_name + ' ' + itemSelected.user.last_name }}</span>
-                                    </div>
-                                    <div class="ml-auto">
-                                        <i class="fas fa-clock mr-2"></i>
-                                        {{itemSelected.created }}
-                                    </div>
-                                </div>
-                                
-                             </div>
-                            <div class="content--edit--image mt-4">
-                                <b-field>
-                                    <b-input rounded v-model="itemSelected.title" placeholder="Title" type="text"></b-input>
-                                </b-field>
-                                <b-field>
-                                    <b-input placeholder="Description" v-model="itemSelected.description" rows="4"
-                                        type="textarea"></b-input>
-                                </b-field>
 
-                                <div class="text-center">
-                                    <a class="button m-2" v-clipboard:copy="itemSelected.url"
+                             <div class="text-left">
+                                <h3 class="modal-card-title text-left">Action</h3>
+                                <div class="active--media--items">
+                                    <a class="button m-1" v-clipboard:copy="itemSelected.url"
                                         v-clipboard:success="onCopy" v-clipboard:error="onError">
-                                       <div>
+                                        <div>
                                             <span class="icon is-small">
                                                 <i class="fas fa-link"></i>
                                             </span>
-                                       </div>
+                                        </div>
                                         <span>Copy link</span>
                                     </a>
 
-                                    <a class="button m-2" target="_blank" :href="itemSelected.url">
+                                    <a class="button m-1" target="_blank" :href="itemSelected.url">
                                         <div>
                                             <span class="icon is-small">
                                                 <i class="fas fa-external-link-square-alt"></i>
@@ -141,8 +116,16 @@
                                         </div>
                                         <span>External</span>
                                     </a>
+                                    <a class="button m-1" @click="btnOpenModalCrop()" v-if="itemSelected.type === 'image'">
+                                        <div>
+                                            <span class="icon is-small">
+                                                <i class="fas fa-crop"></i>
+                                            </span>
+                                        </div>
+                                        <span>Crop</span>
+                                    </a>
 
-                                    <a class="button m-2" @click="confirmCustomDelete()">
+                                    <a class="button m-1" @click="confirmCustomDelete()">
                                         <div>
                                             <span class="icon is-small">
                                                 <i class="fas fa-trash"></i>
@@ -150,8 +133,37 @@
                                         </div>
                                         <span>Delete</span>
                                     </a>
-
                                 </div>
+                            </div>
+
+                            <hr class="mt-4">
+
+                            <div class="text-left">
+                                <h3 class="modal-card-title text-left">Edit Item Details</h3>
+                                <div class="createdBy d-flex align-items-center" v-if="itemSelected.user">
+                                    <div class="d-flex align-items-center">
+                                        <div class="avatar mr-2">
+                                            <!-- <img :src="itemSelected.user.photo" v-if="itemSelected.user.photo" :alt="itemSelected.user.first_name"> -->
+                                            <img src="./../../assets/images/user/64.png">
+                                        </div>
+                                        <span class="text-capitalize">
+                                            {{itemSelected.user.first_name + ' ' + itemSelected.user.last_name }}</span>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <i class="fas fa-clock mr-2"></i>
+                                        {{itemSelected.created }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="content--edit--image mt-4">
+                                <b-field>
+                                    <b-input rounded v-model="itemSelected.title" placeholder="Title" type="text">
+                                    </b-input>
+                                </b-field>
+                                <b-field>
+                                    <b-input placeholder="Description" v-model="itemSelected.description" rows="5"
+                                        type="textarea"></b-input>
+                                </b-field>
 
                                 <!-- <div class="field has-addons justify-content-center">
                                     <p class="control flex-fill">
@@ -189,20 +201,25 @@
                                         </a>
                                     </p>
                                 </div> -->
-                                 <!-- <hr class="mt-0"> -->
+                                <!-- <hr class="mt-0"> -->
+
                                 <div class="d-flex justify-content-center action--preview--media">
-                                    <button class="button is-rounded is-light mr-2" type="button" @click="modalQuickEdit = false">Cancel</button>
-                                    <button class="button is-primary is-rounded" type="submit"  :class="{'is-loading': isLoading}">Save</button>
+                                    <button class="button is-rounded is-light mr-2" type="button"
+                                        @click="modalQuickEdit = false">Cancel</button>
+                                    <button class="button is-primary is-rounded" type="submit"
+                                        :class="{'is-loading': isLoading}">Save</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                   
-
 
                 </form>
             </div>
         </b-modal>
+
+        <!-- Modal Img Crop -->
+        <modal-image-crop :itemSelected="itemSelected" ref="modalCrop"/>
+
     </div>
 
 </template>
@@ -214,11 +231,15 @@
     } from '../../repositories/RepositoryFactory'
     const mediaRepository = RepositoryFactory.get('media')
 
-// Video Media Player
-import Vue from 'vue'
-import VuePlyr from 'vue-plyr'
-import 'vue-plyr/dist/vue-plyr.css' // only if your build system can import css, otherwise import it wherever you would import your css.
-Vue.use(VuePlyr)
+    // Video Media Player
+    import Vue from 'vue'
+    import VuePlyr from 'vue-plyr'
+    import 'vue-plyr/dist/vue-plyr.css' // only if your build system can import css, otherwise import it wherever you would import your css.
+    Vue.use(VuePlyr)
+
+    import ModalImageCrop from './ModalImageCrop'
+
+   
 
     export default {
         props: ['data'],
@@ -233,10 +254,11 @@ Vue.use(VuePlyr)
         watch: {
             checkItemsMedia() {
                 this.$emit('checkItemsMedia', this.checkItemsMedia)
-                console.log(this.data)
             }
         },
-        
+        components:{
+            ModalImageCrop,
+        },
         methods: {
             quickEdit(item) {
                 this.modalQuickEdit = true
@@ -281,7 +303,7 @@ Vue.use(VuePlyr)
                 this.isLoading = false
             },
 
-            async deleteItem(){
+            async deleteItem() {
                 const item = await mediaRepository.deleteItem(this.itemSelected.id)
                 this.aleartMessage(item.message)
                 this.$emit('fetchAllItems')
@@ -321,8 +343,8 @@ Vue.use(VuePlyr)
                 })
             },
 
-            aleartMessage(textMessage){
-               this.$snackbar.open({
+            aleartMessage(textMessage) {
+                this.$snackbar.open({
                     message: textMessage,
                     type: 'is-success',
                     position: 'is-bottom-right',
@@ -330,10 +352,14 @@ Vue.use(VuePlyr)
                     queue: false,
                     duration: 3000,
                     indefinite: false,
-               })
-          },
+                })
+            },
 
-           
+
+            // Croup Image Methods
+            btnOpenModalCrop(){
+                this.$refs.modalCrop.openModalCrop()
+            }
 
         }
     }

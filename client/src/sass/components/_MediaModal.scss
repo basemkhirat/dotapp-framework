@@ -180,6 +180,11 @@
                width: 100%;
                border-top: 1px solid $borderColor;
           }
+          .active--media--items{
+               .button{
+                    width: 120px;
+               }
+          }
           .modal-card-title{
                font-size: 22px;
                border-bottom: 4px solid $borderColor;
@@ -208,6 +213,7 @@
                max-width: 100%;
           }
      }
+     
 }
 
 .createdBy{
@@ -219,5 +225,46 @@
      }
      span{
           font-weight: 500;
+     }
+}
+
+// Modal Crop Image
+.modal--crop--image{
+     .modal-content{
+          padding: 0 15px;
+          background-color: #000;
+     }
+     .image--crop--wrap{
+          height: 100%;
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 20px;
+          position: relative;
+          .image--crop--content{
+               width: 1000px;
+               max-width: 90%;
+               height: 90%;
+               height: 600px;
+          }
+          .action--crop{
+               position: absolute;
+               bottom: 0;
+               width: 100%;
+               text-align: center;
+               left: 0;
+               z-index: 4;
+               padding: 25px 15px;
+               .button{
+                    margin: 6px;
+                    opacity: .94;
+                    @include prefixer(transition, all .25s ease-in-out, webkit moz o);
+                    &:hover{
+                         opacity: 1
+                    }
+               }
+               
+          }
      }
 }
