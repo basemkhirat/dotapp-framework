@@ -66,6 +66,7 @@ export default {
                             "GET /": "MediaController.find",
                             "GET /thumbnails": "MediaController.findThumbnails",
                             "GET /types": "MediaController.findTypes",
+                            "GET /extensions": "MediaController.findExtensions",
                             "GET /:id": "MediaController.findOne",
                             "POST /": "MediaController.create",
                             "PUT /thumbnail/:id": "MediaController.updateThumbnail",

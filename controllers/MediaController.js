@@ -85,6 +85,18 @@ export default class extends Controller {
     }
 
     /**
+     * Find all media extensions
+     * @param req
+     * @param res
+     */
+    findExtensions(req, res) {
+
+        if (!req.can("media.view")) return res.forbidden();
+
+        return res.ok([].concat.apply([], Object.values(Config.get("media.types"))));
+    }
+
+    /**
      * Create a new media
      * @param req
      * @param res

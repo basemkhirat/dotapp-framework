@@ -141,6 +141,12 @@ describe("Media", function () {
             .expect(200, done);
     });
 
+    it("list all media extensions", function (done) {
+        server.get('/api/media/extensions')
+            .set('Authorization', 'Bearer ' + token)
+            .expect(200, done);
+    });
+
     it("delete media by id", function (done) {
         server.delete("/api/media/" + media.id)
             .set('Authorization', 'Bearer ' + token)

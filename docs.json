@@ -240,6 +240,23 @@
             }
         },
 
+        "/media/extensions": {
+            "get": {
+                "tags": [
+                    "Media"
+                ],
+                "summary": "Find all media extensions",
+                "responses": {
+                    "$ref": "#/responses"
+                },
+                "security": [
+                    {
+                        "bearer token": []
+                    }
+                ]
+            }
+        },
+
         "/media/{id}": {
             "get": {
                 "tags": [
