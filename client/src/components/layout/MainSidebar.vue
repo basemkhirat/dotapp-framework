@@ -9,7 +9,7 @@
                     DASHBOARD
                 </div>
             </div>
-            
+
             <!-- <vue-perfect-scrollbar class="menu--scroll" :settings="scrollSettings"> -->
                 <div class="menu--scroll">
                 <ul class="menu-list">
@@ -54,7 +54,7 @@
                     { name: 'Users', link: '/users', icon: 'fas fa-user'},
                     { name: 'Groups', link: '/groups', icon: 'fas fa-users'},
                     { name: 'Media', link: '/media', icon: 'fa fa-images'},
-                    
+
                     { name: 'Item Dropdown', link: '/', icon: 'fas fa-columns', childLinks:[
                         { name: 'Item One', link: '/a'},
                         { name: 'Item Two', link: '/sd'},
@@ -62,6 +62,7 @@
                         { name: 'Item four', link: '/sd'},
                     ]},
                     { name: 'Articles', link: '/articles', icon: 'far fa-newspaper'},
+                    { name: 'Categories', link: '/categories', icon: 'far fa-newspaper'},
                     { name: 'Item Dropdown2', link: '/', icon: 'fas fa-columns', childLinks:[
                         { name: 'Item One a', link: '/a'},
                         { name: 'Item Two asds', link: '/sd'},
@@ -82,7 +83,7 @@
             VuePerfectScrollbar,
             MenuItem,
         },
-       
+
         methods:{
             closeSidebar(){
                 this.$store.commit('closeMainMenu')

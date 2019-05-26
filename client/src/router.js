@@ -68,14 +68,25 @@ const router = new Router({
           component: () => import('./views/articles/Form.vue'),
           meta: {requiresAuth: true},
         },
-        
-        
+        {
+            path: '/categories',
+            name: 'categories',
+            component: () => import('./views/categories/Categories.vue'),
+            meta: {requiresAuth: true},
+        },
+        {
+            path: '/categoryForm/:id?',
+            name: 'categoryForm',
+            component: () => import('./views/categories/Form.vue'),
+            meta: {requiresAuth: true},
+        },
+
       ]
     }
   ],
   scrollBehavior (to, from, savedPosition) {
     return { x: 0, y: 0 }
-    
+
   }
 })
 
@@ -91,6 +102,6 @@ router.beforeEach((to, from, next) => {
 	} else {
 		next();
 	}
-});	
+});
 
 export default router;
