@@ -1,0 +1,23 @@
+{
+    "name_taken": "إسم الوسم موجود مسبقاَ",
+
+    "events": {
+        "created": "تم إضافة الوسم بنجاح",
+        "updated": "تم تحديث الوسم بنجاح",
+        "deleted": "تم حذف الوسم بنجاح"
+    },
+
+    "permissions": {
+        "view": "عرض الوسوم",
+        "create": "إضافة الوسوم",
+        "update": "تحديث الوسوم",
+        "delete": "حذف الوسوم"
+    },
+
+    "errors": {
+        "tag_not_found": "الوسم غير موجود",
+        "update_denied": "غير مسموح بتحديث الوسم :tag",
+        "delete_denied": "غير مسموح بحذف الوسم :tag",
+        "operation_not_allowed": "العملية غير مسموح بها"
+    }
+}

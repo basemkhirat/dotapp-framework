@@ -29,5 +29,12 @@ export default {
         "create",
         "update",
         "delete"
+    ],
+
+    tag: [
+        "view",
+        "create",
+        "update",
+        "delete"
     ]
 }

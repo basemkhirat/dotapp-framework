@@ -17,8 +17,8 @@ export default function (req, res) {
             query._id = {'$ne': id};
         }
 
-        Category.findOne(query).exec((error, user) => {
-            return user ? passes(false, req.lang("category.name_taken")) : passes();
+        Category.findOne(query).exec((error, category) => {
+            return category ? passes(false, req.lang("category.name_taken")) : passes();
         });
     });
 
@@ -30,8 +30,8 @@ export default function (req, res) {
             query._id = {'$ne': id};
         }
 
-        Category.findOne(query).exec((error, user) => {
-            return user ? passes(false, req.lang("category.slug_taken")) : passes();
+        Category.findOne(query).exec((error, category) => {
+            return category ? passes(false, req.lang("category.slug_taken")) : passes();
         });
     });
 

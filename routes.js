@@ -114,6 +114,26 @@ export default {
                             "DELETE /:id": "CategoryController.destroy",
                             "PATCH /": "CategoryController.bulk"
                         }
+                    },
+
+                    "/tag": {
+
+                        middleware: "authenticate",
+
+                        group: {
+                            "GET /": "TagController.find",
+                            "GET /:id": "TagController.findOne",
+                            "POST /": {
+                                middleware: "validate:tag",
+                                handler: "TagController.create"
+                            },
+                            "PUT /:id": {
+                                middleware: "validate:tag",
+                                handler: "TagController.update"
+                            },
+                            "DELETE /:id": "TagController.destroy",
+                            "PATCH /": "TagController.bulk"
+                        }
                     }
 
                 }
