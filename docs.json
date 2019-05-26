@@ -122,6 +122,7 @@
                     }
                 ]
             },
+
             "post": {
                 "tags": [
                     "Media"
@@ -204,6 +205,41 @@
                 ]
             }
         },
+
+        "/media/thumbnails": {
+            "get": {
+                "tags": [
+                    "Media"
+                ],
+                "summary": "Find all media thumbnails",
+                "responses": {
+                    "$ref": "#/responses"
+                },
+                "security": [
+                    {
+                        "bearer token": []
+                    }
+                ]
+            }
+        },
+
+        "/media/types": {
+            "get": {
+                "tags": [
+                    "Media"
+                ],
+                "summary": "Find all media types",
+                "responses": {
+                    "$ref": "#/responses"
+                },
+                "security": [
+                    {
+                        "bearer token": []
+                    }
+                ]
+            }
+        },
+
         "/media/{id}": {
             "get": {
                 "tags": [

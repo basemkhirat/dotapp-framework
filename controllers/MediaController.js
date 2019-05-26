@@ -61,6 +61,30 @@ export default class extends Controller {
     }
 
     /**
+     * Find all media thumbnails
+     * @param req
+     * @param res
+     */
+    findThumbnails(req, res) {
+
+        if (!req.can("media.view")) return res.forbidden();
+
+        return res.ok(Config.get("media.image.thumbnails"));
+    }
+
+    /**
+     * Find all media types
+     * @param req
+     * @param res
+     */
+    findTypes(req, res) {
+
+        if (!req.can("media.view")) return res.forbidden();
+
+        return res.ok(Object.keys(Config.get("media.types")));
+    }
+
+    /**
      * Create a new media
      * @param req
      * @param res
