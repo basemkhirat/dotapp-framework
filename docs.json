@@ -1175,7 +1175,7 @@
             },
             "patch": {
                 "tags": [
-                    "Categories"
+                    "Tags"
                 ],
                 "summary": "Bulk tags delete",
                 "parameters": [
