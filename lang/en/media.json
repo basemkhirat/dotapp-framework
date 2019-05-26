@@ -16,6 +16,10 @@
         "media_not_found": "Media not found",
         "update_denied": "You don't have a policy to update :media",
         "delete_denied": "You don't have a policy to delete :media",
-        "operation_not_allowed": "Operation is not allowed"
+        "operation_not_allowed": "Operation is not allowed",
+        "not_image": "It's not an image",
+        "invalid_base64": "Invalid base64 data",
+        "invalid_size": "Invalid size",
+        "base64_required": "base64 image required"
     }
 }

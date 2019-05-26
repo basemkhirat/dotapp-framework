@@ -289,6 +289,47 @@
                 ]
             }
         },
+        "/media/thumbnail/{id}": {
+
+            "put": {
+                "tags": [
+                    "Media"
+                ],
+                "summary": "Update media thumbnail by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Media ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "size",
+                        "in": "query",
+                        "description": "Size",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "data",
+                        "in": "query",
+                        "description": "Base64 data image",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/responses"
+                },
+                "security": [
+                    {
+                        "bearer token": []
+                    }
+                ]
+            }
+
+        },
         "/user/{id}": {
             "get": {
                 "tags": [

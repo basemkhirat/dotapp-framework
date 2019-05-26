@@ -1,0 +1,25 @@
+{
+    "events": {
+        "created": "تمت الإضافة بنجاح",
+        "updated": "تم التحديث بنجاح",
+        "deleted": "تم الحذف بنجاح"
+    },
+
+    "permissions": {
+        "view": "عرض الميديا",
+        "create": "إضافة الميديا",
+        "update": "تحديث الميديا",
+        "delete": "حذف الميديا"
+    },
+
+    "errors": {
+        "media_not_found": "الميديا غير موجودة",
+        "update_denied": "غير مسموح بتحديث الميديا :media",
+        "delete_denied": "غير مسموح بحذف الميديا :media",
+        "operation_not_allowed": "العملية غير مسموح بها",
+        "not_image": "الميديا ليست صورة",
+        "invalid_base64": "الصورة المدخلة غير صحيحة",
+        "invalid_size": "حجم خاطئ",
+        "base64_required": "لا توجد صورة مدخلة"
+    }
+}

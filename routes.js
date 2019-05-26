@@ -66,6 +66,7 @@ export default {
                             "GET /": "MediaController.find",
                             "GET /:id": "MediaController.findOne",
                             "POST /": "MediaController.create",
+                            "PUT /thumbnail/:id": "MediaController.updateThumbnail",
                             "PUT /:id": "MediaController.update",
                             "DELETE /:id": "MediaController.destroy",
                             "PATCH /": "MediaController.bulk"

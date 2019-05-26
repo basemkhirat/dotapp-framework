@@ -13,5 +13,12 @@
         "create": "إضافة التصنيفات",
         "update": "تحديث التصنيفات",
         "delete": "حذف التصنيفات"
+    },
+
+    "errors": {
+        "category_not_found": "التصنيف غير موجود",
+        "update_denied": "غير مسموح بتحديث التصنيف :category",
+        "delete_denied": "غير مسموح بحذف :category",
+        "operation_not_allowed": "العملية غير مسموح بها"
     }
 }

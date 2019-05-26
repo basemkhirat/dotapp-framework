@@ -2,6 +2,9 @@ import Controller from "~/controllers/Controller";
 import Media from '~/models/media';
 import Resource from '~/services/media';
 import async from "async";
+import path from 'path';
+import Storage from '~/services/storage';
+import Config from '~/services/config';
 
 export default class extends Controller {
 
@@ -78,7 +81,7 @@ export default class extends Controller {
 
             media.save((error, media) => {
                 if (error) return res.serverError(error);
-                if (media) return res.ok(media.id);
+                if (media) return res.message(req.lang("media.events.created")).ok(media.id);
             });
         });
     }
@@ -107,8 +110,65 @@ export default class extends Controller {
 
             media.save(error => {
                 if (error) return res.serverError(error);
-                return res.ok(id);
+                return res.message(req.lang("media.events.updated")).ok(id);
             });
+        });
+    }
+
+    /**
+     * Update thumbnail by id
+     * @param req
+     * @param res
+     */
+    updateThumbnail(req, res) {
+
+        let id = req.param("id");
+        let size = req.param("size");
+        let data = req.param("data");
+
+        let sizes = Config.get("media.image.thumbnails")
+            .map(thumbnail => thumbnail.name)
+            .map(name => {
+                return name;
+            });
+
+        if (sizes.indexOf(size) < 0) {
+            return res.validationError(req.lang("media.errors.invalid_size"));
+        }
+
+        if (!req.filled("data")) return res.validationError(req.lang("media.errors.base64_required"));
+
+        let matches = data.match(/^data:([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+);base64,(.+)$/);
+
+        if (!matches || matches.length !== 3) {
+            return res.validationError(req.lang("media.errors.invalid_base64"));
+        }
+
+        data = matches[2];
+
+        Media.findById(id, function (error, media) {
+            if (error) return res.serverError(error);
+            if (!media) return res.notFound(req.lang("media.errors.media_not_found"));
+
+            if (!req.can("media.update", media)) {
+                return res.forbidden(req.lang("media.errors.update_denied", {
+                    media: media.id
+                }));
+            }
+
+            if (media.type !== "image") {
+                return res.validationError(req.lang("media.errors.not_image"));
+            }
+
+            let image_path = media.image.path;
+            let thumbnail_path = path.dirname(image_path) + "/" + size + "-" + path.basename(image_path);
+
+            Storage.disk("uploads")
+                .save(thumbnail_path, Buffer.from(data, 'base64'), 'binary', error => {
+                    if (error) return res.serverError(error);
+
+                    return res.message(req.lang("media.events.updated")).ok(id);
+                });
         });
     }
 
@@ -133,7 +193,7 @@ export default class extends Controller {
 
             media.remove(error => {
                 if (error) res.serverError(error);
-                return res.ok(id);
+                return res.message(req.lang("media.events.deleted")).ok(id);
             });
         });
     }

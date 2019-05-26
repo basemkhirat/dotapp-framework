@@ -113,6 +113,16 @@ describe("Media", function () {
             .expect(200, done);
     });
 
+    it("update media thumbnail by id", function (done) {
+        server.put("/api/media/thumbnail/" + media.id)
+            .set('Authorization', 'Bearer ' + token)
+            .send({
+                size: "medium",
+                data: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg=="
+            })
+            .expect(200, done);
+    });
+
     it("list all media", function (done) {
         server.get('/api/media')
             .set('Authorization', 'Bearer ' + token)

@@ -10,11 +10,10 @@
     "permissions": {
         "view": "Viewing roles",
         "create": "Creating roles",
-        "update": "Updating roles",
         "status": "Changing role status",
+        "update": "Updating roles",
         "delete": "Deleting roles"
     },
-
     "errors": {
         "role_not_found": "Role not found",
         "update_denied": "You don't have a policy to update :role",
