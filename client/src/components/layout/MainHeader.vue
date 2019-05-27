@@ -44,7 +44,7 @@
                                    </b-dropdown-item>
                               </b-dropdown>
                          </li>
-                         
+
                     </ul>
                </div>
           </div>
@@ -53,8 +53,8 @@
           <b-modal :active.sync="mainSearch" :width="640" scroll="keep" class="justify-content-start search--modal">
                <search/>
           </b-modal>
-          
-          
+
+
      </header>
 </template>
 
@@ -85,9 +85,9 @@
                     this.$store.commit('openMediaModal')
                },
                navMenuOpen(){
-                    document.body.classList.add("is--mainSidebar--open")               
+                    document.body.classList.add("is--mainSidebar--open")
                },
-               navMenuClose(){               
+               navMenuClose(){
                     document.body.classList.remove("is--mainSidebar--open")
                },
                logout(){
