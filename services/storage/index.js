@@ -34,7 +34,10 @@ export default class Index {
             return this.driver.save(file, data, "encoding", encoding);
         }
 
-        this.driver.save(file, data, encoding, callback);
+        this.driver.save(file, data, encoding, error => {
+            if (error) return callback("error when saving file to storage");
+            if (callback) return callback(null, file);
+        });
     }
 
     /**
@@ -44,7 +47,7 @@ export default class Index {
      */
 
     delete(file, callback) {
-        this.driver.delete(file, (error) => {
+        this.driver.delete(file, error => {
             if (error) return callback("File is not exist");
             if (callback) return callback(null);
         });
@@ -57,9 +60,9 @@ export default class Index {
      */
 
     exists(file, callback) {
-        this.driver.exists(file, (error) => {
+        this.driver.exists(file, error => {
             if (error) return callback("File is not exist");
-            if (callback) return callback(null);
+            if (callback) return callback(null, true);
         });
     }
 

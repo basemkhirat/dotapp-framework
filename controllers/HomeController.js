@@ -1,8 +1,5 @@
 import Controller from './Controller';
 
-import Config from '~/services/config';
-import fs from "fs-extra";
-
 import Storage from '~/services/storage';
 
 export default class extends Controller {
@@ -16,24 +13,22 @@ export default class extends Controller {
 
     index(req, res, next) {
 
-
-        // Storage.disk("s3").exists("snew.txt", (error, data) => {
+        // Storage.disk("s3").exists("new.txt", (error, exist) => {
         //     if(error) return res.serverError(error);
         //
-        //     return res.ok(data);
-        // })
+        //     return res.ok(exist);
+        // });
 
         // fs.createReadStream(filePath)
 
        // return res.ok(Storage.disk("s3").url("file.png"));
 
-        // Storage.disk("s3").save("snew.txt", "hi amazon", function (error, data) {
+        // Storage.disk("s3").save("new.txt", "hi amazon", function (error, data) {
         //
         //     if(error) return res.serverError(error);
         //
         //     return res.ok(data);
         // });
-        //
 
 
         return res.ok("Hi " + req.ipAddress());

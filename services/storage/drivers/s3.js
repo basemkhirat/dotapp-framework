@@ -1,7 +1,6 @@
-import fs from 'fs-extra';
-import aws from 'aws-sdk';
 import path from 'path';
-import Config from '~/services/config';
+import AWS from '~/services/aws';
+
 
 export default class {
 
@@ -19,9 +18,7 @@ export default class {
 
     save(file, data, encoding, callback) {
 
-        aws.config.update(Config.get("aws"));
-
-        let s3 = new aws.S3();
+        let s3 = new AWS.S3();
 
         let params = {
             Bucket: this.config.bucket,
@@ -47,9 +44,7 @@ export default class {
 
     delete(file, callback) {
 
-        aws.config.update(Config.get("aws"));
-
-        let s3 = new aws.S3();
+        let s3 = new AWS.S3();
 
         let params = {
             Bucket: this.config.bucket,
@@ -71,16 +66,14 @@ export default class {
 
     exists(file, callback) {
 
-        aws.config.update(Config.get("aws"));
-
-        let s3 = new aws.S3();
+        let s3 = new AWS.S3();
 
         let params = {
             Bucket: this.config.bucket,
             Key: file,
         };
 
-        s3.waitFor('objectExists', params, (error, data) => {
+        s3.headObject(params, (error, data) => {
             if (error) return callback(error);
 
             callback(null, data);
