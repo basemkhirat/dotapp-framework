@@ -2,9 +2,10 @@
      <div class="filter--media py-4">
           <div class="row align-items-center">
                <div class="col-12 col-md-6">
-                    <v-select :options="typeOptions" v-model="type" label="title" class="select--with--icon v--select--scroll my-2 my-md-0">
+
+                    <v-select :options="allTypes" v-model="type" label="title" class="select--with--icon v--select--scroll my-2 my-md-0">
                          <template slot="option" slot-scope="option">
-                              <span :class="option.icon"></span>
+                              <!-- <span :class="option.icon"></span> -->
                               {{ option.title }}
                          </template>
                     </v-select>
@@ -27,10 +28,15 @@
                </div>
           </div>
      </div>
-     
+
 </template>
 
 <script>
+    // Repository Data
+    import {
+        RepositoryFactory
+    } from '../../repositories/RepositoryFactory'
+    const mediaRepository = RepositoryFactory.get('media')
 export default {
      data(){
           return {
@@ -74,16 +80,17 @@ export default {
                type: 'All',
                order: 'Recent',
                filters: {},
-               searchQuery: ''
+               searchQuery: '',
+               allTypes: [],
           }
      },
      watch:{
           type(){
-               if(this.type.value === 'all'){
+               if(this.type.type === 'all'){
                       this.filters.type = ''
                       this.$emit('changeFilters', this.filters)
                } else {
-                    this.filters.type = this.type.value
+                    this.filters.type = this.type.type
                     this.$emit('changeFilters', this.filters)
                }
           },
@@ -97,12 +104,20 @@ export default {
                 this.debounce = setTimeout(() => {
                     this.$emit('changeFilters', this.filters)
                 }, 500);
-               
+
           }
      },
-     
+     created(){
+         this.getMediaType()
+     },
+
      methods:{
-          
+        //  Get Media Types
+        async getMediaType() {
+            const types = await mediaRepository.getMediaType()
+            this.allTypes = types
+            this.allTypes.unshift({title: 'All', type: 'all'})
+        },
      }
 }
 </script>

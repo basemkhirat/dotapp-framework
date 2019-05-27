@@ -174,7 +174,7 @@
                                             </span>
                                             <span>Copy link</span>
                                         </a>
-                                        
+
                                     </p>
                                     <p class="control flex-fill">
                                                 <a class="button w-100">
@@ -238,8 +238,6 @@
     Vue.use(VuePlyr)
 
     import ModalImageCrop from './ModalImageCrop'
-
-   
 
     export default {
         props: ['data'],
