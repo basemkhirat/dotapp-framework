@@ -81,7 +81,7 @@ export default class extends Controller {
 
         if (!req.can("media.view")) return res.forbidden();
 
-        return res.ok(Object.keys(Config.get("media.types")));
+        return res.ok(req.lang("media.types"));
     }
 
     /**

@@ -30,10 +30,10 @@ export default {
 
         s3: {
             driver: "s3",
-            bucket: "my-bucket",
+            bucket: "cms-js",
             region: "eu-west-1",
-            key: process.env.AWS_KEY,
-            secret: process.env.AWS_SECRET
+            // key: process.env.AWS_KEY,
+            // secret: process.env.AWS_SECRET
         }
     }
 }

@@ -1,7 +1,7 @@
 import fs from 'fs-extra';
 import path from 'path';
 
-export default class Local {
+export default class {
 
     constructor(config) {
         this.config = config;

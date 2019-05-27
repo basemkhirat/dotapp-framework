@@ -1,4 +1,11 @@
 {
+    "types" : {
+        "image": "Images",
+        "video": "Videos",
+        "audio": "Audio Tracks",
+        "document": "Documents"
+    },
+
     "events": {
         "created": "Media created successfully",
         "updated": "Media updated successfully",
