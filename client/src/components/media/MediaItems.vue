@@ -82,11 +82,14 @@
 
                                 <!-- Document -->
                                 <template v-if="itemSelected.type === 'document'">
+                                    <div class="document--preview">
+                                        <embed :src="itemSelected.url" :type="data.mime">
+                                        <!-- <p>This browser does not support this files. Please download the file to view it:
+                                            <a :href="itemSelected.url">Download PDF</a>.</p> -->
+                                        </embed>
+                                    </div>
                                     <!-- <object :data="itemSelected.url" :type="data.mime" width="750px" height="750px"> -->
-                                    <embed :src="itemSelected.url" :type="data.mime">
-                                    <p>This browser does not support this files. Please download the file to view it:
-                                        <a :href="itemSelected.url">Download PDF</a>.</p>
-                                    </embed>
+
                                     <!-- </object> -->
                                 </template>
 
