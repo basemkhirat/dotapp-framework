@@ -8,7 +8,21 @@ export default class {
     }
 
     /**
-     * save file
+     * read a file
+     * @param file
+     * @param callback
+     */
+
+    read(file, encoding, callback) {
+        fs.readFile(this.path(file), encoding, (error, data) => {
+            if (error) return callback(error);
+
+            callback(null, data);
+        });
+    }
+
+    /**
+     * save a file
      * @param file
      * @param data
      * @param encoding
@@ -24,7 +38,7 @@ export default class {
 
             fs.writeFile(this.path(file), data, encoding, error => {
                 if (error) return callback(error);
-                callback(error, this.path(file));
+                callback(error, file);
             });
         });
     }
@@ -36,7 +50,11 @@ export default class {
      */
 
     delete(file, callback) {
-        fs.unlink(this.path(file), callback)
+        fs.unlink(this.path(file), error => {
+            if (error) return callback(error);
+
+            callback(null, file);
+        })
     }
 
     /**
@@ -46,7 +64,11 @@ export default class {
      */
 
     exists(file, callback) {
-        fs.access(this.path(file), fs.F_OK, callback);
+        fs.access(this.path(file), fs.F_OK, (error, exists) => {
+            if (error) return callback(error);
+
+            callback(null, exists);
+        });
     }
 
     /**

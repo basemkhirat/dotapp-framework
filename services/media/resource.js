@@ -23,10 +23,10 @@ export default class Resource {
      */
     store(callback) {
 
-        this.storage = Storage.disk("uploads");
+        this.media = Config.get('media');
+        this.storage = Storage.disk(this.media.storage);
         let payload_class = require("~/services/media/payloads/" + this.getType()).default;
         this.payload_object = new payload_class(this.payload);
-        this.media = Config.get('media');
 
         this.payload_object.handle.call(this, error => {
 

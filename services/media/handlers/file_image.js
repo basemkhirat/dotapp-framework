@@ -26,14 +26,14 @@ export default class {
 
             async.mapSeries(this.config.thumbnails, (thumbnail, cb) => {
 
-                    Jimp.read(this.file.path, (error, jImage) => {
+                    Jimp.read(Buffer.from(this.resource.file.content, "binary"), (error, jImage) => {
+
+                        if (error) return cb(error);
 
                         this.file.meta = {
                             width: jImage.getWidth(),
                             height: jImage.getHeight()
                         };
-
-                        if (error) return cb(error);
 
                         let mode = thumbnail.mode ? thumbnail.mode : "resize";
                         let width = thumbnail.width ? thumbnail.width : jImage.AUTO;
@@ -58,7 +58,6 @@ export default class {
                         });
 
                     });
-
                 },
 
                 error => {
@@ -70,7 +69,12 @@ export default class {
                         width: this.resource.file.meta.width,
                         height: this.resource.file.meta.height,
                         mime: this.resource.file.mime_type,
-                        size: this.resource.file.size
+                        size: this.resource.file.size,
+                        thumbnails: Config.get("media.image.thumbnails")
+                            .map(thumbnail => thumbnail.name)
+                            .map(name => {
+                                return name;
+                            })
                     };
 
                     return callback(null, this.resource);

@@ -7,7 +7,7 @@ export default {
      * The "local" storage is enabled by default.
      */
 
-    default: "public",
+    default: "uploads",
 
     /**
      * Here you may configure as many filesystem "disks" as you wish, and you
@@ -22,18 +22,36 @@ export default {
             url: process.env.APP_URL
         },
 
+        /**
+         * public upload storage
+         * used for public file access
+         */
+
         uploads: {
             driver: "local",
             path: path.join(process.cwd(), "public/uploads"),
             url: process.env.APP_URL + "/uploads"
         },
 
+        /**
+         * temporary storage
+         * used for private file access
+         */
+
+        temp: {
+            driver: "local",
+            path: path.join(process.cwd(), "storage/temp"),
+            url: false
+        },
+
+        /**
+         * s3 cloud storage
+         */
+
         s3: {
             driver: "s3",
             bucket: "cms-js",
-            region: "eu-west-1",
-            // key: process.env.AWS_KEY,
-            // secret: process.env.AWS_SECRET
+            region: "eu-west-1"
         }
     }
 }

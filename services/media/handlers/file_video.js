@@ -2,6 +2,7 @@ import ffmpeg_bin from '@ffmpeg-installer/ffmpeg';
 import ffmpeg from 'fluent-ffmpeg';
 import Media from '~/services/media';
 import Log from '~/services/log';
+import Storage from '~/services/storage';
 
 export default class {
 
@@ -20,17 +21,17 @@ export default class {
 
         Log.message("processing video handler", "info");
 
-        this.storage.save(this.resource.file.relative_directory + '/' + this.resource.file.file, this.resource.file.content, 'binary', error => {
+        if (this.resource.file.extension === "mp4") {
+            return this.processMP4(callback);
+        }
+
+        Storage.disk("temp").save(this.file.file, this.resource.file.content, 'binary', (error, tempFile) => {
 
             if (error) return callback(error);
 
-            if (this.resource.file.extension === "mp4") {
-                return this.processMP4(callback);
-            }
+            ffmpeg(Storage.disk("temp").path(tempFile))
 
-            ffmpeg(this.resource.file.directory + '/' + this.resource.file.file)
-
-                .save(this.resource.file.directory + "/" + this.resource.file.name + ".mp4")
+                .save(Storage.disk("temp").path(this.resource.file.name + ".mp4"))
 
                 .on('error', () => {
                     callback("Failed to encode video to mp4 format");
@@ -40,18 +41,22 @@ export default class {
 
                     // deleting the original video file
 
-                    this.storage.delete(this.resource.file.relative_directory + '/' + this.resource.file.file, () => {
-                    });
+                    Storage.disk("temp").delete(this.file.file);
+                    Storage.disk("temp").delete(tempFile);
 
                     this.resource.file.extension = "mp4";
                     this.resource.file.mime_type = "video/mp4";
                     this.resource.file.file = this.resource.file.name + '.' + this.resource.file.extension;
                     this.resource.file.path = this.resource.file.directory + "/" + this.resource.file.file;
 
-                    this.processMP4(callback);
+                    Storage.disk("temp").read(this.resource.file.name + ".mp4", "binary", (error, data) => {
+                        if (error) return callback(error);
+
+                        this.resource.file.content = data;
+                        this.processMP4(callback);
+                    });
                 });
         });
-
     }
 
     /**
@@ -60,50 +65,59 @@ export default class {
      */
     processMP4(callback) {
 
-        ffmpeg.ffprobe(this.resource.file.path, (error, metadata) => {
+        this.storage.save(this.resource.file.relative_directory + '/' + this.resource.file.file, this.resource.file.content, 'binary', error => {
 
             if (error) return callback(error);
 
-            this.resource.data = {
-                storage: this.resource.storage.disk,
-                path: this.resource.file.relative_directory + "/" + this.resource.file.file,
-                duration: parseInt(metadata.format.duration),
-                mime: this.resource.file.mime_type,
-                size: parseInt(metadata.format.size)
-            };
+            Storage.disk("temp").save(this.file.file, this.resource.file.content, 'binary', (error, tempFile) => {
 
-            let options = {
-                count: 1,
-                filename: Date.now() + '.png',
-                timemarks: ['00:00:02.000']
-            };
+                if (error) return callback(error);
 
-            ffmpeg(this.resource.file.directory + "/" + this.resource.file.file)
+                ffmpeg.ffprobe(Storage.disk("temp").path(tempFile), (error, metadata) => {
 
-                .screenshot(options, this.resource.file.directory)
+                    if (error) return callback(error);
 
-                .on('error', () => {
-                    callback("Failed to take video screenshot");
-                })
+                    this.resource.data = {
+                        storage: this.resource.storage.disk,
+                        path: this.resource.file.relative_directory + "/" + this.resource.file.file,
+                        duration: parseInt(metadata.format.duration),
+                        mime: this.resource.file.mime_type,
+                        size: parseInt(metadata.format.size)
+                    };
 
-                .on('end', () => {
+                    let options = {
+                        count: 1,
+                        filename: Date.now() + '.png',
+                        timemarks: ['00:00:02.000']
+                    };
 
-                    let screenshot = this.resource.file.directory + "/" + options.filename;
+                    ffmpeg(Storage.disk("temp").path(tempFile))
 
-                    Media.upload(screenshot, (error, file) => {
-                        if (error) return callback(error);
+                        .screenshot(options, Storage.disk("temp").path())
 
-                        this.resource.image = file.image;
+                        .on('error', () => {
+                            callback("Failed to take video screenshot");
+                        })
 
-                        this.storage.delete(this.resource.file.relative_directory + "/" + options.filename, () => {
+                        .on('end', () => {
+
+                            let screenshot = Storage.disk("temp").path(options.filename);
+
+                            Media.upload(screenshot, (error, file) => {
+                                if (error) return callback(error);
+
+                                this.resource.image = file.image;
+
+                                Storage.disk("temp").delete(options.filename);
+                                Storage.disk("temp").delete(tempFile);
+
+                                callback(null, this.resource);
+                            });
                         });
+                });
 
-                        callback(null, this.resource);
-                    });
-                })
-
+            });
         });
-
 
     }
 }

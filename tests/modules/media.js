@@ -43,7 +43,7 @@ describe("Media", function () {
             });
     });
 
-    it("create a new video from url", function (done) {
+    it("create mp4 video from url", function (done) {
 
         this.timeout(120000);
 
@@ -60,6 +60,25 @@ describe("Media", function () {
                     .expect(200, done);
             });
     });
+
+    it("create flv video from url", function (done) {
+
+        this.timeout(120000);
+
+        media.payload = "https://sample-videos.com/video123/flv/720/big_buck_bunny_720p_1mb.flv";
+
+        server.post("/api/media")
+            .set('Authorization', 'Bearer ' + token)
+            .send(media)
+            .expect(200)
+            .end(function (error, response) {
+                if (error) throw error;
+                server.delete("/api/media/" + response.body.data)
+                    .set('Authorization', 'Bearer ' + token)
+                    .expect(200, done);
+            });
+    });
+
 
     it("create a new youtube video from url", function (done) {
 
@@ -154,6 +173,8 @@ describe("Media", function () {
     });
 
     it("perform bulk delete/update operations", function (done) {
+
+        this.timeout(6000);
 
         let media = {
             payload: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg=="

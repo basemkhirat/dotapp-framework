@@ -1,5 +1,4 @@
 import {Mongoose, Schema} from './model';
-import Config from '~/services/config';
 import Storage from '~/services/storage';
 import Image from '~/services/media/handlers/file_image';
 import path from 'path';
@@ -31,7 +30,12 @@ let schema = Schema({
             mime: {type: String},
             width: {type: Number},
             height: {type: Number},
-            size: {type: Number}
+            size: {type: Number},
+            thumbnails: {
+                type: Array,
+                default: [],
+                hide: true
+            }
         },
 
         data: {
@@ -97,33 +101,49 @@ schema.path("url").get(function () {
 
 schema.path("thumbnails").get(function () {
 
-    let sizes = Config.get("media.image.thumbnails")
-        .map(thumbnail => thumbnail.name)
-        .map(name => {
-            return name;
-        });
-
     let thumbnails = {};
 
     if (this.image.path) {
 
-        sizes.forEach((size) => {
+        let sizes = this.image.thumbnails;
+
+        sizes.forEach(size => {
             thumbnails[size] = Storage.disk(this.image.storage).url(Image.getThumbnailFileName(this.image.path, size));
         });
 
         thumbnails.default = Storage.disk(this.image.storage).url(this.image.path);
 
-    }else if (this.data.path) {
+    } else if (this.data.path) {
 
-        thumbnails.default = _url("default/files/"+ path.extname(this.data.path).split(".").pop()) + ".png";
+        thumbnails.default = _url("default/files/" + path.extname(this.data.path).split(".").pop()) + ".png";
 
-    }else{
+    } else {
 
-        thumbnails.default = _url("default/providers/"+ this.provider + ".png");
+        thumbnails.default = _url("default/providers/" + this.provider + ".png");
 
     }
 
     return thumbnails;
+});
+
+schema.pre('remove', function (next) {
+
+    if (this.image) {
+
+        Storage.disk(this.image.storage).delete(this.image.path);
+
+        let sizes = this.image.thumbnails;
+
+        sizes.forEach(size => {
+            Storage.disk(this.image.storage).delete(Image.getThumbnailFileName(this.image.path, size));
+        });
+    }
+
+    if (this.data) {
+        Storage.disk(this.data.storage).delete(this.data.path);
+    }
+
+    next();
 });
 
 export default Mongoose.model("media", schema, "media");

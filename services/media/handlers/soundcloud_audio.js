@@ -48,7 +48,7 @@ export default class {
         return new Promise((resolve, reject) => {
 
             let api = "http://api.soundcloud.com/resolve.json?url="
-                + url + "&client_id=" + Config.get("media.services.soundcloud.key");
+                + url + "&client_id=" + Config.get("services.soundcloud.key");
 
 
             request({uri: api}, (error, response, data) => {

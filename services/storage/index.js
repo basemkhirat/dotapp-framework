@@ -21,6 +21,26 @@ export default class Index {
     }
 
     /**
+     * read a file
+     * @param file
+     * @param encoding
+     * @param callback
+     */
+
+    read(file, encoding = null, callback) {
+
+        if(typeof encoding === 'function'){
+            callback = encoding;
+            encoding = null;
+        }
+
+        this.driver.read(file, encoding, (error, data) => {
+            if (error && callback) return callback("cannot read this file");
+            if (callback) return callback(null, data);
+        });
+    }
+
+    /**
      * save a file
      * @param file
      * @param data
@@ -28,14 +48,15 @@ export default class Index {
      * @param callback
      */
 
-    save(file, data, encoding = 'binary', callback) {
+    save(file, data, encoding = "utf8", callback) {
 
-        if (typeof encoding === "function") {
-            return this.driver.save(file, data, "encoding", encoding);
+        if(typeof encoding === 'function'){
+            callback = encoding;
+            encoding = "utf8";
         }
 
         this.driver.save(file, data, encoding, error => {
-            if (error) return callback("error when saving file to storage");
+            if (error && callback) return callback("error when saving file to storage");
             if (callback) return callback(null, file);
         });
     }
@@ -48,8 +69,8 @@ export default class Index {
 
     delete(file, callback) {
         this.driver.delete(file, error => {
-            if (error) return callback("File is not exist");
-            if (callback) return callback(null);
+            if (error && callback) return callback("File is not exist");
+            if (callback) return callback(null, file);
         });
     }
 
@@ -61,7 +82,7 @@ export default class Index {
 
     exists(file, callback) {
         this.driver.exists(file, error => {
-            if (error) return callback("File is not exist");
+            if (error && callback) return callback("File is not exist");
             if (callback) return callback(null, true);
         });
     }
