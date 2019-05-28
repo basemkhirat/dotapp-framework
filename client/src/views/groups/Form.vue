@@ -18,7 +18,6 @@
                               <b-field class="field-group">
                                    <b-input type="text" rounded placeholder="Group Name" v-model="name" />
                               </b-field>
-                              <hr class="mb-0">
                          </div>
 
                          <div class="col-12 col-md-10 col-lg-8 checkbox--group permissions--items">
@@ -32,8 +31,8 @@
                                                    {{name}}
                                                </div>
                                                <div class="col-12 col-sm-6 col-md-8 col-lg-9 col-xl-10 permission--content">
-                                                   <div class="item-checkbox checkbox--switch" v-for="(checkLabel , checkValue) in value" :key="checkLabel">                                                       
-                                                      <b-checkbox-button 
+                                                   <div class="item-checkbox checkbox--switch" v-for="(checkLabel , checkValue) in value" :key="checkLabel">
+                                                      <b-checkbox-button
                                                             v-model="permissions"
                                                             :native-value="checkValue"
                                                             type="is-light">
@@ -43,7 +42,7 @@
                                                             <span class="switch--item">
                                                                 <span class="check"></span>
                                                             </span>
-                                                        </b-checkbox-button>                                                        
+                                                        </b-checkbox-button>
                                                     </div>
                                                </div>
                                            </div>
@@ -103,7 +102,7 @@
             this.getAllPermissions()
         },
         components:{
-            
+
         },
 
         methods: {
@@ -163,7 +162,7 @@
                 }
                 this.isLoading = false
             },
-            
+
             async getAllPermissions() {
                 const allPermissions = await permissionRepository.getAllPermissions()
                 this.allPermissions = allPermissions
@@ -195,7 +194,7 @@
 
 
 
-           
+
         }
     }
 </script>

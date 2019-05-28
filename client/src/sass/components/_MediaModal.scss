@@ -1,7 +1,7 @@
 // Media Style
 .media--content{
      .upper--media{
-          
+
      }
      .filter--media{
           border-bottom: 1px solid $borderColor;
@@ -16,7 +16,7 @@
      }
 
      .media--items--wrap{
-          height:calc(100vh - 268px); 
+          height:calc(100vh - 268px);
           overflow: auto !important;
       }
 
@@ -109,7 +109,7 @@
           }
      }
 
-     
+
      .lower--media--modal{
           border-top: 1px solid $borderColor;
           .buttons{
@@ -136,7 +136,7 @@
                }
           }
      }
-     
+
      .modal--edit--images{
           .modal-card-body{
                text-align: center;
@@ -146,7 +146,7 @@
                }
           }
      }
-    
+
 }
 
 .video--iframe{
@@ -213,7 +213,7 @@
                max-width: 100%;
           }
      }
-     
+
 }
 
 .createdBy{
@@ -264,7 +264,47 @@
                          opacity: 1
                     }
                }
-               
+
           }
      }
+}
+
+.thumbnails--preview{
+    text-align: left;
+    .thumbnails--item{
+        padding: 5px;
+        display: flex;
+        transition: all .25s ease-in-out;
+        cursor: pointer;
+        img{
+            width: auto;
+            height: 100px;
+        }
+        span{
+            padding: 10px;
+            text-transform: capitalize;
+        }
+        &:hover{
+            background-color: #f4f4f4;
+        }
+    }
+}
+
+.right--thumbnails--preview{
+    position: relative;
+    padding-bottom: 70px;
+    padding-top: 20px;
+    .action--preview--media{
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        padding: 30px;
+    }
+}
+
+
+.thumbnail--selected{
+    background-color: #505050 !important;
+    color: #fff !important;
 }

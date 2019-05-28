@@ -42,7 +42,7 @@ export default {
             }
         });
     },
-    
+
     getAllMedia(page, limit, filters = {}) {
         let typeQuery = (filters.type && filters.type !== '') ? '&type=' + filters.type : '';
         let orderQuery = (filters.order) ? '&sort_type=' + filters.order : '';
@@ -66,5 +66,29 @@ export default {
         }).catch(error => {
             return error.response.data;
         })
+    },
+    // Get All Type
+    getMediaType() {
+        return Repository.get(`${resource}/types`).then((response) => {
+            if (response.data.success) {
+                return response.data.data;
+            }
+        });
+    },
+    // Get All Thumbnails
+    getMediaThumbnails() {
+        return Repository.get(`${resource}/thumbnails`).then((response) => {
+            if (response.data.success) {
+                return response.data.data;
+            }
+        });
+    },
+    // Set All Thumbnails
+    setMediaThumbnails(id, data) {
+        return Repository.put(`${resource}/thumbnail/${id}`, data).then((response) => {
+            if (response.data.success) {
+                return response.data;
+            }
+        });
     },
 };
