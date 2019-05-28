@@ -4,7 +4,7 @@
             <div class="col-12 col-lg-6">
                 <div class="filter--items--left">
                     <div class="input--fuild">
-                        <button class="button is-rounded w-100" 
+                        <button class="button is-rounded w-100"
                               :class="{'is-primary' : checkItem}"
                               @click="selectAllItems">
                               Select All
@@ -24,11 +24,11 @@
                 <div class="filter--items--right">
                     <div class="input--fuild">
                         <div class="search icon--right">
-                            <b-input placeholder="Search..." type="search" icon-pack="fa" rounded icon="search">
+                            <b-input placeholder="Search..." type="search" icon-pack="fa" rounded icon="search" v-model="searchQuery">
                             </b-input>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
@@ -44,6 +44,8 @@
                 group: '',
                 groups: ['All', 'admin', 'editor', 'users'],
                 checkItem: false,
+                searchQuery: '',
+                filters: {}
             }
         },
         watch:{
@@ -51,8 +53,16 @@
                 if(this.allItemChecked == 0){
                     this.checkItem= false
                 }
+            },
+            searchQuery(){
+                this.filters.searchQuery = this.searchQuery
+                clearTimeout(this.debounce);
+                this.debounce = setTimeout(() => {
+                    this.$emit('featchByFilter', this.filters)
+                }, 500);
             }
         },
+
         methods: {
             selectAllItems() {
                 this.checkItem = !this.checkItem

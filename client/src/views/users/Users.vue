@@ -12,16 +12,16 @@
       </div>
     </div>
     <div class="card-filter--herader">
-        <filter-items @selectAllItems="selectAllItems" />
+        <filter-items @featchByFilter="featchByFilter" @selectAllItems="selectAllItems" />
     </div>
     <template v-if="dataLoading">
           <loading-data></loading-data>
     </template>
     <template v-else>
-          <list-users @fetchAllItems="fetchAllItems" :allUserSelected="allUserSelected" :data="users"/>        
+          <list-users @fetchAllItems="fetchAllItems" :allUserSelected="allUserSelected" :data="users"/>
     </template>
     <template v-if="users">
-        <div class="pagination--custom--number">
+        <div class="pagination--custom--number" v-if="total">
             <b-pagination
                 :total="total"
                 :current.sync="page"
@@ -31,7 +31,7 @@
             </b-pagination>
         </div>
     </template>
-    
+
   </div>
 </template>
 
@@ -50,10 +50,11 @@ export default {
             users: [],
             total: null,
             allUserSelected: false,
-            page: 1, 
+            page: 1,
             limit: 10,
             order: 'is-centered',
-            dataLoading: true
+            dataLoading: true,
+            filters: {}
         };
     },
   components: {
@@ -65,21 +66,28 @@ export default {
   },
   watch:{
     page(){
-      this.fetchAllItems()
+        if(this.page){
+            this.fetchAllItems()
+        }
     }
   },
   methods:{
     selectAllItems(){
-      this.allUserSelected =! this.allUserSelected 
+      this.allUserSelected =! this.allUserSelected
     },
-    async fetchAllItems() {
+    async fetchAllItems(filters) {
       this.dataLoading = true
-        const data = await usersRepository.getAllUsers(this.page, this.limit)
+        const data = await usersRepository.getAllUsers(this.page, this.limit, filters)
         this.users = data.docs;
         this.total = data.total;
         this.dataLoading = false;
     },
-    
+
+    // Filters
+    featchByFilter(filters){
+        this.fetchAllItems(filters)
+    }
+
   }
 }
 </script>

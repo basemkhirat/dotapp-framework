@@ -204,12 +204,13 @@
           min-width: 300px;
           min-height: 100px;
           max-width: 90%;
+          width: 90%;
           max-height: 90%;
           iframe{
                width: 100%
           }
           .plyr--full-ui{
-               width: 800px;
+               width: 100%;
                max-width: 100%;
           }
      }

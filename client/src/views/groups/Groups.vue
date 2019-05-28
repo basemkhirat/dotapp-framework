@@ -12,17 +12,17 @@
       </div>
     </div>
     <div class="card-filter--herader">
-        <filter-items @selectAllItems="selectAllItems" :allItemChecked="allItemChecked" />
+        <filter-items @featchByFilter="featchByFilter" @selectAllItems="selectAllItems" :allItemChecked="allItemChecked" />
     </div>
     <template v-if="dataLoading">
           <loading-data></loading-data>
     </template>
     <template v-else>
-          <list @fetchAllItems="fetchAllItems" 
-          :allItemsSelected="allItemsSelected" 
+          <list @fetchAllItems="fetchAllItems"
+          :allItemsSelected="allItemsSelected"
           @checkButtonSelectAll="checkButtonSelectAll"
-          :data="groups" v-if="groups.length"/>    
-          <div class="no-data" v-else><span>No Data Here</span></div>    
+          :data="groups" v-if="groups.length"/>
+          <div class="no-data" v-else><span>No Data Here</span></div>
     </template>
      <template v-if="groups.length">
         <div class="pagination--custom--number">
@@ -35,7 +35,7 @@
             </b-pagination>
         </div>
     </template>
-    
+
   </div>
 </template>
 
@@ -55,7 +55,7 @@ export default {
             total: null,
             allItemsSelected: false,
             allItemChecked: 0,
-            page: 1, 
+            page: 1,
             limit: 10,
             order: 'is-centered',
             dataLoading: true
@@ -80,21 +80,25 @@ export default {
       } else {
           this.allItemsSelected = false
       }
-      // this.allItemsSelected =! this.allItemsSelected 
+      // this.allItemsSelected =! this.allItemsSelected
     },
     // Check Button Select All Active Or Not
     checkButtonSelectAll(data){
       this.allItemChecked = data
     },
-    async fetchAllItems() {
+    async fetchAllItems(filters) {
         this.dataLoading = true
-        const groups = await groupsRepository.getAllGroups(this.page, this.limit)
+        const groups = await groupsRepository.getAllGroups(this.page, this.limit, filters)
         this.groups = groups.data.docs;
         this.total = groups.data.total;
         this.dataLoading = false;
-        console.log(groups)
     },
-    
+
+    // Filters
+    featchByFilter(filters){
+        this.fetchAllItems(filters)
+    }
+
   }
 }
 </script>

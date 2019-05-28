@@ -55,12 +55,12 @@
                     { name: 'Groups', link: '/groups', icon: 'fas fa-users'},
                     { name: 'Media', link: '/media', icon: 'fa fa-images'},
 
-                    { name: 'Item Dropdown', link: '/', icon: 'fas fa-columns', childLinks:[
-                        { name: 'Item One', link: '/a'},
-                        { name: 'Item Two', link: '/sd'},
-                        { name: 'Item three', link: '/sd'},
-                        { name: 'Item four', link: '/sd'},
-                    ]},
+                    // { name: 'Item Dropdown', link: '/', icon: 'fas fa-columns', childLinks:[
+                    //     { name: 'Item One', link: '/a'},
+                    //     { name: 'Item Two', link: '/sd'},
+                    //     { name: 'Item three', link: '/sd'},
+                    //     { name: 'Item four', link: '/sd'},
+                    // ]},
                     { name: 'Articles', link: '/articles', icon: 'far fa-newspaper'},
                     { name: 'Categories', link: '/categories', icon: 'far fa-newspaper'},
                     { name: 'Item Dropdown2', link: '/', icon: 'fas fa-columns', childLinks:[

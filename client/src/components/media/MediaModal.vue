@@ -9,9 +9,9 @@
                                    ({{total}})
                               </span>
                          </h2>
-                         
+
                          <button class="button is-primary is-rounded ml-auto" @click="changeModalUploadFiles">
-                              Upload 
+                              Upload
                               <i class="fas fa-cloud-upload-alt ml-2"></i>
                          </button>
                     </div>
@@ -29,7 +29,7 @@
                          </template>
 
                           <template v-else>
-        
+
                               <div  class="media--items--wrap">
                                    <div class="media--items">
                                         <media-items :data="items" @checkItemsMedia="checkItemsMedia" @fetchAllItems="fetchAllItems"/>
@@ -41,7 +41,7 @@
                                         </div>
                                    </div>
                               </div>
-                                   
+
                           </template>
 
                     </div>
@@ -50,21 +50,21 @@
                          <div class="d-flex align-items-center">
                               <div v-if="itemsSelectedMedia.length">Selected: <strong class="ml-2">{{itemsSelectedMedia.length}}</strong></div>
                               <div class="ml-auto buttons">
-                                   <!-- <button :class="{'showActionButton': itemsSelectedMedia}" 
-                                   class="button showButtonAddAlbum is-rounded" 
+                                   <!-- <button :class="{'showActionButton': itemsSelectedMedia}"
+                                   class="button showButtonAddAlbum is-rounded"
                                    @click="changeModalCreateAlbum">
-                                        Add to album 
+                                        Add to album
                                         <i class="fas fa-clone ml-2"></i>
                                    </button> -->
-                                   <button :class="{'showActionButton': itemsSelectedMedia.length}" 
-                                   class="button is-rounded showButtonDeleteImage" 
+                                   <button :class="{'showActionButton': itemsSelectedMedia.length}"
+                                   class="button is-rounded showButtonDeleteImage"
                                    @click="confirmCustomDelete">
-                                        Delete 
+                                        Delete
                                         <i class="fas fa-trash ml-2"></i>
                                    </button>
-                                   <!-- <button :class="{'showActionButton': itemsSelectedMedia}" 
+                                   <!-- <button :class="{'showActionButton': itemsSelectedMedia}"
                                    class="button is-rounded showButtonInsert">
-                                        Insert to post 
+                                        Insert to post
                                         <i class="fas fa-share ml-2"></i>
                                    </button> -->
                                    <button class="button is-rounded is-light ml-4" @click="closeMediaModal">Cancel</button>
@@ -73,15 +73,15 @@
                     </div>
                </div>
           </b-modal>
-         
+
 
           <!-- Modal Upload Files -->
           <upload-files :uploadFileFromParent="mediaModalUploadFile" @changeModalUploadFiles="changeModalUploadFiles" />
 
           <!-- Modal Create Album -->
-          <create-album :modalCreateAlbum="modalCreateAlbum" @changeModalCreateAlbum="changeModalCreateAlbum"/>          
+          <create-album :modalCreateAlbum="modalCreateAlbum" @changeModalCreateAlbum="changeModalCreateAlbum"/>
 
-          
+
      </div>
 </template>
 
@@ -107,8 +107,8 @@ export default {
                items: [],
                total: null,
                allUserSelected: false,
-               page: 1, 
-               pageLoadMore: 2, 
+               page: 1,
+               pageLoadMore: 2,
                limit:25,
                order: 'is-centered',
                dataLoading: false,
@@ -172,7 +172,7 @@ export default {
           checkItemsMedia(items){
                this.itemsSelectedMedia = items
           },
-    
+
           confirmCustomDelete() {
                 this.$dialog.confirm({
                     title: 'Deleting Items',
@@ -192,7 +192,7 @@ export default {
                this.fetchAllItems()
                this.aleartMessage(items.message)
           },
-     
+
            async infiniteHandler($state) {
                const data =  await mediaRepository.getAllMedia(this.pageLoadMore, this.limit, this.filters)
                if (data.docs.length) {

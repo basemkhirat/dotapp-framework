@@ -31,8 +31,13 @@ export default {
             }
         });
     },
-    getAllGroups(page, limit) {
-        return Repository.get(`${resource}?page=${page}&limit=${limit}`).then((response) => {
+    getAllGroups(page, limit, filters = {}) {
+
+        let groupQuery = (filters.group && filters.group !== '') ? '&role=' + filters.group : '';
+        let searchQuery = (filters.searchQuery && filters.searchQuery !== '') ? '&q=' + filters.searchQuery : '';
+        let filterQuery = groupQuery + searchQuery;
+
+        return Repository.get(`${resource}?page=${page}&limit=${limit}${filterQuery}`).then((response) => {
             if (response.data.success) {
                 return response.data;
             }
