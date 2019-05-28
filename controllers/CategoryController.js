@@ -77,7 +77,7 @@ export default class extends Controller {
 
         category.save(function (error, category) {
             if (error) return res.serverError(error);
-            return res.message("category.events.created").ok(category.id);
+            return res.message(req.lang("category.events.created")).ok(category.id);
         });
     }
 
@@ -104,7 +104,7 @@ export default class extends Controller {
 
             category.save(error => {
                 if (error) return res.serverError(error);
-                return res.message("category.events.updated").ok(id);
+                return res.message(req.lang("category.events.updated")).ok(id);
             });
         });
     }
@@ -128,7 +128,7 @@ export default class extends Controller {
 
             category.remove(error => {
                 if (error) res.serverError(error);
-                return res.message("category.events.deleted").ok(id);
+                return res.message(req.lang("category.events.deleted")).ok(id);
             });
 
         });

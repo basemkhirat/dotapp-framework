@@ -70,7 +70,7 @@ export default class extends Controller {
 
         tag.save(function (error, tag) {
             if (error) return res.serverError(error);
-            return res.message("tag.events.created").ok(tag.id);
+            return res.message(req.lang("tag.events.created")).ok(tag.id);
         });
     }
 
@@ -95,7 +95,7 @@ export default class extends Controller {
 
             tag.save(error => {
                 if (error) return res.serverError(error);
-                return res.message("tag.events.updated").ok(id);
+                return res.message(req.lang("tag.events.updated")).ok(id);
             });
         });
     }
@@ -119,7 +119,7 @@ export default class extends Controller {
 
             tag.remove(error => {
                 if (error) res.serverError(error);
-                return res.message("tag.events.deleted").ok(id);
+                return res.message(req.lang("tag.events.deleted")).ok(id);
             });
 
         });
