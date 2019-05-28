@@ -1,8 +1,8 @@
 import Controller from './Controller';
 
-import Storage from '~/services/storage';
-
-import Resource from '~/services/media';
+// import Storage from '~/services/storage';
+//
+// import Resource from '~/services/media';
 
 export default class extends Controller {
 
@@ -45,6 +45,6 @@ export default class extends Controller {
        //      return res.ok(data);
        //  });
 
-        //return res.ok("Hi " + req.ipAddress());
+        return res.ok("Hi " + req.ipAddress());
     }
 };
