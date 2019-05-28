@@ -4,7 +4,7 @@ export default {
      * default media storage
      */
 
-    storage: process.env.MEDIA_STORAGE || "s3",
+    storage: process.env.MEDIA_STORAGE || "uploads",
 
     /**
      * max file size for upload
