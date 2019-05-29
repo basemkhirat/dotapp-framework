@@ -24,7 +24,7 @@ let schema = Schema({
             ref: 'user'
         },
 
-        photo: {
+        image: {
             type: Schema.Types.ObjectId,
             ref: 'media'
         }
