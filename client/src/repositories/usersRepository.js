@@ -1,5 +1,4 @@
 import Repository from "./Repository";
-import axios from "axios/index";
 
 const resource = "/user";
 

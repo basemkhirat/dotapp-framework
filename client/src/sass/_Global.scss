@@ -446,6 +446,7 @@ button.is-rounded, .button.is-rounded {
     margin-right: auto;
     position: relative;
     border-radius: 50%;
+    border: 1px solid $borderColor;
     img{
         width: 100%;
         height: 100%;

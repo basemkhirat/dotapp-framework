@@ -1,37 +1,37 @@
 import Repository from "./Repository";
 
-const resource = "/category";
+const resource = "/tag";
 
 export default {
-    getCategory(id) {
+    getTag(id) {
         return Repository.get(`${resource}/${id}`).then((response) => {
             if (response.data.success) {
                 return response.data.data;
             }
         });
     },
-    updateCategory(id, data) {
+    updateTag(id, data) {
         return Repository.put(`${resource}/${id}`, data).then((response) => {
             if (response.data.success) {
                 return response.data;
             }
         });
     },
-    deleteCategory(id) {
+    deleteTag(id) {
         return Repository.delete(`${resource}/${id}`).then((response) => {
             if (response.data.success) {
                 return response.data;
             }
         });
     },
-    deleteCategories(ids) {
+    deleteTags(ids) {
         return Repository.patch(`${resource}/?operation=delete&ids=${ids}`).then((response) => {
             if (response.data.success) {
                 return response.data;
             }
         });
     },
-    getAllCategories(page, limit, filters = {}) {
+    getAllTags(page, limit, filters = {}) {
 
         let searchQuery = (filters.searchQuery && filters.searchQuery !== '') ? '&q=' + filters.searchQuery : '';
         let filterQuery = searchQuery;
@@ -42,7 +42,7 @@ export default {
             }
         });
     },
-    newCategory(data) {
+    newTag(data) {
         return Repository.post(`${resource}`, data).then((response) => {
             if (response.data.success) {
                 return response.data;

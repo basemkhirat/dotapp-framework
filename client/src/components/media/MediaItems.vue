@@ -9,7 +9,9 @@
                             :alt="itemSelected.title">
                     </div>
 
-                    <div class="media--action d-flex justify-content-between"
+                    <div
+                        v-if="!previewImages"
+                        class="media--action d-flex justify-content-between"
                         :class="{'showItemAction': checkItemsMedia.length}">
                         <a class="media--action--check custom--ckeckbox">
                             <b-checkbox :native-value="item.id" v-model="checkItemsMedia"></b-checkbox>
@@ -241,6 +243,7 @@
     Vue.use(VuePlyr)
 
     import ModalImageCrop from './ModalImageCrop'
+    import {mapState} from 'vuex'
 
     export default {
         props: ['data'],
@@ -260,11 +263,20 @@
         components:{
             ModalImageCrop,
         },
+        computed:{
+            ...mapState({
+                previewImages: state => state.previewImages,
+            })
+        },
         methods: {
             quickEdit(item) {
-                this.modalQuickEdit = true
+                 this.itemSelected = item
+                if(this.previewImages){
+                    this.confirmCustomSetImage(item)
+                } else {
+                    this.modalQuickEdit = true
+                }
                 this.itemSelected = item
-                console.log(item)
             },
 
             // Copy Link Function
@@ -341,6 +353,19 @@
                     type: 'is-danger',
                     hasIcon: true,
                     onConfirm: () => this.deleteItem()
+                })
+            },
+            confirmCustomSetImage(item) {
+                this.$dialog.confirm({
+                    title: 'Select Image',
+                    message: 'Are you sure you want to <b>select</b> this item? This action cannot be undone.',
+                    confirmText: 'Select Image',
+                    type: 'is-primary',
+                    hasIcon: true,
+                    onConfirm: () => {
+                        this.$store.commit('setItemSelected', item)
+                        this.$store.commit('openMediaImage')
+                    }
                 })
             },
 

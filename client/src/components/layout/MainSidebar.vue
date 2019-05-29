@@ -63,6 +63,7 @@
                     // ]},
                     { name: 'Articles', link: '/articles', icon: 'far fa-newspaper'},
                     { name: 'Categories', link: '/categories', icon: 'far fa-newspaper'},
+                    { name: 'Tags', link: '/tags', icon: 'fas fa-tags'},
                     { name: 'Item Dropdown2', link: '/', icon: 'fas fa-columns', childLinks:[
                         { name: 'Item One a', link: '/a'},
                         { name: 'Item Two asds', link: '/sd'},

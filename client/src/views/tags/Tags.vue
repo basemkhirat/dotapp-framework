@@ -1,14 +1,14 @@
 <template>
-  <div class="categories">
+  <div class="tags--page">
     <div class="page--title">
       <h1 class="title--text">
-        Categories
+        Tags
         <span class="badge--count" v-if="total">
           ({{total}})
         </span>
       </h1>
       <div class="page--title--action ml-auto">
-          <router-link to="/categoryForm" class="button is-primary is-rounded">Add New Category</router-link>
+          <router-link to="/tagForm" class="button is-primary is-rounded">Add New Tag</router-link>
       </div>
     </div>
     <div class="card-filter--herader">
@@ -21,10 +21,10 @@
           <list @fetchAllItems="fetchAllItems"
           :allItemsSelected="allItemsSelected"
           @checkButtonSelectAll="checkButtonSelectAll"
-          :data="categories" v-if="categories.length"/>
+          :data="tags" v-if="tags.length"/>
           <div class="no-data" v-else><span>No Data Here</span></div>
     </template>
-     <template v-if="categories.length">
+     <template v-if="tags.length">
         <div class="pagination--custom--number">
             <b-pagination
                 :total="total"
@@ -40,18 +40,18 @@
 </template>
 
 <script>
-import List from '../../components/categories/list'
-import FilterItems from '../../components/categories/Filter'
+import List from '../../components/tags/list'
+import FilterItems from '../../components/tags/Filter'
 
 // Repository Data
 import { RepositoryFactory } from '../../repositories/RepositoryFactory'
-const categoriesRepository = RepositoryFactory.get('categories')
+const tagsRepository = RepositoryFactory.get('tags')
 
 export default {
-  name: 'categories',
+  name: 'tags',
   data () {
         return {
-            categories: [],
+            tags: [],
             total: null,
             allItemsSelected: false,
             allItemChecked: 0,
@@ -88,9 +88,10 @@ export default {
     },
     async fetchAllItems(filters) {
         this.dataLoading = true
-        const categories = await categoriesRepository.getAllCategories(this.page, this.limit, filters)
-        this.categories = categories.data.docs;
-        this.total = categories.data.total;
+        const tags = await tagsRepository.getAllTags(this.page, this.limit, filters)
+        this.tags = tags.data.docs;
+        this.total = tags.data.total;
+        console.log(tags)
         this.dataLoading = false;
     },
     // Filters

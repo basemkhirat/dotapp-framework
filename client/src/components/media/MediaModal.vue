@@ -74,7 +74,6 @@
                </div>
           </b-modal>
 
-
           <!-- Modal Upload Files -->
           <upload-files :uploadFileFromParent="mediaModalUploadFile" @changeModalUploadFiles="changeModalUploadFiles" />
 
@@ -141,6 +140,7 @@ export default {
      computed:{
           ...mapState({
                stateMediaModal: state => state.stateMediaModal,
+               previewImages: state => state.previewImages,
           })
      },
      methods:{
@@ -162,6 +162,11 @@ export default {
           async fetchAllItems() {
                this.pageLoadMore = 2
                this.dataLoading = true
+               if(this.previewImages){
+                   this.filters.type = 'image'
+               } else {
+                   this.filters.type = ''
+               }
                const data = await mediaRepository.getAllMedia(this.page, this.limit, this.filters)
                this.items = data.docs;
                this.total = data.total;
