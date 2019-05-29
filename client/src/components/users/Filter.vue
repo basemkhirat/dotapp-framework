@@ -56,7 +56,6 @@ const groupsRepository = RepositoryFactory.get('groups')
             this.fetchAllItems()
         },
         watch:{
-
           group(){
               if(this.group){
                 this.filters.group = this.group.id
@@ -72,7 +71,6 @@ const groupsRepository = RepositoryFactory.get('groups')
                 this.debounce = setTimeout(() => {
                     this.$emit('featchByFilter', this.filters)
                 }, 500);
-
           }
         },
         methods: {

@@ -3,6 +3,7 @@ import groupsRepository from "./groupsRepository";
 import permissionsRepository from "./permissionsRepository";
 import mediaRepository from "./mediaRepository";
 import categoriesRepository from "./categoriesRepository";
+import tagsRepository from "./tagsRepository";
 
 const repositories = {
     users: usersRepository,
@@ -10,6 +11,7 @@ const repositories = {
     permissions: permissionsRepository,
     media: mediaRepository,
     categories: categoriesRepository,
+    tags: tagsRepository,
 };
 
 export const RepositoryFactory = {

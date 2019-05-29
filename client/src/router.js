@@ -80,6 +80,18 @@ const router = new Router({
             component: () => import('./views/categories/Form.vue'),
             meta: {requiresAuth: true},
         },
+        {
+            path: '/tags',
+            name: 'tags',
+            component: () => import('./views/tags/Tags.vue'),
+            meta: {requiresAuth: true},
+        },
+        {
+            path: '/tagForm/:id?',
+            name: 'tagForm',
+            component: () => import('./views/tags/Form.vue'),
+            meta: {requiresAuth: true},
+        },
 
       ]
     }

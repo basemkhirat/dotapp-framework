@@ -23,10 +23,11 @@
                                     <div class="text-center">
                                         <div class="user--photo field-group">
                                             <!-- <img v-if="userPhoto" :src="userPhoto" alt="user" class="avatar-l"> -->
-                                            <img src="./../../assets/images/user/user-128.png" class="avatar-l" alt="">
+                                            <img :src="userPhoto" v-if="userPhoto" class="avatar-l" alt="">
+                                            <img src="./../../assets/images/user/user-128.png" v-else class="avatar-l" alt="">
                                         </div>
                                         <!-- <b-upload accept="image/*" @input="handleUserPhoto(files)"> -->
-                                        <a class="button is-dark is-rounded m-2 is-small">Change Photo</a>
+                                        <a class="button is-dark is-rounded m-2 is-small" @click="openModalMedia">Change Photo</a>
                                         <!-- </b-upload> -->
                                     </div>
                                 </b-field>
@@ -47,7 +48,7 @@
                                     <b-input type="email" required rounded placeholder="User Email" v-model="email" />
                                 </b-field>
                             </div>
-                            
+
                             <div class="col-12 col-sm-6">
                                 <b-field class="field-group">
                                     <v-select :options="groups" v-model="group" label="title" placeholder="Group"
@@ -73,7 +74,7 @@
                                         </b-switch>
                                     </b-field>
                                 </template>
-                                
+
                             </div>
                             <div class="col-12" v-if="this.$route.params.id">
                                 <b-field class="field-group">
@@ -103,7 +104,7 @@
                                              password.</p>
                                    </div>
                             </template>
-                           
+
 
                         </div>
                     </div>
@@ -127,6 +128,8 @@
     } from '../../repositories/RepositoryFactory'
     const usersRepository = RepositoryFactory.get('users')
 
+      import { mapState } from 'vuex';
+
     export default {
         name: 'userForm',
         data() {
@@ -145,7 +148,14 @@
                 status: 0,
                 changePassword: true,
                 policies: [],
+                userPhoto: ''
             };
+        },
+
+        computed:{
+            ...mapState({
+                imageSelected: state => state.media.imageSelected,
+            })
         },
 
         watch: {
@@ -171,11 +181,17 @@
                 } else {
                     this.userStatus = 'Not Active'
                 }
+            },
+            imageSelected(){
+                if(this.imageSelected){
+                    this.userPhoto = this.imageSelected.url
+                }
             }
         },
         created() {
             if (this.$route.params.id) {
                 this.getUser(this.$route.params.id)
+                 this.changePassword =  false
             }
         },
 
@@ -196,6 +212,9 @@
                 data.last_name = this.lastName
                 data.email = this.email
                 data.status = this.status
+                if(this.imageSelected){
+                    data.photo = this.imageSelected.id
+                }
                 if (this.firstName && this.email && this.password && this.confirmPassword) {
                     data.password = this.password
                     if (this.password === this.confirmPassword) {
@@ -206,7 +225,7 @@
                         } else {
                              this.newUser(data)
                         }
-                        
+
                     } else {
                         this.isLoading = false
                         this.errorConfirmPassword = true
@@ -242,6 +261,9 @@
                 this.password = ''
                 this.confirmPassword = ''
                 this.policies = user.policies
+                if(user.photo){
+                     this.userPhoto = user.photo.url
+                }
 
             },
             async updateUser(id, data) {
@@ -280,6 +302,10 @@
                     indefinite: false,
                 })
             },
+
+            openModalMedia(){
+                this.$store.commit('openMediaImage')
+            }
 
         }
     }
