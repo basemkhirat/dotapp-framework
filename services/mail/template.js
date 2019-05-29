@@ -26,15 +26,21 @@ export default class {
      * @param callback
      * @returns {*|undefined}
      */
-    render(view, payload = {}, callback){
+    render(view, payload = {}, callback) {
 
-        if(typeof payload === 'function'){
+        if (typeof payload === 'function') {
             callback = payload;
             payload = {};
         }
 
+        payload.req = this.req;
+
         let view_path = path.join(process.cwd(), Config.get("app.views") + "/" + view + ".ejs");
 
-        return ejs.renderFile(view_path, payload, callback);
+        return ejs.renderFile(view_path, payload, (error, data) => {
+            if (error) callback(error);
+
+            callback(null, data);
+        });
     }
 }

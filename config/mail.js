@@ -45,7 +45,7 @@ export default {
          */
 
         smtp: {
-            host: process.env.MAIL_HOST,
+            host: process.env.MAIL_HOST || '127.0.0.1',
             port: process.env.MAIL_PORT || 25,
             secure: process.env.MAIL_SECURE || true,
             auth: {

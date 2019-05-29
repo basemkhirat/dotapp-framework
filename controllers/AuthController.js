@@ -14,7 +14,7 @@ export default class extends Controller {
     token(req, res) {
 
         let email = req.param("email");
-        let password = String(req.param("password"));
+        let password = req.param("password");
 
         User.findOne({email: email}, function (error, user) {
 
@@ -42,7 +42,7 @@ export default class extends Controller {
     }
 
     /**
-     * Forget my password
+     * Forget password
      * @param req
      * @param res
      * @returns {*}
@@ -59,9 +59,46 @@ export default class extends Controller {
             user.password_token = Math.random().toString(36).slice(-8);
             user.password_token_expiration = Date.now() + 3600000;
 
-            user.save(function (error) {
+            user.save(function (error, user) {
                 if (error) return res.serverError(error);
-                return res.message("token sent to mail").ok("");
+
+                req.mail(user, "ForgetPassword");
+
+                return res.message(req.lang("auth.events.password_reset_code_sent")).ok();
+            });
+        });
+    }
+
+    /**
+     * Reset password
+     * @param req
+     * @param res
+     * @returns {*}
+     */
+    reset(req, res) {
+
+        let code = req.param("code");
+
+        User.findOne({ password_token: code, password_token_expiration: { $gt: Date.now() } }, function(error, user) {
+            if (error) return res.serverError(error);
+            if (!user) return res.validationError(req.lang("auth.invalid_password_verification_code"));
+
+            user.comparePassword(req.param("password"), function (error, same) {
+
+                if (error) return res.serverError(error);
+                if (same) return res.validationError(req.lang("auth.cannot_use_same_password"));
+
+                user.password = req.param("password");
+                user.password_token = undefined;
+                user.password_token_expiration = undefined;
+
+                user.save(function (error, user) {
+                    if (error) return res.serverError(error);
+
+                    req.mail(user, "PasswordChanged");
+
+                    return res.message(req.lang("auth.events.password_changed")).ok();
+                });
             });
         });
     }
@@ -73,8 +110,12 @@ export default class extends Controller {
      * @returns {*}
      */
     user(req, res) {
-        return res.ok(req.user);
-    }
 
+        User.findById(req.user.id).populate("role").populate("photo").exec((error, user) => {
+            if (error) return res.serverError(error);
+            if (!user) return res.notFound(req.lang("user.errors.user_not_found"));
+            return res.ok(res.attachPolicies(user, "user"));
+        });
+    }
 };
 

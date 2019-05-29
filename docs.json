@@ -34,21 +34,59 @@
                 }
             }
         },
+        "/auth/forget": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Request a password reset",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Email",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/responses"
+                }
+            }
+        },
+        "/auth/reset": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Change password by password reset verification code",
+                "parameters": [
+                    {
+                        "name": "code",
+                        "in": "query",
+                        "description": "Password reset verification code",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "Password",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/responses"
+                }
+            }
+        },
         "/auth/user": {
             "get": {
                 "tags": [
                     "Authentication"
                 ],
                 "summary": "Get user by token",
-                "parameters": [
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "description": "Bearer token",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
                 "responses": {
                     "$ref": "#/responses"
                 },

@@ -59,6 +59,14 @@ let schema = Schema({
         photo: {
             type: Schema.Types.ObjectId,
             ref: 'media'
+        },
+
+        password_token: {
+            type: String
+        },
+
+        password_token_expiration: {
+            type: Number
         }
     },
     {
@@ -73,6 +81,8 @@ schema.index({permissions: 1});
 schema.index({status: 1});
 schema.index({photo: 1});
 schema.index({role: 1});
+schema.index({password_token: 1});
+schema.index({password_token_expiration: 1});
 schema.index({created_at: -1});
 schema.index({updated_at: -1});
 
@@ -107,7 +117,7 @@ schema.pre('save', function (next) {
  * @param callback
  */
 schema.methods.comparePassword = function (password, callback) {
-    Bcrypt.compare(password, this.password, function (error, match) {
+    Bcrypt.compare(String(password), this.password, function (error, match) {
         if (error) return callback(error);
         if (match) {
             callback(null, true);

@@ -22,6 +22,10 @@ export default {
                             "POST /forget": {
                                 handler: "AuthController.forget"
                             },
+                            "POST /reset": {
+                                middleware: "validate:reset_password",
+                                handler: "AuthController.reset"
+                            },
                             "GET /user": {
                                 middleware: "authenticate",
                                 handler: "AuthController.user"
