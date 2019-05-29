@@ -22,6 +22,11 @@ let schema = Schema({
         user: {
             type: Schema.Types.ObjectId,
             ref: 'user'
+        },
+
+        photo: {
+            type: Schema.Types.ObjectId,
+            ref: 'media'
         }
     },
     {

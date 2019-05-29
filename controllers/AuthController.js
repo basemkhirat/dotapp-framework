@@ -61,7 +61,7 @@ export default class extends Controller {
 
             user.save(function (error) {
                 if (error) return res.serverError(error);
-                return res.message().ok();
+                return res.message("token sent to mail").ok("");
             });
         });
     }
