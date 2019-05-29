@@ -16,6 +16,8 @@ export default class extends Controller {
 
     index(req, res, next) {
 
+        return res.ok("Hi " + req.ipAddress());
+
         // req.mail("basemkhirat@gmail.com", "WelcomeMail", (error, info) => {
         //     if(error) return res.serverError(error);
         //
