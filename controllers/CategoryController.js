@@ -15,13 +15,12 @@ export default class extends Controller {
 
         let id = req.param("id");
 
-        Category.findById(id).populate("user").exec(function (error, category) {
+        Category.findById(id).populate("user").populate("image").exec(function (error, category) {
             if (error) return res.serverError(error);
             if (!category) return res.notFound(req.lang("category.errors.category_not_found"));
 
             return res.ok(res.attachPolicies(category, "category"));
         });
-
     }
 
     /**
@@ -47,7 +46,7 @@ export default class extends Controller {
 
         query.order(req.param("sort_field", "created_at"), req.param("sort_type", "desc"));
 
-        query.populate("user");
+        query.populate("user").populate("image");
 
         query.execWithCount((error, result) => {
             if (error) return res.serverError(error);
@@ -73,6 +72,7 @@ export default class extends Controller {
         category.name = req.param("name", category.name);
         category.slug = req.param("slug", category.slug);
         category.description = req.param("description", category.description);
+        category.image = req.param("image", category.image);
         category.user = req.user.id;
 
         category.save(function (error, category) {
@@ -101,6 +101,7 @@ export default class extends Controller {
             category.name = req.param("name", category.name);
             category.slug = req.param("slug", category.slug);
             category.description = req.param("description", category.description);
+            category.image = req.param("image", category.image);
 
             category.save(error => {
                 if (error) return res.serverError(error);

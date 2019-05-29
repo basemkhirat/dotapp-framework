@@ -1050,6 +1050,12 @@
                         "in": "query",
                         "description": "Category Description",
                         "type": "string"
+                    },
+                    {
+                        "name": "image",
+                        "in": "query",
+                        "description": "Media ID",
+                        "type": "string"
                     }
                 ],
                 "responses": {
@@ -1264,6 +1270,12 @@
                         "name": "description",
                         "in": "query",
                         "description": "Category Description",
+                        "type": "string"
+                    },
+                    {
+                        "name": "image",
+                        "in": "query",
+                        "description": "Media ID",
                         "type": "string"
                     }
                 ],
