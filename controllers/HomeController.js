@@ -1,4 +1,5 @@
 import Controller from './Controller';
+import Mail from '~/services/mail';
 
 // import Storage from '~/services/storage';
 //
@@ -14,6 +15,12 @@ export default class extends Controller {
      */
 
     index(req, res, next) {
+
+        // req.mail("basemkhirat@gmail.com", "WelcomeMail", (error, info) => {
+        //     if(error) return res.serverError(error);
+        //
+        //     return res.ok(info);
+        // });
 
 
         // Storage.disk("s3").save("his.txt", "" (error, data) => {
@@ -45,6 +52,6 @@ export default class extends Controller {
        //      return res.ok(data);
        //  });
 
-        return res.ok("Hi " + req.ipAddress());
+
     }
 };

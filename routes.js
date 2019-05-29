@@ -19,6 +19,9 @@ export default {
                                 middleware: "validate:auth",
                                 handler: "AuthController.token"
                             },
+                            "POST /forget": {
+                                handler: "AuthController.forget"
+                            },
                             "GET /user": {
                                 middleware: "authenticate",
                                 handler: "AuthController.user"

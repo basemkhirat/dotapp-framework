@@ -57,7 +57,7 @@ export default class extends Controller {
 
         let id = req.param("id");
 
-        User.findById(id).populate("role").exec((error, user) => {
+        User.findById(id).populate("role").populate("photo").exec((error, user) => {
             if (error) return res.serverError(error);
             if (!user) return res.notFound(req.lang("user.errors.user_not_found"));
             return res.ok(res.attachPolicies(user, "user"));
