@@ -37,7 +37,7 @@ export default {
         sendmail: {
             sendmail: true,
             newline: 'unix',
-            path: '/usr/sbin/sendmail'
+            path: process.env.MAIL_SENDMAIL_PATH || '/usr/sbin/sendmail'
         },
 
         /**

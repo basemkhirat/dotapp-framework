@@ -62,7 +62,10 @@ export default class extends Controller {
             user.save(function (error, user) {
                 if (error) return res.serverError(error);
 
-                req.mail(user, "ForgetPassword");
+                req.mail(user, "ForgetPassword", (error, info) => {
+                    if(error) throw error;
+                    console.log(info);
+                });
 
                 return res.message(req.lang("auth.events.password_reset_code_sent")).ok();
             });

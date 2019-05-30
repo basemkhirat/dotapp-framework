@@ -26,7 +26,7 @@ export default {
 
         status: (req, user = false) => {
 
-            if (user.status === req.param("status")) { // status not changed
+            if (user && user.status === req.param("status")) { // status not changed
                 return true;
             }
 
@@ -43,7 +43,14 @@ export default {
          * @returns {boolean}
          */
 
-        role: (req, user = false) => (req.role === 'superadmin' || req.hasPermission("user.role")) && req.user.id !== user.id,
+        role: (req, user = false) => {
+
+            if (user && user.role === req.param("role")) { // role not changed
+                return true;
+            }
+
+            return (req.role === 'superadmin' || req.hasPermission("user.role")) && req.user.id !== user.id
+        },
 
         /**
          * users allowed to change permissions:
@@ -55,7 +62,14 @@ export default {
          * @returns {boolean}
          */
 
-        permissions: (req, user = false) => (req.role === 'superadmin' || req.hasPermission("user.permissions")) && req.user.id !== user.id,
+        permissions: (req, user = false) => {
+
+            if (user && user.permissions === req.param("permissions")) { // permissions not changed
+                return true;
+            }
+
+            return (req.role === 'superadmin' || req.hasPermission("user.permissions")) && req.user.id !== user.id;
+        },
 
         /**
          * users allowed to delete:
