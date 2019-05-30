@@ -24,7 +24,14 @@ export default {
          * @returns {boolean}
          */
 
-        status: (req, user = false) => (req.role === 'superadmin' || req.hasPermission("user.status")) && req.user.id !== user.id,
+        status: (req, user = false) => {
+
+            if (user.status === req.param("status")) { // status not changed
+                return true;
+            }
+
+            return (req.role === 'superadmin' || req.hasPermission("user.status")) && req.user.id !== user.id
+        },
 
         /**
          * users allowed to change role:
