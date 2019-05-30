@@ -120,7 +120,7 @@ export default class extends Controller {
             if (!user) return res.notFound(req.lang("user.errors.user_not_found"));
 
             if (!req.can("user.update", user)) {
-                return res.forbidden(req.lang("user.errors.status_denied", {user: user.first_name}));
+                return res.forbidden(req.lang("user.errors.update_denied", {user: user.first_name}));
             }
 
             if (req.filled("status") && !req.can("user.status", user)) {
