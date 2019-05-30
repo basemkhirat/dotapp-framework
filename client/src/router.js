@@ -14,6 +14,11 @@ const router = new Router({
       component: () => import('./views/pages/Login.vue'),
     },
     {
+      path: '/forgotPassword',
+      name: 'forgotPassword',
+      component: () => import('./views/pages/forgotPassword.vue'),
+    },
+    {
       path: '/',
       component: Wrapper,
       meta: {requiresAuth: true},

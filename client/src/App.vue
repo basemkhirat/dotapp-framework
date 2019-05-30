@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <transition name="bounce" mode="out-in">
+    <transition name="slide-left" mode="out-in">
       <router-view/>
     </transition>
   </div>

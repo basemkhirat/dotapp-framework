@@ -25,20 +25,22 @@
                                    <b-icon pack="fa" icon="images"></b-icon>
                               </a>
                          </li>
+
                          <li class="nav-item">
                               <b-dropdown v-model="navigation" position="is-bottom-left">
                                    <a class="avatar--sm" slot="trigger">
-                                        <img src="../../assets/images/user/user-64.png" alt="user name">
+                                        <img :src="userData.photo.thumbnails.small" alt="user name" v-if="userData.photo">
+                                        <img src="../../assets/images/user/user-64.png" alt="user name" v-else>
                                    </a>
                                    <b-dropdown-item custom>
                                         Logged as <b>{{userData.first_name}}  {{userData.last_name}}</b>
                                    </b-dropdown-item>
                                    <hr class="dropdown-divider">
-                                   <b-dropdown-item value="settings">
+                                   <b-dropdown-item @click="goToSettings()">
                                         <b-icon pack="fa" icon="cog"></b-icon>
                                         Settings
                                    </b-dropdown-item>
-                                   <b-dropdown-item value="logout" @click="logout()">
+                                   <b-dropdown-item @click="logout()">
                                         <b-icon pack="fa" icon="sign-out-alt"></b-icon>
                                         Logout
                                    </b-dropdown-item>
@@ -92,6 +94,9 @@
                },
                logout(){
                     this.$store.commit('logout')
+               },
+               goToSettings(){
+                   this.$router.push('/userForm/' + this.userData.id)
                }
           }
      }

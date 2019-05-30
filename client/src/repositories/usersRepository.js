@@ -15,6 +15,8 @@ export default {
             if (response.data.success) {
                 return response.data;
             }
+        }).catch(error => {
+            return error.response.data;
         });
     },
     deleteUser(id) {

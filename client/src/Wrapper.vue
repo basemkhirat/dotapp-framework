@@ -37,6 +37,6 @@ export default {
           MainSidebar,
           AppMediaModal
      },
-    
+
 }
 </script>

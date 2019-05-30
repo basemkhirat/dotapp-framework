@@ -22,13 +22,10 @@
                                 <b-field class="field-group">
                                     <div class="text-center">
                                         <div class="user--photo field-group">
-                                            <!-- <img v-if="userPhoto" :src="userPhoto" alt="user" class="avatar-l"> -->
                                             <img :src="userPhoto" v-if="userPhoto" class="avatar-l" alt="">
                                             <img src="./../../assets/images/user/user-128.png" v-else class="avatar-l" alt="">
                                         </div>
-                                        <!-- <b-upload accept="image/*" @input="handleUserPhoto(files)"> -->
                                         <a class="button is-dark is-rounded m-2 is-small" @click="openModalMedia">Change Photo</a>
-                                        <!-- </b-upload> -->
                                     </div>
                                 </b-field>
                             </div>
@@ -51,10 +48,10 @@
 
                             <div class="col-12 col-sm-6">
                                 <b-field class="field-group">
-                                    <v-select :options="groups" v-model="group" label="title" placeholder="Group"
+                                    <v-select :options="groups" v-model="group" label="name" placeholder="Group"
                                         class="select--with--icon w-100 v--select--scroll">
                                         <template slot="option" slot-scope="option">
-                                            {{ option.title }}
+                                            {{ option.name }}
                                         </template>
                                     </v-select>
                                 </b-field>
@@ -127,6 +124,8 @@
         RepositoryFactory
     } from '../../repositories/RepositoryFactory'
     const usersRepository = RepositoryFactory.get('users')
+    const groupsRepository = RepositoryFactory.get('groups')
+
 
       import { mapState } from 'vuex';
 
@@ -141,14 +140,16 @@
                 password: '',
                 confirmPassword: '',
                 group: '',
-                groups: ['admin', 'user'],
+                groups: [],
                 isLoading: false,
                 errorConfirmPassword: false,
                 userStatus: 'Not Active',
                 status: 0,
                 changePassword: true,
                 policies: [],
-                userPhoto: ''
+                userPhoto: '',
+                page: 1,
+                limit: 100
             };
         },
 
@@ -186,6 +187,9 @@
                 if(this.imageSelected){
                     this.userPhoto = this.imageSelected.url
                 }
+            },
+            group(){
+                console.log(this.group)
             }
         },
         created() {
@@ -193,6 +197,7 @@
                 this.getUser(this.$route.params.id)
                  this.changePassword =  false
             }
+            this.fetchAllItems()
         },
 
         methods: {
@@ -212,6 +217,9 @@
                 data.last_name = this.lastName
                 data.email = this.email
                 data.status = this.status
+                if(this.group){
+                    data.role = this.group.id
+                }
                 if(this.imageSelected){
                     data.photo = this.imageSelected.id
                 }
@@ -253,7 +261,6 @@
 
             async getUser(data) {
                 const user = await usersRepository.getUser(data)
-                console.log(user)
                 this.firstName = user.first_name
                 this.lastName = user.last_name
                 this.email = user.email
@@ -261,23 +268,33 @@
                 this.password = ''
                 this.confirmPassword = ''
                 this.policies = user.policies
+                if(user.role){
+                    this.group = user.role
+                }
                 if(user.photo){
                      this.userPhoto = user.photo.url
                 }
-
+                console.log(user)
             },
             async updateUser(id, data) {
                 const user = await usersRepository.updateUser(id, data)
                 if (user.success) {
                     this.successMessage(user.message)
                 } else {
-                    user.data.map(item => {
-                        this.errorMessage(item)
-                    })
+                    // user.data.map(item => {
+                    //     this.errorMessage(item)
+                    // })
+                    this.errorMessage(user.data)
                 }
+                this.$store.dispatch('checkUserData');
                 this.isLoading = false
                 this.password = ''
                 this.confirmPassword = ''
+            },
+            // Groups
+            async fetchAllItems() {
+                const groups = await groupsRepository.getAllGroups(this.page, this.limit)
+                this.groups = groups.data.docs;
             },
 
             errorMessage(textMessage) {
