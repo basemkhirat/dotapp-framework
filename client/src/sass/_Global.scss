@@ -66,6 +66,7 @@ button.is-rounded, .button.is-rounded {
     height: 36px;
     border-radius: 50%;
     display: inline-block;
+    overflow: hidden;
     cursor: pointer;
     img{
         width: 100%;
@@ -507,12 +508,24 @@ button.is-rounded, .button.is-rounded {
     display: flex;
     align-items: center;
     justify-content: center;
-    .card--block{
-        border-radius: 10px;
-    }
+
     .login--form{
-        max-width: 400px;
-        padding: 30px;
+        max-width: 420px;
+        width: 100%;
+        .card--block{
+            border-radius: 10px;
+            padding: 30px;
+            margin: 15px auto;
+
+        }
+        .text--lower{
+            a{
+                color: #a9a6af;
+                &:hover{
+                    color: #fff;
+                }
+            }
+        }
         .logo--head{
             h3{
                 text-align: center;

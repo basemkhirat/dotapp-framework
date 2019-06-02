@@ -64,12 +64,12 @@
                     { name: 'Articles', link: '/articles', icon: 'far fa-newspaper'},
                     { name: 'Categories', link: '/categories', icon: 'far fa-newspaper'},
                     { name: 'Tags', link: '/tags', icon: 'fas fa-tags'},
-                    { name: 'Item Dropdown2', link: '/', icon: 'fas fa-columns', childLinks:[
-                        { name: 'Item One a', link: '/a'},
-                        { name: 'Item Two asds', link: '/sd'},
-                        { name: 'Item three ads', link: '/sd'},
-                        { name: 'Item four', link: '/sd'},
-                    ]},
+                    // { name: 'Item Dropdown2', link: '/', icon: 'fas fa-columns', childLinks:[
+                    //     { name: 'Item One a', link: '/a'},
+                    //     { name: 'Item Two asds', link: '/sd'},
+                    //     { name: 'Item three ads', link: '/sd'},
+                    //     { name: 'Item four', link: '/sd'},
+                    // ]},
 
                 ],
                 toggleNavSlide: false,
