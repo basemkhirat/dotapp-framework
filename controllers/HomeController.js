@@ -1,9 +1,4 @@
 import Controller from './Controller';
-import Mail from '~/services/mail';
-
-// import Storage from '~/services/storage';
-//
-// import Resource from '~/services/media';
 
 export default class extends Controller {
 
@@ -15,45 +10,6 @@ export default class extends Controller {
      */
 
     index(req, res, next) {
-
         return res.ok("Hi " + req.ipAddress());
-
-        // req.mail("basemkhirat@gmail.com", "WelcomeMail", (error, info) => {
-        //     if(error) return res.serverError(error);
-        //
-        //     return res.ok(info);
-        // });
-
-
-        // Storage.disk("s3").save("his.txt", "" (error, data) => {
-        //     if(error) return res.serverError(error);
-        //     return res.ok(data);
-        // });
-
-        // Storage.disk("s3").save("hi.txt", "data .......", (error, data) => {
-        //     if(error) return res.serverError(error);
-        //     return res.ok(data);
-        // });
-
-       // return res.ok(Storage.disk("uploads").path("file.jpg"));
-
-        // Storage.disk("uploads").save("new.txt", "hi", (error, exist) => {
-        //     if(error) return res.serverError(error);
-        //
-        //     return res.ok(exist);
-        // });
-
-        // fs.createReadStream(filePath)
-
-       // return res.ok(Storage.disk("s3").url("file.png"));
-       //
-       //  Storage.disk("uploads").save("new.txt", "hi amazon", function (error, data) {
-       //
-       //      if(error) return res.serverError(error);
-       //
-       //      return res.ok(data);
-       //  });
-
-
     }
 };

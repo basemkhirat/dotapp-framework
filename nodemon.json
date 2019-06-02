@@ -1,0 +1,11 @@
+{
+    "verbose": false,
+    "ignore": [
+        "storage/*",
+        ".git/*",
+        "node_modules/*"
+    ],
+    "execMap": {
+        "js": "babel-node server.js"
+    }
+}

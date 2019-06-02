@@ -19,7 +19,7 @@ describe("Media", function () {
             .send(media)
             .expect(200)
             .end(function (error, response) {
-                if (error) throw error;
+                if (error) return done(error);
                 media.id = response.body.data;
                 done();
             });
@@ -36,7 +36,7 @@ describe("Media", function () {
             .send(media)
             .expect(200)
             .end(function (error, response) {
-                if (error) throw error;
+                if (error) return done(error);
                 server.delete("/api/media/" + response.body.data)
                     .set('Authorization', 'Bearer ' + token)
                     .expect(200, done);
@@ -54,7 +54,7 @@ describe("Media", function () {
             .send(media)
             .expect(200)
             .end(function (error, response) {
-                if (error) throw error;
+                if (error) return done(error);
                 server.delete("/api/media/" + response.body.data)
                     .set('Authorization', 'Bearer ' + token)
                     .expect(200, done);
@@ -72,7 +72,7 @@ describe("Media", function () {
             .send(media)
             .expect(200)
             .end(function (error, response) {
-                if (error) throw error;
+                if (error) return done(error);
                 server.delete("/api/media/" + response.body.data)
                     .set('Authorization', 'Bearer ' + token)
                     .expect(200, done);
@@ -91,7 +91,7 @@ describe("Media", function () {
             .send(media)
             .expect(200)
             .end(function (error, response) {
-                if (error) throw error;
+                if (error) return done(error);
                 server.delete("/api/media/" + response.body.data)
                     .set('Authorization', 'Bearer ' + token)
                     .expect(200, done);
@@ -109,7 +109,7 @@ describe("Media", function () {
             .send(media)
             .expect(200)
             .end(function (error, response) {
-                if (error) throw error;
+                if (error) return done(error);
                 server.delete("/api/media/" + response.body.data)
                     .set('Authorization', 'Bearer ' + token)
                     .expect(200, done);
@@ -185,7 +185,7 @@ describe("Media", function () {
             .send(media)
             .expect(200)
             .end(function (error, response) {
-                if (error) throw error;
+                if (error) return done(error);
 
                 media.id = response.body.data;
 
@@ -201,7 +201,7 @@ describe("Media", function () {
                     })
                     .expect(200)
                     .end(function (error, response) {
-                        if (error) throw error;
+                        if (error) return done(error);
 
                         server.patch("/api/media")
                             .set('Authorization', 'Bearer ' + token)

@@ -13,7 +13,7 @@ describe("Tag", function () {
             .send(tag)
             .expect(200)
             .end(function (error, response) {
-                if(error) throw error;
+                if (error) return done(error);
                 tag.id = response.body.data;
                 done();
             });
@@ -57,7 +57,7 @@ describe("Tag", function () {
             .send(tag)
             .expect(200)
             .end(function (error, response) {
-                if (error) throw error;
+                if (error) return done(error);
 
                 tag.id = response.body.data;
 

@@ -1,11 +1,11 @@
 import Config from '~/services/config';
 
-export default function (data, code = 500) {
+export default function (e, code = 500) {
 
     let error = new Error();
 
     error.message = this.res.smessage;
-    error.data = data;
+    error.errors = Array.isArray(e) ? e : [e ? e : error.message];
     error.status = code;
     error.success = false;
 

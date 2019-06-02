@@ -19,7 +19,7 @@ describe("User", function () {
             .send(user)
             .expect(200)
             .end(function (error, response) {
-                if (error) throw error;
+                if (error) return done(error);
                 user.id = response.body.data;
                 done();
             });
@@ -72,7 +72,7 @@ describe("User", function () {
             .send(user)
             .expect(200)
             .end(function (error, response) {
-                if (error) throw error;
+                if (error) return done(error);
                 user.id = response.body.data;
 
                 server.patch("/api/user")
@@ -87,7 +87,7 @@ describe("User", function () {
                     })
                     .expect(200)
                     .end(function (error, response) {
-                        if (error) throw error;
+                        if (error) return done(error);
 
                         server.patch("/api/user")
                             .set('Authorization', 'Bearer ' + token)

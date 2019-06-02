@@ -1,4 +1,4 @@
-import {server, user} from '../index';
+import {server, token, user} from '../index';
 
 describe("Authentication", function () {
 
@@ -11,6 +11,37 @@ describe("Authentication", function () {
     it("do a valid authentication", function (done) {
         server.post('/api/auth/token')
             .send(user)
-            .expect(200, done);
+            .expect(200)
+            .end(function (error, response) {
+                if (error) return done(error);
+                user.id = response.body.data.id;
+                done();
+            });
+    });
+
+    it("send a forget/reset password request", function (done) {
+
+        server.post('/api/auth/forget')
+            .send({
+                email: user.email
+            })
+            .expect(200)
+            .end(function (error) {
+                if (error) return done(error);
+
+                server.get("/api/user/" + user.id)
+                    .set('Authorization', 'Bearer ' + token)
+                    .expect(200)
+                    .end(function (error, response) {
+                        if (error) return done(error);
+
+                        server.post('/api/auth/reset')
+                            .send({
+                                code: response.body.data.password_token,
+                                password: "QRE@#$@!$fo3424F43dse3"
+                            })
+                            .expect(200, done);
+                    });
+            });
     });
 });

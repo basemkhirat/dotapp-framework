@@ -3,12 +3,8 @@
     "author": "basem khirat",
     "main": "app.js",
     "scripts": {
-        "dev": "nodemon --ignore 'storage/' --exec babel-node server.js",
-        "up": "pm2 start --env production",
-        "test": "export APP_CONSOLE=true && ./node_modules/.bin/mocha tests/**/*.js --require babel-register --exit",
-        "down": "pm2 stop all",
-        "status": "pm2 status",
-        "list": "pm2 list"
+        "dev": "nodemon",
+        "test": "export APP_CONSOLE=true && ./node_modules/.bin/mocha tests/**/*.js --require babel-register --exit"
     },
     "dependencies": {
         "@ffmpeg-installer/ffmpeg": "^1.0.17",

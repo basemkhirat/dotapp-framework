@@ -13,7 +13,7 @@ describe("Role", function () {
             .send(role)
             .expect(200)
             .end(function (error, response) {
-                if(error) throw error;
+                if (error) return done(error);
                 role.id = response.body.data;
                 done();
             });
@@ -59,7 +59,7 @@ describe("Role", function () {
             .send(role)
             .expect(200)
             .end(function (error, response) {
-                if (error) throw error;
+                if (error) return done(error);
 
                 role.id = response.body.data;
 
@@ -75,7 +75,7 @@ describe("Role", function () {
                     })
                     .expect(200)
                     .end(function (error, response) {
-                        if (error) throw error;
+                        if (error) return done(error);
 
                         server.patch("/api/role")
                             .set('Authorization', 'Bearer ' + token)

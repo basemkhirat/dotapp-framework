@@ -6,13 +6,13 @@ export default {
          * your AWS access key ID
          */
 
-        accessKeyId: process.env.AWS_KEY || "AKIAYVUXWTPZRVFZLPSH",
+        accessKeyId: process.env.AWS_KEY,
 
         /**
          * your AWS secret access key
          */
 
-        secretAccessKey: process.env.AWS_SECRET || "G5z1wfORXrr7uQB6sJWAW3mJXvmuO53RY9QVMFfu",
+        secretAccessKey: process.env.AWS_SECRET,
 
         /**
          * the region to send service requests to.
@@ -23,13 +23,13 @@ export default {
 
     youtube: {
 
-        key: process.env.YOUTUBE_KEY || "AIzaSyBRmwHTeOMV071olVy-eddww5Hi1yDHd_8"
+        key: process.env.YOUTUBE_KEY
 
     },
 
     soundcloud: {
 
-        key: process.env.SOUNDCLOUD_KEY || "203ed54b9fd03054e1aa2b2cae337eae"
+        key: process.env.SOUNDCLOUD_KEY
 
     }
 

@@ -45,7 +45,7 @@ export default {
 
         role: (req, user = false) => {
 
-            if (user && user.role === req.param("role")) { // role not changed
+            if (user && user.role && user.role.id === req.param("role")) { // role not changed
                 return true;
             }
 

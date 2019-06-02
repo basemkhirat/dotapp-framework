@@ -4,7 +4,8 @@ import Bcrypt from 'bcrypt';
 let schema = Schema({
 
         email: {
-            type: String
+            type: String,
+            lowercase: true
         },
 
         password: {

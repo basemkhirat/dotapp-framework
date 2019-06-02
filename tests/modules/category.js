@@ -8,12 +8,13 @@ let category = {
 describe("Category", function () {
 
     it("create a new category", function (done) {
+
         server.post("/api/category")
             .set('Authorization', 'Bearer ' + token)
             .send(category)
             .expect(200)
             .end(function (error, response) {
-                if(error) throw error;
+                if (error) return done(error);
                 category.id = response.body.data;
                 done();
             });
@@ -57,7 +58,7 @@ describe("Category", function () {
             .send(category)
             .expect(200)
             .end(function (error, response) {
-                if (error) throw error;
+                if (error) return done(error);
 
                 category.id = response.body.data;
 
