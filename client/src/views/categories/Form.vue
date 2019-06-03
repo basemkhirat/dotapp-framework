@@ -2,7 +2,7 @@
      <div class="groups">
           <div class="page--title">
                <h1 class="title--text">Groups</h1>
-               <div class="page--title--action ml-auto" v-if="this.$route.params.id">
+               <div class="page--title--action ml-auto" v-if="this.$route.params.id && isInUserPermissions('category.create')">
                     <router-link to="/categoryForm" class="button is-primary is-rounded">Add New Category</router-link>
                </div>
           </div>
@@ -120,16 +120,12 @@ const categoriesRepository = RepositoryFactory.get('categories')
             },
 
             async newCategory(data) {
-                const group = await categoriesRepository.newCategory(data)
-                if (group.success) {
-                    this.successMessage(group.message)
-                    this.$router.push('/categoryForm/' + group.data)
-                } else if(group.status === 500) {
-                    this.errorMessage(group.data)
+                const category = await categoriesRepository.newCategory(data)
+                if (category.success) {
+                    this.successMessage(category.message)
+                    this.$router.push('/categoryForm/' + category.data)
                 } else {
-                    group.data.map(item => {
-                        this.errorMessage(item)
-                    })
+                    this.errorMessage(category[0])
                 }
                 this.isLoading = false
             },
@@ -148,9 +144,7 @@ const categoriesRepository = RepositoryFactory.get('categories')
                 if (category.success) {
                     this.successMessage(category.message)
                 } else {
-                    category.data.map(item => {
-                        this.errorMessage(item)
-                    })
+                    this.errorMessage(category[0])
                 }
                 this.isLoading = false
             },

@@ -2,7 +2,7 @@
      <div class="groups">
           <div class="page--title">
                <h1 class="title--text">Groups</h1>
-               <div class="page--title--action ml-auto" v-if="this.$route.params.id">
+               <div class="page--title--action ml-auto" v-if="this.$route.params.id && isInUserPermissions('role.create')">
                     <router-link to="/groupForm" class="button is-primary is-rounded">Add New Group</router-link>
                </div>
           </div>
@@ -14,10 +14,24 @@
                </div>
                <div class="card--content">
                     <form class="row mt-3 justify-content-center" @submit.prevent="submitForm()">
-                         <div class="col-12 col-md-10 col-lg-8">
-                              <b-field class="field-group">
+                         <div class="col-12 col-md-10 col-lg-8 ">
+                              <b-field class="field-group mb-4">
                                    <b-input type="text" rounded placeholder="Group Name" v-model="name" />
                               </b-field>
+                              <template v-if="this.$route.params.id">
+                                    <b-field class="field-group text-center"  v-if="policies.indexOf('role.update') > -1">
+                                        <b-switch v-model="roleStatus" :true-value="1" :false-value="0">
+                                            Active
+                                        </b-switch>
+                                    </b-field>
+                                </template>
+                                <template v-else>
+                                    <b-field class="field-group text-center">
+                                        <b-switch v-model="roleStatus" :true-value="1" :false-value="0">
+                                            Active
+                                        </b-switch>
+                                    </b-field>
+                                </template>
                          </div>
 
                          <div class="col-12 col-md-10 col-lg-8 checkbox--group permissions--items">
@@ -82,6 +96,7 @@
                 policies: [],
                 permissions: [],
                 allPermissions: [],
+                roleStatus: 0
 
             };
         },
@@ -116,6 +131,7 @@
                 this.isLoading = false
                 let data = {}
                 data.name = this.name
+                data.status = this.roleStatus
                 if(this.permissions.length){
                     data.permissions = this.permissions
                 }
@@ -134,12 +150,8 @@
                 if (group.success) {
                     this.successMessage(group.message)
                     this.$router.push('/groupForm/' + group.data)
-                } else if(group.status === 500) {
-                    this.errorMessage(group.data)
                 } else {
-                    group.data.map(item => {
-                        this.errorMessage(item)
-                    })
+                    this.errorMessage(group[0])
                 }
                 this.isLoading = false
             },
@@ -148,6 +160,7 @@
                 const group = await groupsRepository.getGroup(data)
                 this.name = group.name
                 this.policies = group.policies
+                this.roleStatus = group.status
                 this.permissions = group.permissions
 
             },
@@ -156,9 +169,7 @@
                 if (group.success) {
                     this.successMessage(group.message)
                 } else {
-                    group.data.map(item => {
-                        this.errorMessage(item)
-                    })
+                    this.errorMessage(group[0])
                 }
                 this.isLoading = false
             },

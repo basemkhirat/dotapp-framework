@@ -2,7 +2,7 @@
      <div class="tags--page">
           <div class="page--title">
                <h1 class="title--text">Groups</h1>
-               <div class="page--title--action ml-auto" v-if="this.$route.params.id">
+               <div class="page--title--action ml-auto" v-if="this.$route.params.id && isInUserPermissions('tag.create')">
                     <router-link to="/tagForm" class="button is-primary is-rounded">Add New Tag</router-link>
                </div>
           </div>
@@ -89,16 +89,12 @@ const tagsRepository = RepositoryFactory.get('tags')
             },
 
             async newTag(data) {
-                const group = await tagsRepository.newTag(data)
-                if (group.success) {
-                    this.successMessage(group.message)
-                    this.$router.push('/tagForm/' + group.data)
-                } else if(group.status === 500) {
-                    this.errorMessage(group.data)
+                const tag = await tagsRepository.newTag(data)
+                if (tag.success) {
+                    this.successMessage(tag.message)
+                    this.$router.push('/tagForm/' + tag.data)
                 } else {
-                    group.data.map(item => {
-                        this.errorMessage(item)
-                    })
+                    this.errorMessage(tag[0])
                 }
                 this.isLoading = false
             },
@@ -113,9 +109,7 @@ const tagsRepository = RepositoryFactory.get('tags')
                 if (tag.success) {
                     this.successMessage(tag.message)
                 } else {
-                    tag.data.map(item => {
-                        this.errorMessage(item)
-                    })
+                    this.errorMessage(tag[0])
                 }
                 this.isLoading = false
             },

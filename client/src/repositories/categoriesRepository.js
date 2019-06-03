@@ -15,7 +15,9 @@ export default {
             if (response.data.success) {
                 return response.data;
             }
-        });
+        }).catch(error => {
+            return error.response.data.errors;
+        })
     },
     deleteCategory(id) {
         return Repository.delete(`${resource}/${id}`).then((response) => {
@@ -48,7 +50,7 @@ export default {
                 return response.data;
             }
         }).catch(error => {
-            return error.response.data;
+            return error.response.data.errors;
         })
     },
 };

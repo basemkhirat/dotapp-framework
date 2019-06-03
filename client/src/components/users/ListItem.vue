@@ -1,7 +1,7 @@
 <template>
     <div class="block--item" v-if="user">
         <div class="row align-items-center">
-            <div class="item--checkbox">
+            <div class="item--checkbox" v-if="isInUserPermissions('user.delete')">
                 <b-checkbox v-model="userSelected" @input="updateCheckbox(user.id)" :native-value="user.id">
                 </b-checkbox>
             </div>
@@ -58,8 +58,8 @@
             </div>
             <div class="col-12 col-sm-12 col-xl item--text">
                 <div class="all--item--action d-flex align-item-center">
-                    <router-link :to="'/userForm/' + user.id" v-if="user.policies.indexOf('user.update') > -1" class="button--circle is-primary-light"><i class="fas fa-pen"></i></router-link>
-                    <button class="button--circle is-danger-light" @click="deleteItem(user.id)" v-if="user.policies.indexOf('user.delete') > -1"><i class="fas fa-trash"></i></button>
+                    <router-link :to="'/userForm/' + user.id" v-if="user.policies.indexOf('user.update') > -1 && isInUserPermissions('user.update')" class="button--circle is-primary-light"><i class="fas fa-pen"></i></router-link>
+                    <button v-if="isInUserPermissions('user.delete') && user.policies.indexOf('user.delete') > -1" class="button--circle is-danger-light" @click="deleteItem(user.id)"><i class="fas fa-trash"></i></button>
                 </div>
             </div>
         </div>
@@ -99,7 +99,7 @@
                 } else {
                      this.userSelected = false
                 }
-               
+
             }
         },
         methods: {

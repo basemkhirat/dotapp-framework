@@ -13,7 +13,7 @@
             <!-- <vue-perfect-scrollbar class="menu--scroll" :settings="scrollSettings"> -->
                 <div class="menu--scroll">
                 <ul class="menu-list">
-                    <li v-for="(list,i) in AsideLinks" :key="i">
+                    <li v-for="(list,i) in links" :key="i">
                         <router-link v-if="!list.childLinks" :to="list.link" class="navbar-item" exact-active-class="is-active">
                             <span class="icon">
                                 <i :class="list.icon"></i>
@@ -41,6 +41,7 @@
 <script>
     import VuePerfectScrollbar from 'vue-perfect-scrollbar';
     import MenuItem from './MenuItem';
+    import { mapState} from 'vuex';
 
 
     export default {
@@ -49,21 +50,15 @@
                 scrollSettings: {
                     maxScrollbarLength: 160
                 },
+                links:[],
                 AsideLinks: [
-                    { name: 'Dashboard', link: '/', icon: 'fas fa-tachometer-alt'},
-                    { name: 'Users', link: '/users', icon: 'fas fa-user'},
-                    { name: 'Groups', link: '/groups', icon: 'fas fa-users'},
-                    { name: 'Media', link: '/media', icon: 'fa fa-images'},
-
-                    // { name: 'Item Dropdown', link: '/', icon: 'fas fa-columns', childLinks:[
-                    //     { name: 'Item One', link: '/a'},
-                    //     { name: 'Item Two', link: '/sd'},
-                    //     { name: 'Item three', link: '/sd'},
-                    //     { name: 'Item four', link: '/sd'},
-                    // ]},
-                    { name: 'Articles', link: '/articles', icon: 'far fa-newspaper'},
-                    { name: 'Categories', link: '/categories', icon: 'far fa-newspaper'},
-                    { name: 'Tags', link: '/tags', icon: 'fas fa-tags'},
+                    { name: 'Dashboard', link: '/', icon: 'fas fa-tachometer-alt', role: true},
+                    { name: 'Users', link: '/users', icon: 'fas fa-user', role: 'user.view'},
+                    { name: 'Groups', link: '/groups', icon: 'fas fa-users', role: 'role.view'},
+                    { name: 'Media', link: '/media', icon: 'fa fa-images', role: 'media.view'},
+                    { name: 'Articles', link: '/articles', icon: 'far fa-newspaper', role: 'article.view'},
+                    { name: 'Categories', link: '/categories', icon: 'far fa-newspaper', role: 'category.view'},
+                    { name: 'Tags', link: '/tags', icon: 'fas fa-tags', role: 'tag.view'},
                     // { name: 'Item Dropdown2', link: '/', icon: 'fas fa-columns', childLinks:[
                     //     { name: 'Item One a', link: '/a'},
                     //     { name: 'Item Two asds', link: '/sd'},
@@ -75,10 +70,20 @@
                 toggleNavSlide: false,
             }
         },
-        computed:{
-            // isMainMenuOpen(){
-            //     return this.$store.state.isMainMenuOpen
-            // }
+        computed: {
+            ...mapState({
+                    role: state => state.login.userData.role,
+            })
+        },
+        watch:{
+          role(){
+              if(this.role.permissions){
+                  this.checkLinksRole()
+              }
+          }
+        },
+        created(){
+            this.$store.dispatch('checkUserData');
         },
         components: {
             VuePerfectScrollbar,
@@ -99,7 +104,16 @@
             },
             closeNavMenu(){
                 document.body.classList.remove("is--mainSidebar--open")
+            },
+            checkLinksRole(){
+                this.links = []
+                this.AsideLinks.map(item => {
+                    if(this.role.permissions.indexOf(item.role) > -1 || item.role === true){
+                        this.links.push(item)
+                    }
+                })
             }
+
         }
     }
 

@@ -48,7 +48,7 @@ export default {
                 return response.data;
             }
         }).catch(error => {
-            return error.response.data;
+            return error.response.data.errors;
         })
     },
 };

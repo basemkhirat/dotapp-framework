@@ -7,7 +7,7 @@
           ({{total}})
         </span>
       </h1>
-      <div class="page--title--action ml-auto">
+      <div class="page--title--action ml-auto" v-if="isInUserPermissions('user.create')">
           <router-link to="/userForm" class="button is-primary is-rounded">Add New User</router-link>
       </div>
     </div>

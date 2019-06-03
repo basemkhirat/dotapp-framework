@@ -14,25 +14,25 @@ const mixins = {
           })
      },
      methods:{
-          // isInUserPermissions(moduleName, rule) {
-          //      let userWithPermissions =  this.userWithPermissions;
-          //      if (userWithPermissions && userWithPermissions.permissions) {
-          //          let userPermissions = userWithPermissions.permissions;
-          //          for (var key in userPermissions) {
-          //              if (userPermissions[key].moduleName === moduleName && userPermissions[key].rule === rule) {
-          //                  return true;
-          //              }
-          //          }
-          //          return false;
-          //      }
-          //  },
+          isInUserPermissions(rule) {
+               let userWithPermissions =  this.userWithPermissions;
+               if (userWithPermissions) {
+                   let userPermissions = userWithPermissions;
+                   for (var key in userPermissions) {
+                       if (userPermissions[key] === rule) {
+                           return true;
+                       }
+                   }
+                   return false;
+               }
+           },
      },
      watch: {
           userData: {
               handler() {
-                  if (this.userData && this.userData.id) {
-                    //    console.log(this.userData)
-                    //   this.userWithPermissions = this.userData.permissions;
+                  if (this.userData && this.userData.role) {
+                    this.userWithPermissions = this.userData.role.permissions;
+
                   }
               },
               immediate: true,

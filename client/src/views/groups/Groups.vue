@@ -7,7 +7,7 @@
           ({{total}})
         </span>
       </h1>
-      <div class="page--title--action ml-auto">
+      <div class="page--title--action ml-auto" v-if="isInUserPermissions('role.create')">
           <router-link to="/groupForm" class="button is-primary is-rounded">Add New Group</router-link>
       </div>
     </div>

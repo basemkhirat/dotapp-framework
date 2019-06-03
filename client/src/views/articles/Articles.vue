@@ -16,11 +16,11 @@
         </div>
       </div>
       <div class="card--content">
-        <list-articles  :data="articles"/>
+        <list-articles :data="articles"/>
       </div>
     </div>
 
-    
+
   </div>
 </template>
 

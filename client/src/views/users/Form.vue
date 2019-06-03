@@ -4,7 +4,7 @@
             <h1 class="title--text">
                 Users
             </h1>
-            <div class="page--title--action ml-auto" v-if="this.$route.params.id">
+            <div class="page--title--action ml-auto" v-if="this.$route.params.id && isInUserPermissions('user.create')">
                 <router-link to="/userForm" class="button is-primary is-rounded">Add New User</router-link>
             </div>
         </div>
@@ -97,11 +97,11 @@
                                              <b-input type="password" minlength="7" required rounded
                                                   placeholder="Confirm Password" v-model="confirmPassword" />
                                         </b-field>
-                                        <p class="help is-danger mt-0" v-if="errorConfirmPassword">Please fill the same
-                                             password.</p>
+                                        <p class="help is-danger mt-0" v-if="errorConfirmPassword">
+                                            Please fill the same password.
+                                        </p>
                                    </div>
                             </template>
-
 
                         </div>
                     </div>
@@ -188,9 +188,7 @@
                     this.userPhoto = this.imageSelected.url
                 }
             },
-            group(){
-                console.log(this.group)
-            }
+
         },
         created() {
             if (this.$route.params.id) {
@@ -251,10 +249,7 @@
                     this.successMessage(user.message)
                     this.$router.push('/userForm/' + user.data)
                 } else {
-                    user.data.map(item => {
-                        this.errorMessage(item)
-                    })
-
+                    this.errorMessage(user[0])
                 }
                 this.isLoading = false
             },
@@ -274,17 +269,13 @@
                 if(user.photo){
                      this.userPhoto = user.photo.url
                 }
-                console.log(user)
             },
             async updateUser(id, data) {
                 const user = await usersRepository.updateUser(id, data)
                 if (user.success) {
                     this.successMessage(user.message)
                 } else {
-                    // user.data.map(item => {
-                    //     this.errorMessage(item)
-                    // })
-                    this.errorMessage(user.data)
+                    this.errorMessage(user[0])
                 }
                 this.$store.dispatch('checkUserData');
                 this.isLoading = false
