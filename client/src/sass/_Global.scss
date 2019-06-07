@@ -564,6 +564,23 @@ button.is-rounded, .button.is-rounded {
     }
 }
 
+.card--block, .no-data, .loading--data {
+    margin: 8px 0;
+    border-radius: 8px;
+}
+
+// No Data
+.no-data{
+    width: 100%;
+    height: 350px;
+    position: relative;
+    color: $textColor;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @extend .card--block ;
+}
+
 // Permissions Items
 .permissions--items{
     padding: 30px;

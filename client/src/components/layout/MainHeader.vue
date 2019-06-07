@@ -20,11 +20,11 @@
                                    <b-icon pack="fa" icon="search"></b-icon>
                               </a>
                          </li>
-                         <li class="nav-item">
+                         <!-- <li class="nav-item">
                               <a class="media--item" @click="openMediaModal">
                                    <b-icon pack="fa" icon="images"></b-icon>
                               </a>
-                         </li>
+                         </li> -->
 
                          <li class="nav-item">
                               <b-dropdown v-model="navigation" position="is-bottom-left">

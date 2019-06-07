@@ -1,17 +1,17 @@
 <template>
     <div>
-        <item  v-for="user in data" :key="user.id" :user="user" 
+        <item  v-for="user in data" :key="user.id" :user="user"
         @fetchAllItems="fetchAllItems"
-        @checkboxUser="checkboxUserStatus" 
+        @checkboxUser="checkboxUserStatus"
         :usersSelected="usersSelected"/>
-         
+
         <template>
             <div class="alluser--action" :class="{'show--action--bottom': usersSelected.length}">
                 <button class="button is-warning is-rounded" @click="confirmCustomUpdate()">Ban All Selected</button>
                 <button class="button is-danger is-rounded" @click="deleteItems()">Delete All Selected</button>
             </div>
         </template>
-        
+
     </div>
 </template>
 
@@ -44,7 +44,7 @@ export default {
                  this.usersSelected = []
             }
         },
-       
+
     },
     methods:{
          checkboxUserStatus(data){
@@ -65,7 +65,7 @@ export default {
         deleteItems(){
              this.confirmCustomDelete(this.usersSelected)
         },
-        
+
         // Delete Items
         async deleteUser(id) {
             const user = await usersRepository.deleteUser(id)

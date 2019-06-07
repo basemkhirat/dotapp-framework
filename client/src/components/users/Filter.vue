@@ -62,6 +62,7 @@ const groupsRepository = RepositoryFactory.get('groups')
                 this.$emit('featchByFilter', this.filters)
               } else {
                   this.filters.group = ''
+                  this.$emit('featchByFilter', this.filters)
               }
 
           },

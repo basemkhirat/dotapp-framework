@@ -92,8 +92,9 @@ export default {
      watch:{
           type(){
                if(this.type.type === 'all'){
-                      this.filters.type = ''
-                      this.$emit('changeFilters', this.filters)
+                    this.filters.type = ''
+                    this.$emit('changeFilters', this.filters)
+
                } else {
                     this.filters.type = this.type.type
                     this.$emit('changeFilters', this.filters)

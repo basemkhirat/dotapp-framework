@@ -18,7 +18,12 @@
           <loading-data></loading-data>
     </template>
     <template v-else>
-          <list-users @fetchAllItems="fetchAllItems" :allUserSelected="allUserSelected" :data="users"/>
+          <list-users
+          @fetchAllItems="fetchAllItems"
+          :allUserSelected="allUserSelected"
+          v-if="users.length"
+          :data="users"/>
+        <div class="no-data" v-else><span>No Data Here</span></div>
     </template>
     <template v-if="users">
         <div class="pagination--custom--number" v-if="total">

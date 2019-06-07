@@ -113,6 +113,7 @@ export default {
                dataLoading: false,
                filters: {},
                itemsSelectedMedia:[],
+               filtersItems: {}
           }
      },
      created(){
@@ -165,7 +166,7 @@ export default {
                if(this.previewImages){
                    this.filters.type = 'image'
                } else {
-                   this.filters.type = ''
+                   this.filters.type = this.filtersItems.type
                }
                const data = await mediaRepository.getAllMedia(this.page, this.limit, this.filters)
                this.items = data.docs;
@@ -222,6 +223,7 @@ export default {
 
           // Filters
           changeFilters(filters){
+               this.filtersItems = filters
                this.filters = filters
                this.fetchAllItems()
           }

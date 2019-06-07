@@ -14,7 +14,13 @@
                 <div class="menu--scroll">
                 <ul class="menu-list">
                     <li v-for="(list,i) in links" :key="i">
-                        <router-link v-if="!list.childLinks" :to="list.link" class="navbar-item" exact-active-class="is-active">
+                        <a v-if="list.media" class="navbar-item" @click="openMedia()">
+                            <span class="icon">
+                                <i :class="list.icon"></i>
+                            </span>
+                            <span class="text-aside">{{ list.name }}</span>
+                        </a>
+                        <router-link v-else-if="!list.childLinks" :to="list.link" class="navbar-item" exact-active-class="is-active">
                             <span class="icon">
                                 <i :class="list.icon"></i>
                             </span>
@@ -55,7 +61,7 @@
                     { name: 'Dashboard', link: '/', icon: 'fas fa-tachometer-alt', role: true},
                     { name: 'Users', link: '/users', icon: 'fas fa-user', role: 'user.view'},
                     { name: 'Groups', link: '/groups', icon: 'fas fa-users', role: 'role.view'},
-                    { name: 'Media', link: '/media', icon: 'fa fa-images', role: 'media.view'},
+                    { name: 'Media', link: '/media', icon: 'fa fa-images', role: 'media.view', media: true},
                     { name: 'Articles', link: '/articles', icon: 'far fa-newspaper', role: 'article.view'},
                     { name: 'Categories', link: '/categories', icon: 'far fa-newspaper', role: 'category.view'},
                     { name: 'Tags', link: '/tags', icon: 'fas fa-tags', role: 'tag.view'},
@@ -112,6 +118,9 @@
                         this.links.push(item)
                     }
                 })
+            },
+            openMedia(){
+                this.$store.commit('openMediaModal')
             }
 
         }
