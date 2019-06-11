@@ -26,6 +26,10 @@ export default class extends Controller {
                 if (error) return res.serverError(error);
                 if (!valid) return res.validationError(req.lang("auth.invalid_password"));
 
+                if (user.status !== 1) {
+                    return res.forbidden();
+                }
+
                 let response = user.toObject();
 
                 response.token = jwt.sign(
@@ -63,7 +67,7 @@ export default class extends Controller {
                 if (error) return res.serverError(error);
 
                 req.mail(user, "ForgetPassword", (error, info) => {
-                    if(error) throw error;
+                    if (error) throw error;
                     console.log(info);
                 });
 
@@ -82,7 +86,7 @@ export default class extends Controller {
 
         let code = req.param("code");
 
-        User.findOne({ password_token: code, password_token_expiration: { $gt: Date.now() } }, function(error, user) {
+        User.findOne({password_token: code, password_token_expiration: {$gt: Date.now()}}, function (error, user) {
             if (error) return res.serverError(error);
             if (!user) return res.validationError(req.lang("auth.invalid_password_verification_code"));
 
