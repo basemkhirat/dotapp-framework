@@ -199,12 +199,12 @@ router.beforeEach((to, from, next) => {
     if (to.path == '/login' && loggedIn) {
         router.push({ path: '/' })
     }
-    if (authRequired && !loggedIn) {
-        return next({
-            path: '/login',
-            query: { returnUrl: to.path }
-        });
-    }
+    // if (authRequired && !loggedIn) {
+    //     return next({
+    //         path: '/login',
+    //         query: { returnUrl: to.path }
+    //     });
+    // }
 
     next();
   })
