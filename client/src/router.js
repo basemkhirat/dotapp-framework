@@ -18,9 +18,7 @@ function isIModuleHasPermissions(userPermissions, role) {
 
 import store from './store/store.js'
 
-
 function routerGuard(to, from, next) {
-
 
     axios.get('/auth/user')
     .then((response) => {
@@ -43,9 +41,6 @@ function routerGuard(to, from, next) {
     })
 
 }
-
-
-
 
 
 const router = new Router({

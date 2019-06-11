@@ -89,6 +89,7 @@
                         <template v-if="card.images">
                             <b-field class="field-group img--preview" v-if="card.images.thumbnails">
                                 <img :src="card.images.thumbnails.large" alt="">
+                                <a class="delete is-large btn--delete" @click="card.images = {}"></a>
                             </b-field>
                         </template>
                         <div class="file--upload" @click="openModalMedia({type: 'cardImage', index: index})">
@@ -112,17 +113,19 @@
                             </b-icon>
                         </a>
                     </div>
-                    <div class="card--content">
-                        {{card}}
+                    <div class="card--content gallery--editor">
                         <template v-if="card.images">
-                            <div v-for="item in card.images" :key="item.id">
-                                <b-field class="field-group img--preview" v-if="item.images.thumbnails">
-                                    <img :src="item.images.thumbnails.large" alt="">
-                                </b-field>
+                            <div v-for="(itemImg, indexImg) in card.images" :key="itemImg.id" class="gallery--img--editor">
+                                <template v-if="itemImg.thumbnails">
+                                    <b-field class="field-group img--preview" v-if="itemImg.thumbnails">
+                                        <img :src="itemImg.thumbnails.large" alt="">
+                                        <a class="delete is-large btn--delete" @click="card.images.splice(indexImg, 1)"></a>
+                                    </b-field>
+                                </template>
                             </div>
                         </template>
                         <div class="file--upload" @click="openModalMedia({type: 'cardGallery', index: index})">
-                            {{card.images? 'Replace Images' : ' Select Images'}}
+                            {{card.images.length? 'Replace Images' : ' Select Images'}}
                         </div>
                     </div>
                 </b-collapse>
