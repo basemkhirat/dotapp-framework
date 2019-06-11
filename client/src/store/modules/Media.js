@@ -73,7 +73,6 @@ const Media = {
                 state.imageSelected = item
             }
             else if (state.selectedType.type === 'cardGallery'){
-                console.log(item);
                 state.setContentCardImage = {item: item, index: state.selectedType.index}
                 state.imageSelected = item
             }

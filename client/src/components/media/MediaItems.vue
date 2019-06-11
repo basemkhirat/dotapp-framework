@@ -14,7 +14,7 @@
                         class="media--action d-flex justify-content-between"
                         :class="{'showItemAction': checkItemsMedia.length}">
                         <a class="media--action--check custom--ckeckbox">
-                            <b-checkbox :native-value="item.id" v-model="checkItemsMedia"></b-checkbox>
+                            <b-checkbox :native-value="galleryMode? item : item.id" v-model="checkItemsMedia"></b-checkbox>
                         </a>
                         <!-- <a class="media--action--edit" @click="quickEdit(item)">
                             Edit
