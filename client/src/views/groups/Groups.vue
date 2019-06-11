@@ -11,6 +11,11 @@
           <router-link to="/groupForm" class="button is-primary is-rounded">Add New Group</router-link>
       </div>
     </div>
+
+    <!-- Breadcrumb -->
+    <breadcrumb :links="breadcrumb" />
+
+
     <div class="card-filter--herader">
         <filter-items @featchByFilter="featchByFilter" @selectAllItems="selectAllItems" :allItemChecked="allItemChecked" />
     </div>
@@ -58,7 +63,8 @@ export default {
             page: 1,
             limit: 10,
             order: 'is-centered',
-            dataLoading: true
+            dataLoading: true,
+            breadcrumb:[{link: '', label:'groups'}]
         };
     },
   components: {

@@ -8,12 +8,16 @@
                 <router-link to="/userForm" class="button is-primary is-rounded">Add New User</router-link>
             </div>
         </div>
+
+        <!-- Breadcrumb -->
+        <breadcrumb :links="breadcrumb" />
+
         <div class="card--block">
-            <div class="card--hreader">
+            <!-- <div class="card--hreader">
                 <div class="card--header--title">
                     {{this.$route.params.id ? 'Update User' : 'Add New User'}}
                 </div>
-            </div>
+            </div> -->
             <div class="card--content">
                 <form class="row justify-content-center" @submit.prevent="submitForm()">
                     <div class="col-12 col-lg-8 col-xl-6">
@@ -23,9 +27,11 @@
                                     <div class="text-center">
                                         <div class="user--photo field-group">
                                             <img :src="userPhoto" v-if="userPhoto" class="avatar-l" alt="">
-                                            <img src="./../../assets/images/user/user-128.png" v-else class="avatar-l" alt="">
+                                            <img src="./../../assets/images/user/user-128.png" v-else class="avatar-l"
+                                                alt="">
                                         </div>
-                                        <a class="button is-dark is-rounded m-2 is-small" @click="openModalMedia">Change Photo</a>
+                                        <a class="button is-dark is-rounded m-2 is-small" @click="openModalMedia">Change
+                                            Photo</a>
                                     </div>
                                 </b-field>
                             </div>
@@ -58,7 +64,8 @@
                             </div>
                             <div class="col-12 col-sm-6">
                                 <template v-if="this.$route.params.id">
-                                    <b-field class="field-group text-center" v-if="policies.indexOf('user.status') > -1">
+                                    <b-field class="field-group text-center"
+                                        v-if="policies.indexOf('user.status') > -1">
                                         <b-switch v-model="userStatus" true-value="Active" false-value="Not Active">
                                             Active
                                         </b-switch>
@@ -75,7 +82,8 @@
                             </div>
                             <div class="col-12" v-if="this.$route.params.id">
                                 <b-field class="field-group">
-                                    <span class="change--password" @click="changePassword =! changePassword">Change Password</span>
+                                    <span class="change--password" @click="changePassword =! changePassword">Change
+                                        Password</span>
                                 </b-field>
                             </div>
                             <!-- <div class="col-12">
@@ -85,22 +93,22 @@
                                 </b-field>
                             </div> -->
                             <template v-if="changePassword">
-                                  <div class="col-12">
-                                        <b-field class="field-group">
-                                             <b-input minlength="7" type="password" required rounded
-                                                  :placeholder="this.$route.params.id ? 'New Password' : 'Password'"
-                                                  v-model="password" />
-                                        </b-field>
-                                   </div>
-                                   <div class="col-12">
-                                        <b-field class="field-group">
-                                             <b-input type="password" minlength="7" required rounded
-                                                  placeholder="Confirm Password" v-model="confirmPassword" />
-                                        </b-field>
-                                        <p class="help is-danger mt-0" v-if="errorConfirmPassword">
-                                            Please fill the same password.
-                                        </p>
-                                   </div>
+                                <div class="col-12">
+                                    <b-field class="field-group">
+                                        <b-input minlength="7" type="password" required rounded
+                                            :placeholder="this.$route.params.id ? 'New Password' : 'Password'"
+                                            v-model="password" />
+                                    </b-field>
+                                </div>
+                                <div class="col-12">
+                                    <b-field class="field-group">
+                                        <b-input type="password" minlength="7" required rounded
+                                            placeholder="Confirm Password" v-model="confirmPassword" />
+                                    </b-field>
+                                    <p class="help is-danger mt-0" v-if="errorConfirmPassword">
+                                        Please fill the same password.
+                                    </p>
+                                </div>
                             </template>
 
                         </div>
@@ -126,8 +134,9 @@
     const usersRepository = RepositoryFactory.get('users')
     const groupsRepository = RepositoryFactory.get('groups')
 
-
-      import { mapState } from 'vuex';
+    import {
+        mapState
+    } from 'vuex';
 
     export default {
         name: 'userForm',
@@ -149,11 +158,18 @@
                 policies: [],
                 userPhoto: '',
                 page: 1,
-                limit: 100
+                limit: 100,
+                breadcrumb: [{
+                    link: '/users',
+                    label: 'users'
+                }, {
+                    link: '',
+                    label: 'add & update user'
+                }]
             };
         },
 
-        computed:{
+        computed: {
             ...mapState({
                 imageSelected: state => state.media.imageSelected,
             })
@@ -163,10 +179,10 @@
             '$route'(to, from) {
                 if (this.$route.params.id) {
                     this.getUser(this.$route.params.id)
-                     this.changePassword =  false
+                    this.changePassword = false
                 } else {
-                     this.resetfuild()
-                     this.changePassword =  true
+                    this.resetfuild()
+                    this.changePassword = true
                 }
             },
             userStatus() {
@@ -176,15 +192,15 @@
                     this.status = 0
                 }
             },
-            status(){
-               if (this.status == 1) {
+            status() {
+                if (this.status == 1) {
                     this.userStatus = 'Active'
                 } else {
                     this.userStatus = 'Not Active'
                 }
             },
-            imageSelected(){
-                if(this.imageSelected){
+            imageSelected() {
+                if (this.imageSelected) {
                     this.userPhoto = this.imageSelected.url
                 }
             },
@@ -193,20 +209,20 @@
         created() {
             if (this.$route.params.id) {
                 this.getUser(this.$route.params.id)
-                 this.changePassword =  false
+                this.changePassword = false
             }
             this.fetchAllItems()
         },
 
         methods: {
-             resetfuild(){
+            resetfuild() {
                 this.firstName = ''
                 this.lastName = ''
                 this.email = ''
                 this.status = 0
                 this.password = ''
                 this.confirmPassword = ''
-             },
+            },
             submitForm() {
                 this.errorConfirmPassword = true
                 this.isLoading = false
@@ -215,10 +231,10 @@
                 data.last_name = this.lastName
                 data.email = this.email
                 data.status = this.status
-                if(this.group){
+                if (this.group) {
                     data.role = this.group.id
                 }
-                if(this.imageSelected){
+                if (this.imageSelected) {
                     data.photo = this.imageSelected.id
                 }
                 if (this.firstName && this.email && this.password && this.confirmPassword) {
@@ -226,19 +242,19 @@
                     if (this.password === this.confirmPassword) {
                         this.errorConfirmPassword = false
                         this.isLoading = true
-                        if(this.$route.params.id){
-                             this.updateUser(this.$route.params.id, data)
+                        if (this.$route.params.id) {
+                            this.updateUser(this.$route.params.id, data)
                         } else {
-                             this.newUser(data)
+                            this.newUser(data)
                         }
 
                     } else {
                         this.isLoading = false
                         this.errorConfirmPassword = true
                     }
-                } else if(this.firstName && this.email && this.$route.params.id){
-                      this.isLoading = true
-                      this.updateUser(this.$route.params.id, data)
+                } else if (this.firstName && this.email && this.$route.params.id) {
+                    this.isLoading = true
+                    this.updateUser(this.$route.params.id, data)
                 }
             },
 
@@ -263,11 +279,11 @@
                 this.password = ''
                 this.confirmPassword = ''
                 this.policies = user.policies
-                if(user.role){
+                if (user.role) {
                     this.group = user.role
                 }
-                if(user.photo){
-                     this.userPhoto = user.photo.url
+                if (user.photo) {
+                    this.userPhoto = user.photo.url
                 }
             },
             async updateUser(id, data) {
@@ -311,7 +327,7 @@
                 })
             },
 
-            openModalMedia(){
+            openModalMedia() {
                 this.$store.commit('openMediaImage')
             }
 

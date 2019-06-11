@@ -27,6 +27,7 @@ const Login = {
         actions: {
           doLogin({ commit, state, dispatch }, loginData) {
               commit('resetState');
+              state.isLoading = true
             axios.post('/auth/token', loginData)
               .then((response) => {
                 state.isLoading = false
@@ -35,10 +36,12 @@ const Login = {
                 window.location.href = '/'
               })
               .catch(error => {
-                state.loginErrorMessage = error.response.data.data[0]
+                state.loginErrorMessage = error.data.errors[0]
                 state.isLoading = false
               })
           },
+
+
 
         // Forgot Password
           forgotPassword({ commit, state, dispatch }, loginData) {
@@ -67,8 +70,6 @@ const Login = {
                 state.isLoading = false
               })
           },
-
-
 
           checkUserData({ commit, state }, loginData) {
             axios.get('/auth/user')

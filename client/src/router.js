@@ -122,19 +122,19 @@ const router = new Router({
                 {
                     path: '/articles',
                     name: 'articles',
-                    component: () => import('./views/articles/Articles.vue'),
-                    meta: {
-                        role: 'article.view'
-                    },
+                    component: () => import('./views/posts/Articles.vue'),
+                    // meta: {
+                    //     role: 'article.view'
+                    // },
                     beforeEnter: routerGuard,
                 },
                 {
                     path: '/articleForm',
                     name: 'articleForm',
-                    component: () => import('./views/articles/Form.vue'),
-                    meta: {
-                        role: 'article.update'
-                    },
+                    component: () => import('./views/posts/Form.vue'),
+                    // meta: {
+                    //     role: 'article.update'
+                    // },
                     beforeEnter: routerGuard,
                 },
                 {
@@ -199,12 +199,12 @@ router.beforeEach((to, from, next) => {
     if (to.path == '/login' && loggedIn) {
         router.push({ path: '/' })
     }
-    if (authRequired && !loggedIn) {
-        return next({
-            path: '/login',
-            query: { returnUrl: to.path }
-        });
-    }
+    // if (authRequired && !loggedIn) {
+    //     return next({
+    //         path: '/login',
+    //         query: { returnUrl: to.path }
+    //     });
+    // }
 
     next();
   })

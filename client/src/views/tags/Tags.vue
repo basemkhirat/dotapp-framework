@@ -10,7 +10,11 @@
       <div class="page--title--action ml-auto" v-if="isInUserPermissions('tag.create')">
           <router-link to="/tagForm" class="button is-primary is-rounded">Add New Tag</router-link>
       </div>
+
     </div>
+    <!-- Breadcrumb -->
+    <breadcrumb :links="breadcrumb" />
+
     <div class="card-filter--herader">
         <filter-items @selectAllItems="selectAllItems" @featchByFilter="featchByFilter" :allItemChecked="allItemChecked" />
     </div>
@@ -58,7 +62,8 @@ export default {
             page: 1,
             limit: 10,
             order: 'is-centered',
-            dataLoading: true
+            dataLoading: true,
+            breadcrumb:[{link: '', label:'tags'}]
         };
     },
   components: {

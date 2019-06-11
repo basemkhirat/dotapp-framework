@@ -9,21 +9,33 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    stateMediaModal: false,
-    previewImages: false
+    toggleNavSlide: false
   },
   mutations: {
-    openMediaModal(state){
-      this.state.stateMediaModal = !this.state.stateMediaModal
-      this.state.previewImages = false
+    // Toggle Open Nav Sidebar
+    toggleNavOpen(state){
+        state.toggleNavSlide =! state.toggleNavSlide
+        if(state.toggleNavSlide){
+            document.body.classList.add("sidebar--mini")
+        } else {
+            document.body.classList.remove("sidebar--mini")
+        }
     },
-    // Open Media And Preview All Images
-    openMediaImage(state){
-      this.state.stateMediaModal = !this.state.stateMediaModal
-      this.state.previewImages = true
+    miniSidebar(state){
+        state.toggleNavSlide = true
+        if(state.toggleNavSlide){
+            document.body.classList.add("sidebar--mini")
+        } else {
+            document.body.classList.remove("sidebar--mini")
+        }
     },
-    closeMediaModal(state){
-      this.state.stateMediaModal = false
+    miniSidebarOpen(state){
+        state.toggleNavSlide = false
+        if(state.toggleNavSlide){
+            document.body.classList.add("sidebar--mini")
+        } else {
+            document.body.classList.remove("sidebar--mini")
+        }
     }
   },
   actions: {

@@ -26,8 +26,8 @@
 
 <script>
 import articles from '../../mocks/articles.js'
-import ListArticles from '../../components/articles/list'
-import FilterItems from '../../components/articles/Filter'
+import ListArticles from '../../components/posts/list'
+import FilterItems from '../../components/posts/Filter'
 
 export default {
   name: 'articles',

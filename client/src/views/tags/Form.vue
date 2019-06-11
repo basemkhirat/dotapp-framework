@@ -1,17 +1,21 @@
 <template>
      <div class="tags--page">
           <div class="page--title">
-               <h1 class="title--text">Groups</h1>
+               <h1 class="title--text">Tags</h1>
                <div class="page--title--action ml-auto" v-if="this.$route.params.id && isInUserPermissions('tag.create')">
                     <router-link to="/tagForm" class="button is-primary is-rounded">Add New Tag</router-link>
                </div>
           </div>
+
+          <!-- Breadcrumb -->
+          <breadcrumb :links="breadcrumb" />
+
           <div class="card--block">
-               <div class="card--hreader">
+               <!-- <div class="card--hreader">
                     <div class="card--header--title">
                           {{this.$route.params.id ? 'Update Tag' : 'Add New Tag'}}
                     </div>
-               </div>
+               </div> -->
                <div class="card--content">
                     <form class="row mt-3 justify-content-center" @submit.prevent="submitForm()">
                          <div class="col-12 col-md-10 col-lg-8">
@@ -22,33 +26,29 @@
 
                          <div class="col-12 text-center button--save--form ">
                               <button class="button is-primary is-rounded"
-                              :class="{'is-loading': isLoading}">{{this.$route.params.id ? 'Save Changes' : 'Add Category'}}</button>
+                              :class="{'is-loading': isLoading}">{{this.$route.params.id ? 'Save Changes' : 'Add Tag'}}</button>
                          </div>
                     </form>
                </div>
           </div>
-
      </div>
 </template>
-
-
-
 
 <script>
     // Repository Data
     import {
         RepositoryFactory
     } from '../../repositories/RepositoryFactory'
-const tagsRepository = RepositoryFactory.get('tags')
+    const tagsRepository = RepositoryFactory.get('tags')
     export default {
         name: 'TagForm',
         data() {
             return {
                 name: '',
                 isLoading: false,
+                breadcrumb:[{link: '/tags', label:'tags'},{link: '', label:'add & update tag'}]
             };
         },
-
         watch: {
             '$route'(to, from) {
                 if (this.$route.params.id) {
@@ -63,12 +63,7 @@ const tagsRepository = RepositoryFactory.get('tags')
                 this.getTag(this.$route.params.id)
             }
         },
-        components:{
-
-        },
-
         methods: {
-
              resetfuild(){
                 this.name = ''
              },
@@ -136,11 +131,6 @@ const tagsRepository = RepositoryFactory.get('tags')
                     indefinite: false,
                 })
             },
-
-
-
-
-
         }
     }
 </script>

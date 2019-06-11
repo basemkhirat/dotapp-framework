@@ -7,10 +7,10 @@
 //  Mixins
 @import 'mixins/Mixins';
 
-// Fonts 
+// Fonts
 @import 'Fonts';
 
-// Bootstrap Grid System 
+// Bootstrap Grid System
 @import 'Grid';
 
 // Custom Framework Style
@@ -37,4 +37,7 @@
 
 // Media Style
 @import 'components/MediaModal';
+
+// Posts And Editor Style
+@import 'components/Posts';
 

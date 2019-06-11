@@ -2,7 +2,7 @@
      <div class="filter--media py-4">
           <div class="row align-items-center">
                <div class="col-12 col-md-6">
-                    <v-select :options="allTypes" v-model="type" label="title" class="select--with--icon v--select--scroll my-2 my-md-0" v-if="!previewImages">
+                    <v-select :options="allTypes" v-model="type" label="title" class="select--with--icon v--select--scroll my-2 my-md-0" v-if="previewItemAction">
                          <template slot="option" slot-scope="option">
                               <!-- <span :class="option.icon"></span> -->
                               {{ option.title }}
@@ -86,7 +86,7 @@ export default {
      },
      computed:{
           ...mapState({
-               previewImages: state => state.previewImages,
+               previewItemAction: state => state.media.previewItemAction,
           })
      },
      watch:{

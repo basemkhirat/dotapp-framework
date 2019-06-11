@@ -1,17 +1,21 @@
 <template>
      <div class="groups">
           <div class="page--title">
-               <h1 class="title--text">Groups</h1>
+               <h1 class="title--text">Categories</h1>
                <div class="page--title--action ml-auto" v-if="this.$route.params.id && isInUserPermissions('category.create')">
                     <router-link to="/categoryForm" class="button is-primary is-rounded">Add New Category</router-link>
                </div>
           </div>
+
+          <!-- Breadcrumb -->
+          <breadcrumb :links="breadcrumb" />
+
           <div class="card--block">
-               <div class="card--hreader">
+               <!-- <div class="card--hreader">
                     <div class="card--header--title">
-                          {{this.$route.params.id ? 'Update Category' : 'Add New Category'}}
+                        {{this.$route.params.id ? 'Update Category' : 'Add New Category'}}
                     </div>
-               </div>
+               </div> -->
                <div class="card--content">
                     <form class="row mt-3 justify-content-center" @submit.prevent="submitForm()">
                          <div class="col-12 col-md-10 col-lg-8">
@@ -59,7 +63,8 @@ const categoriesRepository = RepositoryFactory.get('categories')
                 name: '',
                 description: '',
                 isLoading: false,
-                photo: ''
+                photo: '',
+                breadcrumb:[{link: '/categories', label:'categories'},{link: '', label:'add & update category'}]
             };
         },
 

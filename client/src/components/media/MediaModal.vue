@@ -30,7 +30,7 @@
 
                           <template v-else>
 
-                              <div  class="media--items--wrap">
+                              <div class="media--items--wrap">
                                    <div class="media--items">
                                         <media-items :data="items" @checkItemsMedia="checkItemsMedia" @fetchAllItems="fetchAllItems"/>
                                         <div class="py-4 text-center w-100">
@@ -56,11 +56,21 @@
                                         Add to album
                                         <i class="fas fa-clone ml-2"></i>
                                    </button> -->
-                                   <button :class="{'showActionButton': itemsSelectedMedia.length}"
+                                   <button
+                                   v-if="!galleryMode"
+                                   :class="{'showActionButton': itemsSelectedMedia.length}"
                                    class="button is-rounded showButtonDeleteImage"
                                    @click="confirmCustomDelete">
                                         Delete
                                         <i class="fas fa-trash ml-2"></i>
+                                   </button>
+                                   <button
+                                   v-if="galleryMode"
+                                   :class="{'showActionButton': itemsSelectedMedia.length}"
+                                   class="button is-rounded showButtonDeleteImage"
+                                   @click="confirmCustomSetGallery">
+                                        Add To Gallery
+                                        <i class="fas fa-images ml-2"></i>
                                    </button>
                                    <!-- <button :class="{'showActionButton': itemsSelectedMedia}"
                                    class="button is-rounded showButtonInsert">
@@ -140,8 +150,10 @@ export default {
      },
      computed:{
           ...mapState({
-               stateMediaModal: state => state.stateMediaModal,
-               previewImages: state => state.previewImages,
+               stateMediaModal: state => state.media.stateMediaModal,
+               previewImages: state => state.media.previewImages,
+               previewVideos: state => state.media.previewVideos,
+               galleryMode: state => state.media.galleryMode,
           })
      },
      methods:{
@@ -165,6 +177,8 @@ export default {
                this.dataLoading = true
                if(this.previewImages){
                    this.filters.type = 'image'
+               } else if (this.previewVideos){
+                   this.filters.type = 'video'
                } else {
                    this.filters.type = this.filtersItems.type
                }
@@ -188,6 +202,20 @@ export default {
                     hasIcon: true,
                     onConfirm: () =>{
                          this.deleteItems()
+                    }
+                })
+            },
+          // Confirm Set Images To Gallery From Posts
+          confirmCustomSetGallery() {
+                this.$dialog.confirm({
+                    title: 'Select Items',
+                    message: 'Are you sure you want to <b>Select</b> this Items? This action cannot be undone.',
+                    confirmText: 'Add To Gallery',
+                    type: 'is-primary',
+                    hasIcon: true,
+                    onConfirm: () =>{
+                        this.$store.commit('setItemSelected', this.itemsSelectedMedia)
+                        this.$store.commit('openMediaImage')
                     }
                 })
             },
