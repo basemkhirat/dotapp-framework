@@ -6,36 +6,65 @@
                     <router-link to="/groupForm" class="button is-primary is-rounded">Add New Group</router-link>
                </div>
           </div>
+
+          <!-- Breadcrumb -->
+          <breadcrumb :links="breadcrumb" />
+
           <div class="card--block">
-               <div class="card--hreader">
+               <!-- <div class="card--hreader">
                     <div class="card--header--title">
                           {{this.$route.params.id ? 'Update Group' : 'Add New Group'}}
                     </div>
-               </div>
+               </div> -->
                <div class="card--content">
                     <form class="row mt-3 justify-content-center" @submit.prevent="submitForm()">
                          <div class="col-12 col-md-10 col-lg-8 ">
-                              <b-field class="field-group mb-4">
-                                   <b-input type="text" rounded placeholder="Group Name" v-model="name" />
-                              </b-field>
-                              <template v-if="this.$route.params.id">
-                                    <b-field class="field-group text-center"  v-if="policies.indexOf('role.update') > -1">
-                                        <b-switch v-model="roleStatus" :true-value="1" :false-value="0">
-                                            Active
-                                        </b-switch>
+                             <div class="row align-items-center">
+                                 <div class="col-8">
+                                     <b-field class="field-group mb-4">
+                                        <b-input type="text" rounded placeholder="Group Name" v-model="name" />
                                     </b-field>
-                                </template>
-                                <template v-else>
-                                    <b-field class="field-group text-center">
-                                        <b-switch v-model="roleStatus" :true-value="1" :false-value="0">
-                                            Active
-                                        </b-switch>
-                                    </b-field>
-                                </template>
+                                 </div>
+                                 <div class="col-4 text-right">
+                                     <template v-if="this.$route.params.id">
+                                        <b-field class="field-group text-center"  v-if="policies.indexOf('role.update') > -1">
+                                            <b-switch v-model="roleStatus" :true-value="1" :false-value="0">
+                                                Active
+                                            </b-switch>
+                                        </b-field>
+                                    </template>
+                                    <template v-else>
+                                        <b-field class="field-group text-right">
+                                            <b-switch class="text-right" v-model="roleStatus" :true-value="1" :false-value="0">
+                                                {{ roleStatus === 1 ? 'Enabled' : 'Disabled'}}
+                                            </b-switch>
+                                        </b-field>
+                                    </template>
+                                 </div>
+                             </div>
                          </div>
 
                          <div class="col-12 col-md-10 col-lg-8 checkbox--group permissions--items">
-                              <h3> Add Permissions To Group </h3>
+                             <div class="row align-items-center">
+                                 <div class="col-12 col-sm-6">
+                                     <h3> Add Permissions To Group </h3>
+                                 </div>
+                                 <div class="col-12 col-sm-6 text-center text-sm-right">
+                                     <button class="button is-rounded my-3 mr-2"
+                                        v-if="permissions.length"
+                                        type="button"
+                                        @click="unSelectAllPermissions">
+                                        Unselect All
+                                    </button>
+                                    <button class="button is-rounded my-3"
+                                        type="button"
+                                        @click="selectAllPermissions">
+                                        Select All
+                                    </button>
+
+                                 </div>
+                             </div>
+
                               <div class="row justify-content-center">
 
                                    <div class="col-12">
@@ -77,8 +106,6 @@
 </template>
 
 
-
-
 <script>
     // Repository Data
     import {
@@ -94,9 +121,11 @@
                 isLoading: false,
                 groupStatus: 0,
                 policies: [],
+                selectPermissions: [],
                 permissions: [],
                 allPermissions: [],
-                roleStatus: 0
+                roleStatus: 0,
+                breadcrumb:[{link: '/groups', label:'groups'},{link: '', label:'add & update group'}]
 
             };
         },
@@ -116,9 +145,6 @@
             }
             this.getAllPermissions()
         },
-        components:{
-
-        },
 
         methods: {
 
@@ -127,14 +153,25 @@
                 this.permissions = []
              },
 
+             selectAllPermissions(){
+                this.permissions = []
+                for (let category in this.allPermissions){
+                    for (let item in this.allPermissions[category]){
+                        this.permissions.push(item)
+                    }
+                }
+             },
+             unSelectAllPermissions(){
+                this.permissions = []
+             },
+
              submitForm() {
                 this.isLoading = false
                 let data = {}
                 data.name = this.name
                 data.status = this.roleStatus
-                if(this.permissions.length){
-                    data.permissions = this.permissions
-                }
+                data.permissions = this.permissions
+
                 if (this.name) {
                     this.isLoading = true
                     if(this.$route.params.id){

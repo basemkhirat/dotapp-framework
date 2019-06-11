@@ -1,0 +1,68 @@
+// Posts And Editor Style
+.posts{
+    .file--upload{
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 400px;
+    }
+    .img--preview{
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 540px;
+        text-align: center;
+        img{
+            max-width: 100%;
+            object-fit: cover;
+            max-height: 350px;
+        }
+    }
+    .post--info--item{
+        padding-bottom: 25px;
+        .field-group{
+            margin-bottom: 0;
+        }
+        &+.post--info--item{
+            border-top: 1px solid $borderColor;
+            padding-top: 25px;
+        }
+        &:last-child{
+            padding-bottom: 0;
+        }
+    }
+}
+
+
+.content--editor{
+    .menu--editor{
+        position: fixed;
+        overflow: hidden;
+        top: 0;
+        left: 70px;
+        z-index: 99;
+        height: 100vh;
+        width: 70px;
+        background-color: #282a2d;
+        color: $textColor;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        @include prefixer(transition, all .25s ease-in-out, webkit moz o);
+        .menu--item{
+            padding: 15px 0;
+            text-align: center;
+            text-transform: capitalize;
+            font-size: 12px;
+            .icon{
+                width: 100%;
+                margin-bottom: 5px;
+                font-size: 18px;
+            }
+            &:hover{
+                cursor: pointer;
+                background-color: rgba(200, 200, 200, 0.15);
+                color: #fff;
+                @include prefixer(transition, all .25s ease-in-out, webkit moz o);
+            }
+        }
+    }
+}

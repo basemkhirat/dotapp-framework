@@ -73,12 +73,12 @@
                     // ]},
 
                 ],
-                toggleNavSlide: false,
             }
         },
         computed: {
             ...mapState({
-                    role: state => state.login.userData.role,
+                role: state => state.login.userData.role,
+                toggleNavSlide: state => state.toggleNavSlide,
             })
         },
         watch:{
@@ -86,7 +86,7 @@
               if(this.role.permissions){
                   this.checkLinksRole()
               }
-          }
+          },
         },
         created(){
             this.$store.dispatch('checkUserData');
@@ -101,12 +101,7 @@
                 this.$store.commit('closeMainMenu')
             },
             toggleNavOpen(){
-                this.toggleNavSlide =! this.toggleNavSlide
-                if(this.toggleNavSlide){
-                    document.body.classList.add("sidebar--mini")
-                } else {
-                    document.body.classList.remove("sidebar--mini")
-                }
+                this.$store.commit('toggleNavOpen')
             },
             closeNavMenu(){
                 document.body.classList.remove("is--mainSidebar--open")

@@ -68,8 +68,6 @@ const Login = {
               })
           },
 
-
-
           checkUserData({ commit, state }, loginData) {
             axios.get('/auth/user')
               .then((response) => {

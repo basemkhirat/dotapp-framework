@@ -11,6 +11,10 @@
           <router-link to="/categoryForm" class="button is-primary is-rounded">Add New Category</router-link>
       </div>
     </div>
+
+    <!-- Breadcrumb -->
+    <breadcrumb :links="breadcrumb" />
+
     <div class="card-filter--herader">
         <filter-items @selectAllItems="selectAllItems" @featchByFilter="featchByFilter" :allItemChecked="allItemChecked" />
     </div>
@@ -58,7 +62,8 @@ export default {
             page: 1,
             limit: 10,
             order: 'is-centered',
-            dataLoading: true
+            dataLoading: true,
+            breadcrumb:[{link: '', label:'categories'}]
         };
     },
   components: {

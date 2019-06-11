@@ -7,16 +7,24 @@
           ({{total}})
         </span>
       </h1>
+
       <div class="page--title--action ml-auto" v-if="isInUserPermissions('user.create')">
           <router-link to="/userForm" class="button is-primary is-rounded">Add New User</router-link>
       </div>
+
     </div>
+
+    <!-- Breadcrumb -->
+    <breadcrumb :links="breadcrumb" />
+
     <div class="card-filter--herader">
         <filter-items @featchByFilter="featchByFilter" @selectAllItems="selectAllItems" />
     </div>
+
     <template v-if="dataLoading">
-          <loading-data></loading-data>
+        <loading-data></loading-data>
     </template>
+
     <template v-else>
           <list-users
           @fetchAllItems="fetchAllItems"
@@ -25,6 +33,7 @@
           :data="users"/>
         <div class="no-data" v-else><span>No Data Here</span></div>
     </template>
+
     <template v-if="users">
         <div class="pagination--custom--number" v-if="total">
             <b-pagination
@@ -48,6 +57,7 @@ import FilterItems from '../../components/users/Filter'
 import { RepositoryFactory } from '../../repositories/RepositoryFactory'
 const usersRepository = RepositoryFactory.get('users')
 
+
 export default {
   name: 'users',
   data () {
@@ -59,7 +69,8 @@ export default {
             limit: 10,
             order: 'is-centered',
             dataLoading: true,
-            filters: {}
+            filters: {},
+            breadcrumb:[{link: '', label:'users'}]
         };
     },
   components: {

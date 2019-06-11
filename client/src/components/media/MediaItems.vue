@@ -10,16 +10,16 @@
                     </div>
 
                     <div
-                        v-if="!previewImages"
+                        v-if="previewItemAction || galleryMode"
                         class="media--action d-flex justify-content-between"
                         :class="{'showItemAction': checkItemsMedia.length}">
                         <a class="media--action--check custom--ckeckbox">
                             <b-checkbox :native-value="item.id" v-model="checkItemsMedia"></b-checkbox>
                         </a>
-                        <a class="media--action--edit" @click="quickEdit(item)">
+                        <!-- <a class="media--action--edit" @click="quickEdit(item)">
                             Edit
                             <i class="fa fa-pen ml-1"></i>
-                        </a>
+                        </a> -->
                     </div>
                 </div>
             </div>
@@ -160,6 +160,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="content--edit--image mt-4">
                                 <b-field>
                                     <b-input rounded v-model="itemSelected.title" placeholder="Title" type="text">
@@ -258,21 +259,25 @@
         watch: {
             checkItemsMedia() {
                 this.$emit('checkItemsMedia', this.checkItemsMedia)
-            }
+            },
+
         },
         components:{
             ModalImageCrop,
         },
         computed:{
             ...mapState({
-                previewImages: state => state.previewImages,
+                previewItemAction: state => state.media.previewItemAction,
+                galleryMode: state => state.media.galleryMode,
             })
         },
         methods: {
             quickEdit(item) {
                  this.itemSelected = item
-                if(this.previewImages){
+                if(!this.previewItemAction){
                     this.confirmCustomSetImage(item)
+                } else if(this.galleryMode){
+                    return false
                 } else {
                     this.modalQuickEdit = true
                 }
@@ -357,7 +362,7 @@
             },
             confirmCustomSetImage(item) {
                 this.$dialog.confirm({
-                    title: 'Select Image',
+                    title: 'Select Item',
                     message: 'Are you sure you want to <b>select</b> this item? This action cannot be undone.',
                     confirmText: 'Select Image',
                     type: 'is-primary',
