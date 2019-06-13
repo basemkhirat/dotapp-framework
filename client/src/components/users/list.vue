@@ -118,6 +118,7 @@ export default {
                 message: 'Are you sure you want to <b>ban</b> All Users? This action cannot be undone.',
                 confirmText: 'Ban Users',
                 type: 'is-primary',
+                icon: 'information-outline',
                 hasIcon: true,
                 onConfirm: () => this.activeItems()
             })

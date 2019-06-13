@@ -80,21 +80,21 @@ export default {
         // },
         // Delete Items
         async deleteCategory(id) {
-            const groups = await categoriesRepository.deleteCategory(id)
+            const categories = await categoriesRepository.deleteCategory(id)
             this.$emit('fetchAllItems')
-            // this.aleartMessage(groups.message)
+            // this.aleartMessage(categories.message)
         },
         // Delete Items
         async deleteCategories(ids) {
-            const groups = await categoriesRepository.deleteCategories(ids)
+            const categories = await categoriesRepository.deleteCategories(ids)
             this.$emit('fetchAllItems')
-            this.aleartMessage(groups.message)
+            this.aleartMessage(categories.message)
         },
         // Ban Items
          async updateCategory(id, data) {
-            const groups = await categoriesRepository.updateCategory(id, data)
+            const categories = await categoriesRepository.updateCategory(id, data)
             this.$emit('fetchAllItems')
-            this.aleartMessage(groups.message)
+            this.aleartMessage(categories.message)
         },
         fetchAllItems(){
             this.$emit('fetchAllItems')
@@ -112,9 +112,9 @@ export default {
         },
         confirmCustomDelete(ids) {
             this.$dialog.confirm({
-                title: 'Deleting Groups',
-                message: 'Are you sure you want to <b>delete</b> all Groups? This action cannot be undone.',
-                confirmText: 'Delete Groups',
+                title: 'Deleting Categories',
+                message: 'Are you sure you want to <b>delete</b> all Categories? This action cannot be undone.',
+                confirmText: 'Delete Categories',
                 type: 'is-danger',
                 hasIcon: true,
                 onConfirm: () => this.deleteCategories(ids)

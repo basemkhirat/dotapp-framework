@@ -12,6 +12,9 @@
         max-width: 400px;
         text-align: center;
         position: relative;
+        background-color: $borderColor;
+        border-radius: 10px;
+        overflow: hidden;
         .btn--delete{
             position: absolute;
             top: 5px;
@@ -19,10 +22,22 @@
             z-index: 4;
         }
         img{
-            max-width: 100%;
+            width: 100%;
             object-fit: cover;
             max-height: 350px;
         }
+        &.img--preview--mainimg{
+            width: 100%;
+            max-width: 100%;
+            img{
+                width: 100%;
+                object-fit: cover;
+                max-height: 450px;
+            }
+        }
+    }
+    .preview--iframe iframe{
+        min-height: 350px;
     }
     .gallery--editor{
         text-align: center;

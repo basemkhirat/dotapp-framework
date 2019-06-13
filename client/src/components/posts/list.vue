@@ -1,96 +1,117 @@
 <template>
     <div>
-         <b-table
-            :data="data"
-            :paginated="false"
-            :default-sort-direction="defaultSortDirection"
-            :checked-rows.sync="checkedRows"
-            checkable
-            :striped="true"
-            default-sort="id">
-            <template slot-scope="props">
-                <b-table-column field="id" label="Id" sortable centered width="50">
-                    {{ props.row.id }}
-                </b-table-column>
-                <b-table-column field="title" label="Title" sortable centered>
-                    {{ props.row.title }}
-                </b-table-column>
-                <b-table-column field="user" label="User"  sortable centered>
-                    {{props.row.user}}
-                </b-table-column>
-                <b-table-column field="category" label="Category"  sortable centered>
-                    {{props.row.category}}
-                </b-table-column>
-                <b-table-column field="status" label="Status"  sortable centered>
-                    <b-tag rounded type="is-success" v-if="props.row.status">Published</b-tag>
-                    <b-tag rounded type="is-danger" v-else>Not Published</b-tag>
-                </b-table-column>
-                <b-table-column field="date" label="Date"  sortable centered>
-                    {{props.row.date}}
-                </b-table-column>
-                <b-table-column label="Actions" centered width="200">
-                    <button class="button--circle is-primary-light"><i class="fas fa-pen"></i></button>
-                    <button class="button--circle is-danger-light"><i class="fas fa-trash"></i></button>
-                </b-table-column>
-            </template>
-            <template slot="bottom-left">
-                <button class="button is-danger is-rounded" v-if="checkedRows.length">
-                    Delete Checked
-                </button>
-            </template>
-            <template slot="empty">
-                <section class="section table--loading">
-                    <div class="content has-text-grey has-text-centered">
-                        <template v-if="!isLoadingData">
-                            <p>
-                                <b-icon
-                                    icon="emoticon-sad"
-                                    size="is-large">
-                                </b-icon>
-                            </p>
-                            <p>Nothing here.</p>
-                        </template>
-                        <template v-else>
-                            <b-loading :is-full-page="false" :active.sync="isLoadingData"></b-loading>
-                        </template>
+        <item  v-for="item in data" :key="item.id" :item="item"
+        @fetchAllItems="fetchAllItems"
+        @checkboxItem="checkboxItemStatus"
+        :itemsSelected="itemsSelected"/>
 
-                    </div>
-                </section>
-            </template>
+        <template>
+            <div class="alluser--action" :class="{'show--action--bottom': itemsSelected.length}">
+                <!-- <button class="button is-warning is-rounded" @click="banItems()">Ban All Selected</button> -->
+                <button class="button is-danger is-rounded" @click="deleteItems()">Delete All Selected</button>
+            </div>
+        </template>
 
-        </b-table>
-        <b-pagination
-            :total="totalArticles"
-            :current.sync="pageCurrent"
-            :order="order"
-            :rounded="isRounded"
-            :per-page="defaultPerPage">
-        </b-pagination>
     </div>
 </template>
 
 
 
 <script>
+
+import Item from './ListItem'
+// Repository Data
+import { RepositoryFactory } from '../../repositories/RepositoryFactory'
+const postsRepository = RepositoryFactory.get('posts')
+
 export default {
-    props:['data'],
+    props:['data', 'allItemsSelected'],
     data () {
-            return {
-                modalViewArticle: false,
-                checkedRows: [],
-                defaultSortDirection: 'desc',
-                totalArticles: 100,
-                defaultPerPage: 25,
-                pageCurrent: 1,
-                order: 'is-centered',
-                size: '',
-                isRounded: true,
-                isLoadingData: true,
-                userDefaultStage: null,
-            };
-        },
+        return {
+            itemsSelected:[],
+        };
+    },
     components: {
-        
+        Item
+    },
+    watch:{
+        allItemsSelected(){
+            if(this.allItemsSelected){
+                this.data.map(item => {
+                    this.itemsSelected.push(item.id)
+                })
+            } else {
+                 this.itemsSelected = []
+            }
+        },
+        itemsSelected(){
+            if(this.itemsSelected.length){
+                this.$emit('checkButtonSelectAll', this.itemsSelected)
+            }
+        }
+    },
+    methods:{
+         checkboxItemStatus(data){
+            if(data.status == true){
+                if(!this.itemsSelected.indexOf(data.id) > -1){
+                    this.itemsSelected.push(data.id)
+                }
+            } else {
+                if(this.itemsSelected.indexOf(data.id) > -1){
+                    for(var i = 0; i < this.itemsSelected.length; i++){
+                        if(this.itemsSelected[i] == data.id){
+                            this.itemsSelected.splice(i, 1)
+                        }
+                    }
+                }
+            }
+        },
+        deleteItems(){
+            this.confirmCustomDelete(this.itemsSelected)
+
+        },
+
+        // Delete Items
+        async deletePosts(id) {
+            const groups = await postsRepository.deletePosts(id)
+            this.$emit('fetchAllItems')
+        },
+        // Delete Items
+        async deletePosts(ids) {
+            const groups = await postsRepository.deletePosts(ids)
+            this.$emit('fetchAllItems')
+            this.aleartMessage(groups.message)
+        },
+        // Ban Items
+         async updatePosts(id, data) {
+            const groups = await postsRepository.updatePosts(id, data)
+            this.$emit('fetchAllItems')
+            this.aleartMessage(groups.message)
+        },
+        fetchAllItems(){
+            this.$emit('fetchAllItems')
+        },
+        aleartMessage(textMessage){
+            this.$snackbar.open({
+                message: textMessage,
+                type: 'is-success',
+                position: 'is-bottom-right',
+                actionText: 'OK',
+                queue: false,
+                duration: 3000,
+                indefinite: false,
+            })
+        },
+        confirmCustomDelete(ids) {
+            this.$dialog.confirm({
+                title: 'Deleting Groups',
+                message: 'Are you sure you want to <b>delete</b> all Groups? This action cannot be undone.',
+                confirmText: 'Delete Groups',
+                type: 'is-danger',
+                hasIcon: true,
+                onConfirm: () => this.deletePosts(ids)
+            })
+        },
     }
 }
 </script>

@@ -115,17 +115,17 @@ const router = new Router({
                     beforeEnter: routerGuard,
                 },
                 {
-                    path: '/articles',
-                    name: 'articles',
-                    component: () => import('./views/posts/Articles.vue'),
+                    path: '/posts',
+                    name: 'posts',
+                    component: () => import('./views/posts/Posts.vue'),
                     // meta: {
                     //     role: 'article.view'
                     // },
                     beforeEnter: routerGuard,
                 },
                 {
-                    path: '/articleForm',
-                    name: 'articleForm',
+                    path: '/postForm/:id?',
+                    name: 'postForm',
                     component: () => import('./views/posts/Form.vue'),
                     // meta: {
                     //     role: 'article.update'

@@ -4,6 +4,7 @@ import permissionsRepository from "./permissionsRepository";
 import mediaRepository from "./mediaRepository";
 import categoriesRepository from "./categoriesRepository";
 import tagsRepository from "./tagsRepository";
+import postsRepository from "./postsRepository";
 
 const repositories = {
     users: usersRepository,
@@ -12,6 +13,7 @@ const repositories = {
     media: mediaRepository,
     categories: categoriesRepository,
     tags: tagsRepository,
+    posts: postsRepository,
 };
 
 export const RepositoryFactory = {

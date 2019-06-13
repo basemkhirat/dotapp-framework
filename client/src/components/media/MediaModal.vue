@@ -154,6 +154,7 @@ export default {
                previewImages: state => state.media.previewImages,
                previewVideos: state => state.media.previewVideos,
                galleryMode: state => state.media.galleryMode,
+               imageAndVideo: state => state.media.imageAndVideo,
           })
      },
      methods:{
@@ -175,10 +176,12 @@ export default {
           async fetchAllItems() {
                this.pageLoadMore = 2
                this.dataLoading = true
-               if(this.previewImages){
+               if(this.previewImages && !this.galleryMode && !this.imageAndVideo){
                    this.filters.type = 'image'
-               } else if (this.previewVideos){
+               } else if (this.previewVideos  && !this.galleryMode && !this.imageAndVideo){
                    this.filters.type = 'video'
+               } else if (this.galleryMode || this.imageAndVideo ){
+                   this.filters.type = ['video', 'image']
                } else {
                    this.filters.type = this.filtersItems.type
                }
@@ -212,6 +215,7 @@ export default {
                     message: 'Are you sure you want to <b>Select</b> this Items? This action cannot be undone.',
                     confirmText: 'Add To Gallery',
                     type: 'is-primary',
+                    icon: 'information-outline',
                     hasIcon: true,
                     onConfirm: () =>{
                         this.$store.commit('setItemSelected', this.itemsSelectedMedia)
