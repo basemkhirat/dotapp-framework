@@ -42,7 +42,9 @@ export default class extends Controller {
         }
 
         if (req.filled("type")) {
-            query.where("type", req.param("type"));
+            let type = req.param("type");
+            let types = Array.isArray(type) ? type : type.toArray(",");
+            query.where({type: {$in: types}});
         }
 
         query.page(req.param("page"), req.param("limit"));

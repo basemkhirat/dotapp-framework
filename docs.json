@@ -108,13 +108,16 @@
                         "name": "type",
                         "in": "query",
                         "description": "Type",
-                        "type": "string",
-                        "enum": [
-                            "image",
-                            "video",
-                            "audio",
-                            "document"
-                        ]
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "enum": [
+                                "image",
+                                "video",
+                                "audio",
+                                "document"
+                            ]
+                        }
                     },
                     {
                         "name": "q",
