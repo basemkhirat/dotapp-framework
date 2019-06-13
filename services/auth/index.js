@@ -66,7 +66,7 @@ class Index {
      */
     hasPermission(permission) {
 
-        if (this.req.role === 'superadmin') return true;
+        if (this.req.hasRole("superadmin")) return true;
 
         let [module, action] = permission.split(".");
 

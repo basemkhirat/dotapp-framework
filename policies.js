@@ -29,14 +29,14 @@ export default {
             if (user) {
 
                 return (
-                    (req.hasRole("superadmin") || req.hasPermission("user.status"))
+                    req.hasPermission("user.status")
                     && req.getUser("id") !== user.id
                     && !user.hasRole("superadmin")
                 ) || user.status === req.param("status");
 
             }
 
-            return false;
+            return req.hasPermission("user.status");
         },
 
         /**

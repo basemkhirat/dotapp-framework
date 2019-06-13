@@ -12,11 +12,13 @@ export default function (data, module = false) {
 
         if (Array.isArray(data)) {
 
-            return data.map(model => {
+            return data.map(row => {
 
-                if (typeof model == 'object') {
+                if (typeof row == 'object') {
 
-                    let row = model.toObject();
+                    let model = row;
+
+                    row = row.toObject();
 
                     row.policies = Config.get("permissions." + module, [])
                         .filter(action => {
@@ -24,26 +26,27 @@ export default function (data, module = false) {
                         }).map(action => {
                             return module + "." + action;
                         });
-
-                    return row;
                 }
 
+                return row;
             });
 
         } else {
 
             if (typeof data == 'object') {
 
-                let data_object = data.toObject();
+                let model = data;
 
-                data_object.policies = Config.get("permissions." + module, [])
+                data = data.toObject();
+
+                data.policies = Config.get("permissions." + module, [])
                     .filter(action => {
-                        return this.req.can(module + "." + action, data);
+                        return this.req.can(module + "." + action, model);
                     }).map(action => {
                         return module + "." + action;
                     });
 
-                return data_object;
+                return data;
             }
         }
     }
