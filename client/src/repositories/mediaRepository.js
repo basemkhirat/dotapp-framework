@@ -44,12 +44,15 @@ export default {
     },
 
     getAllMedia(page, limit, filters = {}) {
-        if(Array.isArray(filters.type)) {
-            console.log(filters.type)
-        } else {
-            let typeQuery = (filters.type && filters.type !== '') ? '&type=' + filters.type : '';
-
-        }
+        // let typeQuery = ''
+        // if(Array.isArray(filters.type)) {
+        //     filters.type.map(item => {
+        //         return typeQuery.push(`&type[]=${item}`)
+        //     })
+        // } else {
+        //     typeQuery = (filters.type && filters.type !== '') ? '&type=' + filters.type : '';
+        // }
+        let typeQuery = (filters.type && filters.type !== '') ? '&type=' + filters.type : '';
 
         let orderQuery = (filters.order) ? '&sort_type=' + filters.order : '';
         let searchQuery = (filters.searchQuery && filters.searchQuery !== '') ? '&q=' + filters.searchQuery  + '&fieldsNames=title': '';
