@@ -52,7 +52,7 @@ const Login = {
                     state.successMessage = response.data.message
                 })
               .catch(error => {
-                state.loginErrorMessage = error.response.data.data[0]
+                state.loginErrorMessage = error.data.errors[0]
                 state.isLoading = false
               })
           },
@@ -66,7 +66,7 @@ const Login = {
                     state.successMessageReset = response.data.message
                 })
               .catch(error => {
-                state.loginErrorMessage = error.response.data.data[0]
+                state.loginErrorMessage = error.data.errors[0]
                 state.isLoading = false
               })
           },
