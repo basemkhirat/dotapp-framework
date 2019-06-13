@@ -36,5 +36,12 @@ export default {
         "create",
         "update",
         "delete"
-    ]
+    ],
+
+    post: [
+        "view",
+        "create",
+        "update",
+        "delete",
+    ],
 }

@@ -1,4 +1,7 @@
 import Controller from './Controller';
+var moment = require('moment');
+
+import Post from '~/models/post';
 
 export default class extends Controller {
 
@@ -10,6 +13,16 @@ export default class extends Controller {
      */
 
     index(req, res, next) {
-        return res.ok("Hi " + req.ipAddress());
+
+        Post.findById("5d00fa90f6d5f65df43fbe60", function (error, post) {
+
+            post.getContent(content => {
+                return res.ok(content);
+            });
+
+        });
+
+
+
     }
 };

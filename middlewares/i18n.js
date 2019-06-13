@@ -17,6 +17,7 @@ export default function () {
         }
 
         req.language = default_locale;
+
         moment.locale(default_locale);
 
         next();

@@ -160,7 +160,6 @@
                     }
                 ]
             },
-
             "post": {
                 "tags": [
                     "Media"
@@ -243,7 +242,6 @@
                 ]
             }
         },
-
         "/media/thumbnails": {
             "get": {
                 "tags": [
@@ -260,7 +258,6 @@
                 ]
             }
         },
-
         "/media/types": {
             "get": {
                 "tags": [
@@ -277,7 +274,6 @@
                 ]
             }
         },
-
         "/media/extensions": {
             "get": {
                 "tags": [
@@ -294,7 +290,6 @@
                 ]
             }
         },
-
         "/media/{id}": {
             "get": {
                 "tags": [
@@ -381,7 +376,6 @@
             }
         },
         "/media/thumbnail/{id}": {
-
             "put": {
                 "tags": [
                     "Media"
@@ -419,7 +413,6 @@
                     }
                 ]
             }
-
         },
         "/user/{id}": {
             "get": {
@@ -1142,7 +1135,214 @@
                 ]
             }
         },
-
+        "/post": {
+            "get": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Find all posts",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "query",
+                        "description": "User ID",
+                        "type": "string"
+                    },
+                    {
+                        "name": "lang",
+                        "in": "query",
+                        "description": "Lang",
+                        "type": "string",
+                        "enum": [
+                            "en",
+                            "ar"
+                        ]
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Status",
+                        "type": "integer",
+                        "enum": [
+                            0,
+                            1
+                        ]
+                    },
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "description": "Search Keyword",
+                        "type": "string"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page Number",
+                        "type": "integer",
+                        "default": 1
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Records Count",
+                        "type": "integer",
+                        "default": 10
+                    },
+                    {
+                        "name": "sort_field",
+                        "in": "query",
+                        "description": "Sorting Field",
+                        "type": "string",
+                        "default": "_id"
+                    },
+                    {
+                        "name": "sort_type",
+                        "in": "query",
+                        "description": "Sorting Direction",
+                        "type": "string",
+                        "default": "desc"
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/responses"
+                },
+                "security": [
+                    {
+                        "bearer token": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Create a new post",
+                "parameters": [
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "description": "Post title",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "slug",
+                        "in": "query",
+                        "description": "Post slug",
+                        "type": "string"
+                    },
+                    {
+                        "name": "excerpt",
+                        "in": "query",
+                        "description": "Post excerpt",
+                        "type": "string"
+                    },
+                    {
+                        "name": "content",
+                        "in": "query",
+                        "description": "Post content",
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "type": "string"
+                                }
+                            },
+                            "example": {
+                                "type": "paragraph",
+                                "content": "Sample content"
+                            }
+                        }
+                    },
+                    {
+                        "name": "media",
+                        "in": "query",
+                        "description": "Media ID",
+                        "type": "string"
+                    },
+                    {
+                        "name": "lang",
+                        "in": "query",
+                        "description": "Lang",
+                        "type": "string",
+                        "enum": [
+                            "en",
+                            "ar"
+                        ]
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Status",
+                        "type": "integer",
+                        "enum": [
+                            0,
+                            1
+                        ]
+                    },
+                    {
+                        "name": "published_at",
+                        "in": "query",
+                        "description": "Post published date",
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/responses"
+                },
+                "security": [
+                    {
+                        "bearer token": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Bulk posts update/delete",
+                "parameters": [
+                    {
+                        "name": "operation",
+                        "in": "query",
+                        "description": "operation",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "delete",
+                            "update"
+                        ]
+                    },
+                    {
+                        "name": "ids",
+                        "in": "query",
+                        "description": "IDs",
+                        "required": true,
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "data",
+                        "in": "query",
+                        "description": "Data for update",
+                        "type": "object",
+                        "default": {}
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/responses"
+                },
+                "security": [
+                    {
+                        "bearer token": []
+                    }
+                ]
+            }
+        },
         "/tag": {
             "get": {
                 "tags": [
@@ -1254,7 +1454,6 @@
                 ]
             }
         },
-
         "/category/{id}": {
             "get": {
                 "tags": [
@@ -1315,6 +1514,135 @@
                         "in": "query",
                         "description": "Media ID",
                         "type": "string"
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/responses"
+                },
+                "security": [
+                    {
+                        "bearer token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Delete category by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Category ID",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/responses"
+                },
+                "security": [
+                    {
+                        "bearer token": []
+                    }
+                ]
+            }
+        },
+        "/post/{id}": {
+            "get": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Get post by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Post ID",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/responses"
+                },
+                "security": [
+                    {
+                        "bearer token": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Update post by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Post ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "description": "Post title",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "slug",
+                        "in": "query",
+                        "description": "Post Slug",
+                        "type": "string"
+                    },
+                    {
+                        "name": "excerpt",
+                        "in": "query",
+                        "description": "Post excerpt",
+                        "type": "string"
+                    },
+                    {
+                        "name": "content",
+                        "in": "query",
+                        "description": "Post content",
+                        "type": "array"
+                    },
+                    {
+                        "name": "media",
+                        "in": "query",
+                        "description": "Media ID",
+                        "type": "string"
+                    },
+                    {
+                        "name": "lang",
+                        "in": "query",
+                        "description": "Lang",
+                        "type": "string",
+                        "enum": [
+                            "en",
+                            "ar"
+                        ]
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Status",
+                        "type": "integer",
+                        "enum": [
+                            0,
+                            1
+                        ]
+                    },
+                    {
+                        "name": "published_at",
+                        "in": "query",
+                        "description": "Post published date",
+                        "type": "string",
+                        "format": "date-time"
                     }
                 ],
                 "responses": {

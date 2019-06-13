@@ -1,7 +1,42 @@
 import Controller from "~/controllers/Controller";
 import Post from '~/models/post';
+import async from "async";
 
 export default class extends Controller {
+
+    /**
+     * Find all categories
+     * @param req
+     * @param res
+     */
+    find(req, res) {
+
+        if (!req.can("post.view")) return res.forbidden();
+
+        let query = Post.find();
+
+        if (req.filled("user")) {
+            query.where("user", req.param("user"));
+        }
+
+        if (req.filled("q")) {
+            query.where({$text: {$search: req.param("q")}});
+        }
+
+        query.page(req.param("page"), req.param("limit"));
+
+        query.order(req.param("sort_field", "created_at"), req.param("sort_type", "desc"));
+
+        query.populate("user").populate("media");
+
+        query.execWithCount((error, result) => {
+            if (error) return res.serverError(error);
+            return res.ok({
+                total: result.total,
+                docs: res.attachPolicies(result.docs, "post")
+            });
+        });
+    }
 
     /**
      * Find one post
@@ -14,26 +49,16 @@ export default class extends Controller {
 
         let id = req.param("id");
 
-        Post.findById(id, function (error, post) {
+        Post.findById(id).populate("user").populate("media").exec(function (error, post) {
+
             if (error) return res.serverError(error);
-            if (!post) return res.notFound("Post not found");
-            return res.ok(res.attachPolicies(post, "post"));
-        });
+            if (!post) return res.notFound(req.lang("post.errors.post_not_found"));
 
-    }
-
-    /**
-     * Find all posts
-     * @param req
-     * @param res
-     */
-    find(req, res) {
-
-        if (!req.can("post.view")) return res.forbidden();
-
-        Post.find().populate("role").exec(function (error, posts) {
-            if (error) return res.serverError(error);
-            return res.ok(res.attachPolicies(posts, "post"));
+            post.getContent((error, content) => {
+                if (error) return res.serverError(error);
+                post.content = content;
+                return res.ok(res.attachPolicies(post, "post"));
+            });
         });
     }
 
@@ -47,16 +72,21 @@ export default class extends Controller {
 
         if (!req.can("post.create")) return res.forbidden();
 
-        let post = new Post({
-            title: req.param("title"),
-            excerpt: req.param("excerpt"),
-            content: req.param("content"),
-            status: req.param("status")
-        });
+        let post = new Post();
+
+        post.title = req.param("title", post.title);
+        post.slug = req.param("slug", post.slug);
+        post.excerpt = req.param("excerpt", post.excerpt);
+        post.content = req.param("content", post.content);
+        post.media = req.param("image", post.media);
+        post.user = req.user.id;
+        post.lang = req.param("lang", post.lang);
+        post.status = req.param("status", post.status);
+        post.published_at = req.param("published_at", post.published_at);
 
         post.save(function (error, post) {
             if (error) return res.serverError(error);
-            return res.ok(post);
+            return res.message(req.lang("post.events.created")).ok(post.id);
         });
     }
 
@@ -71,28 +101,24 @@ export default class extends Controller {
 
         Post.findById(id, function (error, post) {
             if (error) return res.serverError(error);
-            if (!req.can("post.update", post)) return res.forbidden();
-            if (!post) return res.notFound("Post not found");
+            if (!post) return res.notFound(req.lang("post.errors.post_not_found"));
 
-            if (req.param("title")) {
-                post.title = req.param("title");
+            if (!req.can("post.update", post)) {
+                return res.forbidden(req.lang("post.errors.update_denied", {post: post.title}));
             }
 
-            if (req.param("excerpt")) {
-                post.excerpt = req.param("excerpt");
-            }
+            post.title = req.param("title", post.title);
+            post.slug = req.param("slug", post.slug);
+            post.excerpt = req.param("excerpt", post.excerpt);
+            post.content = req.param("content", post.content);
+            post.media = req.param("image", post.media);
+            post.status = req.param("status", post.status);
+            post.lang = req.param("lang", post.lang);
+            post.published_at = req.param("published_at", post.published_at);
 
-            if (req.param("content")) {
-                post.content = req.param("content");
-            }
-
-            if (req.param("status")) {
-                post.status = req.param("status");
-            }
-
-            post.save(function (error, post) {
+            post.save(error => {
                 if (error) return res.serverError(error);
-                return res.ok(post);
+                return res.message(req.lang("post.events.updated")).ok(id);
             });
         });
     }
@@ -108,14 +134,95 @@ export default class extends Controller {
 
         Post.findById(id, function (error, post) {
             if (error) return res.serverError(error);
-            if (!req.can("post.delete", post)) return res.forbidden();
-            if (!post) return res.notFound("Post not found");
+            if (!post) return res.notFound(req.lang("post.errors.post_not_found"));
 
-            post.remove(function (error, post) {
+            if (!req.can("post.delete", post)) {
+                return res.forbidden(req.lang("post.errors.delete_denied", {post: post.title}));
+            }
+
+            post.remove(error => {
                 if (error) res.serverError(error);
-                return res.ok(post);
+                return res.message(req.lang("post.events.deleted")).ok(id);
             });
+
         });
+    }
+
+    /**
+     * Bulk operations
+     * @param req
+     * @param res
+     */
+    bulk(req, res) {
+
+        let operation = req.param("operation");
+        let ids = req.param("ids");
+        let data = req.param("data");
+
+        ids = Array.isArray(ids) ? ids : ids.toArray(",");
+
+        if (req.filled("data")) {
+            data = typeof data === 'object' ? data : JSON.parse(data);
+        }
+
+        if (["delete", "update"].indexOf(operation) <= -1) {
+            return res.serverError(req.lang("post.errors.operation_not_allowed"));
+        }
+
+        async.mapSeries(ids, function (id, callback) {
+
+                Post.findById(id, function (error, post) {
+
+                    if (error) return res.serverError(error);
+                    if (!post) return res.notFound(req.lang("post.errors.post_not_found"));
+
+                    if (operation === "delete") {
+
+                        if (!req.can("post.delete", post)) {
+                            return res.forbidden(req.lang("post.errors.delete_denied", {
+                                post: post.title
+                            }));
+                        }
+
+                        post.remove(error => {
+                            if (error) return res.serverError(error);
+                            return callback(null, id);
+                        });
+
+                    } else if (operation === "update") {
+
+                        if ("status" in data) {
+
+                            if (!req.can("post.status", post)) {
+                                return res.forbidden(req.lang("post.errors.status_denied", {
+                                    post: post.title
+                                }));
+                            }
+
+                            post.status = data.status || post.status;
+                        }
+
+                        post.save(error => {
+                            if (error) return res.serverError(error);
+                            return callback(null, id);
+                        });
+                    }
+                });
+
+            },
+
+            function (error, result = []) {
+
+                if (operation === "update") {
+                    return res.message(req.lang("post.events.updated")).ok(result);
+                }
+
+                if (operation === "delete") {
+                    return res.message(req.lang("post.events.deleted")).ok(result);
+                }
+            }
+        );
+
     }
 };
 
