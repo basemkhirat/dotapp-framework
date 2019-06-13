@@ -1,7 +1,9 @@
 import mongoose from 'mongoose';
 import moment from "moment";
 import mongooseSlugUpdater from 'mongoose-slug-updater';
+import mongooseAutoPopulate from 'mongoose-autopopulate';
 
+mongoose.plugin(mongooseAutoPopulate);
 mongoose.plugin(mongooseSlugUpdater);
 
 mongoose.plugin(function (schema) {

@@ -40,14 +40,14 @@ class Index {
                         if (typeof handler == 'function') {
                             policy_check = handler(this.req, ...params);
                         }
-                    }else{
+                    } else {
 
                         // Action is not registered in policies
 
                         return this.req.hasPermission(permission);
                     }
                 }
-            } else{
+            } else {
 
                 // Module is not registered in policies
 
@@ -90,6 +90,83 @@ class Index {
         }
 
         return this.req.permissions.indexOf(permission) > -1;
+    }
+
+
+    /**
+     * get user object
+     * @param attribute
+     * @returns {null|*}
+     */
+    getUser(attribute = null) {
+
+        let user = this.req.user;
+
+        if (!user) {
+            return null;
+        }
+
+        if (attribute) {
+
+            if (attribute in user) {
+                return user[attribute];
+            } else {
+                return null;
+            }
+        }
+
+        return user;
+    }
+
+
+    /**
+     * get role object
+     * @param attribute
+     * @returns {null|*}
+     */
+    getRole(attribute = null) {
+
+        let user = this.req.user;
+
+        if (!user) {
+            return null;
+        }
+
+        if ("role" in user) {
+
+            let role = user.role;
+
+            if(!role) {
+                return null;
+            }
+
+            if (attribute) {
+
+                if (attribute in role) {
+                    return role[attribute];
+                } else {
+                    return null;
+                }
+
+            } else {
+                return role;
+            }
+        }
+
+        return null;
+    }
+
+    hasRole(name = false) {
+
+        if (!name) {
+            return false;
+        }
+
+        if (this.req.getRole("name") === name) {
+            return true;
+        }
+
+        return false;
     }
 }
 

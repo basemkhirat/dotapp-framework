@@ -78,7 +78,7 @@ export default class extends Controller {
         post.slug = req.param("slug", post.slug);
         post.excerpt = req.param("excerpt", post.excerpt);
         post.content = req.param("content", post.content);
-        post.media = req.param("image", post.media);
+        post.media = req.param("media", post.media);
         post.user = req.user.id;
         post.lang = req.param("lang", post.lang);
         post.status = req.param("status", post.status);
@@ -111,7 +111,7 @@ export default class extends Controller {
             post.slug = req.param("slug", post.slug);
             post.excerpt = req.param("excerpt", post.excerpt);
             post.content = req.param("content", post.content);
-            post.media = req.param("image", post.media);
+            post.media = req.param("media", post.media);
             post.status = req.param("status", post.status);
             post.lang = req.param("lang", post.lang);
             post.published_at = req.param("published_at", post.published_at);

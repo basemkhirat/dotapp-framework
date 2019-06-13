@@ -12,37 +12,38 @@ export default function (data, module = false) {
 
         if (Array.isArray(data)) {
 
-            return data.map(row => {
+            return data.map(model => {
 
-                if (typeof row == 'object') {
+                if (typeof model == 'object') {
 
-                    row = row.toObject();
+                    let row = model.toObject();
 
                     row.policies = Config.get("permissions." + module, [])
                         .filter(action => {
-                            return this.req.can(module + "." + action, row);
+                            return this.req.can(module + "." + action, model);
                         }).map(action => {
                             return module + "." + action;
                         });
+
+                    return row;
                 }
 
-                return row;
             });
 
         } else {
 
             if (typeof data == 'object') {
 
-                data = data.toObject();
+                let data_object = data.toObject();
 
-                data.policies = Config.get("permissions." + module, [])
+                data_object.policies = Config.get("permissions." + module, [])
                     .filter(action => {
                         return this.req.can(module + "." + action, data);
                     }).map(action => {
                         return module + "." + action;
                     });
 
-                return data;
+                return data_object;
             }
         }
     }

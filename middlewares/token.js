@@ -15,6 +15,9 @@ export default function () {
         req.policies = {};
         req.can = Auth.can.bind({req});
         req.hasPermission = Auth.hasPermission.bind({req});
+        req.getUser = Auth.getUser.bind({req});
+        req.getRole = Auth.getRole.bind({req});
+        req.hasRole = Auth.hasRole.bind({req});
 
         if (req.headers.authorization) {
             const parts = req.headers.authorization.split(' ');
@@ -42,6 +45,9 @@ export default function () {
                                 req.permissions = role_permissions.concat(direct_permissions);
                                 req.user = user;
                                 req.role = user.role ? user.role.name : false;
+                                req.getUser = Auth.getUser.bind({req});
+                                req.getRole = Auth.getRole.bind({req});
+                                req.hasRole = Auth.hasRole.bind({req});
                             }
 
                             let policies = {};

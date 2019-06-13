@@ -26,11 +26,17 @@ export default {
 
         status: (req, user = false) => {
 
-            if (user && user.status === req.param("status")) { // status not changed
-                return true;
+            if (user) {
+
+                return (
+                    (req.hasRole("superadmin") || req.hasPermission("user.status"))
+                    && req.getUser("id") !== user.id
+                    && !user.hasRole("superadmin")
+                ) || user.status === req.param("status");
+
             }
 
-            return (req.role === 'superadmin' || req.hasPermission("user.status")) && req.user.id !== user.id
+            return false;
         },
 
         /**

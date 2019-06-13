@@ -54,7 +54,8 @@ let schema = Schema({
 
         role: {
             type: Schema.Types.ObjectId,
-            ref: 'role'
+            ref: 'role',
+            autopopulate: true
         },
 
         photo: {
@@ -128,6 +129,40 @@ schema.methods.comparePassword = function (password, callback) {
     });
 };
 
-export default  Mongoose.model("user", schema, "user");
+schema.methods.getRole = function (attribute = null, callback) {
+
+    let role = this.role;
+
+    if(!role) {
+        return null;
+    }
+
+    if (attribute) {
+
+        if (attribute in role) {
+            return role[attribute];
+        } else {
+            return null;
+        }
+
+    } else {
+        return role;
+    }
+};
+
+schema.methods.hasRole = function (name = false, callback) {
+
+    if (!name) {
+        return false;
+    }
+
+    if (this.getRole("name") === name) {
+        return true;
+    }
+
+    return false;
+};
+
+export default Mongoose.model("user", schema, "user");
 
 

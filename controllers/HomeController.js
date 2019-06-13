@@ -1,7 +1,6 @@
 import Controller from './Controller';
-var moment = require('moment');
 
-import Post from '~/models/post';
+import User from "~/models/user";
 
 export default class extends Controller {
 
@@ -13,11 +12,8 @@ export default class extends Controller {
      */
 
     index(req, res, next) {
-
-
-        return res.ok("Hi");
-
-
-
+        User.findOne(function (error, user) {
+            return res.ok(user.hasRole("superdadmin"));
+        });
     }
 };
