@@ -4,8 +4,8 @@
         <menu-editor @setEditorType="setEditorType" />
 
         <!-- Card Content -->
-        <Container @drop="onDrop" drag-handle-selector=".card-header-title-drop" v-if="allContentCards.length">
-            <Draggable v-for="(card, index) in allContentCards" :key="card.id">
+        <Container @drop="onDrop" drag-handle-selector=".card-header-title-drop" v-if="cards.length">
+            <Draggable v-for="(card, index) in cards" :key="card.id">
 
                 <!-- Paragraph Card -->
                 <b-collapse class="card--block" v-if="card.type === 'paragraph'">
@@ -50,7 +50,7 @@
                 </b-collapse>
 
                 <!-- Embed Card -->
-                <b-collapse class="card--block" v-if="card.type === 'embed'">
+                <b-collapse class="card--block preview--iframe" v-if="card.type === 'embed'">
                     <div slot="trigger" slot-scope="props" class="card-header">
                         <p class="card-header-title card-header-title-drop">
                             Embed
@@ -86,14 +86,14 @@
                         </a>
                     </div>
                     <div class="card--content">
-                        <template v-if="card.images">
-                            <b-field class="field-group img--preview" v-if="card.images.thumbnails">
-                                <img :src="card.images.thumbnails.large" alt="">
-                                <a class="delete is-large btn--delete" @click="card.images = {}"></a>
+                        <template v-if="card.image">
+                            <b-field class="field-group img--preview" v-if="card.image.thumbnails">
+                                <img :src="card.image.thumbnails.large" alt="">
+                                <a class="delete is-large btn--delete" @click="card.image = {}"></a>
                             </b-field>
                         </template>
                         <div class="file--upload" @click="openModalMedia({type: 'cardImage', index: index})">
-                            {{card.images.image? 'Replace Image' : ' Select Image'}}
+                            {{card.image.image? 'Replace Image' : ' Select Image'}}
                         </div>
                     </div>
                 </b-collapse>
@@ -114,18 +114,18 @@
                         </a>
                     </div>
                     <div class="card--content gallery--editor">
-                        <template v-if="card.images">
-                            <div v-for="(itemImg, indexImg) in card.images" :key="itemImg.id" class="gallery--img--editor">
+                        <template v-if="card.gallery">
+                            <div v-for="(itemImg, indexImg) in card.gallery" :key="itemImg.id" class="gallery--img--editor">
                                 <template v-if="itemImg.thumbnails">
                                     <b-field class="field-group img--preview" v-if="itemImg.thumbnails">
                                         <img :src="itemImg.thumbnails.large" alt="">
-                                        <a class="delete is-large btn--delete" @click="card.images.splice(indexImg, 1)"></a>
+                                        <a class="delete is-large btn--delete" @click="card.gallery.splice(indexImg, 1)"></a>
                                     </b-field>
                                 </template>
                             </div>
                         </template>
                         <div class="file--upload" @click="openModalMedia({type: 'cardGallery', index: index})">
-                            {{card.images.length? 'Replace Images' : ' Select Images'}}
+                            {{card.gallery.length? 'Replace Images' : ' Select Images'}}
                         </div>
                     </div>
                 </b-collapse>
@@ -146,13 +146,13 @@
                         </a>
                     </div>
                     <div class="card--content">
-                        <template v-if="card.videos">
-                            <b-field class="field-group img--preview" v-if="card.videos.thumbnails">
-                                <img :src="card.videos.thumbnails.large" alt="">
+                        <template v-if="card.video">
+                            <b-field class="field-group img--preview" v-if="card.video.thumbnails">
+                                <img :src="card.video.thumbnails.large" alt="">
                             </b-field>
                         </template>
                         <div class="file--upload" @click="openModalMedia({type: 'cardVideo', index: index})">
-                            {{card.videos.image? 'Replace Video' : ' Select Video'}}
+                            {{card.video.image? 'Replace Video' : ' Select Video'}}
                         </div>
                     </div>
                 </b-collapse>
@@ -186,7 +186,7 @@
         data() {
             return {
                 cardEditorType: '',
-                allContentCards: [],
+                cards: [],
                 toolbarEditor: [
                     [{ align: '' }, { align: 'center' }, { align: 'right' }, { align: 'justify' }],
                     ['bold', 'italic', 'underline'],
@@ -209,16 +209,27 @@
             VueEditor,
         },
         watch:{
-            setContentCardImage(){
-                this.allContentCards[this.setContentCardImage.index].images = this.setContentCardImage.item
+            setContentCardImage() {
+                this.cards[this.setContentCardImage.index].image = this.setContentCardImage.item
             },
-            setContentCardVideo(){
-                this.allContentCards[this.setContentCardVideo.index].videos = this.setContentCardVideo.item
-            }
+            setContentCardGallery() {
+                this.cards[this.setContentCardGallery.index].gallery = this.setContentCardGallery.item
+            },
+            setContentCardVideo() {
+                this.cards[this.setContentCardVideo.index].video = this.setContentCardVideo.item
+            },
+            // Send Data To Parent
+            cards: {
+                handler(val) {
+                    this.sentDataToParents()
+                },
+                deep: true
+            },
         },
         computed: {
             ...mapState({
                 setContentCardImage: state => state.media.setContentCardImage,
+                setContentCardGallery: state => state.media.setContentCardGallery,
                 setContentCardVideo: state => state.media.setContentCardVideo,
             })
         },
@@ -228,13 +239,17 @@
                 this.cardEditorType = type
                 this.addNewCard(type)
             },
+            // Send Data To Parent
+            sentDataToParents() {
+                this.$emit('setDataFromChild', this.cards)
+            },
             // Delete Card
             deleteCard(index) {
-                this.allContentCards.splice(index, 1)
+                this.cards.splice(index, 1)
             },
             // Set Sort All Cards After Drop
             onDrop(dropResult) {
-                this.allContentCards = applyDrag(this.allContentCards, dropResult);
+                this.cards = applyDrag(this.cards, dropResult);
             },
             // Add New Card
             addNewCard(type) {
@@ -243,19 +258,19 @@
                 };
                 switch (type) {
                     case 'image':
-                        card.images = {}
+                        card.image = {}
                         break;
                     case 'video':
-                        card.videos = {}
+                        card.video = {}
                         break;
                     case 'gallery':
-                        card.images = []
+                        card.gallery = []
                         break;
                     default:
                         card.content = '';
-                        card.id = this.allContentCards.length + 1
+                        // card.id = this.cards.length + 1
                 }
-                this.allContentCards.push(card);
+                this.cards.push(card);
             },
             // set Image From Media
             openModalMedia(type) {

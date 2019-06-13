@@ -7,7 +7,7 @@
                 <div class="post--info--item">
                     <b-field class="field-group align-items-center justify-content-between">
                         <label class="label">Status</label>
-                        <b-switch v-model="status">
+                        <b-switch v-model="postInfo.status" :true-value="1" :false-value="0">
                             Published
                         </b-switch>
                     </b-field>
@@ -16,8 +16,8 @@
                 <div class="post--info--item">
                     <b-field class="field-group flex-column">
                         <label class="label">Schedule</label>
-                        <datetime type="datetime" class="custom--datetime" placeholder="Schedule Date"
-                            v-model="scheduleDate" use12-hour>
+                        <datetime type="datetime" class="custom--datetime theme-primary" placeholder="Schedule Date"
+                            v-model="postInfo.scheduleDate" use12-hour>
                         </datetime>
                     </b-field>
                 </div>
@@ -25,7 +25,7 @@
                 <div class="post--info--item">
                     <b-field class="field-group flex-column">
                         <label class="label">Format</label>
-                        <v-select :options="allSections" v-model="sections" label="title" placeholder="Section"
+                        <v-select :options="allSections" v-model="postInfo.sections" label="title" placeholder="Section"
                             class="select--with--icon w-100 v--select--scroll">
                             <template slot="option" slot-scope="option">
                                 {{ option.title }}
@@ -39,10 +39,13 @@
         <!-- Add Category -->
         <div class="card--block">
             <div class="card--content">
+                {{postInfo.category}}
                 <div class="post--info--item">
                     <b-field class="field-group flex-column">
                         <label class="label">Category</label>
-                        <treeselect class="custom--treeSelect" v-model="value" :multiple="true" :options="options" />
+                        <treeselect class="custom--treeSelect"
+                        :flat="true"
+                        v-model="postInfo.category" :multiple="true" :options="optionsSelect" />
                     </b-field>
                 </div>
             </div>
@@ -54,7 +57,7 @@
                 <div class="post--info--item">
                     <b-field class="field-group flex-column">
                         <label class="label">Tags</label>
-                        <v-select :options="allTags" v-model="tags" label="title" multiple placeholder="Tags"
+                        <v-select :options="allTags" v-model="postInfo.tags" label="title" multiple placeholder="Tags"
                             class="select--with--icon w-100 v--select--scroll">
                             <template slot="option" slot-scope="option">
                                 {{ option.title }}
@@ -79,29 +82,25 @@
     import Treeselect from '@riophae/vue-treeselect'
     // Tree Select Style
     import '@riophae/vue-treeselect/dist/vue-treeselect.css'
+    // import { generateOptions } from '../../helpers/utils'
 
 
 
     export default {
         data() {
             return {
-                title: '',
-                breadcrumb: [{
-                    link: '/posts',
-                    label: 'posts'
-                }, {
-                    link: '',
-                    label: 'add & update post'
-                }],
-                sections: '',
-                status: true,
-                tags: '',
+                postInfo: {
+                    status: 0,
+                    sections: '',
+                    tags: '',
+                    scheduleDate: '',
+                    category: null,
+                },
+                // optionsSelect: generateOptions(3),
                 allSections: ['News', 'Media', 'Sport', 'Art'],
                 allTags: ['Tag 1', 'Tag 2', 'Tag 3', 'Tag 4', 'Tag 5', 'Tag 6'],
                 scheduleDate: '',
-                value: null,
-                // define options
-                options: [{
+                optionsSelect: [{
                     id: '1',
                     label: 'Sports',
                     children: [{
@@ -134,8 +133,25 @@
                 },],
             };
         },
+        watch:{
+            postInfo: {
+                handler(val){
+                    this.sentDataToParent()
+                },
+                deep: true
+            }
+        },
+        created(){
+            this.$emit('setDataFromChild', this.postInfo)
+        },
+        methods:{
+            // Send Data To Parent
+            sentDataToParent(type) {
+                this.$emit('setDataFromChild', this.postInfo)
+            },
+        },
         components: {
-            datetime: Datetime,
+            Datetime,
             Treeselect,
         },
 

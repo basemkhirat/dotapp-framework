@@ -354,10 +354,10 @@ label.label {
                 will-change: transform;
             }
         }
-
     }
 }
 
+// Date And Time
 .custom--datetime {
     input {
         @extend .input;
@@ -365,6 +365,17 @@ label.label {
         padding-left: 18px;
         font-size: 14px;
     }
+}
+.theme-primary .vdatetime-popup__header,
+.theme-primary .vdatetime-calendar__month__day--selected > span > span,
+.theme-primary .vdatetime-calendar__month__day--selected:hover > span > span {
+    background: $mainColor;
+}
+
+.theme-primary .vdatetime-year-picker__item--selected,
+.theme-primary .vdatetime-time-picker__item--selected,
+.theme-primary .vdatetime-popup__actions__button {
+    color: $mainColor;
 }
 
 .custom--treeSelect {
@@ -393,3 +404,5 @@ label.label {
         font-size: 14px;
     }
 }
+
+

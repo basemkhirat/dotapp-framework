@@ -62,7 +62,7 @@
                     { name: 'Users', link: '/users', icon: 'fas fa-user', role: 'user.view'},
                     { name: 'Groups', link: '/groups', icon: 'fas fa-users', role: 'role.view'},
                     { name: 'Media', link: '/media', icon: 'fa fa-images', role: 'media.view', media: true},
-                    { name: 'Articles', link: '/articles', icon: 'far fa-newspaper', role: 'article.view'},
+                    { name: 'Posts', link: '/posts', icon: 'far fa-newspaper', role: true},
                     { name: 'Categories', link: '/categories', icon: 'far fa-newspaper', role: 'category.view'},
                     { name: 'Tags', link: '/tags', icon: 'fas fa-tags', role: 'tag.view'},
                     // { name: 'Item Dropdown2', link: '/', icon: 'fas fa-columns', childLinks:[
@@ -77,13 +77,13 @@
         },
         computed: {
             ...mapState({
-                role: state => state.login.userData.role,
+                role: state => state.login.userDataPermission,
                 toggleNavSlide: state => state.toggleNavSlide,
             })
         },
         watch:{
           role(){
-              if(this.role.permissions){
+              if(this.role){
                   this.checkLinksRole()
               }
           },
@@ -109,7 +109,7 @@
             checkLinksRole(){
                 this.links = []
                 this.AsideLinks.map(item => {
-                    if(this.role.permissions.indexOf(item.role) > -1 || item.role === true){
+                    if(this.role.indexOf(item.role) > -1 || item.role === true){
                         this.links.push(item)
                     }
                 })

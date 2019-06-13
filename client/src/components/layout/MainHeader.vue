@@ -29,7 +29,9 @@
                          <li class="nav-item">
                               <b-dropdown v-model="navigation" position="is-bottom-left">
                                    <a class="avatar--sm" slot="trigger">
-                                        <img :src="userData.photo.thumbnails.small" alt="user name" v-if="userData.photo">
+                                       <template v-if="userData.photo">
+                                            <img :src="userData.photo.thumbnails.small" alt="user name" v-if="userData.photo">
+                                       </template>
                                         <img src="../../assets/images/user/user-64.png" alt="user name" v-else>
                                    </a>
                                    <b-dropdown-item custom>

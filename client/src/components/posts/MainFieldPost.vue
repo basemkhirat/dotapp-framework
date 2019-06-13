@@ -1,37 +1,35 @@
 <template>
     <div class="card--block">
         <div class="card--content">
-
             <div class="row align-items-center">
                 <div class="col-12">
                     <b-field class="field-group">
-                        <b-input type="text" size="is-medium" rounded placeholder="Title" />
-                    </b-field>
-                </div>
-                <div class="col-12">
-                    <b-field class="field-group">
-                        <b-input type="textarea" rows="2" rounded placeholder="Excerpt" />
-                    </b-field>
-                </div>
-
-                <div class="col-12">
-                    <b-field class="field-group">
                         <div>
-                            <!-- Main Photo Image -->
+                            <!-- Main Image OR Video -->
                             <template v-if="mainArticlePhoto">
-                                <b-field class="field-group img--preview" v-if="mainArticlePhoto.thumbnails">
-                                    <img :src="mainArticlePhoto.thumbnails.large" alt="">
+                                <b-field class="field-group img--preview img--preview--mainimg" v-if="mainArticlePhoto.thumbnails">
+                                    <img :src="mainArticlePhoto.thumbnails.max">
                                 </b-field>
                             </template>
                             <div class="file--upload" @click="openModalMedia('mainArticlePhoto')">
-                                {{mainArticlePhoto.image? 'Replace Main Photo' : ' Select Main Photo'}}
+                                {{mainArticlePhoto.image? 'Replace' : ' Select Main Image Or Video'}}
                             </div>
                         </div>
                     </b-field>
                 </div>
 
-            </div>
+                <div class="col-12">
+                    <b-field class="field-group">
+                        <b-input type="text" size="is-medium" rounded placeholder="Title" v-model="mainFieldPost.title"/>
+                    </b-field>
+                </div>
+                <div class="col-12">
+                    <b-field class="field-group">
+                        <b-input type="textarea" rows="2" rounded placeholder="Excerpt" v-model="mainFieldPost.excerpt"/>
+                    </b-field>
+                </div>
 
+            </div>
         </div>
     </div>
 
@@ -47,11 +45,38 @@
         data() {
             return {
                 title: '',
+                mainFieldPost: {
+                    title: '',
+                    excerpt: '',
+                    media: '',
+                }
             };
+        },
+        created(){
+            this.resetData()
+        },
+        watch:{
+            mainFieldPost: {
+                handler(val){
+                    this.sentDataToParent()
+                },
+                deep: true
+            },
+            mainArticlePhoto(){
+                this.mainFieldPost.media = this.mainArticlePhoto.id
+            }
         },
         methods: {
             openModalMedia(type) {
-                this.$store.commit('openMediaImageFromPosts', type)
+                this.$store.commit('openMediaImageAndVideo', type)
+            },
+            // Send Data To Parent
+            sentDataToParent(type) {
+                this.$emit('setDataFromChild', this.mainFieldPost)
+            },
+            // Reset Data
+            resetData(){
+                this.$store.commit('resetPostData')
             }
         },
         computed: {

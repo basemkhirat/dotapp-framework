@@ -426,7 +426,7 @@ button.is-rounded, .button.is-rounded {
     background-color: #fff;
     text-align: center;
     border-radius: 8px;
-    padding: 30px;
+    padding: 29px;
 }
 
 .modal--content{
@@ -457,6 +457,7 @@ button.is-rounded, .button.is-rounded {
         display: inline-block;
         vertical-align: middle;
         font-weight: 700;
+        text-transform: capitalize;
     }
 }
 

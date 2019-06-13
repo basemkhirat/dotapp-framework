@@ -44,12 +44,17 @@ export default {
     },
 
     getAllMedia(page, limit, filters = {}) {
-        let typeQuery = (filters.type && filters.type !== '') ? '&type=' + filters.type : '';
+        if(Array.isArray(filters.type)) {
+            console.log(filters.type)
+        } else {
+            let typeQuery = (filters.type && filters.type !== '') ? '&type=' + filters.type : '';
+
+        }
+
         let orderQuery = (filters.order) ? '&sort_type=' + filters.order : '';
         let searchQuery = (filters.searchQuery && filters.searchQuery !== '') ? '&q=' + filters.searchQuery  + '&fieldsNames=title': '';
 
         let filterQuery = typeQuery + orderQuery  + searchQuery;
-
 
         return Repository.get(`${resource}?page=${page}&limit=${limit}${filterQuery}`).then((response) => {
             if (response.data.success) {

@@ -52,7 +52,8 @@
     import {
         RepositoryFactory
     } from '../../repositories/RepositoryFactory'
-const categoriesRepository = RepositoryFactory.get('categories')
+
+        const categoriesRepository = RepositoryFactory.get('categories')
 
       import { mapState } from 'vuex';
 

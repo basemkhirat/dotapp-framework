@@ -8,10 +8,12 @@ const Media = {
         videoSelected: {},
         mainArticlePhoto: {},
         setContentCardImage: '',
+        setContentCardGallery: '',
         setContentCardVideo: '',
         selectedType: '',
         previewItemAction: true,
         galleryMode: false,
+        imageAndVideo: false,
     },
     mutations: {
         // Reset Media Type
@@ -20,6 +22,10 @@ const Media = {
             state.previewVideos = false
             state.galleryMode = false
             state.previewItemAction = true
+            state.imageAndVideo = false
+        },
+        resetPostData(state){
+            state.mainArticlePhoto = ''
         },
         // Open Global Media
         openMediaModal(state) {
@@ -38,6 +44,15 @@ const Media = {
             this.commit('resetType')
             state.selectedType = type
             state.stateMediaModal = !state.stateMediaModal
+            state.previewImages = true
+            state.previewItemAction = false
+        },
+        // Open Media And Preview All Images And All Videos
+        openMediaImageAndVideo(state, type = '') {
+            this.commit('resetType')
+            state.selectedType = type
+            state.stateMediaModal = !state.stateMediaModal
+            state.imageAndVideo = true
             state.previewImages = true
             state.previewItemAction = false
         },
@@ -71,9 +86,10 @@ const Media = {
             else if (state.selectedType.type === 'cardImage'){
                 state.setContentCardImage = {item: item, index: state.selectedType.index}
                 state.imageSelected = item
+
             }
             else if (state.selectedType.type === 'cardGallery'){
-                state.setContentCardImage = {item: item, index: state.selectedType.index}
+                state.setContentCardGallery = {item: item, index: state.selectedType.index}
                 state.imageSelected = item
             }
             else if (state.selectedType.type === 'cardVideo'){

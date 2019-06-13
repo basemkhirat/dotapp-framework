@@ -3,7 +3,7 @@
     <div class="page--title">
       <h1 class="title--text">Articles</h1>
       <div class="page--title--action ml-auto">
-          <router-link to="/articleForm" class="button is-primary is-rounded">Add New Articles</router-link>
+          <router-link to="/postForm" class="button is-primary is-rounded">Add New Articles</router-link>
       </div>
     </div>
     <div class="card--block">

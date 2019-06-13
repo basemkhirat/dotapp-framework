@@ -8,6 +8,7 @@ const Login = {
           userData: {},
           successMessage: '',
           successMessageReset: '',
+          userDataPermission: [],
 
         },
         mutations: {
@@ -78,8 +79,11 @@ const Login = {
               })
               .catch(error => {
                 // state.loginErrorMessage = error.data.data[0]
-              })
-
+              });
+            axios.get('/permission/me')
+            .then((response) => {
+                state.userDataPermission = response.data.data
+            })
           }
         },
      getters: {}
