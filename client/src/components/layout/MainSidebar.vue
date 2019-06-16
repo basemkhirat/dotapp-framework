@@ -88,9 +88,6 @@
               }
           },
         },
-        created(){
-            this.$store.dispatch('checkUserData');
-        },
         components: {
             VuePerfectScrollbar,
             MenuItem,

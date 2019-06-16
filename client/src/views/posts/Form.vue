@@ -7,7 +7,7 @@
             </h1>
 
             <div class="page--title--action ml-auto">
-                <button class="button is-primary is-rounded">Save Changes</button>
+                <button class="button is-primary is-rounded" @click="submitForm">Save Changes</button>
             </div>
 
         </div>

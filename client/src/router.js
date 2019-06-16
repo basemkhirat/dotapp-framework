@@ -1,9 +1,8 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Wrapper from './Wrapper'
+import Vue from "vue";
+import Router from "vue-router";
+import Wrapper from "./Wrapper";
 
-Vue.use(Router)
-
+Vue.use(Router);
 
 import axios from "axios";
 
@@ -16,165 +15,182 @@ function isIModuleHasPermissions(userPermissions, role) {
     return false;
 }
 
-import store from './store/store.js'
+import store from "./store/store.js";
 
-function routerGuard(to, from, next) {
-
-    axios.get('/auth/user')
-    .then((response) => {
-        if (response.data.success) {
-            let user = response.data.data;
-            if (user) {
-                if (user.status === 0) {
-                    return next('/login');
-                }
-                if (to.meta.role) {
-                    if (isIModuleHasPermissions(user.role.permissions, to.meta.role)) {
-                        return next();
-                    }
-                    return next('/notAuthorized')
-                } else {
+async function routerGuard(to, from, next) {
+    let userData = await store.state.login.userData;
+    if (userData) {
+        let user = userData;
+        if (user) {
+            if (user.status === 0) {
+                return next("/login");
+            }
+            if (to.meta.role) {
+                if (isIModuleHasPermissions(user.permissions, to.meta.role)) {
                     return next();
                 }
+                return next("/notAuthorized");
+            } else {
+                return next();
             }
         }
-    })
+    }
 
+    // axios.get('/auth/user')
+    // .then((response) => {
+    //     if (response.data.success) {
+    //         let user = response.data.data;
+    //         if (user) {
+    //             if (user.status === 0) {
+    //                 return next('/login');
+    //             }
+    //             if (to.meta.role) {
+    //                 if (isIModuleHasPermissions(user.role.permissions, to.meta.role)) {
+    //                     return next();
+    //                 }
+    //                 return next('/notAuthorized')
+    //             } else {
+    //                 return next();
+    //             }
+    //         }
+    //     }
+    // })
 }
 
-
 const router = new Router({
-    mode: 'history',
+    mode: "history",
     base: process.env.BASE_URL,
-    routes: [{
-            path: '/login',
-            name: 'login',
-            component: () => import('./views/pages/Login.vue'),
+    routes: [
+        {
+            path: "/login",
+            name: "login",
+            component: () => import("./views/pages/Login.vue")
         },
         {
-            path: '/forgotPassword',
-            name: 'forgotPassword',
-            component: () => import('./views/pages/forgotPassword.vue'),
+            path: "/forgotPassword",
+            name: "forgotPassword",
+            component: () => import("./views/pages/forgotPassword.vue")
         },
 
         {
-            path: '/',
+            path: "/",
             component: Wrapper,
             beforeEnter: routerGuard,
-            redirect: '/',
-            children: [{
-                    path: '',
-                    name: 'dashboard',
-                    component: () => import('./views/dashboard/Dashboard'),
-                    beforeEnter: routerGuard,
+            redirect: "/",
+            children: [
+                {
+                    path: "",
+                    name: "dashboard",
+                    component: () => import("./views/dashboard/Dashboard"),
+                    beforeEnter: routerGuard
                 },
                 {
-                    path: '/users',
-                    name: 'users',
-                    component: () => import('./views/users/Users.vue'),
+                    path: "/users",
+                    name: "users",
+                    component: () => import("./views/users/Users.vue"),
                     meta: {
-                        role: 'user.view'
+                        role: "user.view"
                     },
-                    beforeEnter: routerGuard,
+                    beforeEnter: routerGuard
                 },
                 {
-                    path: '/userForm/:id?',
-                    name: 'userForm',
+                    path: "/userForm/:id?",
+                    name: "userForm",
                     props: true,
-                    component: () => import('./views/users/Form.vue'),
+                    component: () => import("./views/users/Form.vue"),
                     meta: {
-                        role: 'user.update'
+                        role: "user.update"
                     },
-                    beforeEnter: routerGuard,
+                    beforeEnter: routerGuard
                 },
                 {
-                    path: '/groups',
-                    name: 'groups',
-                    component: () => import('./views/groups/Groups.vue'),
+                    path: "/groups",
+                    name: "groups",
+                    component: () => import("./views/groups/Groups.vue"),
                     meta: {
-                        role: 'role.view'
+                        role: "role.view"
                     },
-                    beforeEnter: routerGuard,
+                    beforeEnter: routerGuard
                 },
                 {
-                    path: '/groupForm/:id?',
-                    name: 'groupForm',
-                    component: () => import('./views/groups/Form.vue'),
+                    path: "/groupForm/:id?",
+                    name: "groupForm",
+                    component: () => import("./views/groups/Form.vue"),
                     meta: {
-                        role: 'role.update'
+                        role: "role.update"
                     },
-                    beforeEnter: routerGuard,
+                    beforeEnter: routerGuard
                 },
                 {
-                    path: '/media',
-                    name: 'media',
-                    component: () => import('./views/media/Media.vue'),
+                    path: "/media",
+                    name: "media",
+                    component: () => import("./views/media/Media.vue"),
                     meta: {
-                        role: 'media.view'
+                        role: "media.view"
                     },
-                    beforeEnter: routerGuard,
+                    beforeEnter: routerGuard
                 },
                 {
-                    path: '/posts',
-                    name: 'posts',
-                    component: () => import('./views/posts/Posts.vue'),
+                    path: "/posts",
+                    name: "posts",
+                    component: () => import("./views/posts/Posts.vue"),
                     // meta: {
                     //     role: 'article.view'
                     // },
-                    beforeEnter: routerGuard,
+                    beforeEnter: routerGuard
                 },
                 {
-                    path: '/postForm/:id?',
-                    name: 'postForm',
-                    component: () => import('./views/posts/Form.vue'),
+                    path: "/postForm/:id?",
+                    name: "postForm",
+                    component: () => import("./views/posts/Form.vue"),
                     // meta: {
                     //     role: 'article.update'
                     // },
-                    beforeEnter: routerGuard,
+                    beforeEnter: routerGuard
                 },
                 {
-                    path: '/categories',
-                    name: 'categories',
-                    component: () => import('./views/categories/Categories.vue'),
+                    path: "/categories",
+                    name: "categories",
+                    component: () =>
+                        import("./views/categories/Categories.vue"),
                     meta: {
-                        role: 'category.view'
+                        role: "category.view"
                     },
-                    beforeEnter: routerGuard,
+                    beforeEnter: routerGuard
                 },
                 {
-                    path: '/categoryForm/:id?',
-                    name: 'categoryForm',
-                    component: () => import('./views/categories/Form.vue'),
+                    path: "/categoryForm/:id?",
+                    name: "categoryForm",
+                    component: () => import("./views/categories/Form.vue"),
                     meta: {
-                        role: 'category.update'
+                        role: "category.update"
                     },
-                    beforeEnter: routerGuard,
+                    beforeEnter: routerGuard
                 },
                 {
-                    path: '/tags',
-                    name: 'tags',
-                    component: () => import('./views/tags/Tags.vue'),
+                    path: "/tags",
+                    name: "tags",
+                    component: () => import("./views/tags/Tags.vue"),
                     meta: {
-                        role: 'tag.view'
+                        role: "tag.view"
                     },
-                    beforeEnter: routerGuard,
+                    beforeEnter: routerGuard
                 },
                 {
-                    path: '/tagForm/:id?',
-                    name: 'tagForm',
-                    component: () => import('./views/tags/Form.vue'),
+                    path: "/tagForm/:id?",
+                    name: "tagForm",
+                    component: () => import("./views/tags/Form.vue"),
                     meta: {
-                        role: 'tag.update'
+                        role: "tag.update"
                     },
-                    beforeEnter: routerGuard,
+                    beforeEnter: routerGuard
                 },
 
                 {
-                    path: '/notAuthorized',
-                    name: 'notAuthorized',
-                    component: () => import('./views/pages/NotAuthorized.vue'),
-                },
-
+                    path: "/notAuthorized",
+                    name: "notAuthorized",
+                    component: () => import("./views/pages/NotAuthorized.vue")
+                }
             ]
         }
     ],
@@ -182,17 +198,16 @@ const router = new Router({
         return {
             x: 0,
             y: 0
-        }
-
+        };
     }
-})
+});
 
 router.beforeEach((to, from, next) => {
-    const publicPages = ['/login'];
+    const publicPages = ["/login"];
     const authRequired = !publicPages.includes(to.path);
-    const loggedIn = localStorage.getItem('token');
-    if (to.path == '/login' && loggedIn) {
-        router.push({ path: '/' })
+    const loggedIn = localStorage.getItem("token");
+    if (to.path == "/login" && loggedIn) {
+        router.push({ path: "/" });
     }
     // if (authRequired && !loggedIn) {
     //     return next({
@@ -202,9 +217,6 @@ router.beforeEach((to, from, next) => {
     // }
 
     next();
-  })
-
-
-
+});
 
 export default router;

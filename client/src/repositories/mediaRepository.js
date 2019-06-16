@@ -3,9 +3,8 @@ import Repository from "./Repository";
 const resource = "/media";
 
 export default {
-
     getMediaItem(id) {
-        return Repository.get(`${resource}/${id}`).then((response) => {
+        return Repository.get(`${resource}/${id}`).then(response => {
             if (response.data.success) {
                 return response.data.data;
             }
@@ -13,7 +12,7 @@ export default {
     },
 
     updateMedia(id, data) {
-        return Repository.put(`${resource}/${id}`, data).then((response) => {
+        return Repository.put(`${resource}/${id}`, data).then(response => {
             if (response.data.success) {
                 return response.data;
             }
@@ -21,7 +20,7 @@ export default {
     },
 
     deleteMedia(id) {
-        return Repository.delete(`${resource}/${id}`).then((response) => {
+        return Repository.delete(`${resource}/${id}`).then(response => {
             if (response.data.success) {
                 return response.data;
             }
@@ -29,14 +28,16 @@ export default {
     },
 
     deleteItems(ids) {
-        return Repository.patch(`${resource}/?operation=delete&ids=${ids}`).then((response) => {
+        return Repository.patch(
+            `${resource}/?operation=delete&ids=${ids}`
+        ).then(response => {
             if (response.data.success) {
                 return response.data;
             }
         });
     },
     deleteItem(id) {
-        return Repository.delete(`${resource}/${id}`).then((response) => {
+        return Repository.delete(`${resource}/${id}`).then(response => {
             if (response.data.success) {
                 return response.data;
             }
@@ -52,32 +53,39 @@ export default {
         // } else {
         //     typeQuery = (filters.type && filters.type !== '') ? '&type=' + filters.type : '';
         // }
-        let typeQuery = (filters.type && filters.type !== '') ? '&type=' + filters.type : '';
+        let typeQuery =
+            filters.type && filters.type !== "" ? "&type=" + filters.type : "";
 
-        let orderQuery = (filters.order) ? '&sort_type=' + filters.order : '';
-        let searchQuery = (filters.searchQuery && filters.searchQuery !== '') ? '&q=' + filters.searchQuery  + '&fieldsNames=title': '';
+        let orderQuery = filters.order ? "&sort_type=" + filters.order : "";
+        let searchQuery =
+            filters.searchQuery && filters.searchQuery !== ""
+                ? "&q=" + filters.searchQuery + "&fieldsNames=title"
+                : "";
 
-        let filterQuery = typeQuery + orderQuery  + searchQuery;
+        let filterQuery = typeQuery + orderQuery + searchQuery;
 
-        return Repository.get(`${resource}?page=${page}&limit=${limit}${filterQuery}`).then((response) => {
+        return Repository.get(
+            `${resource}?page=${page}&limit=${limit}${filterQuery}`
+        ).then(response => {
             if (response.data.success) {
                 return response.data.data;
             }
         });
-
     },
     newMediaItem(data) {
-        return Repository.post(`${resource}`, data).then((response) => {
-            if (response.data.success) {
-                return response.data;
-            }
-        }).catch(error => {
-            return error.response.data;
-        })
+        return Repository.post(`${resource}`, data)
+            .then(response => {
+                if (response.data.success) {
+                    return response.data;
+                }
+            })
+            .catch(error => {
+                return error.response.data;
+            });
     },
     // Get All Type
     getMediaType() {
-        return Repository.get(`${resource}/types`).then((response) => {
+        return Repository.get(`${resource}/types`).then(response => {
             if (response.data.success) {
                 return response.data.data;
             }
@@ -85,7 +93,7 @@ export default {
     },
     // Get All Thumbnails
     getMediaThumbnails() {
-        return Repository.get(`${resource}/thumbnails`).then((response) => {
+        return Repository.get(`${resource}/thumbnails`).then(response => {
             if (response.data.success) {
                 return response.data.data;
             }
@@ -93,10 +101,12 @@ export default {
     },
     // Set All Thumbnails
     setMediaThumbnails(id, data) {
-        return Repository.put(`${resource}/thumbnail/${id}`, data).then((response) => {
-            if (response.data.success) {
-                return response.data;
+        return Repository.put(`${resource}/thumbnail/${id}`, data).then(
+            response => {
+                if (response.data.success) {
+                    return response.data;
+                }
             }
-        });
-    },
+        );
+    }
 };

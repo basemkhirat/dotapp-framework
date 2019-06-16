@@ -42,8 +42,6 @@ const Login = {
               })
           },
 
-
-
         // Forgot Password
           forgotPassword({ commit, state, dispatch }, loginData) {
               commit('resetState');
@@ -76,14 +74,15 @@ const Login = {
             axios.get('/auth/user')
               .then((response) => {
                 state.userData = response.data.data
+                state.userDataPermission = response.data.data.permissions
               })
               .catch(error => {
-                // state.loginErrorMessage = error.data.data[0]
+                state.loginErrorMessage = error.data.data[0]
               });
-            axios.get('/permission/me')
-            .then((response) => {
-                state.userDataPermission = response.data.data
-            })
+            // axios.get('/permission/me')
+            // .then((response) => {
+            //     state.userDataPermission = response.data.data
+            // })
           }
         },
      getters: {}
