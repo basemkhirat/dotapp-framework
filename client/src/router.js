@@ -17,22 +17,19 @@ function isIModuleHasPermissions(userPermissions, role) {
 
 import store from "./store/store.js";
 
-async function routerGuard(to, from, next) {
-    let userData = await store.state.login.userData;
-    if (userData) {
-        let user = userData;
-        if (user) {
-            if (user.status === 0) {
-                return next("/login");
-            }
-            if (to.meta.role) {
-                if (isIModuleHasPermissions(user.permissions, to.meta.role)) {
-                    return next();
-                }
-                return next("/notAuthorized");
-            } else {
+function routerGuard(to, from, next) {
+    const userData = JSON.parse(localStorage.getItem('userData'))
+    if (userData.permissions) {
+        if (userData.status === 0) {
+            return next("/login");
+        }
+        if (to.meta.role) {
+            if (isIModuleHasPermissions(userData.permissions, to.meta.role)) {
                 return next();
             }
+            return next("/notAuthorized");
+        } else {
+            return next();
         }
     }
 

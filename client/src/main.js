@@ -24,10 +24,10 @@ Vue.use(VueClipboard)
 // config file with base endpoint url
 axios.defaults.baseURL = process.env.APP_URL + '/api';
 
-const  accessToken  =  (localStorage.getItem('token')) ? 'Bearer ' + localStorage.getItem('token').split('"').join(''): '';
+const  accessToken  =  localStorage.getItem("token");
 
 if (accessToken) {
-    axios.defaults.headers.common['Authorization'] =  accessToken
+    axios.defaults.headers.common['Authorization'] = "Bearer " + accessToken
 }
 
 // Check User Is Authorized

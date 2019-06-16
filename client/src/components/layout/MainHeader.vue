@@ -82,7 +82,7 @@
                })
           },
           created(){
-               this.$store.dispatch('checkUserData');
+            this.$store.dispatch('fetchUserData');
           },
           methods:{
                openMediaModal(){

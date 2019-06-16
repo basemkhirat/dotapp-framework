@@ -88,6 +88,9 @@
               }
           },
         },
+        created(){
+            this.checkLinksRole()
+        },
         components: {
             VuePerfectScrollbar,
             MenuItem,
@@ -105,8 +108,9 @@
             },
             checkLinksRole(){
                 this.links = []
+                const userPermission = JSON.parse(localStorage.getItem('userData'))
                 this.AsideLinks.map(item => {
-                    if(this.role.indexOf(item.role) > -1 || item.role === true){
+                    if(userPermission.permissions.indexOf(item.role) > -1 || item.role === true){
                         this.links.push(item)
                     }
                 })

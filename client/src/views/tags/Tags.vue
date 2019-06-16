@@ -96,7 +96,6 @@ export default {
         const tags = await tagsRepository.getAllTags(this.page, this.limit, filters)
         this.tags = tags.data.docs;
         this.total = tags.data.total;
-        console.log(tags)
         this.dataLoading = false;
     },
     // Filters

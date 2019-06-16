@@ -163,7 +163,6 @@
                 this.postMainFieldData.title = post.title
                 this.postMainFieldData.media = post.media
                 this.postMainFieldData.excerpt = post.excerpt
-                console.log(post)
             },
             // Update Post
             async updatePost(id, data) {

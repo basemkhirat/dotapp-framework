@@ -68,7 +68,7 @@
     },
     methods: {
       ...mapActions([
-        'doLogin'
+        'doLogin',
       ]),
       loginSubmit() {
         if(!this.formValid){

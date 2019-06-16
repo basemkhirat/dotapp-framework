@@ -293,7 +293,7 @@
                 } else {
                     this.errorMessage(user[0])
                 }
-                this.$store.dispatch('checkUserData');
+                // this.$store.dispatch('checkUserData');
                 this.isLoading = false
                 this.password = ''
                 this.confirmPassword = ''

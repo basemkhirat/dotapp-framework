@@ -15,7 +15,7 @@
                               </div>
                           </transition-group>
                      </div>
-                    
+
                 </div>
             </div>
         </b-modal>
@@ -46,9 +46,8 @@ export default {
                         vm.files.push(reader.result);
                     };
                 });
-                console.log(this.files)
                //  this.isCardModalActive = true
-          },          
+          },
      }
 }
 </script>
