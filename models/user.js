@@ -36,7 +36,7 @@ let schema = Schema({
         role: {
             type: Schema.Types.ObjectId,
             ref: 'role',
-            autopopulate: true
+            autopopulate: { select: 'id name' }
         },
 
         photo: {

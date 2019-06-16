@@ -32,13 +32,13 @@ export default function () {
 
                 if (!error && user) {
 
-                    User.findById(user._id)
+                    User.findById(user._id, {} ,{ autopopulate: false })
                         .where("status", 1)
-                        .select('+permissions')
                         .populate('role', '+permissions', {status: 1})
                         .exec((error, user) => {
                             if (error) return next(error);
 
+                            console.log(user);
                             if (user) {
                                 req.permissions = user.role ? user.role.permissions : [];
                                 req.user = user;
