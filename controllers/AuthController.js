@@ -121,7 +121,24 @@ export default class extends Controller {
         User.findById(req.user.id).populate("role").populate("photo").exec((error, user) => {
             if (error) return res.serverError(error);
             if (!user) return res.notFound(req.lang("user.errors.user_not_found"));
-            return res.ok(res.attachPolicies(user, "user"));
+
+            user = user.toObject();
+
+            let permissions = Config.get("permissions");
+
+            let myPermissions = [];
+
+            for (let module in permissions) {
+                permissions[module].forEach(action => {
+                    if (req.hasPermission(module + "." + action)) {
+                        myPermissions.push(module + "." + action);
+                    }
+                });
+            }
+
+            user.permissions = myPermissions;
+
+            return res.ok(user);
         });
     }
 };

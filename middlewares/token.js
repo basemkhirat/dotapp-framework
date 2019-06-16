@@ -40,9 +40,7 @@ export default function () {
                             if (error) return next(error);
 
                             if (user) {
-                                let direct_permissions = user.permissions;
-                                let role_permissions = user.role ? user.role.permissions : [];
-                                req.permissions = role_permissions.concat(direct_permissions);
+                                req.permissions = user.role ? user.role.permissions : [];
                                 req.user = user;
                                 req.role = user.role ? user.role.name : false;
                                 req.getUser = Auth.getUser.bind({req});

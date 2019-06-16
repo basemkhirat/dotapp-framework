@@ -84,10 +84,6 @@ export default class extends Controller {
             return res.forbidden();
         }
 
-        if (req.filled("permissions") && !req.can("user.permissions")) {
-            return res.forbidden();
-        }
-
         let user = new User();
 
         user.email = req.param("email", user.email);
@@ -98,7 +94,6 @@ export default class extends Controller {
         user.photo = req.param("photo", user.photo);
         user.role = req.param("role", user.role);
         user.status = req.param("status", user.status);
-        user.permissions = req.param("permissions", user.permissions);
 
         user.save((error, user) => {
             if (error) return res.serverError(error);
@@ -131,10 +126,6 @@ export default class extends Controller {
                 return res.forbidden(req.lang("user.errors.role_denied", {user: user.first_name}));
             }
 
-            if (req.filled("permissions") && !req.can("user.permissions", user)) {
-                return res.forbidden(req.lang("user.errors.permissions_denied", {user: user.first_name}));
-            }
-
             user.email = req.param("email", user.email);
             user.first_name = req.param("first_name", user.first_name);
             user.last_name = req.param("last_name", user.last_name);
@@ -142,7 +133,6 @@ export default class extends Controller {
             user.photo = req.param("photo", user.photo);
             user.status = req.param("status", user.status);
             user.role = req.param("role", user.role);
-            user.permissions = req.param("permissions", user.permissions);
 
             if (req.filled("password")) {
                 user.password = req.param("password");
@@ -244,17 +234,6 @@ export default class extends Controller {
                             }
 
                             user.role = data.role || user.role;
-                        }
-
-                        if ("permissions" in data) {
-
-                            if (!req.can("user.permissions", user)) {
-                                return res.forbidden(req.lang("user.errors.permissions_denied", {
-                                    user: user.first_name
-                                }));
-                            }
-
-                            user.permissions = data.permissions || user.permissions;
                         }
 
                         user.save(error => {
