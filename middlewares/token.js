@@ -38,7 +38,6 @@ export default function () {
                         .exec((error, user) => {
                             if (error) return next(error);
 
-                            console.log(user);
                             if (user) {
                                 req.permissions = user.role ? user.role.permissions : [];
                                 req.user = user;
