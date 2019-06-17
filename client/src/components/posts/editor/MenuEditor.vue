@@ -1,6 +1,6 @@
 <template>
     <div class="menu--editor">
-        <ul class="nav flex-column">
+        <ul class="nav">
             <li class="menu--item" @click="setEditorType('paragraph')">
                 <span class="icon">
                     <i class="fas fa-paragraph"></i>
