@@ -1,6 +1,6 @@
 import Controller from './Controller';
 
-import User from "~/models/user";
+import Tag from "~/models/tag";
 
 export default class extends Controller {
 
@@ -12,8 +12,11 @@ export default class extends Controller {
      */
 
     index(req, res, next) {
-        User.findOne(function (error, user) {
-            return res.ok(user.hasRole("superdadmin"));
+
+        Tag.saveNames([], (error, tags) => {
+            if(error) return res.serverError(error);
+            return res.ok(tags);
         });
+
     }
 };

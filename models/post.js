@@ -2,6 +2,7 @@ import moment from 'moment';
 import {Mongoose, Schema} from './model';
 
 import Media from './media';
+import Tag from './tag';
 import async from 'async';
 
 let schema = Schema({
@@ -92,8 +93,6 @@ schema.index({
 
 schema.methods.getContent = function (next) {
 
-    console.log(this.content);
-
     async.mapSeries(this.content, function (row, callback) {
 
         if (typeof row != "object") {
@@ -140,6 +139,19 @@ schema.methods.getContent = function (next) {
 
 schema.virtual("published").get(function () {
     return moment(this.published_at).fromNow();
+});
+
+schema.pre("save", function(next) {
+
+    let self = this;
+
+    Tag.saveNames(self.tag_names, (error, tags) => {
+        if(error) return next(error);
+
+        self.tags = tags;
+
+        next(null, self);
+    });
 });
 
 

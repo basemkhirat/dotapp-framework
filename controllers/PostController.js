@@ -87,6 +87,9 @@ export default class extends Controller {
         post.lang = req.param("lang", post.lang);
         post.status = req.param("status", post.status);
         post.published_at = req.param("published_at", post.published_at);
+        post.categories = req.param("categories", post.categories);
+
+        post.tag_names = req.param("tags");
 
         post.save(function (error, post) {
             if (error) return res.serverError(error);
@@ -119,6 +122,11 @@ export default class extends Controller {
             post.status = req.param("status", post.status);
             post.lang = req.param("lang", post.lang);
             post.published_at = req.param("published_at", post.published_at);
+            post.categories = req.param("categories", post.categories);
+
+            if(req.filled("tags")){
+                post.tag_names = req.param("tags");
+            }
 
             post.save(error => {
                 if (error) return res.serverError(error);

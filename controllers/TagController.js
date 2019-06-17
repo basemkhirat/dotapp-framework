@@ -36,7 +36,7 @@ export default class extends Controller {
         let query = Tag.find();
 
         if (req.filled("q")) {
-            query.where({$text: {$search: req.param("q")}});
+            query.where("name", new RegExp(req.param("q")));
         }
 
         query.page(req.param("page"), req.param("limit"));
