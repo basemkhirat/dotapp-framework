@@ -1659,14 +1659,14 @@
             },
             "delete": {
                 "tags": [
-                    "Categories"
+                    "Posts"
                 ],
-                "summary": "Delete category by id",
+                "summary": "Delete post by id",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Category ID",
+                        "description": "Post ID",
                         "required": true,
                         "type": "string"
                     }
