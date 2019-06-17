@@ -23,6 +23,10 @@ export default class extends Controller {
             query.where("status", req.param("status"));
         }
 
+        if (req.filled("format")) {
+            query.where("format", req.param("format"));
+        }
+
         if (req.filled("q")) {
             query.where({$text: {$search: req.param("q")}});
         }
@@ -83,6 +87,7 @@ export default class extends Controller {
         post.excerpt = req.param("excerpt", post.excerpt);
         post.content = req.param("content", post.content);
         post.media = req.param("media", post.media);
+        post.format = req.param("format", post.format);
         post.user = req.user.id;
         post.lang = req.param("lang", post.lang);
         post.status = req.param("status", post.status);
@@ -119,6 +124,7 @@ export default class extends Controller {
             post.excerpt = req.param("excerpt", post.excerpt);
             post.content = req.param("content", post.content);
             post.media = req.param("media", post.media);
+            post.format = req.param("format", post.format);
             post.status = req.param("status", post.status);
             post.lang = req.param("lang", post.lang);
             post.published_at = req.param("published_at", post.published_at);

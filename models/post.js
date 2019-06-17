@@ -35,6 +35,10 @@ let schema = Schema({
         }
     },
 
+    format: {
+        type: String
+    },
+
     lang: {
         type: String
     },
@@ -82,6 +86,7 @@ schema.index({media: 1});
 schema.index({user: 1});
 schema.index({categories: 1});
 schema.index({tags: 1});
+schema.index({format: 1});
 schema.index({created_at: -1});
 schema.index({updated_at: -1});
 schema.index({published_at: -1});
