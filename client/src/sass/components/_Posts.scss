@@ -82,35 +82,53 @@
             padding-bottom: 0;
         }
     }
+    .post--content{
+        @media #{$mwmd}{
+            position: relative;
+            padding-bottom: 80px;
+        }
+    }
 }
-
 
 .content--editor{
     .menu--editor{
         position: fixed;
         overflow: hidden;
-        bottom: 0;
-        // left: 320px;
-        z-index: 99;
+        bottom: 10px;
+        z-index: 70;
         height: auto;
-        width: 600px;
+        width: 540px;
         background-color: #282a2d;
         color: $textColor;
         display: flex;
         align-items: center;
         justify-content: center;
         @include prefixer(transition, all .25s ease-in-out, webkit moz o);
+        margin-left: - 270px;
+        border-radius: 40px;
+        @media #{$mwlg}{
+            left: calc((100% - 40px) / 3 + 20px) !important;
+        }
+        @media #{$mwmd}{
+            position: absolute;
+            bottom: 0;
+            width: calc(100% - 40px);
+            left: 0 !important;
+            margin-left: 20px;
+        }
         .nav{
             display: flex;
+            width: 100%;
+            justify-content: space-between;
         }
         .menu--item{
-            padding: 15px 0;
+            padding: 10px 10px;
             text-align: center;
             text-transform: capitalize;
-            font-size: 12px;
+            font-size: 13px;
             .icon{
                 width: 100%;
-                margin-bottom: 5px;
+                margin-bottom: 0;
                 font-size: 18px;
             }
             &:hover{
@@ -123,3 +141,5 @@
     }
 
 }
+
+

@@ -405,4 +405,19 @@ label.label {
     }
 }
 
-
+//  Autocomplete
+.taginput .taginput-container.is-focusable{
+    height: auto;
+    border-radius: 25px;
+}
+.taginput-container{
+    max-height: none;
+    height: auto;
+}
+.autocomplete{
+ .input{
+     min-height: auto;
+     height: auto;
+     max-height: auto
+ }
+}

@@ -28,48 +28,37 @@ body {
         left: 70px;
     }
     &.editor--mini{
-        .main--content {
-            padding-left: 170px;
-        }
-        .alluser--action{
-            left: 140px;
-            width: calc(100% - 140px);
-        }
-        .main--header {
-            width: calc(100% - 140px);
-            left: 140px;
-        }
-
         .content--editor{
             .menu--editor{
-                left: 320px;
+                left: calc((100% - 130px) / 3 + 100px);
             }
         }
+        // @media #{$mwlg}{
+        //     .content--editor{
+        //         .menu--editor{
+        //             left: calc((100% - 40px) / 3 + 20px);
+        //         }
+        //     }
+        // }
     }
 }
 .editor--mini{
-    .main--content {
-        padding-left: 350px;
-    }
-    .alluser--action{
-        left: 320px;
-        width: calc(100% - 320px);
-    }
-    .main--header {
-        width: calc(100% - 320px);
-        left: 320px;
-    }
+
     .content--editor{
         .menu--editor{
-            left: 250px;
+            left: calc((100% - 310px) / 3 + 280px);
         }
     }
-
-    // .main--content {
-    //     padding-left: 350px;
+    // @media #{$mwlg}{
+    //     .content--editor{
+    //         .menu--editor{
+    //             left: calc((100% - 40px) / 3 + 20px);
+    //         }
+    //     }
     // }
 
 }
+
 
 .main--content{
     @include prefixer (transition, all .25s ease-in-out, webkit moz o);
@@ -77,11 +66,9 @@ body {
     min-height: calc(100vh - 70px);
     @media #{$mwlg}{
         width: 100%;
-        padding-left: 20px;
-        padding-right: 20px;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
     }
-
-
 }
 
 // Button Reset
@@ -374,7 +361,6 @@ button.is-rounded, .button.is-rounded {
         padding-left: 1em;
     }
 }
-
 
 
 .table td, .table th{

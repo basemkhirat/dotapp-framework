@@ -6,13 +6,13 @@
                     <b-field class="field-group">
                         <div>
                             <!-- Main Image OR Video -->
-                            <template v-if="mainArticlePhoto">
-                                <b-field class="field-group img--preview img--preview--mainimg" v-if="mainArticlePhoto.thumbnails">
-                                    <img :src="mainArticlePhoto.thumbnails.max">
+                            <template v-if="mediaItemPreview">
+                                <b-field class="field-group img--preview img--preview--mainimg" v-if="mediaItemPreview.thumbnails">
+                                    <img :src="mediaItemPreview.thumbnails.max">
                                 </b-field>
                             </template>
                             <div class="file--upload" @click="openModalMedia('mainArticlePhoto')">
-                                {{mainArticlePhoto.image? 'Replace' : ' Select Main Image Or Video'}}
+                                {{mediaItemPreview? 'Replace' : ' Select Main Image Or Video'}}
                             </div>
                         </div>
                     </b-field>
@@ -46,6 +46,7 @@
         data() {
             return {
                 title: '',
+                mediaItemPreview: {},
                 mainFieldPost: {
                     title: '',
                     excerpt: '',
@@ -64,12 +65,14 @@
                 deep: true
             },
             mainArticlePhoto(){
+                this.mediaItemPreview = this.mainArticlePhoto
                 this.mainFieldPost.media = this.mainArticlePhoto.id
             },
             post(){
                 if(this.post){
                     this.mainFieldPost.title = this.post.title
                     this.mainFieldPost.excerpt = this.post.excerpt
+                    this.mediaItemPreview = this.post.media
                 }
             }
         },
