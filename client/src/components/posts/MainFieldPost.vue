@@ -42,6 +42,7 @@
     } from 'vuex';
 
     export default {
+        props: ['post'],
         data() {
             return {
                 title: '',
@@ -64,6 +65,12 @@
             },
             mainArticlePhoto(){
                 this.mainFieldPost.media = this.mainArticlePhoto.id
+            },
+            post(){
+                if(this.post){
+                    this.mainFieldPost.title = this.post.title
+                    this.mainFieldPost.excerpt = this.post.excerpt
+                }
             }
         },
         methods: {

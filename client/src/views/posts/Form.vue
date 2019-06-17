@@ -20,10 +20,10 @@
                 <div class="col-12 col-lg-8">
 
                     <!-- Main Field Post -->
-                    <main-field-post @setDataFromChild="setDataFromMainField"/>
+                    <main-field-post @setDataFromChild="setDataFromMainField" :post="this.post"/>
 
                     <!-- Content Editor -->
-                    <content-editor @setDataFromChild="setDataFromCardsContent"/>
+                    <content-editor @setDataFromChild="setDataFromCardsContent" :post="this.post"/>
 
                     <!-- Main Button Save -->
                     <div class="text-center button--save--form">
@@ -35,7 +35,8 @@
                 </div>
 
                 <!-- Post Info -->
-                <post-info @setDataFromChild="setDataFromPostInfo" />
+                <post-info @setDataFromChild="setDataFromPostInfo" :post="this.post"/>
+
             </div>
         </form>
     </div>
@@ -65,14 +66,13 @@
                     link: '',
                     label: 'add & update post'
                 }],
-
                 postInfo: {},
                 postMainField: {},
                 postMainFieldData: {},
                 allCards: [],
                 cardContent: [],
                 isLoading: false,
-
+                post: {},
             };
         },
         components: {
@@ -140,7 +140,7 @@
                 if (data.title) {
                     this.isLoading = true
                     if(this.$route.params.id){
-                        //  this.updatePost(this.$route.params.id, data)
+                        this.updatePost(this.$route.params.id, data)
                     } else {
                          this.newPost(data)
                     }
@@ -151,7 +151,7 @@
                 const post = await postsRepository.newPost(data)
                 if (post.success) {
                     this.successMessage(post.message)
-                    // this.$router.push('/postForm/' + post.data)
+                    this.$router.push('/postForm/' + post.data)
                 } else {
                     this.errorMessage(post[0])
                 }
@@ -160,9 +160,8 @@
             // Get Post Data
             async getPost(id) {
                 const post = await postsRepository.getPost(id)
-                this.postMainFieldData.title = post.title
-                this.postMainFieldData.media = post.media
-                this.postMainFieldData.excerpt = post.excerpt
+                this.post = post
+                console.log('post :', post);
             },
             // Update Post
             async updatePost(id, data) {
@@ -197,9 +196,6 @@
                     indefinite: false,
                 })
             },
-        },
-        computed: {
-
         },
     }
 </script>

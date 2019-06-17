@@ -34,11 +34,11 @@ export default {
         });
     },
     getAllPosts(page, limit, filters = {}) {
-
+        let statusQuery = (filters.status && filters.status !== '') ? '&status=' + filters.status : '';
         let searchQuery = (filters.searchQuery && filters.searchQuery !== '') ? '&q=' + filters.searchQuery : '';
-        let filterQuery = searchQuery;
+        let filterQuery = searchQuery + statusQuery;
 
-        return Repository.get(`${resource}?page=${page}&limit=${limit}${filterQuery}`).then((response) => {
+        return Repository.get(`${resource}?page=${page}&limit=${limit}${filterQuery}&sort_field=_id&sort_type=desc`).then((response) => {
             if (response.data.success) {
                 return response.data;
             }

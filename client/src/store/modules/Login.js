@@ -5,7 +5,7 @@ const Login = {
         isLoading: false,
         loginErrorMessage: null,
         loginSuccessful: false,
-        userData: localStorage.getItem("userData") ,
+        userData: JSON.parse(localStorage.getItem("userData")) ,
         successMessage: "",
         successMessageReset: "",
         userDataPermission: [],

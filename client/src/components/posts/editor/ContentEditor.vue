@@ -183,6 +183,7 @@
 
 
     export default {
+        props: ['post'],
         data() {
             return {
                 cardEditorType: '',
@@ -225,6 +226,11 @@
                 },
                 deep: true
             },
+            post(){
+                if(this.post){
+                    this.cards = this.post.content
+                }
+            }
         },
         computed: {
             ...mapState({

@@ -10,18 +10,19 @@
                               Select All
                          </button>
                     </div>
-                    <!-- <div class="input--fuild">
-                        <v-select :options="groups" v-model="group" label="title" placeholder="Sort By Group"
-                            class="select--with--icon w-100 v--select--scroll">
-                            <template slot="option" slot-scope="option">
-                                {{ option.title }}
-                            </template>
-                        </v-select>
-                    </div> -->
+
                 </div>
             </div>
             <div class="col-12 col-lg-6">
                 <div class="filter--items--right">
+                    <div class="input--fuild">
+                        <v-select :options="allStatus" v-model="status" label="name" placeholder="Sort By Status"
+                            class="select--with--icon w-100 v--select--scroll">
+                            <template slot="option" slot-scope="option">
+                                {{ option.name }}
+                            </template>
+                        </v-select>
+                    </div>
                     <div class="input--fuild">
                         <div class="search icon--right">
                             <b-input placeholder="Search..." type="search" icon-pack="fa" rounded icon="search" v-model="searchQuery">
@@ -41,11 +42,11 @@
         props:['allItemChecked'],
         data() {
             return {
-                group: '',
-                groups: ['All', 'admin', 'editor', 'users'],
+                status: '',
                 checkItem: false,
                 searchQuery: '',
-                filters: {}
+                filters: {},
+                allStatus: [{id: '1', name: 'Published'}, {id: '0', name: 'Not Published'}]
             }
         },
         watch:{
@@ -60,7 +61,16 @@
                 this.debounce = setTimeout(() => {
                     this.$emit('featchByFilter', this.filters)
                 }, 500);
-            }
+            },
+            status(){
+                if(this.status){
+                    this.filters.status = this.status.id
+                    this.$emit('featchByFilter', this.filters)
+                } else {
+                    this.filters.status = ''
+                    this.$emit('featchByFilter', this.filters)
+                }
+          },
         },
         methods: {
             selectAllItems() {

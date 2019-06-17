@@ -7,7 +7,7 @@
           ({{total}})
         </span>
       </h1>
-      <div class="page--title--action ml-auto" v-if="isInUserPermissions('category.create')">
+      <div class="page--title--action ml-auto" v-if="isInUserPermissions('post.create')">
           <router-link to="/postForm" class="button is-primary is-rounded">Add New Post</router-link>
       </div>
     </div>

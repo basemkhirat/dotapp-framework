@@ -64,7 +64,6 @@ const groupsRepository = RepositoryFactory.get('groups')
                   this.filters.group = ''
                   this.$emit('featchByFilter', this.filters)
               }
-
           },
           searchQuery(){
                this.filters.searchQuery = this.searchQuery

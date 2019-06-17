@@ -19,7 +19,7 @@ import store from "./store/store.js";
 
 function routerGuard(to, from, next) {
     const userData = JSON.parse(localStorage.getItem('userData'))
-    if (userData.permissions) {
+    if (userData) {
         if (userData.status === 0) {
             return next("/login");
         }

@@ -30,8 +30,8 @@ const mixins = {
      watch: {
           userData: {
               handler() {
-                  if (this.userData && this.userData.role) {
-                    this.userWithPermissions = this.userData.role.permissions;
+                  if (this.userData && this.userData.permissions) {
+                    this.userWithPermissions = this.userData.permissions;
 
                   }
               },

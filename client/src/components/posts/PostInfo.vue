@@ -39,13 +39,12 @@
         <!-- Add Category -->
         <div class="card--block">
             <div class="card--content">
-                {{postInfo.category}}
                 <div class="post--info--item">
                     <b-field class="field-group flex-column">
-                        <label class="label">Category</label>
+                        <label class="label">categories</label>
                         <treeselect class="custom--treeSelect"
                         :flat="true"
-                        v-model="postInfo.category" :multiple="true" :options="optionsSelect" />
+                        v-model="postInfo.categories" :multiple="true" :options="optionsSelect" />
                     </b-field>
                 </div>
             </div>
@@ -67,6 +66,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 </template>
 
@@ -82,11 +82,11 @@
     import Treeselect from '@riophae/vue-treeselect'
     // Tree Select Style
     import '@riophae/vue-treeselect/dist/vue-treeselect.css'
-    // import { generateOptions } from '../../helpers/utils'
 
 
 
     export default {
+        props: ['post'],
         data() {
             return {
                 postInfo: {
@@ -94,9 +94,8 @@
                     sections: '',
                     tags: '',
                     scheduleDate: '',
-                    category: null,
+                    categories: null,
                 },
-                // optionsSelect: generateOptions(3),
                 allSections: ['News', 'Media', 'Sport', 'Art'],
                 allTags: ['Tag 1', 'Tag 2', 'Tag 3', 'Tag 4', 'Tag 5', 'Tag 6'],
                 scheduleDate: '',
@@ -139,6 +138,13 @@
                     this.sentDataToParent()
                 },
                 deep: true
+            },
+            post(){
+                if(this.post){
+                    this.postInfo.status = this.post.status
+                    this.postInfo.tags = this.post.tags
+                    this.postInfo.categories = this.post.categories
+                }
             }
         },
         created(){
