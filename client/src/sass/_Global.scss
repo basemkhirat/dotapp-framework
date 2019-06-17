@@ -42,7 +42,7 @@ body {
 
         .content--editor{
             .menu--editor{
-                left: 70px;
+                left: 320px;
             }
         }
     }
@@ -545,14 +545,17 @@ button.is-rounded, .button.is-rounded {
   }
 
 
-// Login Page
+// Auth Pages
+.auth--pages{
+    background-color: $DarkColor;
+}
 .login--page{
     width: 100%;
     min-height: 100vh;
-    background-color: $DarkColor;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: $DarkColor;
 
     .login--form{
         max-width: 420px;

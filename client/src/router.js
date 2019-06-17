@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Wrapper from "./Wrapper";
+import AuthPages from "./views/pages/AuthPages";
 
 Vue.use(Router);
 
@@ -58,15 +59,31 @@ const router = new Router({
     mode: "history",
     base: process.env.BASE_URL,
     routes: [
+        // {
+        //     path: "/login",
+        //     name: "login",
+        //     component: () => import("./views/pages/Login.vue")
+        // },
+        // {
+        //     path: "/forgotPassword",
+        //     name: "forgotPassword",
+        //     component: () => import("./views/pages/forgotPassword.vue")
+        // },
         {
-            path: "/login",
-            name: "login",
-            component: () => import("./views/pages/Login.vue")
-        },
-        {
-            path: "/forgotPassword",
-            name: "forgotPassword",
-            component: () => import("./views/pages/forgotPassword.vue")
+            path: "/authPages",
+            component: AuthPages,
+            children: [
+                {
+                    path: "/login",
+                    name: "login",
+                    component: () => import("./views/pages/Login.vue")
+                },
+                {
+                    path: "/forgotPassword",
+                    name: "forgotPassword",
+                    component: () => import("./views/pages/forgotPassword.vue")
+                },
+            ]
         },
 
         {
@@ -200,18 +217,18 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-    const publicPages = ["/login"];
+    const publicPages = ["/login", "/forgotPassword"];
     const authRequired = !publicPages.includes(to.path);
     const loggedIn = localStorage.getItem("token");
     if (to.path == "/login" && loggedIn) {
         router.push({ path: "/" });
     }
-    // if (authRequired && !loggedIn) {
-    //     return next({
-    //         path: '/login',
-    //         query: { returnUrl: to.path }
-    //     });
-    // }
+    if (authRequired && !loggedIn) {
+        return next({
+            path: '/login',
+            // query: { returnUrl: to.path }
+        });
+    }
 
     next();
 });
