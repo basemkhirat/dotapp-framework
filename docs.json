@@ -19,14 +19,16 @@
                         "in": "query",
                         "description": "Email",
                         "required": true,
-                        "type": "string"
+                        "type": "string",
+                        "value": "rady@gmail.com"
                     },
                     {
                         "name": "password",
                         "in": "query",
                         "description": "Password",
                         "required": true,
-                        "type": "string"
+                        "type": "string",
+                        "value": "qwertyui"
                     }
                 ],
                 "responses": {
@@ -1172,9 +1174,51 @@
                         ]
                     },
                     {
+                        "name": "format",
+                        "in": "query",
+                        "description": "Post format",
+                        "type": "string",
+                        "enum": [
+                            "post",
+                            "image",
+                            "video",
+                            "gallery"
+                        ]
+                    },
+                    {
+                        "name": "categories",
+                        "in": "query",
+                        "description": "Post categories",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "tags",
+                        "in": "query",
+                        "description": "Post tags",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    {
                         "name": "q",
                         "in": "query",
                         "description": "Search Keyword",
+                        "type": "string"
+                    },
+                    {
+                        "name": "from_date",
+                        "in": "query",
+                        "description": "From date",
+                        "type": "string"
+                    },
+                    {
+                        "name": "to_date",
+                        "in": "query",
+                        "description": "To date",
                         "type": "string"
                     },
                     {
