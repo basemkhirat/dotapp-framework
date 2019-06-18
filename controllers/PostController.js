@@ -27,6 +27,16 @@ export default class extends Controller {
             query.where("format", req.param("format"));
         }
 
+        if (req.filled("tags")) {
+            let tags = Array.isArray(req.param("tags")) ? req.param("tags") : req.param("tags").toArray();
+            query.where('tags').in(tags);
+        }
+
+        if (req.filled("categories")) {
+            let categories = Array.isArray(req.param("categories")) ? req.param("categories") : req.param("categories").toArray(",");
+            query.where('categories').in(categories);
+        }
+
         if (req.filled("q")) {
             query.where({$text: {$search: req.param("q")}});
         }
@@ -35,7 +45,7 @@ export default class extends Controller {
 
         query.order(req.param("sort_field", "created_at"), req.param("sort_type", "desc"));
 
-        query.populate("user").populate("media");
+        query.populate("categories").populate("tags").populate("user").populate("media");
 
         query.execWithCount((error, result) => {
             if (error) return res.serverError(error);
@@ -57,7 +67,7 @@ export default class extends Controller {
 
         let id = req.param("id");
 
-        Post.findById(id).populate("user").populate("media").exec(function (error, post) {
+        Post.findById(id).populate("categories").populate("tags").populate("user").populate("media").exec(function (error, post) {
 
             if (error) return res.serverError(error);
             if (!post) return res.notFound(req.lang("post.errors.post_not_found"));

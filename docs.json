@@ -1172,6 +1172,36 @@
                         ]
                     },
                     {
+                        "name": "format",
+                        "in": "query",
+                        "description": "Post format",
+                        "type": "string",
+                        "enum": [
+                            "post",
+                            "image",
+                            "video",
+                            "gallery"
+                        ]
+                    },
+                    {
+                        "name": "categories",
+                        "in": "query",
+                        "description": "Post categories",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "tags",
+                        "in": "query",
+                        "description": "Post tags",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    {
                         "name": "q",
                         "in": "query",
                         "description": "Search Keyword",

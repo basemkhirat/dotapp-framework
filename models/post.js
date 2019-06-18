@@ -27,7 +27,7 @@ let schema = Schema({
         type: Array,
         set: function (content) {
 
-            if(Array.isArray(content)){
+            if (Array.isArray(content)) {
                 return content;
             }
 
@@ -53,15 +53,15 @@ let schema = Schema({
         ref: 'user'
     },
 
-    categories: {
-        type: [Schema.Types.ObjectId],
+    categories: [{
+        type: Schema.Types.ObjectId,
         ref: 'category'
-    },
+    }],
 
-    tags: {
-        type: [Schema.Types.ObjectId],
+    tags: [{
+        type: Schema.Types.ObjectId,
         ref: 'tag'
-    },
+    }],
 
     status: {
         type: Number,
@@ -70,8 +70,7 @@ let schema = Schema({
 
     published_at: {
         type: Date,
-        default: Date.now,
-        hide: true
+        default: Date.now
     }
 }, {
     timestamps: {
@@ -146,12 +145,12 @@ schema.virtual("published").get(function () {
     return moment(this.published_at).fromNow();
 });
 
-schema.pre("save", function(next) {
+schema.pre("save", function (next) {
 
     let self = this;
 
     Tag.saveNames(self.tag_names, (error, tags) => {
-        if(error) return next(error);
+        if (error) return next(error);
 
         self.tags = tags;
 

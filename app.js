@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-String.prototype.toArray = function (term) {
+String.prototype.toArray = function (term = ",") {
 
     let items = [];
 
