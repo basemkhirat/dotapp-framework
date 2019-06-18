@@ -37,6 +37,7 @@
     } from '../../repositories/RepositoryFactory'
     const mediaRepository = RepositoryFactory.get('media')
     import {mapState} from 'vuex'
+    import {order} from './../../helpers/Variables'
 export default {
      data(){
           return {
@@ -67,16 +68,7 @@ export default {
                          value: 'document'
                     }
                ],
-               orderOptions: [
-                    {
-                         title: 'Recent',
-                         value: 'desc'
-                    },
-                    {
-                         title: 'Aecent',
-                         value: 'asc'
-                    },
-               ],
+               orderOptions: order,
                type: 'All',
                order: 'Recent',
                filters: {},

@@ -73,13 +73,11 @@
                 let data = {}
                 data.name = this.name
 
-                if (this.name) {
-                    this.isLoading = true
-                    if(this.$route.params.id){
-                         this.updateTag(this.$route.params.id, data)
-                    } else {
-                         this.newTag(data)
-                    }
+                this.isLoading = true
+                if(this.$route.params.id){
+                    this.updateTag(this.$route.params.id, data)
+                } else {
+                    this.newTag(data)
                 }
             },
 

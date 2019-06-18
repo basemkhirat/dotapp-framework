@@ -148,22 +148,22 @@ const router = new Router({
                     path: "/posts",
                     name: "posts",
                     component: () => import("./views/posts/Posts.vue"),
-                    // meta: {
-                    //     role: 'article.view'
-                    // },
+                    meta: {
+                        role: 'post.view'
+                    },
                     beforeEnter: routerGuard
                 },
                 {
                     path: "/postForm/:id?",
                     name: "postForm",
                     component: () => import("./views/posts/Form.vue"),
-                    // meta: {
-                    //     role: 'article.update'
-                    // },
+                    meta: {
+                        role: 'post.update'
+                    },
                     beforeEnter: routerGuard
                 },
                 {
-                    path: "/categories",
+                    path: "/categories/:id?",
                     name: "categories",
                     component: () =>
                         import("./views/categories/Categories.vue"),

@@ -1,299 +1,343 @@
 // Media Style
-.media--content{
-     .upper--media{
+.media--content {
+    .upper--media {}
 
-     }
-     .filter--media{
-          border-bottom: 1px solid $borderColor;
-          text-align: left;
-          .search{
-               max-width: 350px;
-               margin-left: auto;
-          }
-          .vs__clear{
-               display: none;
-          }
-     }
+    .media--items--wrap {
+        height: calc(100vh - 268px);
+        overflow: auto !important;
+    }
+}
 
-     .media--items--wrap{
-          height:calc(100vh - 268px);
-          overflow: auto !important;
-      }
+.filter--media {
+    border-bottom: 1px solid $borderColor;
+    text-align: left;
 
-     .media--items{
-          padding-left: 15px;
-          padding-right: 15px;
-          .media--item{
-               height: 200px;
-               overflow: hidden;
-               margin-top: 30px;
-               border-radius: 10px;
-               position: relative;
-               cursor: pointer;
-               background-color: #000000;
-               img{
+    .search {
+        max-width: 350px;
+        margin-left: auto;
+    }
+
+    .vs__clear {
+        display: none;
+    }
+}
+
+.media--items {
+    padding-left: 15px;
+    padding-right: 15px;
+
+    .media--item {
+        height: 200px;
+        overflow: hidden;
+        margin-top: 30px;
+        border-radius: 10px;
+        position: relative;
+        cursor: pointer;
+        background-color: #000000;
+        text-align: center;
+
+        img {
+            width: 100%;
+            height: 100%;
+            font-family: "object-fit:cover";
+            object-fit: cover;
+        }
+
+        .imgCover {
+            object-fit: contain;
+            max-width: 110px;
+        }
+
+        .media--action {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 15px;
+            width: 100%;
+
+            .media--action--edit {
+                display: flex;
+                align-items: center;
+                padding: 5px 15px;
+                background-color: #fff;
+                color: $textColor;
+                border-radius: 15px;
+                font-size: .88rem;
+                position: absolute;
+                right: -100%;
+                @include prefixer(transition, all .25s ease-in-out, webkit moz o);
+            }
+
+            .custom--ckeckbox {
+                position: absolute;
+                left: -100%;
+                @include prefixer(transition, all .25s ease-in-out, webkit moz o);
+
+                label {
+                    // background-color: #fff;
+                    width: 1.9em;
+                    height: 1.9em;
+                    border-radius: 50%;
+
+                    .control-label {
+                        display: none;
+                    }
+                }
+
+                .check {
                     width: 100%;
                     height: 100%;
-                    font-family: "object-fit:cover";
-                    object-fit: cover;
-               }
-               .imgCover{
-                    object-fit: contain;
-                    max-width: 110px;
-               }
-               .media--action{
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    padding: 15px;
-                    width: 100%;
-                    .media--action--edit{
-                         display: flex;
-                         align-items: center;
-                         padding: 5px 15px;
-                         background-color: #fff;
-                         color: $textColor;
-                         border-radius: 15px;
-                         font-size: .88rem;
-                         position: absolute;
-                         right: -100%;
-                         @include prefixer(transition, all .25s ease-in-out, webkit moz o);
-                    }
-                    .custom--ckeckbox{
-                         position: absolute;
-                         left: -100%;
-                         @include prefixer(transition, all .25s ease-in-out, webkit moz o);
-                         label{
-                              // background-color: #fff;
-                              width: 1.9em;
-                              height: 1.9em;
-                              border-radius: 50%;
-                              .control-label{
-                                   display: none;
-                              }
-                         }
-                         .check{
-                              width: 100%;
-                              height: 100%;
-                              border-radius: 50%;
-                              border: 3px solid rgba(255,255,255,.7);
-                              box-shadow: 0px 0px 5px rgba(0,0,0,.15);
-                         }
+                    border-radius: 50%;
+                    border: 3px solid rgba(255, 255, 255, .7);
+                    box-shadow: 0px 0px 5px rgba(0, 0, 0, .15);
+                }
 
-                         .b-checkbox.checkbox input[type=checkbox]:checked + .check{
-                              border: 3px solid #fff !important;
-                              background-size: 16px
-                         }
-                    }
-               }
-               &:hover{
-                    .media--action{
-                         .media--action--edit{
-                              right: 15px;
-                         }
-                         .custom--ckeckbox{
-                              left: 15px;
-                         }
-                    }
-               }
-               .showItemAction{
-                    &.media--action{
-                         .media--action--edit{
-                              right: 15px;
-                         }
-                         .custom--ckeckbox{
-                              left: 15px;
-                         }
-                    }
-               }
-          }
-     }
+                .b-checkbox.checkbox input[type=checkbox]:checked+.check {
+                    border: 3px solid #fff !important;
+                    background-size: 16px
+                }
+            }
+        }
+
+        &:hover {
+            .media--action {
+                .media--action--edit {
+                    right: 15px;
+                }
+
+                .custom--ckeckbox {
+                    left: 15px;
+                }
+            }
+        }
+
+        .showItemAction {
+            &.media--action {
+                .media--action--edit {
+                    right: 15px;
+                }
+
+                .custom--ckeckbox {
+                    left: 15px;
+                }
+            }
+        }
+    }
+}
 
 
-     .lower--media--modal{
-          border-top: 1px solid $borderColor;
-          .buttons{
-               overflow: hidden;
+.lower--media--modal {
+    border-top: 1px solid $borderColor;
 
-               .showButtonAddAlbum,
-               .showButtonDeleteImage,
-               .showButtonInsert{
-                    transform: translateY(100%);
-                    opacity: 0;
-               }
-               .showButtonAddAlbum{
-                    @include prefixer(transition, all .2s ease-in-out .2s, webkit moz o);
-               }
-               .showButtonDeleteImage{
-                    @include prefixer(transition, all .2s ease-in-out .1s, webkit moz o);
-               }
-               .showButtonInsert{
-                    @include prefixer(transition, all .2s ease-in-out, webkit moz o);
-               }
-               .showActionButton{
-                    transform: translateY(0);
-                    opacity: 1;
-               }
-          }
-     }
+    .buttons {
+        overflow: hidden;
 
-     .modal--edit--images{
-          .modal-card-body{
-               text-align: center;
-               img{
-                    height: 180px;
-                    border-radius: 10px;
-               }
-          }
-     }
+        .showButtonAddAlbum,
+        .showButtonDeleteImage,
+        .showButtonInsert {
+            transform: translateY(100%);
+            opacity: 0;
+        }
+
+        .showButtonAddAlbum {
+            @include prefixer(transition, all .2s ease-in-out .2s, webkit moz o);
+        }
+
+        .showButtonDeleteImage {
+            @include prefixer(transition, all .2s ease-in-out .1s, webkit moz o);
+        }
+
+        .showButtonInsert {
+            @include prefixer(transition, all .2s ease-in-out, webkit moz o);
+        }
+
+        .showActionButton {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+}
+
+.modal--edit--images {
+    .modal-card-body {
+        text-align: center;
+
+        img {
+            height: 180px;
+            border-radius: 10px;
+        }
+    }
+}
+
+
+
+.video--iframe {
+    height: 200px
+}
+
+.modal--preview--media {
+    .media--preview--left {
+        background-color: #000;
+        display: flex;
+        padding: 0 20px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .modal-content {
+        background-color: #000;
+        padding: 0 15px;
+    }
+
+    .media--preview--right {
+        background-color: #fff;
+        position: relative;
+        padding-bottom: 85px;
+
+        .action--preview--media {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background-color: #fff;
+            z-index: 2;
+            padding: 20px 15px;
+            width: 100%;
+            border-top: 1px solid $borderColor;
+        }
+
+        .active--media--items {
+            .button {
+                width: 120px;
+            }
+        }
+
+        .modal-card-title {
+            font-size: 22px;
+            border-bottom: 4px solid $borderColor;
+            display: inline-block;
+            padding-bottom: 14px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+    }
+
+    .modal--content {
+        height: 100%;
+    }
+
+    form {
+        height: 100%
+    }
+
+    .media--content--preview {
+        min-width: 300px;
+        min-height: 100px;
+        max-width: 90%;
+        width: 90%;
+
+        iframe {
+            width: 100%
+        }
+
+        .plyr--full-ui {
+            width: 100%;
+            max-width: 100%;
+        }
+    }
 
 }
 
-.video--iframe{
-     height: 200px
-}
+.createdBy {
+    font-size: 15px;
+    color: $textColor;
+    margin-bottom: 10px;
 
-.modal--preview--media{
-     .media--preview--left{
-          background-color: #000;
-          display: flex;
-          padding: 0 20px;
-          align-items: center;
-          justify-content: center;
-     }
-     .modal-content{
-          background-color: #000;
-          padding: 0 15px;
-     }
-     .media--preview--right{
-          background-color: #fff;
-          position: relative;
-          padding-bottom: 85px;
-          .action--preview--media{
-               position: absolute;
-               bottom: 0;
-               right: 0;
-               background-color: #fff;
-               z-index: 2;
-               padding: 20px 15px;
-               width: 100%;
-               border-top: 1px solid $borderColor;
-          }
-          .active--media--items{
-               .button{
-                    width: 120px;
-               }
-          }
-          .modal-card-title{
-               font-size: 22px;
-               border-bottom: 4px solid $borderColor;
-               display: inline-block;
-               padding-bottom: 14px;
-               margin-top: 20px;
-               margin-bottom: 20px;
-          }
-     }
-     .modal--content{
-          height: 100%;
-     }
-     form{
-          height: 100%
-     }
-     .media--content--preview{
-          min-width: 300px;
-          min-height: 100px;
-          max-width: 90%;
-          width: 90%;
-          iframe{
-               width: 100%
-          }
-          .plyr--full-ui{
-               width: 100%;
-               max-width: 100%;
-          }
-     }
+    .avatar {
+        margin-right: 10px;
+    }
 
-}
-
-.createdBy{
-     font-size: 15px;
-     color: $textColor;
-     margin-bottom: 10px;
-     .avatar{
-          margin-right: 10px;
-     }
-     span{
-          font-weight: 500;
-     }
+    span {
+        font-weight: 500;
+    }
 }
 
 // Modal Crop Image
-.modal--crop--image{
-     .modal-content{
-          padding: 0 15px;
-          background-color: #000;
-     }
-     .image--crop--wrap{
-          height: 100%;
-          width: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 20px;
-          position: relative;
-          .image--crop--content{
-               width: 1000px;
-               max-width: 90%;
-               height: 90%;
-               height: 600px;
-          }
-          .action--crop{
-               position: absolute;
-               bottom: 0;
-               width: 100%;
-               text-align: center;
-               left: 0;
-               z-index: 4;
-               padding: 25px 15px;
-               .button{
-                    margin: 6px;
-                    opacity: .94;
-                    @include prefixer(transition, all .25s ease-in-out, webkit moz o);
-                    &:hover{
-                         opacity: 1
-                    }
-               }
+.modal--crop--image {
+    .modal-content {
+        padding: 0 15px;
+        background-color: #000;
+    }
 
-          }
-     }
+    .image--crop--wrap {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        position: relative;
+
+        .image--crop--content {
+            width: 1000px;
+            max-width: 90%;
+            height: 90%;
+            height: 600px;
+        }
+
+        .action--crop {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            left: 0;
+            z-index: 4;
+            padding: 25px 15px;
+
+            .button {
+                margin: 6px;
+                opacity: .94;
+                @include prefixer(transition, all .25s ease-in-out, webkit moz o);
+
+                &:hover {
+                    opacity: 1
+                }
+            }
+
+        }
+    }
 }
 
-.thumbnails--preview{
+.thumbnails--preview {
     text-align: left;
-    .thumbnails--item{
+
+    .thumbnails--item {
         padding: 5px;
         display: flex;
         transition: all .25s ease-in-out;
         cursor: pointer;
-        img{
+
+        img {
             width: auto;
             height: 100px;
         }
-        span{
+
+        span {
             padding: 10px;
             text-transform: capitalize;
         }
-        &:hover{
+
+        &:hover {
             background-color: #f4f4f4;
         }
     }
 }
 
-.right--thumbnails--preview{
+.right--thumbnails--preview {
     position: relative;
     padding-bottom: 70px;
     padding-top: 20px;
-    .action--preview--media{
+
+    .action--preview--media {
         position: absolute;
         bottom: 0;
         right: 0;
@@ -303,17 +347,18 @@
 }
 
 
-.thumbnail--selected{
+.thumbnail--selected {
     background-color: #505050 !important;
     color: #fff !important;
 }
 
 
-.document--preview{
+.document--preview {
     height: 100%;
     width: 100%;
     min-height: 200px;
-    embed{
+
+    embed {
         width: 100%;
         min-height: 100vh;
     }

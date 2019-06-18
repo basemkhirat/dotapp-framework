@@ -104,6 +104,11 @@ button.is-rounded, .button.is-rounded {
     }
 }
 
+.w-fuild-sm{
+    max-width: 200px !important;
+    min-width: 200px !important;
+}
+
 // Transition
 .slide-left-enter-active,
 .slide-left-leave-active,
@@ -346,8 +351,17 @@ button.is-rounded, .button.is-rounded {
     margin-top: 15px;
 
     .search{
-        min-width: 300px;
+        min-width: 280px;
     }
+
+    // .row{
+    //     margin-left: -10px !important;
+    //     margin-right: -10px !important;
+    //     .col-12{
+    //         padding-left: 5px !important;
+    //         padding-right: 5px !important;
+    //     }
+    // }
 
 }
 .icon--right{
