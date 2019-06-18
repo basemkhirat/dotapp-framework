@@ -33,8 +33,16 @@ export default class extends Controller {
         }
 
         if (req.filled("categories")) {
-            let categories = Array.isArray(req.param("categories")) ? req.param("categories") : req.param("categories").toArray(",");
+            let categories = Array.isArray(req.param("categories")) ? req.param("categories") : req.param("categories").toArray();
             query.where('categories').in(categories);
+        }
+
+        if (req.filled("from_date")) {
+            query.where({'created_at': {$gte: req.param("from_date")}});
+        }
+
+        if (req.filled("to_date")) {
+            query.where({'created_at': {$lte: req.param("to_date")}});
         }
 
         if (req.filled("q")) {
@@ -140,7 +148,7 @@ export default class extends Controller {
             post.published_at = req.param("published_at", post.published_at);
             post.categories = req.param("categories", post.categories);
 
-            if(req.filled("tags")){
+            if (req.filled("tags")) {
                 post.tag_names = req.param("tags");
             }
 

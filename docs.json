@@ -19,19 +19,21 @@
                         "in": "query",
                         "description": "Email",
                         "required": true,
-                        "type": "string"
+                        "type": "string",
+                        "value": "rady@gmail.com"
                     },
                     {
                         "name": "password",
                         "in": "query",
                         "description": "Password",
                         "required": true,
-                        "type": "string"
+                        "type": "string",
+                        "value": "qwertyui"
                     }
                 ],
                 "responses": {
                     "$ref": "#/responses"
-                }
+                }s
             }
         },
         "/auth/forget": {
@@ -1205,6 +1207,18 @@
                         "name": "q",
                         "in": "query",
                         "description": "Search Keyword",
+                        "type": "string"
+                    },
+                    {
+                        "name": "from_date",
+                        "in": "query",
+                        "description": "From date",
+                        "type": "string"
+                    },
+                    {
+                        "name": "to_date",
+                        "in": "query",
+                        "description": "To date",
                         "type": "string"
                     },
                     {
