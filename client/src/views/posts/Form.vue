@@ -18,24 +18,32 @@
         <form @submit.prevent="submitForm()">
             <div class="row">
                 <div class="col-12 col-lg-8">
+                    <div class="post--content">
+                        <!-- Main Field Post -->
+                        <main-field-post @setDataFromChild="setDataFromMainField" :post="this.post"/>
 
-                    <!-- Main Field Post -->
-                    <main-field-post @setDataFromChild="setDataFromMainField" :post="this.post"/>
+                        <!-- Content Editor -->
+                        <content-editor @setDataFromChild="setDataFromCardsContent" :post="this.post"/>
 
-                    <!-- Content Editor -->
-                    <content-editor @setDataFromChild="setDataFromCardsContent" :post="this.post"/>
-
-                    <!-- Main Button Save -->
-                    <div class="text-center button--save--form">
-                        <button class="button is-primary is-rounded"
-                        :class="{'is-loading': isLoading}"
-                        type="submit">Save Changes</button>
+                        <!-- Main Button Save On Desktop Screen -->
+                        <div class="text-center button--save--form d-none d-lg-block">
+                            <button class="button is-primary is-rounded"
+                            :class="{'is-loading': isLoading}"
+                            type="submit">Save Changes</button>
+                        </div>
                     </div>
 
                 </div>
 
                 <!-- Post Info -->
                 <post-info @setDataFromChild="setDataFromPostInfo" :post="this.post"/>
+
+                <!-- Main Button Save On Mobile Screen -->
+                <div class="text-center button--save--form d-block d-lg-none w-100">
+                    <button class="button is-primary is-rounded"
+                    :class="{'is-loading': isLoading}"
+                    type="submit">Save Changes</button>
+                </div>
 
             </div>
         </form>
@@ -81,11 +89,20 @@
             MainFieldPost
         },
         created(){
+            if(window.innerWidth > 1199.98){
+                this.changeSideBarStyle()
+            }
             if (this.$route.params.id) {
                 this.getPost(this.$route.params.id)
             }
         },
-
+        watch:{
+            '$route' (to, from) {
+                if(this.$route.name === 'postForm' && window.innerWidth > 1199.98){
+                    this.changeSideBarStyle()
+                }
+            }
+        },
         methods: {
             // Set Data From Post Info Components
             setDataFromPostInfo(data) {
@@ -133,8 +150,16 @@
                 let data = {}
                 data.title = this.postMainField.title
                 data.excerpt = this.postMainField.excerpt
-                data.media = this.postMainField.media
+                if(this.postMainField.media){
+                    data.media = this.postMainField.media
+                }
                 data.status = this.postInfo.status
+                data.tags = this.postInfo.tags
+                // data.categories = this.postInfo.categories
+                if(this.postInfo.format){
+                    data.format = this.postInfo.format.value
+                }
+                data.published_at = this.postInfo.published_at
                 data.content = postCardContent
 
                 if (data.title) {
@@ -196,6 +221,10 @@
                     indefinite: false,
                 })
             },
+            changeSideBarStyle(){
+                document.body.classList.add('editor--mini')
+                this.$store.commit('miniSidebar')
+            }
         },
     }
 </script>

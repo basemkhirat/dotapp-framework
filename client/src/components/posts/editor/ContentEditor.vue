@@ -160,6 +160,10 @@
             </Draggable>
         </Container>
 
+        <!-- Scroll To Bottom -->
+        <template v-if="windowWidth > 991.98">
+            <div id="scroll--bottom"></div>
+        </template>
 
     </div>
 </template>
@@ -237,7 +241,10 @@
                 setContentCardImage: state => state.media.setContentCardImage,
                 setContentCardGallery: state => state.media.setContentCardGallery,
                 setContentCardVideo: state => state.media.setContentCardVideo,
-            })
+            }),
+            windowWidth(){
+                return window.innerWidth
+            }
         },
         methods: {
             // Send Type To Parent Component

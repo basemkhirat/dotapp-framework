@@ -1,6 +1,6 @@
 <template>
     <div class="menu--editor">
-        <ul class="nav">
+        <ul class="nav" v-scroll-to="'#scroll--bottom'">
             <li class="menu--item" @click="setEditorType('paragraph')">
                 <span class="icon">
                     <i class="fas fa-paragraph"></i>
@@ -43,10 +43,7 @@
 
 <script>
 export default {
-    created(){
-        document.body.classList.add('editor--mini')
-        this.$store.commit('miniSidebar')
-    },
+
     methods:{
         setEditorType(type){
             this.$emit('setEditorType', type)
