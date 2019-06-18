@@ -33,7 +33,7 @@
                 ],
                 "responses": {
                     "$ref": "#/responses"
-                }s
+                }
             }
         },
         "/auth/forget": {
