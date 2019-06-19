@@ -2,10 +2,12 @@
     <div class="groups">
         <div class="page--title">
             <h1 class="title--text">Categories</h1>
-            <div class="page--title--action ml-auto"
+            <!-- <div class="page--title--action ml-auto"
                 v-if="this.$route.params.id && isInUserPermissions('category.create')">
-                <router-link to="/categoryForm" class="button is-primary is-rounded">Add New Category</router-link>
-            </div>
+                <button @click="addNewCategory()" class="button is-primary is-rounded">
+                    Add New Category
+                </button>
+            </div> -->
         </div>
 
         <!-- Breadcrumb -->
@@ -108,6 +110,11 @@
                 this.description = ''
                 this.photo = ''
             },
+            // Add New Category Button
+            addNewCategory(){
+                this.resetfuild()
+                this.$router.push({ path: '/categoryForm', query: { parentId: this.$route.query.parentId}})
+            },
 
             submitForm() {
                 this.isLoading = false
@@ -118,6 +125,9 @@
                 }
                 if (this.imageSelected) {
                     data.image = this.imageSelected.id
+                }
+                if (this.$route.query.parentId) {
+                    data.parent = this.$route.query.parentId
                 }
 
                 if (this.name) {
@@ -146,8 +156,12 @@
                 this.name = category.name
                 this.description = category.description
                 if (category.image) {
-                    this.photo = category.image.url
+                    this.photo = category.image.thumbnails.medium
                 }
+                if (this.$route.query.parentId) {
+                    data.parent = this.$route.query.parentId
+                }
+                // this.$router.push({query: { parentId: category.parent}})
 
             },
             async updateCategory(id, data) {

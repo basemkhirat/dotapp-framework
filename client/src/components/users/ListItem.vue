@@ -20,10 +20,14 @@
             </div>
             <div class="col-12 col-sm-6 col-xl">
                 <div class="item--text">
-                    <span class="icon">
-                        <i class="fas fa-envelope"></i>
-                    </span>
-                    {{user.email}}
+                    <b-tooltip :label="user.email"
+                    type="is-dark"
+                    position="is-top">
+                        <span class="icon">
+                            <i class="fas fa-envelope"></i>
+                        </span>
+                        {{ user.email | textLimit(16) }}
+                    </b-tooltip>
                 </div>
             </div>
             <div class="col-12 col-sm-6 col-xl">

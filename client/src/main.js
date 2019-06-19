@@ -64,6 +64,18 @@ Vue.mixin({
 })
 
 
+// Vue Filter
+Vue.filter('textLimit', function (value, num) {
+    if (!value) return ''
+    value = value.toString()
+    if(value.length > num){
+        let newText = value.substring(0, num)
+        return newText + ' ...'
+    } else {
+        return value
+    }
+})
+
 
 
 Vue.config.productionTip = false
