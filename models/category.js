@@ -1,5 +1,7 @@
 import {Mongoose, Schema} from './model';
 
+import Category from './category';
+
 let schema = Schema({
 
         name: {
@@ -10,7 +12,7 @@ let schema = Schema({
             type: String,
             slug: "name",
             slugPaddingSize: 4,
-            uniqueSlug:true,
+            uniqueSlug: true,
             permanent: true
         },
 
@@ -27,7 +29,15 @@ let schema = Schema({
         image: {
             type: Schema.Types.ObjectId,
             ref: 'media'
-        }
+        },
+
+        parent: {
+            type: Schema.Types.ObjectId,
+            ref: 'category'
+        },
+        children: {
+            type: Array
+        },
     },
     {
         timestamps: {
@@ -36,6 +46,19 @@ let schema = Schema({
         }
     }
 );
+
+let getNestedChildren = (parent, items = [], callback) => {
+    Category.where("parent", parent).exec((error, categories) => {
+        if (error) return callback(null);
+        callback(null, categories);
+    });
+};
+
+schema.methods.getChildren = function(callback){
+    getNestedChildren(this.id, [], function (error, children) {
+        callback(error, children);
+    });
+};
 
 
 schema.index({user: 1});

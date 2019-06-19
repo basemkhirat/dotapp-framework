@@ -6,6 +6,7 @@ import mongooseAutoPopulate from 'mongoose-autopopulate';
 mongoose.plugin(mongooseAutoPopulate);
 mongoose.plugin(mongooseSlugUpdater);
 
+
 mongoose.plugin(function (schema) {
 
     schema.set("versionKey", false);

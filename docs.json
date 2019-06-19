@@ -1051,6 +1051,12 @@
                         "description": "Sorting Direction",
                         "type": "string",
                         "default": "desc"
+                    },
+                    {
+                        "name": "parent",
+                        "in": "query",
+                        "description": "Parent Category ID",
+                        "type": "string"
                     }
                 ],
                 "responses": {
@@ -1092,7 +1098,14 @@
                         "in": "query",
                         "description": "Media ID",
                         "type": "string"
+                    },
+                    {
+                        "name": "parent",
+                        "in": "query",
+                        "description": "Parent Category ID",
+                        "type": "string"
                     }
+
                 ],
                 "responses": {
                     "$ref": "#/responses"
@@ -1560,6 +1573,12 @@
                         "name": "image",
                         "in": "query",
                         "description": "Media ID",
+                        "type": "string"
+                    },
+                    {
+                        "name": "parent",
+                        "in": "query",
+                        "description": "Parent Category ID",
                         "type": "string"
                     }
                 ],

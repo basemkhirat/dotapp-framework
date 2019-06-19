@@ -15,11 +15,15 @@ export default class extends Controller {
 
         let id = req.param("id");
 
-        Category.findById(id).populate("user").populate("image").exec(function (error, category) {
+        Category.findById(id).populate("user").populate("image").populate("parent").exec(function (error, category) {
             if (error) return res.serverError(error);
             if (!category) return res.notFound(req.lang("category.errors.category_not_found"));
 
-            return res.ok(res.attachPolicies(category, "category"));
+            category.getChildren((error, children) => {
+                if (error) return res.serverError(error);
+                category.children = children;
+                return res.ok(res.attachPolicies(category, "category"));
+            });
         });
     }
 
@@ -32,7 +36,7 @@ export default class extends Controller {
 
         if (!req.can("category.view")) return res.forbidden();
 
-        let query = Category.find();
+        let query = Category.find().where("parent", req.param("parent"));
 
         if (req.filled("user")) {
             query.where("user", req.param("user"));
@@ -46,14 +50,32 @@ export default class extends Controller {
 
         query.order(req.param("sort_field", "created_at"), req.param("sort_type", "desc"));
 
-        query.populate("user").populate("image");
+        query.populate("user").populate("image").populate("parent");
 
         query.execWithCount((error, result) => {
+
             if (error) return res.serverError(error);
-            return res.ok({
-                total: result.total,
-                docs: res.attachPolicies(result.docs, "category")
+
+            async.mapSeries(result.docs, (doc, cb) => {
+
+                doc.getChildren((error, children) => {
+
+                    if (error) return cb(error);
+
+                    doc.children = children;
+
+                    cb(null, doc);
+                });
+
+            }, function (error, docs) {
+                if (error) return res.serverError(error);
+                return res.ok({
+                    total: result.total,
+                    docs: res.attachPolicies(docs, "category")
+                });
+
             });
+
         });
     }
 
@@ -73,6 +95,7 @@ export default class extends Controller {
         category.slug = req.param("slug", category.slug);
         category.description = req.param("description", category.description);
         category.image = req.param("image", category.image);
+        category.parent = req.param("parent", category.parent);
         category.user = req.user.id;
 
         category.save(function (error, category) {
@@ -102,6 +125,7 @@ export default class extends Controller {
             category.slug = req.param("slug", category.slug);
             category.description = req.param("description", category.description);
             category.image = req.param("image", category.image);
+            category.parent = req.param("parent", category.parent);
 
             category.save(error => {
                 if (error) return res.serverError(error);
@@ -178,7 +202,6 @@ export default class extends Controller {
 
                     }
                 });
-
             },
 
             function (error, result = []) {

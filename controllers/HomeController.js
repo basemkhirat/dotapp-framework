@@ -1,6 +1,6 @@
 import Controller from './Controller';
 
-import Tag from "~/models/tag";
+import Category from "~/models/category";
 
 export default class extends Controller {
 
@@ -13,10 +13,26 @@ export default class extends Controller {
 
     index(req, res, next) {
 
-        Tag.saveNames([], (error, tags) => {
+        Category.findById("5d090c27acc0492be1e889e7", function(error, doc){
             if(error) return res.serverError(error);
-            return res.ok(tags);
+            if(!doc) return res.notFound("Doc not found");
+
+            // access to the children
+
+            doc.getChildren(function (err, docs) {
+                res.ok(docs);
+            });
+
+            // // access to the children with condition and sort
+            // doc.getChildren({
+            //     condition: {name: /^a/},
+            //     sort: {name: 1}
+            // }, function (err, docs) {
+            //     // ...
+            // });
+
+
         });
 
-    }
+        }
 };
