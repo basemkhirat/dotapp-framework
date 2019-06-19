@@ -13,15 +13,18 @@ export default class extends Controller {
 
         if (!req.can("role.view")) return res.forbidden();
 
-        let id = req.param("id");
+        let query = Role.findOne();
 
-        Role.where("name").ne("superadmin").findById(id, function (error, role) {
+        query.where("_id", req.param("id"));
+
+        query.where("name").ne("superadmin");
+
+        query.exec(function (error, role) {
             if (error) return res.serverError(error);
             if (!role) return res.notFound(req.lang("role.errors.role_not_found"));
 
             return res.ok(res.attachPolicies(role, "role"));
         });
-
     }
 
     /**
@@ -94,7 +97,7 @@ export default class extends Controller {
             if (error) return res.serverError(error);
             if (!role) return res.notFound(req.lang("role.errors.role_not_found"));
 
-            if (!req.can("role.update", role)){
+            if (!req.can("role.update", role)) {
                 return res.forbidden(req.lang("role.errors.update_denied", {
                     role: role.name
                 }));
@@ -125,7 +128,7 @@ export default class extends Controller {
             if (error) return res.serverError(error);
             if (!role) return res.notFound(req.lang("role.errors.role_not_found"));
 
-            if (!req.can("role.delete", role)){
+            if (!req.can("role.delete", role)) {
                 return res.forbidden(req.lang("role.errors.delete_denied", {
                     role: role.name
                 }));
