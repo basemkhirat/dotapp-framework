@@ -17,6 +17,10 @@ export default class extends Controller {
         for (let module in permissions) {
             permissions[module].forEach(action => {
 
+                if(module === "role"){
+                    return;
+                }
+
                 if (!(module in allPermissions)) {
                     allPermissions[module] = {};
                 }
@@ -40,6 +44,11 @@ export default class extends Controller {
         let myPermissions = [];
 
         for (let module in permissions) {
+
+            if(module === "role"){
+                continue;
+            }
+
             permissions[module].forEach(action => {
                 if (req.hasPermission(module + "." + action)) {
                     myPermissions.push(module + "." + action);

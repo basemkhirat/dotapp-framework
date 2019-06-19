@@ -12,7 +12,47 @@ export default {
          * @returns {boolean}
          */
 
-        update: (req, user = false) => req.role === 'superadmin' || req.hasPermission("user.update") || req.user.id === user.id,
+        update(req, user = false) {
+
+            if(!user){
+                return false
+            }
+
+
+            if (req.user.id === user.id) {
+
+                // is me
+
+                return true;
+
+            } else{
+
+                // other user
+
+                // other user has super admin role
+
+                if (user.hasRole("superadmin")) {
+                    return false;
+                }
+
+                // other user has other role
+
+
+
+
+            }
+
+
+
+
+
+
+
+            // if (req.hasPermission("user.update")) {
+            //     return true
+            // }
+
+        },
 
         /**
          * users allowed to change status:
@@ -24,7 +64,7 @@ export default {
          * @returns {boolean}
          */
 
-        status: (req, user = false) => {
+        status(req, user = false) {
 
             if (user) {
 
@@ -49,7 +89,7 @@ export default {
          * @returns {boolean}
          */
 
-        role: (req, user = false) => {
+        role(req, user = false) {
 
             if (user && user.role && user.role.id === req.param("role")) { // role not changed
                 return true;
@@ -68,7 +108,7 @@ export default {
          * @returns {boolean}
          */
 
-        permissions: (req, user = false) => {
+        permissions(req, user = false) {
 
             if (user && user.permissions === req.param("permissions")) { // permissions not changed
                 return true;
@@ -87,8 +127,37 @@ export default {
          * @returns {boolean}
          */
 
-        delete: (req, user = false) => (req.role === 'superadmin' || req.hasPermission("user.delete")) && req.user.id !== user.id,
+        delete(req, user = false) {
+
+            if (user.hasRole("superadmin")) {
+                return false;
+            }
+
+            return req.hasPermission("user.delete") && req.user.id !== user.id
+        }
     },
 
-    role: req => req.role === 'superadmin',
+    role: {
+
+        view(req, role) {
+
+            if(role && role.name === "superadmin"){
+                return false;
+            }
+
+            return req.hasRole("superadmin");
+        },
+
+        create(req) {
+            return req.hasRole("superadmin");
+        },
+
+        update(req) {
+            return req.hasRole("superadmin");
+        },
+
+        delete(req, role) {
+            return req.hasRole("superadmin") && role.name !== "superadmin";
+        }
+    }
 }
