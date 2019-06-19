@@ -4,7 +4,6 @@
                <div class="col-12 col-md-6">
                     <v-select :options="allTypes" v-model="type" label="title" class="select--with--icon v--select--scroll my-2 my-md-0" v-if="previewItemAction">
                          <template slot="option" slot-scope="option">
-                              <!-- <span :class="option.icon"></span> -->
                               {{ option.title }}
                          </template>
                     </v-select>

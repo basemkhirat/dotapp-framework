@@ -34,6 +34,16 @@
                 </div>
             </div>
 
+            <div class="col-12 col-sm-6 col-xl">
+                <div class="item--text">
+                    <span class="icon">
+                        <i class="fas fa-th-large"></i>
+                    </span>
+                    Children
+                    ({{item.children.length}})
+                </div>
+            </div>
+
             <div class="col-12 col-sm-12 col-xl item--text">
                 <div class="all--item--action d-flex align-item-center">
                     <div class="all--item--action d-flex align-item-center">
@@ -73,7 +83,9 @@
                 } else {
                     this.checkItemSelected = false
                 }
-
+            },
+            '$route' (to, from) {
+                this.fetchAllItems()
             }
         },
         methods: {

@@ -8,7 +8,9 @@
         </span>
       </h1>
       <div class="page--title--action ml-auto" v-if="isInUserPermissions('category.create')">
-          <router-link to="/categoryForm" class="button is-primary is-rounded">Add New Category</router-link>
+          <router-link
+          :to="{ path: '/categoryForm', query: { parentId: this.$route.params.id}}"
+          class="button is-primary is-rounded">Add New Category</router-link>
       </div>
     </div>
     <!-- Breadcrumb -->
@@ -76,9 +78,9 @@ export default {
     page(){
       this.fetchAllItems()
     },
-    // '$route' (to, from) {
-    //     this.fetchAllItems()
-    // }
+    '$route' (to, from) {
+        this.fetchAllItems()
+    }
   },
   methods:{
     selectAllItems(checkButton){
@@ -93,11 +95,13 @@ export default {
     checkButtonSelectAll(data){
       this.allItemChecked = data
     },
+
+    // Fetch All Items
     async fetchAllItems(filters) {
         this.dataLoading = true
         const categories = await categoriesRepository.getAllCategories(this.page, this.limit, filters, this.$route.params.id)
-        this.categories = categories.data.docs;
         this.total = categories.data.total;
+        this.categories = categories.data.docs;
         this.dataLoading = false;
     },
     // Filters

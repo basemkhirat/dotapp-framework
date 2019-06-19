@@ -33,17 +33,21 @@ export default {
             }
         });
     },
-    getAllCategories(page, limit, filters = {}, idCAtegory = null) {
+
+    getAllCategories(page, limit, filters = {}, idCategory = null) {
 
         let searchQuery = (filters.searchQuery && filters.searchQuery !== '') ? '&q=' + filters.searchQuery : '';
         let filterQuery = searchQuery;
 
-        return Repository.get(`${resource}${idCAtegory? '/' + idCAtegory : ''}?page=${page}&limit=${limit}${filterQuery}&sort_field=_id&sort_type=desc`).then((response) => {
+        let byIdCategory = idCategory ? {params: {parent: idCategory}} : ''
+
+        return Repository.get(`${resource}?page=${page}&limit=${limit}${filterQuery}&sort_field=_id&sort_type=desc`, byIdCategory).then((response) => {
             if (response.data.success) {
                 return response.data;
             }
         });
     },
+
     newCategory(data) {
         return Repository.post(`${resource}`, data).then((response) => {
             if (response.data.success) {
