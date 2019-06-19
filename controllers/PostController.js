@@ -275,7 +275,7 @@ export default class extends Controller {
             }
         });
 
-        return res.ok(types);
+        return res.ok(formats);
     }
 };
 
