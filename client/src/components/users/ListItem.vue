@@ -1,5 +1,5 @@
 <template>
-    <div class="block--item" v-if="user.policies.indexOf('role.view') > -1">
+    <div class="block--item" v-if="user.policies.indexOf('user.view') > -1">
         <div class="row align-items-center">
             <div class="item--checkbox" v-if="isInUserPermissions('user.delete')">
                 <b-checkbox v-model="userSelected" @input="updateCheckbox(user.id)" :native-value="user.id">
