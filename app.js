@@ -1,26 +1,9 @@
 #!/usr/bin/env node
 
-String.prototype.toArray = function (term = ",") {
-
-    let items = [];
-
-    this.split(term).forEach(item => {
-        item = item.trim();
-        if (items.indexOf(item) < 0) {
-            items.push(item);
-        }
-    });
-
-    return items;
-};
-
-
-
-let Config = require('~/services/config');
-
+require("~/services/prototypes");
 require('~/services/database');
 
-import Log from '~/services/log';
+import Config from '~/services/config';
 import Router from '~/services/router';
 import express from 'express';
 import Rates from "~/middlewares/rates";
