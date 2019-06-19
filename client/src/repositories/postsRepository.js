@@ -36,9 +36,14 @@ export default {
     getAllPosts(page, limit, filters = {}) {
         let statusQuery = (filters.status && filters.status !== '') ? '&status=' + filters.status : '';
         let searchQuery = (filters.searchQuery && filters.searchQuery !== '') ? '&q=' + filters.searchQuery : '';
-        let filterQuery = searchQuery + statusQuery;
+        let orderQuery = filters.order ? "&sort_type=" + filters.order : "";
+        let formatQuery = filters.format ? "&format=" + filters.format : "";
+        let dateFromQuery = filters.dateFrom ? "&from_date=" + filters.dateFrom : "";
+        let dateToQuery = filters.dateTo ? "&to_date=" + filters.dateTo : "";
 
-        return Repository.get(`${resource}?page=${page}&limit=${limit}${filterQuery}&sort_field=_id&sort_type=desc`).then((response) => {
+        let filterQuery = searchQuery + statusQuery + orderQuery + formatQuery + dateFromQuery + dateToQuery;
+
+        return Repository.get(`${resource}?page=${page}&limit=${limit}${filterQuery}&sort_field=_id`).then((response) => {
             if (response.data.success) {
                 return response.data;
             }

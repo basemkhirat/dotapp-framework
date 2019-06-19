@@ -12,7 +12,8 @@
                                 </b-field>
                             </template>
                             <div class="file--upload" @click="openModalMedia('mainArticlePhoto')">
-                                {{mediaItemPreview? 'Replace' : ' Select Main Image Or Video'}}
+                                <span v-if="mediaItemPreview.image">Replace</span>
+                                <span v-else> Select Main Image Or Video</span>
                             </div>
                         </div>
                     </b-field>

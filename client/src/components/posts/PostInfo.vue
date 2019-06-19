@@ -85,6 +85,8 @@
     } from '../../repositories/RepositoryFactory'
     const tagsRepository = RepositoryFactory.get('tags')
 
+    import {allFormat} from './../../helpers/Variables'
+
     export default {
         props: ['post'],
         data() {
@@ -99,19 +101,7 @@
                 filteredTags: [],
                 tagsFilterLoading: false,
                 allSections: ['News', 'Media', 'Sport', 'Art'],
-                allFormat: [{
-                    value: 'video',
-                    name: 'Video'
-                }, {
-                    value: 'image',
-                    name: 'Image'
-                }, {
-                    value: 'post',
-                    name: 'Post'
-                }, {
-                    value: 'gallery',
-                    name: 'Gallery'
-                }],
+                allFormat,
                 scheduleDate: '',
                 page: 1,
                 limit: 10,
@@ -149,6 +139,10 @@
                 ],
             };
         },
+        components: {
+            Datetime,
+            Treeselect,
+        },
         watch: {
             postInfo: {
                 handler(val) {
@@ -160,7 +154,11 @@
                 if (this.post) {
                     this.postInfo.status = this.post.status
                     // this.postInfo.categories = this.post.categories
-                    this.postInfo.tags = this.post.tags
+                    if(this.post.tags){
+                        this.post.tags.map( item => {
+                            this.postInfo.tags.push(item.name)
+                        })
+                    }
                     this.postInfo.published_at = this.post.published_at
                     this.postInfo.format = this.post.format
                 }
@@ -175,14 +173,14 @@
                 this.$emit('setDataFromChild', this.postInfo)
             },
             // Filter Tags
-            getFilteredTags(text) {
-                this.filteredTags = data.filter((option) => {
-                    return option.user.first_name
-                        .toString()
-                        .toLowerCase()
-                        .indexOf(text.toLowerCase()) >= 0
-                })
-            },
+            // getFilteredTags(text) {
+            //     this.filteredTags = data.filter((option) => {
+            //         return option.user.first_name
+            //             .toString()
+            //             .toLowerCase()
+            //             .indexOf(text.toLowerCase()) >= 0
+            //     })
+            // },
             getFilteredTags(text) {
                 this.filteredTags = []
                 let filters = {}
@@ -203,10 +201,6 @@
                 })
                 this.tagsFilterLoading = false
             }
-        },
-        components: {
-            Datetime,
-            Treeselect,
         },
 
     }

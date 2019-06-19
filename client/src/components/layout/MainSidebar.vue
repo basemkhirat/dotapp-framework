@@ -61,9 +61,9 @@
                     { name: 'Dashboard', link: '/', icon: 'fas fa-tachometer-alt', role: true},
                     { name: 'Users', link: '/users', icon: 'fas fa-user', role: 'user.view'},
                     { name: 'Groups', link: '/groups', icon: 'fas fa-users', role: 'role.view'},
-                    { name: 'Media', link: '/media', icon: 'fa fa-images', role: 'media.view', media: true},
+                    { name: 'Media', link: '/media', icon: 'fa fa-images', role: 'media.view'},
                     { name: 'Posts', link: '/posts', icon: 'far fa-newspaper', role: 'post.view'},
-                    { name: 'Categories', link: '/categories', icon: 'far fa-newspaper', role: 'category.view'},
+                    { name: 'Categories', link: '/categories', icon: 'fas fa-puzzle-piece', role: 'category.view'},
                     { name: 'Tags', link: '/tags', icon: 'fas fa-tags', role: 'tag.view'},
                     // { name: 'Item Dropdown2', link: '/', icon: 'fas fa-columns', childLinks:[
                     //     { name: 'Item One a', link: '/a'},

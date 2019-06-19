@@ -1,23 +1,62 @@
 <template>
     <div class="filter--items">
         <div class="row">
-            <div class="col-12 col-lg-6">
+            <div class="col-12 col-lg">
                 <div class="filter--items--left">
                     <div class="input--fuild">
-                        <button class="button is-rounded w-100"
-                              :class="{'is-primary' : checkItem}"
-                              @click="selectAllItems">
-                              Select All
-                         </button>
+                        <button class="button is-rounded w-100" :class="{'is-primary' : checkItem}"
+                            @click="selectAllItems">
+                            Select All
+                        </button>
                     </div>
-
                 </div>
             </div>
-            <div class="col-12 col-lg-6">
+            <div class="col-12 col-lg">
                 <div class="filter--items--right">
                     <div class="input--fuild">
+                        <b-tooltip
+                            :always="!!this.dateFrom > 0 || !!this.dateTo.length > 0"
+                            type="is-dark"
+                            :active="(!this.modalFilterByDate) && (!!this.dateFrom.length || !!this.dateTo.length)"
+                            :label="
+                                (this.dateFrom ? `From: ${this.dateFrom}` : '') +
+                                (this.dateFrom && this.dateTo ? ' - ' : '') +
+                                (this.dateTo ? `To: ${this.dateTo}` : '')"
+                            >
+                            <button class="button is-rounded w-100" @click="filterByDate">
+                                <i class="far fa-calendar-alt"></i>
+                            </button>
+                        </b-tooltip>
+                    </div>
+                    <div class="input--fuild">
+                        <v-select :options="orderOptions" :clearable="false"
+                        v-model="order" label="title" class="select--with--icon w-100 w-fuild-sm v--select--scroll">
+                            <template slot="option" slot-scope="option">
+                                {{ option.title }}
+                            </template>
+                        </v-select>
+                    </div>
+
+                    <div class="input--fuild">
+                        <v-select :options="allCategories" v-model="categories" multible label="name"
+                            placeholder="Sort By Categories" class="select--with--icon w-100 v--select--scroll">
+                            <template slot="option" slot-scope="option">
+                                {{ option.name }}
+                            </template>
+                        </v-select>
+                    </div>
+                    <div class="input--fuild">
+                        <v-select :options="allFormat" v-model="format" label="name" placeholder="Sort By Format"
+                            class="select--with--icon w-100 v--select--scroll w-fuild-sm">
+                            <template slot="option" slot-scope="option">
+                                {{ option.name }}
+                            </template>
+                        </v-select>
+                    </div>
+
+                    <div class="input--fuild">
                         <v-select :options="allStatus" v-model="status" label="name" placeholder="Sort By Status"
-                            class="select--with--icon w-100 v--select--scroll">
+                            class="select--with--icon w-100 v--select--scroll w-fuild-sm">
                             <template slot="option" slot-scope="option">
                                 {{ option.name }}
                             </template>
@@ -25,61 +64,161 @@
                     </div>
                     <div class="input--fuild">
                         <div class="search icon--right">
-                            <b-input placeholder="Search..." type="search" icon-pack="fa" rounded icon="search" v-model="searchQuery">
+                            <b-input placeholder="Search..." type="search" icon-pack="fa" rounded icon="search"
+                                v-model="searchQuery">
                             </b-input>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
+
+         <!-- Modal Filter By Date -->
+          <b-modal :has-modal-card="false" :active.sync="modalFilterByDate"
+          :can-cancel="false"
+          :width="640" scroll="keep" class="modal--custom">
+                <div class="card-content text-left">
+                    <b-field class="field-group flex-column">
+                        <label class="label">Date From</label>
+                        <datetime type="datetime" class="custom--datetime theme-primary" placeholder="From"
+                            v-model="dateFrom" use12-hour>
+                        </datetime>
+                    </b-field>
+                    <b-field class="field-group flex-column">
+                        <label class="label">Date To</label>
+                        <datetime type="datetime" class="custom--datetime theme-primary" placeholder="To"
+                            v-model="dateTo" use12-hour>
+                        </datetime>
+                    </b-field>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button class="button is-rounded is-danger mr-2" type="button"
+                        @click="unsetDate()">Unset Date</button>
+                    <button class="button is-primary is-rounded"
+                        @click="setDate"
+                        type="button">Set Date</button>
+                </div>
+        </b-modal>
 
     </div>
 </template>
 
 <script>
+    // DatePicker
+    import {
+        Datetime
+    } from 'vue-datetime';
+    // DatePicker Style
+    import 'vue-datetime/dist/vue-datetime.css'
+
+    import {
+        allFormat,
+        order
+    } from './../../helpers/Variables'
     export default {
-        props:['allItemChecked'],
+        props: ['allItemChecked'],
         data() {
             return {
                 status: '',
                 checkItem: false,
                 searchQuery: '',
                 filters: {},
-                allStatus: [{id: '1', name: 'Published'}, {id: '0', name: 'Not Published'}]
+                allStatus: [{
+                    id: '1',
+                    name: 'Published'
+                }, {
+                    id: '0',
+                    name: 'Not Published'
+                }],
+                categories: [],
+                allCategories: [],
+                format: '',
+                allFormat,
+                page: 1,
+                limit: 100,
+                modalFilterByDate: false,
+                dateFrom: '',
+                dateTo: '',
+                orderOptions: order,
+                order: 'Recent',
             }
         },
-        watch:{
-            allItemChecked(){
-                if(this.allItemChecked == 0){
-                    this.checkItem= false
+        components: {
+            Datetime,
+        },
+        watch: {
+            allItemChecked() {
+                if (this.allItemChecked == 0) {
+                    this.checkItem = false
                 }
             },
-            searchQuery(){
+            // Search Query
+            searchQuery() {
                 this.filters.searchQuery = this.searchQuery
                 clearTimeout(this.debounce);
                 this.debounce = setTimeout(() => {
                     this.$emit('featchByFilter', this.filters)
                 }, 500);
             },
-            status(){
-                if(this.status){
+            // Status
+            status() {
+                if (this.status) {
                     this.filters.status = this.status.id
                     this.$emit('featchByFilter', this.filters)
                 } else {
                     this.filters.status = ''
                     this.$emit('featchByFilter', this.filters)
                 }
-          },
+            },
+            // Order
+            order(){
+                this.filters.order = this.order.value
+                this.$emit('featchByFilter', this.filters)
+            },
+            // Format
+            format() {
+                if (this.format) {
+                    this.filters.format = this.format.value
+                    this.$emit('featchByFilter', this.filters)
+                } else {
+                    this.filters.format = ''
+                    this.$emit('featchByFilter', this.filters)
+                }
+            },
+
         },
         methods: {
             selectAllItems() {
                 this.checkItem = !this.checkItem
                 this.$emit('selectAllItems', this.checkItem)
-            }
+            },
+
+            // Filter By Date
+            filterByDate(){
+                this.modalFilterByDate = true
+            },
+            // Reset Date
+            unsetDate(){
+                this.modalFilterByDate = false
+                this.dateFrom = ''
+                this.dateTo = ''
+                this.filters.dateFrom = this.dateFrom
+                this.filters.dateTo = this.dateTo
+                this.$emit('featchByFilter', this.filters)
+            },
+            // Set Date
+            setDate(){
+                this.modalFilterByDate = false
+                this.filters.dateFrom = this.dateFrom
+                this.filters.dateTo = this.dateTo
+                this.$emit('featchByFilter', this.filters)
+            },
+
+            // Get All Categories
+            async fetchAllItems() {
+                const categories = await categoriesRepository.getAllCategories(this.page, this.limit)
+                this.allCategories = categories.data.docs;
+            },
         }
     }
-
 </script>
-
-

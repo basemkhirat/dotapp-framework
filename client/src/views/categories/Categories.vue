@@ -11,7 +11,6 @@
           <router-link to="/categoryForm" class="button is-primary is-rounded">Add New Category</router-link>
       </div>
     </div>
-
     <!-- Breadcrumb -->
     <breadcrumb :links="breadcrumb" />
 
@@ -76,7 +75,10 @@ export default {
   watch:{
     page(){
       this.fetchAllItems()
-    }
+    },
+    // '$route' (to, from) {
+    //     this.fetchAllItems()
+    // }
   },
   methods:{
     selectAllItems(checkButton){
@@ -93,7 +95,7 @@ export default {
     },
     async fetchAllItems(filters) {
         this.dataLoading = true
-        const categories = await categoriesRepository.getAllCategories(this.page, this.limit, filters)
+        const categories = await categoriesRepository.getAllCategories(this.page, this.limit, filters, this.$route.params.id)
         this.categories = categories.data.docs;
         this.total = categories.data.total;
         this.dataLoading = false;

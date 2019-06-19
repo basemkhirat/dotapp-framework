@@ -33,11 +33,12 @@ const Media = {
             state.stateMediaModal = !state.stateMediaModal
         },
         // Open Media And Preview All Images
-        openMediaImage(state) {
+        openMediaImage(state, type = null) {
             this.commit('resetType')
             state.stateMediaModal = !state.stateMediaModal
             state.previewImages = true
             state.previewItemAction = false
+            state.selectedType = type
         },
         // Open Media And Preview All Images
         openMediaImageFromPosts(state, type = '') {
@@ -79,14 +80,16 @@ const Media = {
             state.itemsSelectedCount = count
         },
         setItemSelected(state, item) {
-            if(state.selectedType === 'mainArticlePhoto'){
+            if(state.selectedType === 'mainArticlePhoto' ){
                 state.mainArticlePhoto = item
+                state.imageSelected = item
+            }
+            else if (state.selectedType === 'image'){
                 state.imageSelected = item
             }
             else if (state.selectedType.type === 'cardImage'){
                 state.setContentCardImage = {item: item, index: state.selectedType.index}
                 state.imageSelected = item
-
             }
             else if (state.selectedType.type === 'cardGallery'){
                 state.setContentCardGallery = {item: item, index: state.selectedType.index}

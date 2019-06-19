@@ -30,8 +30,9 @@
                                             <img src="./../../assets/images/user/user-128.png" v-else class="avatar-l"
                                                 alt="">
                                         </div>
-                                        <a class="button is-dark is-rounded m-2 is-small" @click="openModalMedia">Change
-                                            Photo</a>
+                                        <a class="button is-dark is-rounded m-2 is-small" @click="openModalMedia('image')">
+                                            Change Photo
+                                        </a>
                                     </div>
                                 </b-field>
                             </div>
@@ -199,11 +200,12 @@
                     this.userStatus = 'Not Active'
                 }
             },
+
             imageSelected() {
-                if (this.imageSelected) {
-                    this.userPhoto = this.imageSelected.url
+                if (this.imageSelected.thumbnails) {
+                    this.userPhoto = this.imageSelected.thumbnails.medium
                 }
-            },
+            }
 
         },
         created() {
@@ -327,8 +329,8 @@
                 })
             },
 
-            openModalMedia() {
-                this.$store.commit('openMediaImage')
+            openModalMedia(type) {
+                this.$store.commit('openMediaImage', type)
             }
 
         }

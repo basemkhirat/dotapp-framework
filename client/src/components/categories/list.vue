@@ -68,16 +68,8 @@ export default {
         },
         deleteItems(){
             this.confirmCustomDelete(this.itemsSelected)
-
         },
-        // banItems(){
-        //     for(var i = 0; i < this.itemsSelected.length; i++){
-        //         this.updateCategory(this.itemsSelected[i],{status: 0})
-        //         if(this.itemsSelected.length === (i + 1)){
-        //            this.itemsSelected = []
-        //         }
-        //     }
-        // },
+
         // Delete Items
         async deleteCategory(id) {
             const categories = await categoriesRepository.deleteCategory(id)
