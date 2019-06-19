@@ -4,7 +4,7 @@
  * @returns {number}
  */
 let castValue = (value) => {
-    return !isNaN(value) && value !== "" ? Number(value) : value;
+    return !isNaN(value) && value !== "" && !Array.isArray(value) ? Number(value) : value;
 };
 
 /**

@@ -112,6 +112,8 @@ export default class extends Controller {
         post.published_at = req.param("published_at", post.published_at);
         post.categories = req.param("categories", post.categories);
 
+        console.log( req.param("tags"));
+
         post.tag_names = req.param("tags");
 
         post.save(function (error, post) {

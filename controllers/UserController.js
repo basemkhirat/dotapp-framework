@@ -1,5 +1,6 @@
 import Controller from "~/controllers/Controller";
 import User from '~/models/user';
+import Role from '~/models/role';
 import async from 'async';
 
 export default class extends Controller {
@@ -9,11 +10,16 @@ export default class extends Controller {
      * @param req
      * @param res
      */
-    find(req, res) {
+    async find(req, res) {
+
 
         if (!req.can("user.view")) return res.forbidden();
 
         let query = User.find();
+
+        let superadmin = await Role.where("name", "superadmin").findOne();
+
+        query.where("role").ne(superadmin.id);
 
         if (req.filled("status")) {
             query.where("status", req.param("status"));
