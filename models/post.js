@@ -95,6 +95,15 @@ schema.index({
     excerpt: 'text'
 });
 
+schema.statics.formats = function () {
+    return [
+        "post",
+        "image",
+        "video",
+        "gallery"
+    ];
+}
+
 schema.methods.getContent = function (next) {
 
     async.mapSeries(this.content, function (row, callback) {

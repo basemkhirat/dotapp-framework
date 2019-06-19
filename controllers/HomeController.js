@@ -1,4 +1,5 @@
 import Controller from './Controller';
+import Post from '~/models/post';
 
 export default class extends Controller {
 
@@ -11,7 +12,7 @@ export default class extends Controller {
 
     index(req, res, next) {
 
-        res.ok("Hi");
+        res.ok(Post.formats());
 
     }
 };

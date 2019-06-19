@@ -1615,6 +1615,22 @@
                 ]
             }
         },
+        "/post/formats": {
+            "get": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Get all post formats",
+                "responses": {
+                    "$ref": "#/responses"
+                },
+                "security": [
+                    {
+                        "bearer token": []
+                    }
+                ]
+            }
+        },
         "/post/{id}": {
             "get": {
                 "tags": [

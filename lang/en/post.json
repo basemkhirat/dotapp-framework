@@ -1,6 +1,13 @@
 {
     "slug_taken": "Post slug is already taken",
 
+    "formats": {
+        "post": "Post",
+        "image": "Image",
+        "video": "Video",
+        "gallery": "Gallery"
+    },
+
     "events": {
         "created": "Post created successfully",
         "updated": "Post updated successfully",

@@ -149,6 +149,7 @@ export default {
 
                         group: {
                             "GET /": "PostController.find",
+                            "GET /formats": "PostController.findFormats",
                             "GET /:id": "PostController.findOne",
                             "POST /": {
                                 middleware: "validate:post",

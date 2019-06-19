@@ -260,5 +260,22 @@ export default class extends Controller {
         );
 
     }
+
+    /**
+     * Find all post formats
+     * @param req
+     * @param res
+     */
+    findFormats(req, res) {
+
+        let formats = Post.formats().map(format => {
+            return {
+                name: format,
+                title: req.lang("post.formats." + format)
+            }
+        });
+
+        return res.ok(types);
+    }
 };
 
