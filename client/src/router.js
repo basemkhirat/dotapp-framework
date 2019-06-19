@@ -33,47 +33,15 @@ function routerGuard(to, from, next) {
             return next();
         }
     }
-
-    // axios.get('/auth/user')
-    // .then((response) => {
-    //     if (response.data.success) {
-    //         let user = response.data.data;
-    //         if (user) {
-    //             if (user.status === 0) {
-    //                 return next('/login');
-    //             }
-    //             if (to.meta.role) {
-    //                 if (isIModuleHasPermissions(user.role.permissions, to.meta.role)) {
-    //                     return next();
-    //                 }
-    //                 return next('/notAuthorized')
-    //             } else {
-    //                 return next();
-    //             }
-    //         }
-    //     }
-    // })
 }
 
 const router = new Router({
     mode: "history",
     base: process.env.BASE_URL,
-    routes: [
-        // {
-        //     path: "/login",
-        //     name: "login",
-        //     component: () => import("./views/pages/Login.vue")
-        // },
-        // {
-        //     path: "/forgotPassword",
-        //     name: "forgotPassword",
-        //     component: () => import("./views/pages/forgotPassword.vue")
-        // },
-        {
+    routes: [{
             path: "/authPages",
             component: AuthPages,
-            children: [
-                {
+            children: [{
                     path: "/login",
                     name: "login",
                     component: () => import("./views/pages/Login.vue")
@@ -91,8 +59,7 @@ const router = new Router({
             component: Wrapper,
             beforeEnter: routerGuard,
             redirect: "/",
-            children: [
-                {
+            children: [{
                     path: "",
                     name: "dashboard",
                     component: () => import("./views/dashboard/Dashboard"),
@@ -221,7 +188,9 @@ router.beforeEach((to, from, next) => {
     const authRequired = !publicPages.includes(to.path);
     const loggedIn = localStorage.getItem("token");
     if (to.path == "/login" && loggedIn) {
-        router.push({ path: "/" });
+        router.push({
+            path: "/"
+        });
     }
     if (authRequired && !loggedIn) {
         return next({

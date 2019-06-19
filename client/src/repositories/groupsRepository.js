@@ -24,14 +24,18 @@ export default {
             if (response.data.success) {
                 return response.data;
             }
-        });
+        }).catch(error => {
+            return error.response.data.errors;
+        })
     },
     deleteGroups(ids) {
         return Repository.patch(`${resource}/?operation=delete&ids=${ids}`).then((response) => {
             if (response.data.success) {
                 return response.data;
             }
-        });
+        }).catch(error => {
+            return error.response.data.errors;
+        })
     },
     getAllGroups(page, limit, filters = {}) {
 

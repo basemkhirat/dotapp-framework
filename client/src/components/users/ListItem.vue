@@ -1,5 +1,5 @@
 <template>
-    <div class="block--item" v-if="user">
+    <div class="block--item" v-if="user.policies.indexOf('role.view') > -1">
         <div class="row align-items-center">
             <div class="item--checkbox" v-if="isInUserPermissions('user.delete')">
                 <b-checkbox v-model="userSelected" @input="updateCheckbox(user.id)" :native-value="user.id">
@@ -116,13 +116,48 @@
             async updateUser(id, data) {
                 const user = await usersRepository.updateUser(id, data)
                 this.isLoading = false
-                this.aleartMessage(user.message)
+                if (user.success) {
+                    this.successMessage(user.message)
+                } else {
+                    this.errorMessage(user[0])
+                }
             },
             async deleteUser(id) {
                 const user = await usersRepository.deleteUser(id)
-                this.aleartMessage(user.message)
-                this.$emit('fetchAllItems')
+
+                if (user.success) {
+                    this.successMessage(user.message)
+                    this.$emit('fetchAllItems')
+                } else {
+                    this.errorMessage(user[0])
+                }
+
             },
+
+            errorMessage(textMessage) {
+                this.$snackbar.open({
+                    message: textMessage,
+                    type: 'is-danger',
+                    position: 'is-bottom-right',
+                    actionText: 'OK',
+                    queue: false,
+                    duration: 10000,
+                    indefinite: false,
+                })
+            },
+            successMessage(textMessage) {
+                this.$snackbar.open({
+                    message: textMessage,
+                    type: 'is-success',
+                    position: 'is-bottom-right',
+                    actionText: 'OK',
+                    queue: false,
+                    duration: 10000,
+                    indefinite: false,
+                })
+            },
+
+
             aleartMessage(textMessage){
                 this.$snackbar.open({
                     message: textMessage,
