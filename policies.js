@@ -139,12 +139,7 @@ export default {
 
     role: {
 
-        view(req, role) {
-
-            if(role && role.name === "superadmin"){
-                return false;
-            }
-
+        view(req) {
             return req.hasRole("superadmin");
         },
 

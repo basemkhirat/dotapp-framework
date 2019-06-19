@@ -15,7 +15,7 @@ export default class extends Controller {
 
         let id = req.param("id");
 
-        Role.findById(id, function (error, role) {
+        Role.where("name").ne("superadmin").findById(id, function (error, role) {
             if (error) return res.serverError(error);
             if (!role) return res.notFound(req.lang("role.errors.role_not_found"));
 
@@ -34,6 +34,8 @@ export default class extends Controller {
         if (!req.can("role.view")) return res.forbidden();
 
         let query = Role.find();
+
+        query.where("name").ne("superadmin");
 
         if (req.filled("q")) {
             query.where({$text: {$search: req.param("q")}});
