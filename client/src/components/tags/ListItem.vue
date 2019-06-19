@@ -1,5 +1,5 @@
 <template>
-    <div class="block--item" v-if="item.policies.indexOf('role.view') > -1">
+    <div class="block--item" v-if="item.policies.indexOf('tag.view') > -1">
         <div class="row align-items-center">
                 <div class="item--checkbox">
                     <b-checkbox v-model="checkItemSelected" @input="updateCheckbox(item.id)" :native-value="item.id">

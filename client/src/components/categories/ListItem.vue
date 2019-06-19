@@ -1,5 +1,5 @@
 <template>
-    <div class="block--item" v-if="item.policies.indexOf('role.view') > -1">
+    <div class="block--item" v-if="item.policies.indexOf('category.view') > -1">
         <div class="row align-items-center">
 
             <div class="item--checkbox">
