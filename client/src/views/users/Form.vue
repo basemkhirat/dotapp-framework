@@ -13,11 +13,6 @@
         <breadcrumb :links="breadcrumb" />
 
         <div class="card--block">
-            <!-- <div class="card--hreader">
-                <div class="card--header--title">
-                    {{this.$route.params.id ? 'Update User' : 'Add New User'}}
-                </div>
-            </div> -->
             <div class="card--content">
                 <form class="row justify-content-center" @submit.prevent="submitForm()">
                     <div class="col-12 col-lg-8 col-xl-6">
@@ -38,7 +33,7 @@
                             </div>
                             <div class="col-12 col-sm-6">
                                 <b-field class="field-group">
-                                    <b-input type="text" required rounded placeholder="First name"
+                                    <b-input type="text" rounded placeholder="First name"
                                         v-model="firstName" />
                                 </b-field>
                             </div>
@@ -49,7 +44,7 @@
                             </div>
                             <div class="col-12">
                                 <b-field class="field-group">
-                                    <b-input type="email" required rounded placeholder="User Email" v-model="email" />
+                                    <b-input type="email" rounded placeholder="User Email" v-model="email" />
                                 </b-field>
                             </div>
 
@@ -96,14 +91,14 @@
                             <template v-if="changePassword">
                                 <div class="col-12">
                                     <b-field class="field-group">
-                                        <b-input minlength="7" type="password" required rounded
+                                        <b-input minlength="7" type="password" rounded
                                             :placeholder="this.$route.params.id ? 'New Password' : 'Password'"
                                             v-model="password" />
                                     </b-field>
                                 </div>
                                 <div class="col-12">
                                     <b-field class="field-group">
-                                        <b-input type="password" minlength="7" required rounded
+                                        <b-input type="password" minlength="7" rounded
                                             placeholder="Confirm Password" v-model="confirmPassword" />
                                     </b-field>
                                     <p class="help is-danger mt-0" v-if="errorConfirmPassword">
@@ -239,7 +234,7 @@
                 if (this.imageSelected) {
                     data.photo = this.imageSelected.id
                 }
-                if (this.firstName && this.email && this.password && this.confirmPassword) {
+                if (this.firstName) {
                     data.password = this.password
                     if (this.password === this.confirmPassword) {
                         this.errorConfirmPassword = false
