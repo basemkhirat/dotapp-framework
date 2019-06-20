@@ -77,7 +77,7 @@ export default class extends Controller {
         role.permissions = req.param("permissions", role.permissions);
         role.status = req.param("status", role.status);
 
-        role.save(function (error, role) {
+        role.save((error, role) => {
             if (error) return res.serverError(error);
             return res.message(req.lang("role.events.created")).ok(role.id);
         });
@@ -92,7 +92,7 @@ export default class extends Controller {
 
         let id = req.param("id");
 
-        Role.findById(id, function (error, role) {
+        Role.findById(id, (error, role) => {
 
             if (error) return res.serverError(error);
             if (!role) return res.notFound(req.lang("role.errors.role_not_found"));
@@ -107,7 +107,7 @@ export default class extends Controller {
             role.permissions = req.param("permissions", role.permissions);
             role.status = req.param("status", role.status);
 
-            role.save(function (error, role) {
+            role.save((error, role) => {
                 if (error) return res.serverError(error);
                 return res.message(req.lang("role.events.updated")).ok(id);
             });
@@ -123,7 +123,7 @@ export default class extends Controller {
 
         let id = req.param("id");
 
-        Role.findById(id, function (error, role) {
+        Role.findById(id, (error, role) => {
 
             if (error) return res.serverError(error);
             if (!role) return res.notFound(req.lang("role.errors.role_not_found"));
@@ -162,9 +162,9 @@ export default class extends Controller {
             return res.serverError(req.lang("role.errors.operation_not_allowed"));
         }
 
-        async.mapSeries(ids, function (id, callback) {
+        async.mapSeries(ids, (id, callback) => {
 
-                Role.findById(id, function (error, role) {
+                Role.findById(id,  (error, role) => {
 
                     if (error) return res.serverError(error);
                     if (!role) return res.notFound(req.lang("role.errors.role_not_found"));
@@ -207,7 +207,7 @@ export default class extends Controller {
 
             },
 
-            function (error, result = []) {
+            (error, result = []) => {
 
                 if (operation === "update") {
                     return res.message(req.lang("role.events.updated")).ok(result);

@@ -160,7 +160,7 @@ export default class extends Controller {
 
         let id = req.param("id");
 
-        User.findById(id, function (error, user) {
+        User.findById(id, (error, user) => {
             if (error) return res.serverError(error);
             if (!user) return res.notFound(req.lang("user.errors.user_not_found"));
 
@@ -198,9 +198,9 @@ export default class extends Controller {
             return res.serverError(req.lang("user.errors.operation_not_allowed"));
         }
 
-        async.mapSeries(ids, function (id, callback) {
+        async.mapSeries(ids, (id, callback) => {
 
-                User.findById(id, function (error, user) {
+                User.findById(id, (error, user) => {
 
                     if (error) return res.serverError(error);
                     if (!user) return res.notFound(req.lang("user.errors.user_not_found"));
@@ -251,7 +251,7 @@ export default class extends Controller {
 
             },
 
-            function (error, result = []) {
+            (error, result = []) => {
 
                 if (operation === "update") {
                     return res.message(req.lang("user.events.updated")).ok(result);

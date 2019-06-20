@@ -16,12 +16,12 @@ export default class extends Controller {
         let email = req.param("email");
         let password = req.param("password");
 
-        User.findOne({email: email}, function (error, user) {
+        User.findOne({email: email}, (error, user) => {
 
             if (error) return res.serverError(error);
             if (!user) return res.validationError(req.lang("auth.email_not_found"));
 
-            user.comparePassword(password, function (error, valid) {
+            user.comparePassword(password,  (error, valid) => {
 
                 if (error) return res.serverError(error);
                 if (!valid) return res.validationError(req.lang("auth.invalid_password"));
@@ -55,7 +55,7 @@ export default class extends Controller {
 
         let email = req.param("email");
 
-        User.findOne({email: email}, function (error, user) {
+        User.findOne({email: email}, (error, user) => {
 
             if (error) return res.serverError(error);
             if (!user) return res.validationError(req.lang("auth.email_not_found"));
@@ -63,12 +63,11 @@ export default class extends Controller {
             user.password_token = Math.random().toString(36).slice(-8);
             user.password_token_expiration = Date.now() + 3600000;
 
-            user.save(function (error, user) {
+            user.save((error, user) => {
                 if (error) return res.serverError(error);
 
-                req.mail(user, "ForgetPassword", (error, info) => {
+                req.mail(user, "ForgetPassword", error => {
                     if (error) throw error;
-                    console.log(info);
                 });
 
                 return res.message(req.lang("auth.events.password_reset_code_sent")).ok();
@@ -86,11 +85,11 @@ export default class extends Controller {
 
         let code = req.param("code");
 
-        User.findOne({password_token: code, password_token_expiration: {$gt: Date.now()}}, function (error, user) {
+        User.findOne({password_token: code, password_token_expiration: {$gt: Date.now()}}, (error, user) => {
             if (error) return res.serverError(error);
             if (!user) return res.validationError(req.lang("auth.invalid_password_verification_code"));
 
-            user.comparePassword(req.param("password"), function (error, same) {
+            user.comparePassword(req.param("password"), (error, same) => {
 
                 if (error) return res.serverError(error);
                 if (same) return res.validationError(req.lang("auth.cannot_use_same_password"));
@@ -99,7 +98,7 @@ export default class extends Controller {
                 user.password_token = undefined;
                 user.password_token_expiration = undefined;
 
-                user.save(function (error, user) {
+                user.save((error, user) => {
                     if (error) return res.serverError(error);
 
                     req.mail(user, "PasswordChanged");

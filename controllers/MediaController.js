@@ -19,7 +19,7 @@ export default class extends Controller {
 
         let id = req.param("id");
 
-        Media.findById(id).populate("user").exec(function (error, media) {
+        Media.findById(id).populate("user").exec((error, media) => {
             if (error) return res.serverError(error);
             if (!media) return res.notFound(req.lang("media.errors.media_not_found"));
             return res.ok(res.attachPolicies(media, "media"));
@@ -117,7 +117,7 @@ export default class extends Controller {
 
         let payload = req.param("payload");
 
-        Resource.create(payload, function (error, media) {
+        Resource.create(payload, (error, media) => {
             if (error) return res.serverError(error);
 
             media.user = req.user.id;
@@ -140,7 +140,7 @@ export default class extends Controller {
 
         let id = req.param("id");
 
-        Media.findById(id, function (error, media) {
+        Media.findById(id, (error, media) => {
             if (error) return res.serverError(error);
             if (!media) return res.notFound(req.lang("media.errors.media_not_found"));
 
@@ -191,7 +191,7 @@ export default class extends Controller {
 
         data = matches[2];
 
-        Media.findById(id, function (error, media) {
+        Media.findById(id, (error, media) => {
             if (error) return res.serverError(error);
             if (!media) return res.notFound(req.lang("media.errors.media_not_found"));
 
@@ -226,7 +226,7 @@ export default class extends Controller {
 
         let id = req.param("id");
 
-        Media.findById(id, function (error, media) {
+        Media.findById(id,  (error, media) => {
             if (error) return res.serverError(error);
             if (!media) return res.notFound(req.lang("media.errors.media_not_found"));
 
@@ -264,9 +264,9 @@ export default class extends Controller {
             return res.serverError(req.lang("media.errors.operation_not_allowed"));
         }
 
-        async.mapSeries(ids, function (id, callback) {
+        async.mapSeries(ids, (id, callback) => {
 
-                Media.findById(id, function (error, media) {
+                Media.findById(id,  (error, media) => {
 
                     if (error) return res.serverError(error);
                     if (!media) return res.notFound(req.lang("media.errors.media_not_found"));
@@ -309,7 +309,7 @@ export default class extends Controller {
 
             },
 
-            function (error, result = []) {
+            (error, result = []) => {
 
                 if (operation === "update") {
                     return res.message(req.lang("media.events.updated")).ok(result);

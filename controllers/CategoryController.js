@@ -15,7 +15,7 @@ export default class extends Controller {
 
         let id = req.param("id");
 
-        Category.findById(id).populate("user").populate("image").populate("parent").exec(function (error, category) {
+        Category.findById(id).populate("user").populate("image").populate("parent").exec((error, category) => {
             if (error) return res.serverError(error);
             if (!category) return res.notFound(req.lang("category.errors.category_not_found"));
 
@@ -67,7 +67,7 @@ export default class extends Controller {
                     cb(null, doc);
                 });
 
-            }, function (error, docs) {
+            }, (error, docs) => {
                 if (error) return res.serverError(error);
                 return res.ok({
                     total: result.total,
@@ -98,7 +98,7 @@ export default class extends Controller {
         category.parent = req.param("parent", category.parent);
         category.user = req.user.id;
 
-        category.save(function (error, category) {
+        category.save((error, category) => {
             if (error) return res.serverError(error);
             return res.message(req.lang("category.events.created")).ok(category.id);
         });
@@ -113,7 +113,7 @@ export default class extends Controller {
 
         let id = req.param("id");
 
-        Category.findById(id, function (error, category) {
+        Category.findById(id, (error, category) => {
             if (error) return res.serverError(error);
             if (!category) return res.notFound(req.lang("category.errors.category_not_found"));
 
@@ -143,7 +143,7 @@ export default class extends Controller {
 
         let id = req.param("id");
 
-        Category.findById(id, function (error, category) {
+        Category.findById(id, (error, category) => {
             if (error) return res.serverError(error);
             if (!category) return res.notFound(req.lang("category.errors.category_not_found"));
 
@@ -180,9 +180,9 @@ export default class extends Controller {
             return res.serverError(req.lang("category.errors.operation_not_allowed"));
         }
 
-        async.mapSeries(ids, function (id, callback) {
+        async.mapSeries(ids, (id, callback) => {
 
-                Category.findById(id, function (error, category) {
+                Category.findById(id, (error, category) => {
 
                     if (error) return res.serverError(error);
                     if (!category) return res.notFound(req.lang("category.errors.category_not_found"));
@@ -204,7 +204,7 @@ export default class extends Controller {
                 });
             },
 
-            function (error, result = []) {
+            (error, result = []) => {
 
                 if (operation === "delete") {
                     return res.message(req.lang("category.events.deleted")).ok(result);

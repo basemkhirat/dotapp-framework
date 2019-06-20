@@ -75,17 +75,22 @@ export default class extends Controller {
 
         let id = req.param("id");
 
-        Post.findById(id).populate("categories").populate("tags").populate("user").populate("media").exec(function (error, post) {
+        Post.findById(id)
+            .populate("categories")
+            .populate("tags")
+            .populate("user")
+            .populate("media")
+            .exec((error, post) => {
 
-            if (error) return res.serverError(error);
-            if (!post) return res.notFound(req.lang("post.errors.post_not_found"));
-
-            post.getContent((error, content) => {
                 if (error) return res.serverError(error);
-                post.content = content;
-                return res.ok(res.attachPolicies(post, "post"));
+                if (!post) return res.notFound(req.lang("post.errors.post_not_found"));
+
+                post.getContent((error, content) => {
+                    if (error) return res.serverError(error);
+                    post.content = content;
+                    return res.ok(res.attachPolicies(post, "post"));
+                });
             });
-        });
     }
 
     /**
@@ -111,12 +116,9 @@ export default class extends Controller {
         post.status = req.param("status", post.status);
         post.published_at = req.param("published_at", post.published_at);
         post.categories = req.param("categories", post.categories);
-
-        console.log( req.param("tags"));
-
         post.tag_names = req.param("tags");
 
-        post.save(function (error, post) {
+        post.save((error, post) => {
             if (error) return res.serverError(error);
             return res.message(req.lang("post.events.created")).ok(post.id);
         });
@@ -131,7 +133,7 @@ export default class extends Controller {
 
         let id = req.param("id");
 
-        Post.findById(id, function (error, post) {
+        Post.findById(id, (error, post) => {
             if (error) return res.serverError(error);
             if (!post) return res.notFound(req.lang("post.errors.post_not_found"));
 
@@ -149,6 +151,7 @@ export default class extends Controller {
             post.lang = req.param("lang", post.lang);
             post.published_at = req.param("published_at", post.published_at);
             post.categories = req.param("categories", post.categories);
+            post.tag_names = req.param("tags");
 
             if (req.filled("tags")) {
                 post.tag_names = req.param("tags");
@@ -170,7 +173,7 @@ export default class extends Controller {
 
         let id = req.param("id");
 
-        Post.findById(id, function (error, post) {
+        Post.findById(id, (error, post) => {
             if (error) return res.serverError(error);
             if (!post) return res.notFound(req.lang("post.errors.post_not_found"));
 
@@ -207,9 +210,9 @@ export default class extends Controller {
             return res.serverError(req.lang("post.errors.operation_not_allowed"));
         }
 
-        async.mapSeries(ids, function (id, callback) {
+        async.mapSeries(ids, (id, callback) => {
 
-                Post.findById(id, function (error, post) {
+                Post.findById(id, (error, post) => {
 
                     if (error) return res.serverError(error);
                     if (!post) return res.notFound(req.lang("post.errors.post_not_found"));
@@ -249,7 +252,7 @@ export default class extends Controller {
 
             },
 
-            function (error, result = []) {
+            (error, result = []) => {
 
                 if (operation === "update") {
                     return res.message(req.lang("post.events.updated")).ok(result);

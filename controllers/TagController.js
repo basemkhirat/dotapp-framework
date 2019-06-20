@@ -68,7 +68,7 @@ export default class extends Controller {
 
         tag.name = req.param("name", tag.name);
 
-        tag.save(function (error, tag) {
+        tag.save((error, tag) => {
             if (error) return res.serverError(error);
             return res.message(req.lang("tag.events.created")).ok(tag.id);
         });
@@ -83,7 +83,7 @@ export default class extends Controller {
 
         let id = req.param("id");
 
-        Tag.findById(id, function (error, tag) {
+        Tag.findById(id, (error, tag) => {
             if (error) return res.serverError(error);
             if (!tag) return res.notFound(req.lang("tag.errors.tag_not_found"));
 
@@ -109,7 +109,7 @@ export default class extends Controller {
 
         let id = req.param("id");
 
-        Tag.findById(id, function (error, tag) {
+        Tag.findById(id, (error, tag) => {
             if (error) return res.serverError(error);
             if (!tag) return res.notFound(req.lang("tag.errors.tag_not_found"));
 
@@ -146,9 +146,9 @@ export default class extends Controller {
             return res.serverError(req.lang("tag.errors.operation_not_allowed"));
         }
 
-        async.mapSeries(ids, function (id, callback) {
+        async.mapSeries(ids, (id, callback) => {
 
-                Tag.findById(id, function (error, tag) {
+                Tag.findById(id, (error, tag) => {
 
                     if (error) return res.serverError(error);
                     if (!tag) return res.notFound(req.lang("tag.errors.tag_not_found"));
@@ -171,7 +171,7 @@ export default class extends Controller {
 
             },
 
-            function (error, result = []) {
+            (error, result = []) => {
 
                 if (operation === "delete") {
                     return res.message(req.lang("tag.events.deleted")).ok(result);

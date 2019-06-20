@@ -18,40 +18,13 @@ export default {
                 return false
             }
 
-
             if (req.user.id === user.id) {
-
-                // is me
-
                 return true;
-
-            } else{
-
-                // other user
-
-                // other user has super admin role
-
-                if (user.hasRole("superadmin")) {
-                    return false;
-                }
-
-                // other user has other role
-
-
-
-
             }
 
-
-
-
-
-
-
-            // if (req.hasPermission("user.update")) {
-            //     return true
-            // }
-
+            if(req.hasPermission("user.update")){
+                return true;
+            }
         },
 
         /**
@@ -99,25 +72,6 @@ export default {
         },
 
         /**
-         * users allowed to change permissions:
-         * - super admins and cannot change permissions of themselves
-         * - users have user.permissions permission and cannot change permissions of themselves
-         * -
-         * @param req
-         * @param user
-         * @returns {boolean}
-         */
-
-        permissions(req, user = false) {
-
-            if (user && user.permissions === req.param("permissions")) { // permissions not changed
-                return true;
-            }
-
-            return (req.role === 'superadmin' || req.hasPermission("user.permissions")) && req.user.id !== user.id;
-        },
-
-        /**
          * users allowed to delete:
          * - super admins and cannot delete themselves
          * - users have user.delete permission and cannot delete themselves
@@ -129,11 +83,17 @@ export default {
 
         delete(req, user = false) {
 
-            if (user.hasRole("superadmin")) {
+            if(!user){
                 return false;
             }
 
-            return req.hasPermission("user.delete") && req.user.id !== user.id
+            if (req.user.id === user.id) {
+                return false;
+            }
+
+            if(req.hasPermission("user.delete")){
+                return true;
+            }
         }
     },
 
@@ -147,8 +107,8 @@ export default {
             return req.hasRole("superadmin");
         },
 
-        update(req) {
-            return req.hasRole("superadmin");
+        update(req, role) {
+            return req.hasRole("superadmin") && role.name !== "superadmin";
         },
 
         delete(req, role) {
