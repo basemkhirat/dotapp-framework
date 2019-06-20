@@ -38,10 +38,22 @@ export default {
         let searchQuery = (filters.searchQuery && filters.searchQuery !== '') ? '&q=' + filters.searchQuery : '';
         let orderQuery = filters.order ? "&sort_type=" + filters.order : "";
         let formatQuery = filters.format ? "&format=" + filters.format : "";
+        let categoriesQuery = filters.categories ? "&categories=" + filters.categories : "";
+
+        // if(filters.categories){
+        //     filters.categories.map(item => {
+        //         categoriesQueryItems.push(item)
+        //     })
+        // }
+        // let categoriesQuery = categoriesQueryItems ? "&categories=" + categoriesQueryItems : "";
+
+
+
+
         let dateFromQuery = filters.dateFrom ? "&from_date=" + filters.dateFrom : "";
         let dateToQuery = filters.dateTo ? "&to_date=" + filters.dateTo : "";
 
-        let filterQuery = searchQuery + statusQuery + orderQuery + formatQuery + dateFromQuery + dateToQuery;
+        let filterQuery = searchQuery + statusQuery + orderQuery + formatQuery + dateFromQuery + dateToQuery + categoriesQuery;
 
         return Repository.get(`${resource}?page=${page}&limit=${limit}${filterQuery}&sort_field=_id`).then((response) => {
             if (response.data.success) {

@@ -154,7 +154,7 @@
                 if (this.post) {
                     this.postInfo.status = this.post.status
                     // this.postInfo.categories = this.post.categories
-                    if(this.post.tags){
+                    if(this.post.tags.length){
                         this.post.tags.map( item => {
                             this.postInfo.tags.push(item.name)
                         })

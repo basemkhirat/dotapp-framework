@@ -38,7 +38,7 @@
                     </div>
 
                     <div class="input--fuild">
-                        <v-select :options="allCategories" v-model="categories" multible label="name"
+                        <v-select :options="allCategories" v-model="categories" label="name"
                             placeholder="Sort By Categories" class="select--with--icon w-100 v--select--scroll">
                             <template slot="option" slot-scope="option">
                                 {{ option.name }}
@@ -115,6 +115,11 @@
         allFormat,
         order
     } from './../../helpers/Variables'
+
+    import {
+        RepositoryFactory
+    } from '../../repositories/RepositoryFactory'
+    const categoriesRepository = RepositoryFactory.get('categories')
     export default {
         props: ['allItemChecked'],
         data() {
@@ -122,7 +127,7 @@
                 status: '',
                 checkItem: false,
                 searchQuery: '',
-                filters: {},
+                filters: {categories: []},
                 allStatus: [{
                     id: '1',
                     name: 'Published'
@@ -185,7 +190,24 @@
                     this.$emit('featchByFilter', this.filters)
                 }
             },
+            // Format
+            categories() {
+                if (this.categories) {
+                    // this.filters.categories = []
+                    // this.categories.map(item => {
+                    //     this.filters.categories.push(item.id)
+                    // })
+                    this.filters.categories = this.categories.id
+                    this.$emit('featchByFilter', this.filters)
+                } else {
+                    this.filters.categories = ''
+                    this.$emit('featchByFilter', this.filters)
+                }
+            },
 
+        },
+        created(){
+            this.fetchAllCategories()
         },
         methods: {
             selectAllItems() {
@@ -215,7 +237,7 @@
             },
 
             // Get All Categories
-            async fetchAllItems() {
+            async fetchAllCategories() {
                 const categories = await categoriesRepository.getAllCategories(this.page, this.limit)
                 this.allCategories = categories.data.docs;
             },

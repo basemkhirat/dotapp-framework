@@ -15,6 +15,30 @@ body {
     font-size: .9rem;
 }
 
+
+.menuIsVertical{
+    .main--content{
+        padding: 80px 30px 100px 280px;
+    }
+    .main--header {
+        width: calc(100% - 250px);
+        left: 250px;
+    }
+}
+.menuIsHorizontal{
+    .main--content{
+        padding: 134px 30px 100px 30px;
+        max-width: 1500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .main--header {
+        width: 100%;
+        left: 0;
+    }
+}
+
+
 .sidebar--mini{
     .main--content {
         padding: 80px 30px 100px 100px;
@@ -33,13 +57,6 @@ body {
                 left: calc((100% - 130px) / 3 + 100px);
             }
         }
-        // @media #{$mwlg}{
-        //     .content--editor{
-        //         .menu--editor{
-        //             left: calc((100% - 40px) / 3 + 20px);
-        //         }
-        //     }
-        // }
     }
 }
 .editor--mini{
@@ -49,20 +66,13 @@ body {
             left: calc((100% - 310px) / 3 + 280px);
         }
     }
-    // @media #{$mwlg}{
-    //     .content--editor{
-    //         .menu--editor{
-    //             left: calc((100% - 40px) / 3 + 20px);
-    //         }
-    //     }
-    // }
 
 }
 
 
 .main--content{
     @include prefixer (transition, all .25s ease-in-out, webkit moz o);
-    padding: 80px 30px 100px 280px;
+
     min-height: calc(100vh - 70px);
     @media #{$mwlg}{
         width: 100%;
@@ -88,6 +98,9 @@ button.is-rounded, .button.is-rounded {
 .pagination-previous, .pagination-next, .pagination-link, .pagination-ellipsis, .file-cta, .file-name,
 .select select, .input, .taginput .taginput-container.is-focusable, .textarea, .button{
     height: 2.5em;
+}
+a,.dropdown-item{
+    outline: 0 !important;
 }
 
 // Avatar

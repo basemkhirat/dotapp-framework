@@ -161,14 +161,11 @@
                 }
                 data.published_at = this.postInfo.published_at
                 data.content = postCardContent
-
-                if (data.title) {
-                    this.isLoading = true
-                    if(this.$route.params.id){
-                        this.updatePost(this.$route.params.id, data)
-                    } else {
-                         this.newPost(data)
-                    }
+                this.isLoading = true
+                if(this.$route.params.id){
+                    this.updatePost(this.$route.params.id, data)
+                } else {
+                        this.newPost(data)
                 }
             },
             // Add New Post

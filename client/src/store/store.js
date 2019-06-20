@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 // Modules
 import media from './modules/Media'
 import login from './modules/Login'
+import globalSettings from './modules/GlobalSettings'
 
 Vue.use(Vuex)
 
@@ -43,6 +44,7 @@ export default new Vuex.Store({
   },
   modules:{
     media,
-    login
+    login,
+    globalSettings
   }
 })

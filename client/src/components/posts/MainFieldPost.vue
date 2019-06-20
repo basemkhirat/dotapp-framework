@@ -47,7 +47,7 @@
         data() {
             return {
                 title: '',
-                mediaItemPreview: {},
+                mediaItemPreview: {image: ''},
                 mainFieldPost: {
                     title: '',
                     excerpt: '',
@@ -73,7 +73,9 @@
                 if(this.post){
                     this.mainFieldPost.title = this.post.title
                     this.mainFieldPost.excerpt = this.post.excerpt
-                    this.mediaItemPreview = this.post.media
+                    if(this.post.media){
+                        this.mediaItemPreview = this.post.media
+                    }
                 }
             }
         },

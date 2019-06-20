@@ -49,7 +49,6 @@
     import MenuItem from './MenuItem';
     import { mapState} from 'vuex';
 
-
     export default {
         data(){
             return{
