@@ -1,10 +1,24 @@
 <template>
   <div class="dashboard">
-    <div class="page--title">
-      <h1 class="title--text">Dashboard</h1>
-      <div class="page--title--action ml-auto">
-      </div>
+    <!-- Page Head -->
+    <div class="page--head">
+        <div class="wrap--content">
+            <div class="page--title">
+                <div>
+                    <h1 class="title--text">
+                        Dashboard
+                    </h1>
+
+                    <!-- Breadcrumb -->
+                    <!-- <breadcrumb :links="breadcrumb" /> -->
+
+                </div>
+            </div>
+        </div>
     </div>
+
+
+
     <!-- <div class="card--block">
       <div class="card--hreader">
         <div class="card--header--title">
@@ -16,7 +30,7 @@
       <div class="card--content">
       </div>
     </div> -->
-    
+
   </div>
 </template>
 
@@ -24,6 +38,6 @@
   export default {
     name: 'dashboard',
     components: {},
-    
+
   }
 </script>

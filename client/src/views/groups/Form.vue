@@ -1,79 +1,95 @@
 <template>
     <div class="groups">
-        <div class="page--title">
-            <h1 class="title--text">Groups</h1>
-            <div class="page--title--action ml-auto" v-if="this.$route.params.id && isInUserPermissions('role.create')">
-                <router-link to="/groupForm" class="button is-primary is-rounded">Add New Group</router-link>
+
+        <!-- Page Head -->
+        <div class="page--head">
+            <div class="wrap--content">
+                <div class="page--title">
+                    <div>
+                        <h1 class="title--text">
+                            Groups
+                        </h1>
+
+                        <!-- Breadcrumb -->
+                        <breadcrumb :links="breadcrumb" />
+
+                    </div>
+
+                    <div class="page--title--action ml-auto"
+                        v-if="this.$route.params.id && isInUserPermissions('role.create')">
+                        <router-link to="/groupForm" class="button is-primary is-rounded">Add New Group</router-link>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- Breadcrumb -->
-        <breadcrumb :links="breadcrumb" />
-
-        <div class="card--block">
-            <!-- <div class="card--hreader">
+        <div class="wrap--content">
+            <div class="card--block">
+                <!-- <div class="card--hreader">
                     <div class="card--header--title">
                           {{this.$route.params.id ? 'Update Group' : 'Add New Group'}}
                     </div>
                </div> -->
-            <div class="card--content">
-                <form class="row mt-3 justify-content-center" @submit.prevent="submitForm()">
-                    <div class="col-12 col-md-10 col-lg-8 ">
-                        <b-field class="field-group mb-4">
-                            <b-input type="text" rounded placeholder="Group Name" v-model="name" />
-                        </b-field>
-                    </div>
-
-                    <div class="col-12 col-md-10 col-lg-8 checkbox--group permissions--items">
-                        <div class="row align-items-center">
-                            <div class="col-12 col-sm-6">
-                                <h3> Add Permissions To Group </h3>
-                            </div>
-                            <div class="col-12 col-sm-6 text-center text-sm-right">
-                                <button class="button is-rounded my-3 mr-2" v-if="permissions.length" type="button"
-                                    @click="unSelectAllPermissions">
-                                    Unselect All
-                                </button>
-                                <button class="button is-rounded my-3" type="button" @click="selectAllPermissions">
-                                    Select All
-                                </button>
-
-                            </div>
+                <div class="card--content">
+                    <form class="row mt-3 justify-content-center" @submit.prevent="submitForm()">
+                        <div class="col-12 col-md-10 col-lg-8 ">
+                            <b-field class="field-group mb-4">
+                                <b-input type="text" rounded placeholder="Group Name" v-model="name" />
+                            </b-field>
                         </div>
 
-                        <div class="row justify-content-center">
+                        <div class="col-12 col-md-10 col-lg-8 checkbox--group permissions--items">
+                            <div class="row align-items-center">
+                                <div class="col-12 col-sm-6">
+                                    <h3> Add Permissions To Group </h3>
+                                </div>
+                                <div class="col-12 col-sm-6 text-center text-sm-right">
+                                    <button class="button is-rounded my-3 mr-2" v-if="permissions.length" type="button"
+                                        @click="unSelectAllPermissions">
+                                        Unselect All
+                                    </button>
+                                    <button class="button is-rounded my-3" type="button" @click="selectAllPermissions">
+                                        Select All
+                                    </button>
 
-                            <div class="col-12">
-                                <div class="permissions--item" v-for="(value , name) in allPermissions" :key="name">
-                                    <div class="row">
-                                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 permission--title">
-                                            {{name}}
-                                        </div>
-                                        <div class="col-12 col-sm-6 col-md-8 col-lg-9 col-xl-10 permission--content">
-                                            <div class="item-checkbox checkbox--switch"
-                                                v-for="(checkLabel , checkValue) in value" :key="checkLabel">
-                                                <b-checkbox-button v-model="permissions" :native-value="checkValue"
-                                                    type="is-light">
-                                                    <span>
-                                                        {{checkLabel}}
-                                                    </span>
-                                                    <span class="switch--item">
-                                                        <span class="check"></span>
-                                                    </span>
-                                                </b-checkbox-button>
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-center">
+
+                                <div class="col-12">
+                                    <div class="permissions--item" v-for="(value , name) in allPermissions" :key="name">
+                                        <div class="row">
+                                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 permission--title">
+                                                {{name}}
+                                            </div>
+                                            <div
+                                                class="col-12 col-sm-6 col-md-8 col-lg-9 col-xl-10 permission--content">
+                                                <div class="item-checkbox checkbox--switch"
+                                                    v-for="(checkLabel , checkValue) in value" :key="checkLabel">
+                                                    <b-checkbox-button v-model="permissions" :native-value="checkValue"
+                                                        type="is-light">
+                                                        <span>
+                                                            {{checkLabel}}
+                                                        </span>
+                                                        <span class="switch--item">
+                                                            <span class="check"></span>
+                                                        </span>
+                                                    </b-checkbox-button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="col-12 text-center button--save--form mt-0">
-                        <button class="button is-primary is-rounded"
-                            :class="{'is-loading': isLoading}">{{this.$route.params.id ? 'Save Changes' : 'Add Group'}}</button>
-                    </div>
-                </form>
+                        <div class="col-12 text-center button--save--form mt-0">
+                            <button class="button is-primary is-rounded"
+                                :class="{'is-loading': isLoading}">{{this.$route.params.id ? 'Save Changes' : 'Add Group'}}</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
 

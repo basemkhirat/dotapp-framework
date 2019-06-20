@@ -1,52 +1,59 @@
 <template>
     <div class="posts">
+        <!-- Page Head -->
+        <div class="page--head">
+            <div class="wrap--content">
+                <div class="page--title">
+                    <div>
+                        <h1 class="title--text">
+                            Posts
+                        </h1>
 
-        <div class="page--title">
-            <h1 class="title--text">
-                Articles
-            </h1>
+                        <!-- Breadcrumb -->
+                        <breadcrumb :links="breadcrumb" />
 
-            <div class="page--title--action ml-auto">
-                <button class="button is-primary is-rounded" @click="submitForm">Save Changes</button>
+                    </div>
+
+                    <div class="page--title--action ml-auto">
+                        <button class="button is-primary is-rounded" @click="submitForm">Save Changes</button>
+                    </div>
+                </div>
             </div>
-
         </div>
 
-        <!-- Breadcrumb -->
-        <breadcrumb :links="breadcrumb" />
+        <div class="wrap--content">
+            <form @submit.prevent="submitForm()">
+                <div class="row">
+                    <div class="col-12 col-lg-8">
+                        <div class="post--content">
+                            <!-- Main Field Post -->
+                            <main-field-post @setDataFromChild="setDataFromMainField" :post="this.post" />
 
-        <form @submit.prevent="submitForm()">
-            <div class="row">
-                <div class="col-12 col-lg-8">
-                    <div class="post--content">
-                        <!-- Main Field Post -->
-                        <main-field-post @setDataFromChild="setDataFromMainField" :post="this.post"/>
+                            <!-- Content Editor -->
+                            <content-editor @setDataFromChild="setDataFromCardsContent" :post="this.post" />
 
-                        <!-- Content Editor -->
-                        <content-editor @setDataFromChild="setDataFromCardsContent" :post="this.post"/>
-
-                        <!-- Main Button Save On Desktop Screen -->
-                        <div class="text-center button--save--form d-none d-lg-block">
-                            <button class="button is-primary is-rounded"
-                            :class="{'is-loading': isLoading}"
-                            type="submit">Save Changes</button>
+                            <!-- Main Button Save On Desktop Screen -->
+                            <div class="text-center button--save--form d-none d-lg-block">
+                                <button class="button is-primary is-rounded" :class="{'is-loading': isLoading}"
+                                    type="submit">Save Changes</button>
+                            </div>
                         </div>
+
+                    </div>
+
+                    <!-- Post Info -->
+                    <post-info @setDataFromChild="setDataFromPostInfo" :post="this.post" />
+
+                    <!-- Main Button Save On Mobile Screen -->
+                    <div class="text-center button--save--form d-block d-lg-none w-100">
+                        <button class="button is-primary is-rounded" :class="{'is-loading': isLoading}"
+                            type="submit">Save
+                            Changes</button>
                     </div>
 
                 </div>
-
-                <!-- Post Info -->
-                <post-info @setDataFromChild="setDataFromPostInfo" :post="this.post"/>
-
-                <!-- Main Button Save On Mobile Screen -->
-                <div class="text-center button--save--form d-block d-lg-none w-100">
-                    <button class="button is-primary is-rounded"
-                    :class="{'is-loading': isLoading}"
-                    type="submit">Save Changes</button>
-                </div>
-
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </template>
 
@@ -60,7 +67,9 @@
     import ContentEditor from '../../components/posts/editor/ContentEditor'
 
     // Repository Data
-    import { RepositoryFactory } from '../../repositories/RepositoryFactory'
+    import {
+        RepositoryFactory
+    } from '../../repositories/RepositoryFactory'
     const postsRepository = RepositoryFactory.get('posts')
 
     export default {
@@ -88,17 +97,17 @@
             ContentEditor,
             MainFieldPost
         },
-        created(){
-            if(window.innerWidth > 1199.98){
+        created() {
+            if (window.innerWidth > 1199.98) {
                 this.changeSideBarStyle()
             }
             if (this.$route.params.id) {
                 this.getPost(this.$route.params.id)
             }
         },
-        watch:{
-            '$route' (to, from) {
-                if(this.$route.name === 'postForm' && window.innerWidth > 1199.98){
+        watch: {
+            '$route'(to, from) {
+                if (this.$route.name === 'postForm' && window.innerWidth > 1199.98) {
                     this.changeSideBarStyle()
                 }
             }
@@ -121,21 +130,21 @@
                 this.isLoading = false
 
                 let postCardContent = JSON.parse(JSON.stringify(this.allCards))
-                if(postCardContent) {
+                if (postCardContent) {
                     for (let key in postCardContent) {
-                        if(postCardContent[key].type === 'image') {
+                        if (postCardContent[key].type === 'image') {
                             let valueImg = postCardContent[key].image
-                            if(valueImg.id) {
+                            if (valueImg.id) {
                                 postCardContent[key].image = valueImg.id
                             }
                         }
-                        if(postCardContent[key].type === 'video') {
+                        if (postCardContent[key].type === 'video') {
                             let valueVideo = postCardContent[key].video
-                            if(valueVideo.id) {
+                            if (valueVideo.id) {
                                 postCardContent[key].video = valueVideo.id
                             }
                         }
-                        if(postCardContent[key].type === 'gallery') {
+                        if (postCardContent[key].type === 'gallery') {
                             let valueGallery = postCardContent[key].gallery
 
                             postCardContent[key].gallery = []
@@ -150,22 +159,22 @@
                 let data = {}
                 data.title = this.postMainField.title
                 data.excerpt = this.postMainField.excerpt
-                if(this.postMainField.media){
+                if (this.postMainField.media) {
                     data.media = this.postMainField.media
                 }
                 data.status = this.postInfo.status
                 data.tags = this.postInfo.tags
                 // data.categories = this.postInfo.categories
-                if(this.postInfo.format){
+                if (this.postInfo.format) {
                     data.format = this.postInfo.format.value
                 }
                 data.published_at = this.postInfo.published_at
                 data.content = postCardContent
                 this.isLoading = true
-                if(this.$route.params.id){
+                if (this.$route.params.id) {
                     this.updatePost(this.$route.params.id, data)
                 } else {
-                        this.newPost(data)
+                    this.newPost(data)
                 }
             },
             // Add New Post
@@ -218,7 +227,7 @@
                     indefinite: false,
                 })
             },
-            changeSideBarStyle(){
+            changeSideBarStyle() {
                 document.body.classList.add('editor--mini')
                 this.$store.commit('miniSidebar')
             }

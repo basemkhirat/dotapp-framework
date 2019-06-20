@@ -1,120 +1,132 @@
 <template>
     <div class="users">
-        <div class="page--title">
-            <h1 class="title--text">
-                Users
-            </h1>
-            <div class="page--title--action ml-auto" v-if="this.$route.params.id && isInUserPermissions('user.create')">
-                <router-link to="/userForm" class="button is-primary is-rounded">Add New User</router-link>
+
+        <!-- Page Head -->
+        <div class="page--head">
+            <div class="wrap--content">
+                <div class="page--title">
+                    <div>
+                        <h1 class="title--text">
+                            Users
+                        </h1>
+
+                        <!-- Breadcrumb -->
+                        <breadcrumb :links="breadcrumb" />
+
+                    </div>
+
+                    <div class="page--title--action ml-auto"
+                        v-if="this.$route.params.id && isInUserPermissions('user.create')">
+                        <router-link to="/userForm" class="button is-primary is-rounded">Add New User</router-link>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <!-- Breadcrumb -->
-        <breadcrumb :links="breadcrumb" />
-
-        <div class="card--block">
-            <div class="card--content">
-                <form class="row justify-content-center" @submit.prevent="submitForm()">
-                    <div class="col-12 col-lg-8 col-xl-6">
-                        <div class="row align-items-center">
-                            <div class="col-12">
-                                <b-field class="field-group">
-                                    <div class="text-center">
-                                        <div class="user--photo field-group">
-                                            <img :src="userPhoto" v-if="userPhoto" class="avatar-l" alt="">
-                                            <img src="./../../assets/images/user/user-128.png" v-else class="avatar-l"
-                                                alt="">
+        <div class="wrap--content">
+            <div class="card--block">
+                <div class="card--content">
+                    <form class="row justify-content-center" @submit.prevent="submitForm()">
+                        <div class="col-12 col-lg-8 col-xl-6">
+                            <div class="row align-items-center">
+                                <div class="col-12">
+                                    <b-field class="field-group">
+                                        <div class="text-center">
+                                            <div class="user--photo field-group">
+                                                <img :src="userPhoto" v-if="userPhoto" class="avatar-l" alt="">
+                                                <img src="./../../assets/images/user/user-128.png" v-else
+                                                    class="avatar-l" alt="">
+                                            </div>
+                                            <a class="button is-dark is-rounded m-2 is-small"
+                                                @click="openModalMedia('image')">
+                                                Change Photo
+                                            </a>
                                         </div>
-                                        <a class="button is-dark is-rounded m-2 is-small" @click="openModalMedia('image')">
-                                            Change Photo
-                                        </a>
-                                    </div>
-                                </b-field>
-                            </div>
-                            <div class="col-12 col-sm-6">
-                                <b-field class="field-group">
-                                    <b-input type="text" rounded placeholder="First name"
-                                        v-model="firstName" />
-                                </b-field>
-                            </div>
-                            <div class="col-12 col-sm-6">
-                                <b-field class="field-group">
-                                    <b-input type="text" rounded placeholder="Last name" v-model="lastName" />
-                                </b-field>
-                            </div>
-                            <div class="col-12">
-                                <b-field class="field-group">
-                                    <b-input type="email" rounded placeholder="User Email" v-model="email" />
-                                </b-field>
-                            </div>
-
-                            <div class="col-12 col-sm-6" v-if="policies.indexOf('user.status') > -1">
-                                <b-field class="field-group">
-                                    <v-select :options="groups" v-model="group" label="name" placeholder="Group"
-                                        class="select--with--icon w-100 v--select--scroll">
-                                        <template slot="option" slot-scope="option">
-                                            {{ option.name }}
-                                        </template>
-                                    </v-select>
-                                </b-field>
-                            </div>
-                            <div class="col-12 col-sm-6">
-                                <template v-if="this.$route.params.id">
-                                    <b-field class="field-group text-center"
-                                        v-if="policies.indexOf('user.status') > -1">
-                                        <b-switch v-model="userStatus" true-value="Active" false-value="Not Active">
-                                            Active
-                                        </b-switch>
                                     </b-field>
-                                </template>
-                                <template v-else>
-                                    <b-field class="field-group text-center">
-                                        <b-switch v-model="userStatus" true-value="Active" false-value="Not Active">
-                                            Active
-                                        </b-switch>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <b-field class="field-group">
+                                        <b-input type="text" rounded placeholder="First name" v-model="firstName" />
                                     </b-field>
-                                </template>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <b-field class="field-group">
+                                        <b-input type="text" rounded placeholder="Last name" v-model="lastName" />
+                                    </b-field>
+                                </div>
+                                <div class="col-12">
+                                    <b-field class="field-group">
+                                        <b-input type="email" rounded placeholder="User Email" v-model="email" />
+                                    </b-field>
+                                </div>
 
-                            </div>
-                            <div class="col-12" v-if="this.$route.params.id">
-                                <b-field class="field-group">
-                                    <span class="change--password" @click="changePassword =! changePassword">Change
-                                        Password</span>
-                                </b-field>
-                            </div>
-                            <!-- <div class="col-12">
+                                <div class="col-12 col-sm-6" v-if="policies.indexOf('user.status') > -1">
+                                    <b-field class="field-group">
+                                        <v-select :options="groups" v-model="group" label="name" placeholder="Group"
+                                            class="select--with--icon w-100 v--select--scroll">
+                                            <template slot="option" slot-scope="option">
+                                                {{ option.name }}
+                                            </template>
+                                        </v-select>
+                                    </b-field>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <template v-if="this.$route.params.id">
+                                        <b-field class="field-group text-center"
+                                            v-if="policies.indexOf('user.status') > -1">
+                                            <b-switch v-model="userStatus" true-value="Active" false-value="Not Active">
+                                                Active
+                                            </b-switch>
+                                        </b-field>
+                                    </template>
+                                    <template v-else>
+                                        <b-field class="field-group text-center">
+                                            <b-switch v-model="userStatus" true-value="Active" false-value="Not Active">
+                                                Active
+                                            </b-switch>
+                                        </b-field>
+                                    </template>
+
+                                </div>
+                                <div class="col-12" v-if="this.$route.params.id">
+                                    <b-field class="field-group">
+                                        <span class="change--password" @click="changePassword =! changePassword">Change
+                                            Password</span>
+                                    </b-field>
+                                </div>
+                                <!-- <div class="col-12">
                                 <b-field class="field-group" v-if="this.$route.params.id">
                                     <b-input minlength="7" type="password" required rounded placeholder="Old Password"
                                         v-model="oldPassword" />
                                 </b-field>
                             </div> -->
-                            <template v-if="changePassword">
-                                <div class="col-12">
-                                    <b-field class="field-group">
-                                        <b-input minlength="7" type="password" rounded
-                                            :placeholder="this.$route.params.id ? 'New Password' : 'Password'"
-                                            v-model="password" />
-                                    </b-field>
-                                </div>
-                                <div class="col-12">
-                                    <b-field class="field-group">
-                                        <b-input type="password" minlength="7" rounded
-                                            placeholder="Confirm Password" v-model="confirmPassword" />
-                                    </b-field>
-                                    <p class="help is-danger mt-0" v-if="errorConfirmPassword">
-                                        Please fill the same password.
-                                    </p>
-                                </div>
-                            </template>
+                                <template v-if="changePassword">
+                                    <div class="col-12">
+                                        <b-field class="field-group">
+                                            <b-input minlength="7" type="password" rounded
+                                                :placeholder="this.$route.params.id ? 'New Password' : 'Password'"
+                                                v-model="password" />
+                                        </b-field>
+                                    </div>
+                                    <div class="col-12">
+                                        <b-field class="field-group">
+                                            <b-input type="password" minlength="7" rounded
+                                                placeholder="Confirm Password" v-model="confirmPassword" />
+                                        </b-field>
+                                        <p class="help is-danger mt-0" v-if="errorConfirmPassword">
+                                            Please fill the same password.
+                                        </p>
+                                    </div>
+                                </template>
 
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="col-12 text-center button--save--form">
-                        <button class="button is-primary is-rounded"
-                            :class="{'is-loading': isLoading}">{{this.$route.params.id ? 'Save Changes' : 'Add User'}}</button>
-                    </div>
-                </form>
+                        <div class="col-12 text-center button--save--form">
+                            <button class="button is-primary is-rounded"
+                                :class="{'is-loading': isLoading}">{{this.$route.params.id ? 'Save Changes' : 'Add User'}}</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
 

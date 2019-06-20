@@ -1,45 +1,55 @@
 <template>
-    <div class="groups">
-        <div class="page--title">
-            <h1 class="title--text">Categories</h1>
-            <!-- <div class="page--title--action ml-auto"
-                v-if="this.$route.params.id && isInUserPermissions('category.create')">
-                <button @click="addNewCategory()" class="button is-primary is-rounded">
-                    Add New Category
-                </button>
-            </div> -->
+    <div class="categories">
+
+        <!-- Page Head -->
+        <div class="page--head">
+            <div class="wrap--content">
+                <div class="page--title">
+                    <div>
+                        <h1 class="title--text">
+                            Categories
+                        </h1>
+
+                        <!-- Breadcrumb -->
+                        <breadcrumb :links="breadcrumb" />
+
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <!-- Breadcrumb -->
-        <breadcrumb :links="breadcrumb" />
 
-        <div class="card--block">
-            <div class="card--content">
-                <form class="row mt-3 justify-content-center" @submit.prevent="submitForm()">
-                    <div class="col-12 col-md-10 col-lg-8">
-                        <b-field class="field-group">
-                            <div class="text-center">
-                                <div class="user--photo field-group">
-                                    <img :src="photo" v-if="photo" class="avatar-l" alt="">
-                                    <img src="./../../assets/images/img-placeholder.png" v-else class="avatar-l" alt="">
+        <div class="wrap--content">
+            <div class="card--block">
+                <div class="card--content">
+                    <form class="row mt-3 justify-content-center" @submit.prevent="submitForm()">
+                        <div class="col-12 col-md-10 col-lg-8">
+                            <b-field class="field-group">
+                                <div class="text-center">
+                                    <div class="user--photo field-group">
+                                        <img :src="photo" v-if="photo" class="avatar-l" alt="">
+                                        <img src="./../../assets/images/img-placeholder.png" v-else class="avatar-l"
+                                            alt="">
+                                    </div>
+                                    <a class="button is-dark is-rounded m-2 is-small" @click="openModalMedia('image')">
+                                        Change Photo</a>
                                 </div>
-                                <a class="button is-dark is-rounded m-2 is-small" @click="openModalMedia('image')">
-                                    Change Photo</a>
-                            </div>
-                        </b-field>
-                        <b-field class="field-group">
-                            <b-input type="text" rounded placeholder="Category Name" v-model="name" />
-                        </b-field>
-                        <b-field class="field-group">
-                            <b-input type="textarea" rounded rows="4" placeholder="Description" v-model="description" />
-                        </b-field>
-                    </div>
+                            </b-field>
+                            <b-field class="field-group">
+                                <b-input type="text" rounded placeholder="Category Name" v-model="name" />
+                            </b-field>
+                            <b-field class="field-group">
+                                <b-input type="textarea" rounded rows="4" placeholder="Description"
+                                    v-model="description" />
+                            </b-field>
+                        </div>
 
-                    <div class="col-12 text-center button--save--form">
-                        <button class="button is-primary is-rounded"
-                            :class="{'is-loading': isLoading}">{{this.$route.params.id ? 'Save Changes' : 'Add Category'}}</button>
-                    </div>
-                </form>
+                        <div class="col-12 text-center button--save--form">
+                            <button class="button is-primary is-rounded"
+                                :class="{'is-loading': isLoading}">{{this.$route.params.id ? 'Save Changes' : 'Add Category'}}</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
 
@@ -111,9 +121,14 @@
                 this.photo = ''
             },
             // Add New Category Button
-            addNewCategory(){
+            addNewCategory() {
                 this.resetfuild()
-                this.$router.push({ path: '/categoryForm', query: { parentId: this.$route.query.parentId}})
+                this.$router.push({
+                    path: '/categoryForm',
+                    query: {
+                        parentId: this.$route.query.parentId
+                    }
+                })
             },
 
             submitForm() {

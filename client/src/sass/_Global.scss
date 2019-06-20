@@ -16,29 +16,6 @@ body {
 }
 
 
-.menuIsVertical{
-    .main--content{
-        padding: 80px 30px 100px 280px;
-    }
-    .main--header {
-        width: calc(100% - 250px);
-        left: 250px;
-    }
-}
-.menuIsHorizontal{
-    .main--content{
-        padding: 134px 30px 100px 30px;
-        max-width: 1500px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    .main--header {
-        width: 100%;
-        left: 0;
-    }
-}
-
-
 .sidebar--mini{
     .main--content {
         padding: 80px 30px 100px 100px;
@@ -59,6 +36,40 @@ body {
         }
     }
 }
+
+
+.menuIsVertical{
+    .main--content{
+        padding: 80px 30px 100px 280px;
+    }
+    .main--header {
+        width: calc(100% - 250px);
+        left: 250px;
+    }
+}
+.menuIsHorizontal{
+    .main--content{
+        padding: 114px 0 100px 0;
+    }
+    .wrap--content{
+        max-width: 1500px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+    .main--header {
+        width: 100%;
+        left: 0;
+    }
+    .page--head{
+        background-color: #fff;
+        padding: 30px 30px 30px;
+    }
+}
+
+
+
 .editor--mini{
 
     .content--editor{
@@ -102,6 +113,7 @@ button.is-rounded, .button.is-rounded {
 a,.dropdown-item{
     outline: 0 !important;
 }
+
 
 // Avatar
 .avatar--sm{
@@ -215,6 +227,7 @@ a,.dropdown-item{
     transition: box-shadow .2s,
     -webkit-box-shadow .2s;
     border: 1px solid $borderColor;
+    margin-top: 30px !important;
     &:hover{
         z-index: 1;
     }
@@ -451,6 +464,11 @@ a,.dropdown-item{
 }
 
 // Title Page
+
+.page--head{
+    padding-top: 20px;
+}
+
 .page--title{
     position: relative;
     display: -webkit-box;
@@ -463,14 +481,14 @@ a,.dropdown-item{
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    padding-top: 20px;
-    padding-bottom: 10px;
+
     .title--text{
         font-size: 28px;
         display: inline-block;
         vertical-align: middle;
         font-weight: 700;
         text-transform: capitalize;
+        padding-bottom: 10px;
     }
 }
 
