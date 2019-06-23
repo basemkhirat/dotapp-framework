@@ -37,17 +37,29 @@
         </div>
 
         <!-- Add Category -->
-        <!-- <div class="card--block">
+        <div class="card--block">
             <div class="card--content">
                 <div class="post--info--item">
                     <b-field class="field-group flex-column">
                         <label class="label">categories</label>
-                        <treeselect class="custom--treeSelect" :flat="true" v-model="postInfo.categories"
-                            :multiple="true" :options="optionsSelect" />
+                        <treeselect class="custom--treeSelect"
+                        :show-count="true"
+                        :flat="true" v-model="postInfo.categories"
+                            :multiple="true" :options="categories" />
+
+                            <!-- <treeselect :options="categories"
+                            :searchable="true"
+                            :show-count="true"
+                            class="custom--treeSelect"
+                            :flat="true" v-model="postInfo.categories"
+                            :multiple="true">
+                                <div slot="value-label" slot-scope="{ node }">{{ node.raw.name }}</div>
+                            </treeselect> -->
+
                     </b-field>
                 </div>
             </div>
-        </div> -->
+        </div>
         <!-- Add Tags -->
         <div class="card--block">
             <div class="card--content">
@@ -84,6 +96,7 @@
         RepositoryFactory
     } from '../../repositories/RepositoryFactory'
     const tagsRepository = RepositoryFactory.get('tags')
+    const categoriesRepository = RepositoryFactory.get('categories')
 
     import {allFormat} from './../../helpers/Variables'
 
@@ -105,6 +118,8 @@
                 scheduleDate: '',
                 page: 1,
                 limit: 10,
+                value: null,
+                categories: [],
                 optionsSelect: [{
                         id: '1',
                         label: 'Sports',
@@ -153,10 +168,14 @@
             post() {
                 if (this.post) {
                     this.postInfo.status = this.post.status
-                    // this.postInfo.categories = this.post.categories
                     if(this.post.tags.length){
                         this.post.tags.map( item => {
                             this.postInfo.tags.push(item.name)
+                        })
+                    }
+                    if(this.post.categories.length){
+                        this.post.categories.map( item => {
+                            this.postInfo.categories.push(item.id)
                         })
                     }
                     this.postInfo.published_at = this.post.published_at
@@ -166,21 +185,13 @@
         },
         created() {
             this.$emit('setDataFromChild', this.postInfo)
+            this.fetchAllCategories()
         },
         methods: {
             // Send Data To Parent
             sentDataToParent(type) {
                 this.$emit('setDataFromChild', this.postInfo)
             },
-            // Filter Tags
-            // getFilteredTags(text) {
-            //     this.filteredTags = data.filter((option) => {
-            //         return option.user.first_name
-            //             .toString()
-            //             .toLowerCase()
-            //             .indexOf(text.toLowerCase()) >= 0
-            //     })
-            // },
             getFilteredTags(text) {
                 this.filteredTags = []
                 let filters = {}
@@ -189,8 +200,6 @@
                 this.debounce = setTimeout(() => {
                     this.fetchAllTags(filters)
                 }, 500);
-
-
             },
             // Fetch Tags
             async fetchAllTags(filters) {
@@ -200,6 +209,22 @@
                     this.filteredTags.push(item.name)
                 })
                 this.tagsFilterLoading = false
+            },
+            // Fetch Categories
+            async fetchAllCategories() {
+                const categories = await categoriesRepository.getAllCategories(this.page, this.limit)
+                let allCategories = categories.data.docs
+                allCategories.map(item => {
+                    if(item.children.length){
+                        let children = []
+                        item.children.map(subItem => {
+                            children.push({id: subItem.id, label: subItem.name})
+                        })
+                        this.categories.push({id: item.id, label: item.name, children: children})
+                    } else {
+                        this.categories.push({id: item.id, label: item.name})
+                    }
+                })
             }
         },
 

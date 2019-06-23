@@ -1,7 +1,7 @@
 <template>
-     <div v-if="stateMediaModal">
+     <div >
           <b-modal @close="closeMediaModal" :canCancel="false" :has-modal-card="false" :active.sync="mediaModal" scroll="keep" class="modal--custom modal--lg media--content">
-               <div class=" pb-0">
+               <div class=" pb-0" v-if="stateMediaModal">
                     <div class="upper--media d-flex align-items-center">
                          <h2 class="title--one">
                               Media

@@ -55,9 +55,11 @@
         <create-album :modalCreateAlbum="modalCreateAlbum" @changeModalCreateAlbum="changeModalCreateAlbum" />
 
         <!-- Action Lower Page -->
-        <div class="alluser--action" :class="{'show--action--bottom': itemsSelectedMedia.length}">
-            <!-- <button class="button is-warning is-rounded" @click="banItems()">Ban All Selected</button> -->
-            <button class="button is-danger is-rounded" @click="confirmCustomDelete()">Delete All Selected</button>
+        <div class="all--actions" :class="{'show--action--bottom': itemsSelectedMedia.length}">
+            <div class="wrap--content">
+                <!-- <button class="button is-warning is-rounded" @click="banItems()">Ban All Selected</button> -->
+                <button class="button is-danger is-rounded" @click="confirmCustomDelete()">Delete All Selected</button>
+            </div>
         </div>
 
     </div>

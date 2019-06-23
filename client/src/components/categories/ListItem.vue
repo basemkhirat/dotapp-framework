@@ -7,7 +7,7 @@
                 </b-checkbox>
             </div>
 
-            <div class="col-12 col-sm-6 col-xl">
+            <div class="col-12 col-sm-6 col-xl table--item">
                 <div class="block--item--title d-flex align-items-center item--text">
                     <div class="text--title">
                         <router-link :to="`/categories/${item.id}`">
@@ -17,7 +17,7 @@
                 </div>
             </div>
 
-            <div class="col-12 col-sm-6 col-xl">
+            <div class="col-12 col-sm-6 col-xl table--item">
                 <div class="block--item--title d-flex align-items-center item--text">
                     <div class="text--title">
                         {{item.description}}
@@ -25,7 +25,7 @@
                 </div>
             </div>
 
-            <div class="col-12 col-sm-6 col-xl">
+            <div class="col-12 col-sm-6 col-xl table--item">
                 <div class="item--text">
                     <span class="icon">
                         <i class="fas fa-clock"></i>
@@ -34,7 +34,7 @@
                 </div>
             </div>
 
-            <div class="col-12 col-sm-6 col-xl">
+            <div class="col-12 col-sm-6 col-xl table--item">
                 <div class="item--text">
                     <span class="icon">
                         <i class="fas fa-th-large"></i>
@@ -44,7 +44,7 @@
                 </div>
             </div>
 
-            <div class="col-12 col-sm-12 col-xl item--text">
+            <div class="col-12 col-sm-12 col-xl item--text table--item">
                 <div class="all--item--action d-flex align-item-center">
                     <div class="all--item--action d-flex align-item-center">
                         <router-link :to="'/categoryForm/' + item.id"

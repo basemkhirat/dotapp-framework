@@ -1,7 +1,7 @@
 <template>
      <div class="filter--media py-4">
           <div class="row align-items-center">
-               <div class="col-12 col-md-6">
+               <div class="col-12 col-md-7">
                     <v-select :options="allTypes" v-model="type" label="title" class="select--with--icon v--select--scroll my-2 my-md-0" v-if="previewItemAction">
                          <template slot="option" slot-scope="option">
                               {{ option.title }}
@@ -13,7 +13,7 @@
                          </template>
                     </v-select>
                </div>
-               <div class="col-12 col-sm-6">
+               <div class="col-12 col-md-5">
                     <div class="search">
                          <b-input placeholder="Search..."
                               type="search"

@@ -98,19 +98,11 @@
             MainFieldPost
         },
         created() {
-            if (window.innerWidth > 1199.98) {
-                this.changeSideBarStyle()
-            }
             if (this.$route.params.id) {
                 this.getPost(this.$route.params.id)
             }
         },
         watch: {
-            '$route'(to, from) {
-                if (this.$route.name === 'postForm' && window.innerWidth > 1199.98) {
-                    this.changeSideBarStyle()
-                }
-            }
         },
         methods: {
             // Set Data From Post Info Components
@@ -164,7 +156,7 @@
                 }
                 data.status = this.postInfo.status
                 data.tags = this.postInfo.tags
-                // data.categories = this.postInfo.categories
+                data.categories = this.postInfo.categories
                 if (this.postInfo.format) {
                     data.format = this.postInfo.format.value
                 }
@@ -192,7 +184,6 @@
             async getPost(id) {
                 const post = await postsRepository.getPost(id)
                 this.post = post
-                console.log('post :', post);
             },
             // Update Post
             async updatePost(id, data) {

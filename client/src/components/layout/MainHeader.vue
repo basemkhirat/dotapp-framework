@@ -47,7 +47,7 @@
                                 <hr class="dropdown-divider">
                                 <b-dropdown-item @click="goToSettings()">
                                     <b-icon pack="fa" icon="cog"></b-icon>
-                                    Settings
+                                    Profile
                                 </b-dropdown-item>
                                 <b-dropdown-item @click="logout()">
                                     <b-icon pack="fa" icon="sign-out-alt"></b-icon>
@@ -122,7 +122,7 @@
                 this.$store.commit('logout')
             },
             goToSettings() {
-                this.$router.push('/userForm/' + this.userData.id)
+                this.$router.push('/MyProfile')
             },
             //Setting Theme
             themeSettings() {

@@ -5,7 +5,7 @@
                 <b-checkbox v-model="userSelected" @input="updateCheckbox(user.id)" :native-value="user.id">
                 </b-checkbox>
             </div>
-            <div class="col-12 col-sm-6 col-xl">
+            <div class="col-12 col-sm-6 col-xl table--item">
                 <div class="block--item--title d-flex align-items-center item--text">
                     <div class="item--avatar--img">
                         <template v-if="user.photo">
@@ -18,7 +18,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-sm-6 col-xl">
+            <div class="col-12 col-sm-6 col-xl table--item">
                 <div class="item--text">
                     <b-tooltip :label="user.email"
                     type="is-dark"
@@ -30,7 +30,7 @@
                     </b-tooltip>
                 </div>
             </div>
-            <div class="col-12 col-sm-6 col-xl">
+            <div class="col-12 col-sm-6 col-xl table--item">
                 <div class="item--text">
                     <span class="icon">
                         <i class="fas fa-clock"></i>
@@ -38,7 +38,7 @@
                     {{user.created}}
                 </div>
             </div>
-            <div class="col-12 col-sm-6 col-xl">
+            <div class="col-12 col-sm-6 col-xl table--item">
                 <div class="item--text">
                     <template v-if="user.role">
                         <span class="icon">
@@ -51,8 +51,8 @@
                     </template>
                 </div>
             </div>
-            <div class="col-12 col-sm-6 col-xl-1">
-                <div class="item--text text-center">
+            <div class="col-12 col-sm-6 col-xl -1 table--item">
+                <div class="item--text text-md-center">
                     <div class="field" v-if="user.policies.indexOf('user.status') > -1">
                         <b-switch v-model="userStatus" true-value="Active" false-value="Not Active">
                             Active
@@ -60,7 +60,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-sm-12 col-xl item--text">
+            <div class="col-12 col-sm-12 col-xl item--text table--item">
                 <div class="all--item--action d-flex align-item-center">
                     <router-link :to="'/userForm/' + user.id" v-if="user.policies.indexOf('user.update') > -1 && isInUserPermissions('user.update')" class="button--circle is-primary-light"><i class="fas fa-pen"></i></router-link>
                     <button v-if="isInUserPermissions('user.delete') && user.policies.indexOf('user.delete') > -1" class="button--circle is-danger-light" @click="deleteItem(user.id)"><i class="fas fa-trash"></i></button>
