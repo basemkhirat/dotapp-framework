@@ -3,7 +3,7 @@
         <div class="upper--header">
             <div class="wrap--content h-100">
                 <div class="row align-items-center h-100">
-                    <div class="col-6">
+                    <div class="col-6 col-md-9 d-flex align-items-center">
                         <div class="nav--brand" v-if="menuTheme === 'horizontal'">
                             Dashboard
                         </div>
@@ -19,8 +19,16 @@
                                 </span>
                             </div>
                         </template>
+
+                        <!--  Menu  Horizontal -->
+                        <template v-if="menuTheme === 'horizontal'">
+                            <transition name="fade">
+                                <main-menu-Horizontal />
+                            </transition>
+                        </template>
+
                     </div>
-                    <div class="col-6 d-flex">
+                    <div class="col-6 col-md-3 d-flex">
                         <ul class="d-flex justify-content-end ml-auto align-items-center nav--links">
                             <li class="nav-item">
                                 <a class="search--item" @click="mainSearch = true">
@@ -70,13 +78,6 @@
         <b-modal :active.sync="mainSearch" :width="640" scroll="keep" class="justify-content-start search--modal">
             <search />
         </b-modal>
-
-        <!--  Menu  Horizontal -->
-        <template v-if="menuTheme === 'horizontal'">
-            <transition name="fade">
-                <main-menu-Horizontal />
-            </transition>
-        </template>
 
     </header>
 </template>

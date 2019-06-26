@@ -17,7 +17,7 @@
                     <span class="icon">
                         <i class="fas fa-map-marker-alt"></i>
                     </span>
-                    Event Location
+                    {{item.address}}
                 </div>
             </div>
             <div class="col-12 col-sm-6 col-xl table--item">

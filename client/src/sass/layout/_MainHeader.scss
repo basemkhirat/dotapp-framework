@@ -10,7 +10,11 @@
         height: 70px;
         padding: 0 30px;
         @include prefixer (transition, all .25s ease-in-out, webkit moz o);
+        .wrap--content{
+            min-height: 60px;
+        }
     }
+
     @media #{$mwlg} {
         width: 100% !important;
         left: 0 !important;
@@ -51,7 +55,8 @@
         border-bottom: 0;
         .upper--header{
             background-color: #1c253a;
-            height: 60px;
+            min-height: 60px;
+            height: auto;
         }
         .nav-item {
             .dropdown-menu{
@@ -76,10 +81,30 @@
 // Menu Horizontal
 .main--menu--horizontal{
     width: 100%;
-    .wrap--content{
-        @media #{$xs} {
-            padding-left: 0;
-            padding-right: 0;
+    // .wrap--content{
+    //     @media #{$xs} {
+    //         padding-left: 0;
+    //         padding-right: 0;
+    //     }
+    // }
+    margin-left: 30px;
+
+    @media #{$mwmd} {
+        width: 100% !important;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        z-index: 9;
+        margin-left: 0;
+        background-color: #0d121d;
+        padding-left: 20px;
+        padding-right: 20px;
+        .nav{
+            justify-content: center !important;
+        }
+
+        .nav--links{
+            min-height: 60px;
         }
     }
     .nav{
@@ -87,15 +112,15 @@
         align-items: center;
         justify-content: flex-start;
         @media #{$mwsm} {
-            justify-content: space-between;
+            justify-content: space-between !important;
         }
         li{
             a{
                 color: $textColor;
                 background-color: transparent;
-                padding: 15px 20px;
+                padding: 20px 20px;
                 @include prefixer(transition, all .25s ease-in-out, webkit moz o);
-
+                border-radius: 0;
                 &:hover{
                     background-color: rgba(200, 200, 200, 0.15) !important;
                     color: $textColorDarkTwo;
@@ -109,6 +134,9 @@
                     @media #{$mwsm} {
                         display: none;
                     }
+                }
+                @media #{$mwmd} {
+                    padding: 12px 15px;
                 }
             }
         }
@@ -137,6 +165,11 @@
     .icon{
         margin-right: 5px;
     }
+    .icon--right{
+        margin-right: 0;
+        margin-left: 5px;
+    }
+
 }
 
 

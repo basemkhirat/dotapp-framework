@@ -39,7 +39,7 @@
                 </div>
             </div>
             <div class="col-12 col-sm-6 col-xl table--item">
-                <div class="item--text">
+                <div class="item--text text-center">
                     <template v-if="user.role">
                         <span class="icon">
                             <i class="fas fa-award"></i>

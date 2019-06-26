@@ -10,7 +10,7 @@
                             <!-- Main Image OR Video -->
                             <template v-if="mediaItemPreview">
                                 <b-field class="field-group img--preview img--preview--mainimg" v-if="mediaItemPreview.thumbnails">
-                                    <img :src="mediaItemPreview.thumbnails.max">
+                                    <img :src="mediaItemPreview.thumbnails.max" payload>
                                 </b-field>
                             </template>
                             <div class="file--upload" @click="openModalMedia('mainArticlePhoto')">

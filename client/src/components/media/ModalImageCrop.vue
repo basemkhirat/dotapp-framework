@@ -183,12 +183,10 @@ export default {
         },
 
            // this.$refs.cropper.getCropData((data) => {
-            //     console.log(data)
             //     })
 
             // this.$refs.cropper.getCropBlob((data) => {
             // // do something
-            // console.log(data)
             // })
 
      }
