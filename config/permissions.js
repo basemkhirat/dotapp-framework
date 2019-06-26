@@ -44,4 +44,8 @@ export default {
         "update",
         "delete",
     ],
+
+    event: [
+        "manage"
+    ],
 }
