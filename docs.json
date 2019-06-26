@@ -1846,6 +1846,59 @@
                 ]
             }
         },
+
+        "event/like/{id}": {
+            "put": {
+                "tags": [
+                    "Events"
+                ],
+                "summary": "like/unlike event by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Event ID",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/responses"
+                },
+                "security": [
+                    {
+                        "bearer token": []
+                    }
+                ]
+            }
+        },
+
+        "event/follow/{id}": {
+            "put": {
+                "tags": [
+                    "Events"
+                ],
+                "summary": "follow/unfollow event by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Event ID",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/responses"
+                },
+                "security": [
+                    {
+                        "bearer token": []
+                    }
+                ]
+            }
+        },
+
         "/tag": {
             "get": {
                 "tags": [
