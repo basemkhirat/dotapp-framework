@@ -9,7 +9,7 @@ describe("Event", function () {
 
     it("create a new event", function (done) {
 
-        server.event("/api/event")
+        server.post("/api/event")
             .set('Authorization', 'Bearer ' + token)
             .send(event)
             .expect(200)
@@ -53,7 +53,7 @@ describe("Event", function () {
             title: faker.company.companyName()
         };
 
-        server.event("/api/event")
+        server.post("/api/event")
             .set('Authorization', 'Bearer ' + token)
             .send(event)
             .expect(200)
