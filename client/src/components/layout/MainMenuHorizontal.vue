@@ -59,7 +59,6 @@
 </template>
 
 <script>
-    import MenuItem from './MenuItem';
     import {
         mapState
     } from 'vuex';
@@ -94,6 +93,12 @@
                         link: '/media',
                         icon: 'fa fa-images',
                         role: 'media.view'
+                    },
+                    {
+                        name: 'Events',
+                        link: '/events',
+                        icon: 'far fa-calendar-alt',
+                        role: true
                     },
                     {
                         name: 'Content',
@@ -138,9 +143,6 @@
         },
         created() {
             this.checkLinksRole()
-        },
-        components: {
-            MenuItem,
         },
 
         methods: {

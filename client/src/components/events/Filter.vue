@@ -46,14 +46,6 @@
                             </template>
                         </v-select>
                     </div>
-                    <div class="input--fuild">
-                        <v-select :options="allFormat" v-model="format" label="name" placeholder="Sort By Format"
-                            class="select--with--icon w-100 v--select--scroll w-fuild-md">
-                            <template slot="option" slot-scope="option">
-                                {{ option.name }}
-                            </template>
-                        </v-select>
-                    </div>
 
                     <div class="input--fuild">
                         <v-select :options="allStatus" v-model="status" label="name" placeholder="Sort By Status"
@@ -180,16 +172,6 @@
             order(){
                 this.filters.order = this.order.value
                 this.$emit('featchByFilter', this.filters)
-            },
-            // Format
-            format() {
-                if (this.format) {
-                    this.filters.format = this.format.value
-                    this.$emit('featchByFilter', this.filters)
-                } else {
-                    this.filters.format = ''
-                    this.$emit('featchByFilter', this.filters)
-                }
             },
             // Format
             categories() {

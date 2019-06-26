@@ -5,8 +5,6 @@ import AuthPages from "./views/pages/AuthPages";
 
 Vue.use(Router);
 
-import axios from "axios";
-
 function isIModuleHasPermissions(userPermissions, role) {
     for (var key in userPermissions) {
         if (userPermissions[key] === role) {
@@ -15,8 +13,6 @@ function isIModuleHasPermissions(userPermissions, role) {
     }
     return false;
 }
-
-import store from "./store/store.js";
 
 function routerGuard(to, from, next) {
     const userData = JSON.parse(localStorage.getItem('userData'))
@@ -53,7 +49,6 @@ const router = new Router({
                 },
             ]
         },
-
         {
             path: "/",
             component: Wrapper,
@@ -173,16 +168,27 @@ const router = new Router({
                     },
                     beforeEnter: routerGuard
                 },
-
                 {
                     path: "/notAuthorized",
                     name: "notAuthorized",
                     component: () => import("./views/pages/NotAuthorized.vue")
-                }
+                },
+                {
+                    path: "/events",
+                    name: "events",
+                    component: () => import("./views/events/Events.vue"),
+                    beforeEnter: routerGuard
+                },
+                {
+                    path: "/eventForm/:id?",
+                    name: "eventForm",
+                    component: () => import("./views/events/Form.vue"),
+                    beforeEnter: routerGuard
+                },
             ]
         }
     ],
-    scrollBehavior(to, from, savedPosition) {
+    scrollBehavior() {
         return {
             x: 0,
             y: 0

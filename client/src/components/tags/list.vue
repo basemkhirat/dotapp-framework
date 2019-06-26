@@ -77,7 +77,7 @@ export default {
         async deleteTag(id) {
             const tags = await tagsRepository.deleteTag(id)
             this.$emit('fetchAllItems')
-            // this.aleartMessage(tags.message)
+            this.aleartMessage(tags.message)
         },
         // Delete Items
         async deleteTags(ids) {
