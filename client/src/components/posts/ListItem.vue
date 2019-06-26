@@ -5,14 +5,14 @@
                     <b-checkbox v-model="checkItemSelected" @input="updateCheckbox(item.id)" :native-value="item.id">
                     </b-checkbox>
                 </div>
-                <div class="col-12 col-sm-6 col-xl-4">
+                <div class="col-12 col-sm-6 col-xl table--item-4">
                     <div class="block--item--title d-flex align-items-center item--text">
                         <div class="text--title">
                             {{item.title}}
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-xl">
+                <div class="col-12 col-sm-6 col-xl table--item">
                     <div class="block--item--title d-flex align-items-center item--text">
                         <span class="icon">
                             <i class="fas fa-user"></i>
@@ -22,7 +22,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-xl">
+                <div class="col-12 col-sm-6 col-xl table--item">
                     <div class="block--item--title d-flex align-items-center justify-content-center item--text">
                         <div class="text--title">
                             <b-tag type="is-success" rounded v-if="item.status === 1">Published</b-tag>
@@ -30,7 +30,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-xl">
+                <div class="col-12 col-sm-6 col-xl table--item">
                     <div class="item--text">
                         <span class="icon">
                             <i class="fas fa-clock"></i>
@@ -39,7 +39,7 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-12 col-xl item--text">
+                <div class="col-12 col-sm-12 col-xl item--text table--item">
                     <div class="all--item--action d-flex align-item-center">
                         <div class="all--item--action d-flex align-item-center">
                             <router-link :to="'/postForm/' + item.id" v-if="item.policies.indexOf('post.update') > -1" class="button--circle is-primary-light"><i class="fas fa-pen"></i></router-link>

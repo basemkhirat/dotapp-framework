@@ -5,14 +5,14 @@
                     <b-checkbox v-model="checkItemSelected" @input="updateCheckbox(item.id)" :native-value="item.id">
                     </b-checkbox>
                 </div>
-                <div class="col-12 col-sm-6 col-xl">
+                <div class="col-12 col-sm-6 col-xl table--item">
                     <div class="block--item--title d-flex align-items-center item--text">
                         <div class="text--title">
                             {{item.name}}
                         </div>
                     </div>
                 </div>
-                <!-- <div class="col-12 col-sm-6 col-xl">
+                <!-- <div class="col-12 col-sm-6 col-xl table--item">
                     <div class="item--text">
                         <span class="icon">
                             <i class="fas fa-users"></i>
@@ -20,7 +20,7 @@
                         {{item.usersCount}} <span class="mx-1">User</span>
                     </div>
                 </div> -->
-                <div class="col-12 col-sm-6 col-xl">
+                <div class="col-12 col-sm-6 col-xl table--item">
                     <div class="item--text">
                         <span class="icon">
                             <i class="fas fa-clock"></i>
@@ -28,20 +28,20 @@
                         {{item.created}}
                     </div>
                 </div>
-                <!-- <div class="col-12 col-sm-6 col-xl">
-                    <div class="item--text text-center">
+                <!-- <div class="col-12 col-sm-6 col-xl table--item">
+                    <div class="item--text text-md-center">
                         <b-tag rounded type="is-success" v-if="item.status">Published</b-tag>
                         <b-tag rounded  type="is-danger" v-else>Not Published</b-tag>
                     </div>
                 </div> -->
-                <div class="col-12 col-sm-6 col-xl">
-                    <div class="item--text text-center">
+                <div class="col-12 col-sm-6 col-xl table--item">
+                    <div class="item--text text-md-center">
                         ({{item.permissions.length}}) Permissions
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-6 col-xl-1">
-                    <div class="item--text text-center" v-if="item.policies.indexOf('role.update') > -1">
+                <div class="col-12 col-sm-6 col-xl -1 table--item">
+                    <div class="item--text text-md-center" v-if="item.policies.indexOf('role.update') > -1">
                         <div class="field">
                             <b-switch v-model="item.status" :true-value="1" :false-value="0" @input="changeStatus(item.id, item.status)">
                                 Active
@@ -50,7 +50,7 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-12 col-xl item--text">
+                <div class="col-12 col-sm-12 col-xl item--text table--item">
                     <div class="all--item--action d-flex align-item-center">
                         <div class="all--item--action d-flex align-item-center">
                             <router-link :to="'/groupForm/' + item.id" v-if="item.policies.indexOf('role.update') > -1" class="button--circle is-primary-light"><i class="fas fa-pen"></i></router-link>

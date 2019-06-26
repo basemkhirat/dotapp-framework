@@ -85,6 +85,13 @@ const router = new Router({
                     beforeEnter: routerGuard
                 },
                 {
+                    path: "/myProfile",
+                    name: "myProfile",
+                    props: true,
+                    component: () => import("./views/pages/MyProfile.vue"),
+                    beforeEnter: routerGuard
+                },
+                {
                     path: "/groups",
                     name: "groups",
                     component: () => import("./views/groups/Groups.vue"),

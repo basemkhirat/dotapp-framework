@@ -59,7 +59,17 @@
                                     </b-field>
                                 </div>
 
-                                <div class="col-12 col-sm-6" v-if="policies.indexOf('user.status') > -1">
+                                <div class="col-12 col-sm-6" v-if="!this.$route.params.id">
+                                    <b-field class="field-group">
+                                        <v-select :options="groups" v-model="group" label="name" placeholder="Group"
+                                            class="select--with--icon w-100 v--select--scroll">
+                                            <template slot="option" slot-scope="option">
+                                                {{ option.name }}
+                                            </template>
+                                        </v-select>
+                                    </b-field>
+                                </div>
+                                <div class="col-12 col-sm-6" v-else-if="policies.indexOf('user.status') > -1 && this.$route.params.id">
                                     <b-field class="field-group">
                                         <v-select :options="groups" v-model="group" label="name" placeholder="Group"
                                             class="select--with--icon w-100 v--select--scroll">
@@ -102,14 +112,14 @@
                                 <template v-if="changePassword">
                                     <div class="col-12">
                                         <b-field class="field-group">
-                                            <b-input minlength="7" type="password" rounded
+                                            <b-input type="password" rounded
                                                 :placeholder="this.$route.params.id ? 'New Password' : 'Password'"
                                                 v-model="password" />
                                         </b-field>
                                     </div>
                                     <div class="col-12">
                                         <b-field class="field-group">
-                                            <b-input type="password" minlength="7" rounded
+                                            <b-input type="password" rounded
                                                 placeholder="Confirm Password" v-model="confirmPassword" />
                                         </b-field>
                                         <p class="help is-danger mt-0" v-if="errorConfirmPassword">
@@ -246,22 +256,38 @@
                 if (this.imageSelected) {
                     data.photo = this.imageSelected.id
                 }
-                if (this.firstName) {
+                if(this.$route.params.id){
+                    if(this.changePassword){
+                        data.password = this.password
+                        if (this.password === this.confirmPassword) {
+                            this.errorConfirmPassword = false
+                            this.isLoading = true
+                            this.updateUser(this.$route.params.id, data)
+
+                        } else {
+                            this.isLoading = false
+                            this.errorConfirmPassword = true
+                        }
+                    } else {
+                        this.updateUser(this.$route.params.id, data)
+                    }
+
+                } else {
                     data.password = this.password
                     if (this.password === this.confirmPassword) {
                         this.errorConfirmPassword = false
                         this.isLoading = true
-                        if (this.$route.params.id) {
-                            this.updateUser(this.$route.params.id, data)
-                        } else {
-                            this.newUser(data)
-                        }
-
+                         this.newUser(data)
                     } else {
                         this.isLoading = false
                         this.errorConfirmPassword = true
                     }
-                } else if (this.firstName && this.email && this.$route.params.id) {
+
+
+                }
+                if (this.firstName) {
+
+                } else if (this.$route.params.id) {
                     this.isLoading = true
                     this.updateUser(this.$route.params.id, data)
                 }

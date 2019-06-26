@@ -6,9 +6,11 @@
         :usersSelected="usersSelected"/>
 
         <template>
-            <div class="alluser--action" :class="{'show--action--bottom': usersSelected.length}">
-                <button class="button is-warning is-rounded" @click="confirmCustomUpdate()">Ban All Selected</button>
-                <button class="button is-danger is-rounded" @click="deleteItems()">Delete All Selected</button>
+            <div class="all--actions" :class="{'show--action--bottom': usersSelected.length}">
+                <div class="wrap--content">
+                    <button class="button is-warning is-rounded" @click="confirmCustomUpdate()">Ban All Selected</button>
+                    <button class="button is-danger is-rounded" @click="deleteItems()">Delete All Selected</button>
+                </div>
             </div>
         </template>
 

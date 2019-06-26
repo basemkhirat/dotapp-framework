@@ -10,6 +10,13 @@ export default {
             }
         })
     },
+    getMyProfile(id) {
+        return Repository.get(`/auth/user`).then((response) => {
+            if (response.data.success) {
+                return response.data.data;
+            }
+        })
+    },
     updateUser(id, data) {
         return Repository.put(`${resource}/${id}`, data).then((response) => {
             if (response.data.success) {

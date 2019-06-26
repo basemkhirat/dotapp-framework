@@ -10,6 +10,7 @@ const GlobalSettings = {
         setMenuTheme(state, theme){
             state.menuTheme = theme
             localStorage.setItem('menuTheme', theme)
+            this.commit('miniSidebarOpen')
         }
     },
     actions: {

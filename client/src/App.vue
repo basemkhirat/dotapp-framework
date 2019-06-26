@@ -19,8 +19,8 @@ export default {
   },
   watch: {
     '$route' (to, from) {
-        document.body.classList.remove('editor--mini')
-        this.$store.commit('miniSidebarOpen')
+        // document.body.classList.remove('editor--mini')
+        // this.$store.commit('miniSidebarOpen')
         this.$store.commit('resetType')
 
     }

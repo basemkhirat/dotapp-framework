@@ -1,17 +1,19 @@
 <template>
     <div>
-        <item  v-for="item in data" :key="item.id" :item="item" 
+        <item  v-for="item in data" :key="item.id" :item="item"
         @fetchAllItems="fetchAllItems"
-        @checkboxItem="checkboxItemStatus" 
+        @checkboxItem="checkboxItemStatus"
         :itemsSelected="itemsSelected"/>
-         
+
         <template>
-            <div class="alluser--action" :class="{'show--action--bottom': itemsSelected.length}">
-                <!-- <button class="button is-warning is-rounded" @click="banItems()">Ban All Selected</button> -->
-                <button class="button is-danger is-rounded" @click="deleteItems()">Delete All Selected</button>
+            <div class="all--actions" :class="{'show--action--bottom': itemsSelected.length}">
+                <div class="wrap--content">
+                    <!-- <button class="button is-warning is-rounded" @click="banItems()">Ban All Selected</button> -->
+                    <button class="button is-danger is-rounded" @click="deleteItems()">Delete All Selected</button>
+                </div>
             </div>
         </template>
-        
+
     </div>
 </template>
 
@@ -48,7 +50,7 @@ export default {
             if(this.itemsSelected.length){
                 this.$emit('checkButtonSelectAll', this.itemsSelected)
             }
-        }       
+        }
     },
     methods:{
          checkboxItemStatus(data){

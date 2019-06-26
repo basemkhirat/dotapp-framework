@@ -76,12 +76,19 @@
 // Menu Horizontal
 .main--menu--horizontal{
     width: 100%;
-    padding-left: 30px;
-    padding-right: 30px;
+    .wrap--content{
+        @media #{$xs} {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
     .nav{
         display: flex;
         align-items: center;
         justify-content: center;
+        @media #{$mwsm} {
+            justify-content: space-between;
+        }
         li{
             a{
                 color: $textColor;
@@ -93,6 +100,16 @@
                     background-color: rgba(200, 200, 200, 0.15) !important;
                     color: $textColorDarkTwo;
                 }
+                &.is-active{
+                    background-color: rgba(200, 200, 200, 0.15) !important;
+                    color: $textColorDarkTwo;
+                }
+
+                .text-aside{
+                    @media #{$mwsm} {
+                        display: none;
+                    }
+                }
             }
         }
         .dropdown-trigger{
@@ -103,6 +120,15 @@
                 padding: 12px 15px;
                 &:hover{
                     color: $textColor;
+                }
+                &.is-active{
+                    background-color: $mainColor !important;
+                    color: $textColorDarkTwo;
+                }
+                .text-aside{
+                    @media #{$mwsm} {
+                        display: inline-block;
+                    }
                 }
 
             }
