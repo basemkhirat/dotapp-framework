@@ -1,0 +1,18 @@
+{
+    "slug_taken": "الإسم اللطيف موجود مسبقاَ",
+
+    "events": {
+        "created": "تم إضافة الحدث بنجاح",
+        "updated": "تم تحديث الحدث بنجاح",
+        "deleted": "تم حذف الحدث بنجاح"
+    },
+
+    "permissions": {
+        "manage": "التحكم في الأحداث"
+    },
+
+    "errors": {
+        "event_not_found": "الخبر غير موجود",
+        "operation_not_allowed": "العملية غير مسموح بها"
+    }
+}

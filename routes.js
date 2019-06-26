@@ -53,7 +53,6 @@ export default {
                         }
                     },
 
-
                     "/permission": {
 
                         middleware: "authenticate",
@@ -63,7 +62,6 @@ export default {
                             "GET /me": "PermissionController.me",
                         }
                     },
-
 
                     "/media": {
 
@@ -164,6 +162,25 @@ export default {
                         }
                     },
 
+                    "/event": {
+
+                        middleware: "authenticate",
+
+                        group: {
+                            "GET /": "EventController.find",
+                            "GET /:id": "EventController.findOne",
+                            "POST /": {
+                                middleware: "validate:event",
+                                handler: "EventController.create"
+                            },
+                            "PUT /:id": {
+                                middleware: "validate:event",
+                                handler: "EventController.update"
+                            },
+                            "DELETE /:id": "EventController.destroy",
+                            "PATCH /": "EventController.bulk"
+                        }
+                    }
                 }
             }
         }
