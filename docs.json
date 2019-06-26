@@ -1570,11 +1570,19 @@
                     },
 
                     {
-                        "name": "location",
+                        "name": "address",
+                        "in": "query",
+                        "description": "Event address",
+                        "type": "string"
+                    },
+
+                    {
+                        "name": "map",
                         "in": "query",
                         "description": "Event map embed",
                         "type": "string"
                     },
+
                     {
                         "name": "media",
                         "in": "query",
@@ -1751,11 +1759,19 @@
                     },
 
                     {
-                        "name": "location",
+                        "name": "address",
+                        "in": "query",
+                        "description": "Event address",
+                        "type": "string"
+                    },
+
+                    {
+                        "name": "map",
                         "in": "query",
                         "description": "Event map embed",
                         "type": "string"
                     },
+
                     {
                         "name": "media",
                         "in": "query",

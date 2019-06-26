@@ -1,5 +1,7 @@
 import Controller from "~/controllers/Controller";
 import Event from '~/models/event';
+import Like from '~/models/like';
+import Follow from '~/models/follow';
 import async from "async";
 
 export default class extends Controller {
@@ -110,7 +112,8 @@ export default class extends Controller {
         event.tag_names = req.param("tags");
         event.type = req.param("type", event.type);
         event.price = req.param("price", event.price);
-        event.location = req.param("location", event.location);
+        event.address = req.param("address", event.address);
+        event.map = req.param("map", event.map);
 
         event.save((error, event) => {
             if (error) return res.serverError(error);
@@ -139,13 +142,15 @@ export default class extends Controller {
             event.content = req.param("content", event.content);
             event.status = req.param("status", event.status);
             event.lang = req.param("lang", event.lang);
+            event.media = req.param("media", event.media);
             event.published_at = req.param("published_at", event.published_at);
             event.scheduled_at = req.param("scheduled_at", event.scheduled_at);
             event.categories = req.param("categories", event.categories);
             event.tag_names = req.param("tags");
             event.type = req.param("type", event.type);
             event.price = req.param("price", event.price);
-            event.location = req.param("location", event.location);
+            event.address = req.param("address", event.address);
+            event.map = req.param("map", event.map);
 
             if (req.filled("tags")) {
                 event.tag_names = req.param("tags");
@@ -156,6 +161,78 @@ export default class extends Controller {
                 return res.message(req.lang("event.events.updated")).ok(id);
             });
         });
+    }
+
+    /**
+     * like/unlink event
+     * @param req
+     * @param res
+     */
+    like(req, res) {
+
+        let id = req.param("id");
+
+        Event.findById(id, (error, event) => {
+            if (error) return res.serverError(error);
+            if (!event) return res.notFound(req.lang("event.errors.event_not_found"));
+
+            Like.toggle({
+                type: "event",
+                object: id,
+                user: req.user.id
+            }, (error, state) => {
+                if (error) return res.serverError(error);
+
+                if (state === "liked") {
+                    event.likes = event.likes + 1;
+                } else if (state === "unliked") {
+                    event.likes = event.likes - 1;
+                }
+
+                event.save(error => {
+                    if (error) return res.serverError(error);
+
+                    res.ok(state);
+                });
+            });
+        });
+
+    }
+
+    /**
+     * follow/unfollow event
+     * @param req
+     * @param res
+     */
+    follow(req, res) {
+
+        let id = req.param("id");
+
+        Event.findById(id, (error, event) => {
+            if (error) return res.serverError(error);
+            if (!event) return res.notFound(req.lang("event.errors.event_not_found"));
+
+            Follow.toggle({
+                type: "event",
+                object: id,
+                user: req.user.id
+            }, (error, state) => {
+                if (error) return res.serverError(error);
+
+                if (state === "followed") {
+                    event.followers = event.followers + 1;
+                } else if (state === "unfollowed") {
+                    event.followers = event.followers - 1;
+                }
+
+                event.save(error => {
+                    if (error) return res.serverError(error);
+
+                    res.ok(state);
+                });
+            });
+        });
+
     }
 
     /**
