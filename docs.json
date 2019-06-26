@@ -1847,7 +1847,7 @@
             }
         },
 
-        "event/like/{id}": {
+        "/event/like/{id}": {
             "put": {
                 "tags": [
                     "Events"
@@ -1873,7 +1873,7 @@
             }
         },
 
-        "event/follow/{id}": {
+        "/event/follow/{id}": {
             "put": {
                 "tags": [
                     "Events"
