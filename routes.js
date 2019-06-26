@@ -178,7 +178,9 @@ export default {
                                 handler: "EventController.update"
                             },
                             "DELETE /:id": "EventController.destroy",
-                            "PATCH /": "EventController.bulk"
+                            "PATCH /": "EventController.bulk",
+                            "PUT like/:id": "EventController.like",
+                            "PUT follow/:id": "EventController.follow",
                         }
                     }
                 }

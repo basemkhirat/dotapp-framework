@@ -28,7 +28,11 @@ let schema = Schema({
         type: String
     },
 
-    location: {
+    address: {
+        type: String
+    },
+
+    map: {
         type: String
     },
 
@@ -60,6 +64,16 @@ let schema = Schema({
         ref: 'tag'
     }],
 
+    likes: {
+        type: Number,
+        default: 0
+    },
+
+    followers: {
+        type: Number,
+        default: 0
+    },
+
     status: {
         type: Number,
         default: 0
@@ -90,6 +104,8 @@ schema.index({price: 1});
 schema.index({user: 1});
 schema.index({categories: 1});
 schema.index({tags: 1});
+schema.index({likes: 1});
+schema.index({followers: 1});
 schema.index({created_at: -1});
 schema.index({updated_at: -1});
 schema.index({published_at: -1});

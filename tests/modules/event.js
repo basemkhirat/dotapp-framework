@@ -20,6 +20,22 @@ describe("Event", function () {
             });
     });
 
+    it("like the created event", function (done) {
+
+        server.put("/api/event/like/" + event.id)
+            .set('Authorization', 'Bearer ' + token)
+            .send(event)
+            .expect(200, done);
+    });
+
+    it("follow the created event", function (done) {
+
+        server.put("/api/event/follow/" + event.id)
+            .set('Authorization', 'Bearer ' + token)
+            .send(event)
+            .expect(200, done);
+    });
+
     it("find event by id", function (done) {
         server.get("/api/event/" + event.id)
             .set('Authorization', 'Bearer ' + token)

@@ -102,7 +102,7 @@ schema.statics.formats = function () {
         "video",
         "gallery"
     ];
-}
+};
 
 schema.methods.getContent = function (next) {
 
