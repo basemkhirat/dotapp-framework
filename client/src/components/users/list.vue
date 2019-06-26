@@ -72,7 +72,7 @@ export default {
         async deleteUser(id) {
             const user = await usersRepository.deleteUser(id)
             this.$emit('fetchAllItems')
-            this.aleartMessage()
+            this.aleartMessage(user.message)
         },
         async deleteUsers(ids) {
             const users = await usersRepository.deleteUsers(ids)

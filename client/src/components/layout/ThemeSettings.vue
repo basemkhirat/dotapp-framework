@@ -52,9 +52,7 @@ export default {
             this.$store.commit('setMenuTheme', this.menuTheme)
         },
         manuThemeState(){
-            console.log(this.manuThemeState);
             this.checkMenuTheme()
-
         }
     },
     methods:{

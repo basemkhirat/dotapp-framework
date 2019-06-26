@@ -186,9 +186,8 @@
             },
 
 
-            async getMyProfile(data) {
+            async getMyProfile() {
                 const user = await usersRepository.getMyProfile()
-                console.log('user :', user);
                 this.userId = user.id
                 this.firstName = user.first_name
                 this.lastName = user.last_name

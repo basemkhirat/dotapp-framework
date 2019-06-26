@@ -5,6 +5,7 @@ import mediaRepository from "./mediaRepository";
 import categoriesRepository from "./categoriesRepository";
 import tagsRepository from "./tagsRepository";
 import postsRepository from "./postsRepository";
+import eventsRepository from "./eventsRepository";
 
 const repositories = {
     users: usersRepository,
@@ -14,6 +15,7 @@ const repositories = {
     categories: categoriesRepository,
     tags: tagsRepository,
     posts: postsRepository,
+    events: eventsRepository,
 };
 
 export const RepositoryFactory = {

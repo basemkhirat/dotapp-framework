@@ -45,7 +45,7 @@
 </template>
 
 <script>
-    import VuePerfectScrollbar from 'vue-perfect-scrollbar';
+    // import VuePerfectScrollbar from 'vue-perfect-scrollbar';
     import MenuItem from './MenuItem';
     import { mapState} from 'vuex';
 
@@ -64,6 +64,12 @@
                     { name: 'Posts', link: '/posts', icon: 'far fa-newspaper', role: 'post.view'},
                     { name: 'Categories', link: '/categories', icon: 'fas fa-puzzle-piece', role: 'category.view'},
                     { name: 'Tags', link: '/tags', icon: 'fas fa-tags', role: 'tag.view'},
+                    {
+                        name: 'Events',
+                        link: '/events',
+                        icon: 'far fa-calendar-alt',
+                        role: true
+                    },
                     // { name: 'Item Dropdown2', link: '/', icon: 'fas fa-columns', childLinks:[
                     //     { name: 'Item One a', link: '/a'},
                     //     { name: 'Item Two asds', link: '/sd'},
@@ -91,7 +97,7 @@
             this.checkLinksRole()
         },
         components: {
-            VuePerfectScrollbar,
+            // VuePerfectScrollbar,
             MenuItem,
         },
 

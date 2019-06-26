@@ -66,9 +66,6 @@
 </template>
 
 <script>
-    import {
-        mapState
-    } from 'vuex'
     import filterMedia from './FilterMedia'
     import mediaItems from './MediaItems'
     import uploadFiles from './UploadFiles'
@@ -169,7 +166,7 @@
             },
 
             // Delete Items
-            async deleteItems(ids) {
+            async deleteItems() {
                 const items = await mediaRepository.deleteItems(this.itemsSelectedMedia)
                 this.fetchAllItems()
                 this.aleartMessage(items.message)

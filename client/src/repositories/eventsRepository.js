@@ -1,16 +1,25 @@
 import Repository from "./Repository";
 
-const resource = "/post";
+const resource = "/event";
 
 export default {
-    getPost(id) {
+    newEvent(data) {
+        return Repository.post(`${resource}`, data).then((response) => {
+            if (response.data.success) {
+                return response.data;
+            }
+        }).catch(error => {
+            return error.response.data.errors;
+        })
+    },
+    getEvent(id) {
         return Repository.get(`${resource}/${id}`).then((response) => {
             if (response.data.success) {
                 return response.data.data;
             }
         });
     },
-    updatePost(id, data) {
+    updateEvent(id, data) {
         return Repository.put(`${resource}/${id}`, data).then((response) => {
             if (response.data.success) {
                 return response.data;
@@ -19,21 +28,21 @@ export default {
             return error.response.data.errors;
         })
     },
-    deletePost(id) {
+    deleteEvent(id) {
         return Repository.delete(`${resource}/${id}`).then((response) => {
             if (response.data.success) {
                 return response.data;
             }
         });
     },
-    deletePosts(ids) {
+    deleteEvents(ids) {
         return Repository.patch(`${resource}/?operation=delete&ids=${ids}`).then((response) => {
             if (response.data.success) {
                 return response.data;
             }
         });
     },
-    getAllPosts(page, limit, filters = {}) {
+    getAllEvents(page, limit, filters = {}) {
         let statusQuery = (filters.status && filters.status !== '') ? '&status=' + filters.status : '';
         let searchQuery = (filters.searchQuery && filters.searchQuery !== '') ? '&q=' + filters.searchQuery : '';
         let orderQuery = filters.order ? "&sort_type=" + filters.order : "";
@@ -59,13 +68,5 @@ export default {
             }
         });
     },
-    newPost(data) {
-        return Repository.post(`${resource}`, data).then((response) => {
-            if (response.data.success) {
-                return response.data;
-            }
-        }).catch(error => {
-            return error.response.data.errors;
-        })
-    },
+
 };

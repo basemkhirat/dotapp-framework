@@ -225,7 +225,7 @@ export default {
             },
 
             // Delete Items
-          async deleteItems(ids) {
+          async deleteItems() {
                const items = await mediaRepository.deleteItems(this.itemsSelectedMedia)
                this.fetchAllItems()
                this.aleartMessage(items.message)

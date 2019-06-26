@@ -10,7 +10,8 @@ export default {
             }
         })
     },
-    getMyProfile(id) {
+    // Get User Data
+    getMyProfile() {
         return Repository.get(`/auth/user`).then((response) => {
             if (response.data.success) {
                 return response.data.data;

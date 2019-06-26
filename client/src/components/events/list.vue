@@ -24,7 +24,7 @@
 import Item from './ListItem'
 // Repository Data
 import { RepositoryFactory } from '../../repositories/RepositoryFactory'
-const postsRepository = RepositoryFactory.get('posts')
+const eventsRepository = RepositoryFactory.get('events')
 
 export default {
     props:['data', 'allItemsSelected'],
@@ -73,16 +73,15 @@ export default {
 
         },
 
-
         // Delete Items
-        async deletePosts(ids) {
-            const posts = await postsRepository.deletePosts(ids)
+        async deleteEvents(ids) {
+            const posts = await eventsRepository.deleteEvents(ids)
             this.$emit('fetchAllItems')
             this.aleartMessage(posts.message)
         },
         // Ban Items
-         async updatePosts(id, data) {
-            const posts = await postsRepository.updatePosts(id, data)
+         async updateEvents(id, data) {
+            const posts = await eventsRepository.updateEvents(id, data)
             this.$emit('fetchAllItems')
             this.aleartMessage(posts.message)
         },
@@ -102,12 +101,12 @@ export default {
         },
         confirmCustomDelete(ids) {
             this.$dialog.confirm({
-                title: 'Deleting Posts',
-                message: 'Are you sure you want to <b>delete</b> all posts? This action cannot be undone.',
-                confirmText: 'Delete Posts',
+                title: 'Deleting Events',
+                message: 'Are you sure you want to <b>delete</b> all events? This action cannot be undone.',
+                confirmText: 'Delete Events',
                 type: 'is-danger',
                 hasIcon: true,
-                onConfirm: () => this.deletePosts(ids)
+                onConfirm: () => this.deleteEvents(ids)
             })
         },
     }
