@@ -78,8 +78,8 @@
                     <b-field class="field-group flex-column">
                         <label class="label">Location</label>
                         <div class="field has-addons">
-                            <!-- <b-input type="text" class="w-100" rounded placeholder="Location Title"
-                                v-model="postInfo.location" /> -->
+                            <b-input type="text" class="w-100" rounded placeholder="Location Title"
+                                v-model="postInfo.address" />
                             <!-- <p class="control">
                                 <b-tooltip label="Embed Location On Map"
                                 type="is-dark"
@@ -92,7 +92,7 @@
                             </p> -->
                         </div>
                         <b-input type="textarea" class="w-100" rows="3" rounded placeholder="Location Embed"
-                            v-model="postInfo.location" />
+                            v-model="postInfo.map" />
                     </b-field>
                 </div>
             </div>
@@ -147,7 +147,8 @@
                     eventDate: '',
                     type: 'free',
                     categories: [],
-                    location: '',
+                    address: '',
+                    map: '',
                     price: '',
 
                 },
@@ -197,7 +198,8 @@
                     this.postInfo.published_at = this.post.published_at
                     this.postInfo.eventDate = this.post.scheduled_at
                     this.postInfo.price = this.post.price
-                    this.postInfo.location = this.post.location
+                    this.postInfo.address = this.post.address
+                    this.postInfo.map = this.post.map
                     if(this.post.type === 'free'){
                         this.typeContent = {value: 'free', name: 'Free'}
                     } else if(this.post.type === 'paid') {

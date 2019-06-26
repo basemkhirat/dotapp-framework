@@ -1,7 +1,6 @@
 <template>
     <div class="main--menu--horizontal">
-        <div class="wrap--content">
-
+        <!-- <div class="wrap--content"> -->
 
             <ul class="menu-list nav">
                 <li v-for="(list,index) in links" :key="index">
@@ -26,6 +25,9 @@
                                 <i :class="list.icon"></i>
                             </span>
                             <span class="text-aside">{{ list.name }}</span>
+                            <span class="icon icon--right">
+                                <i class="fas fa-angle-down"></i>
+                            </span>
                         </a>
                         <b-dropdown-item class="sub--item" has-link v-for="(item, indexSub) in list.childLinks"
                             :key="indexSub">
@@ -53,7 +55,7 @@
 
                 </li>
             </ul>
-        </div>
+        <!-- </div> -->
     </div>
 
 </template>
