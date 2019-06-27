@@ -58,7 +58,7 @@
                     <b-field class="field-group flex-column">
                         <label class="label">Tags</label>
                         <b-taginput v-model="postInfo.tags" :data="filteredTags" autocomplete :allow-new="true"
-                            field="name" icon="label" rounded placeholder="Add a tag" :loading="tagsFilterLoading"
+                            field="name" icon="label" placeholder="Add a tag" :loading="tagsFilterLoading"
                             @typing="getFilteredTags">
                         </b-taginput>
                     </b-field>

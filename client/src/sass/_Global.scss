@@ -607,16 +607,16 @@ a,.dropdown-item{
 
 
 // Auth Pages
-.auth--pages{
-    background-color: $DarkColor;
-}
+// .auth--pages{
+//     background-color: $DarkColor;
+// }
 .login--page{
     width: 100%;
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: $DarkColor;
+    // background-color: $DarkColor;
 
     .login--form{
         max-width: 420px;

@@ -17,7 +17,7 @@
 
                     <div class="page--title--action ml-auto"
                         v-if="this.$route.params.id && isInUserPermissions('role.create')">
-                        <router-link to="/groupForm" class="button is-primary is-rounded">Add New Group</router-link>
+                        <router-link to="/groupForm" class="button is-primary">Add New Group</router-link>
                     </div>
                 </div>
             </div>
@@ -34,7 +34,7 @@
                     <form class="row mt-3 justify-content-center" @submit.prevent="submitForm()">
                         <div class="col-12 col-md-10 col-lg-8 ">
                             <b-field class="field-group mb-4">
-                                <b-input type="text" rounded placeholder="Group Name" v-model="name" />
+                                <b-input type="text" placeholder="Group Name" v-model="name" />
                             </b-field>
                         </div>
 
@@ -44,11 +44,11 @@
                                     <h3> Add Permissions To Group </h3>
                                 </div>
                                 <div class="col-12 col-sm-6 text-center text-sm-right">
-                                    <button class="button is-rounded my-3 mr-2" v-if="permissions.length" type="button"
+                                    <button class="button my-3 mr-2" v-if="permissions.length" type="button"
                                         @click="unSelectAllPermissions">
                                         Unselect All
                                     </button>
-                                    <button class="button is-rounded my-3" type="button" @click="selectAllPermissions">
+                                    <button class="button my-3" type="button" @click="selectAllPermissions">
                                         Select All
                                     </button>
 
@@ -85,7 +85,7 @@
                         </div>
 
                         <div class="col-12 text-center button--save--form mt-0">
-                            <button class="button is-primary is-rounded"
+                            <button class="button is-primary"
                                 :class="{'is-loading': isLoading}">{{this.$route.params.id ? 'Save Changes' : 'Add Group'}}</button>
                         </div>
                     </form>

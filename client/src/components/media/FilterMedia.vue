@@ -18,7 +18,6 @@
                          <b-input placeholder="Search..."
                               type="search"
                               icon-pack="fa"
-                              rounded
                               v-model="searchQuery"
                               icon="search">
                          </b-input>

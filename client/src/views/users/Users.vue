@@ -19,7 +19,7 @@
                     </div>
 
                     <div class="page--title--action ml-auto" v-if="isInUserPermissions('user.create')">
-                        <router-link to="/userForm" class="button is-primary is-rounded">Add New User</router-link>
+                        <router-link to="/userForm" class="button is-primary ">Add New User</router-link>
                     </div>
                 </div>
             </div>

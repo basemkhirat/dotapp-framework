@@ -9,7 +9,7 @@
                     </span>
                 </h2>
 
-                <button class="button is-primary is-rounded ml-auto" @click="changeModalUploadFiles">
+                <button class="button is-primary ml-auto" @click="changeModalUploadFiles">
                     Upload
                     <i class="fas fa-cloud-upload-alt ml-2"></i>
                 </button>
@@ -57,8 +57,8 @@
         <!-- Action Lower Page -->
         <div class="all--actions" :class="{'show--action--bottom': itemsSelectedMedia.length}">
             <div class="wrap--content">
-                <!-- <button class="button is-warning is-rounded" @click="banItems()">Ban All Selected</button> -->
-                <button class="button is-danger is-rounded" @click="confirmCustomDelete()">Delete All Selected</button>
+                <!-- <button class="button is-warning" @click="banItems()">Ban All Selected</button> -->
+                <button class="button is-danger" @click="confirmCustomDelete()">Delete All Selected</button>
             </div>
         </div>
 

@@ -4,7 +4,7 @@
             <div class="col-12 col-lg-6">
                 <div class="filter--items--left">
                     <div class="input--fuild">
-                        <button class="button is-rounded w-100"
+                        <button class="button w-100"
                               :class="{'is-primary' : checkItem}"
                               @click="selectAllItems">
                               Select All
@@ -16,7 +16,7 @@
                 <div class="filter--items--right">
                     <div class="input--fuild">
                         <div class="search icon--right">
-                            <b-input placeholder="Search..." type="search" icon-pack="fa" rounded icon="search" v-model="searchQuery">
+                            <b-input placeholder="Search..." type="search" icon-pack="fa" icon="search" v-model="searchQuery">
                             </b-input>
                         </div>
                     </div>

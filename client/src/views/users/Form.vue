@@ -17,7 +17,7 @@
 
                     <div class="page--title--action ml-auto"
                         v-if="this.$route.params.id && isInUserPermissions('user.create')">
-                        <router-link to="/userForm" class="button is-primary is-rounded">Add New User</router-link>
+                        <router-link to="/userForm" class="button is-primary ">Add New User</router-link>
                     </div>
                 </div>
             </div>
@@ -36,7 +36,7 @@
                                                 <img src="./../../assets/images/user/user-128.png" v-else
                                                     class="avatar-l" alt="">
                                             </div>
-                                            <a class="button is-dark is-rounded m-2 is-small"
+                                            <a class="button is-dark  m-2 is-small"
                                                 @click="openModalMedia('image')">
                                                 Change Photo
                                             </a>
@@ -45,17 +45,17 @@
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <b-field class="field-group">
-                                        <b-input type="text" rounded placeholder="First name" v-model="firstName" />
+                                        <b-input   placeholder="First name" v-model="firstName" />
                                     </b-field>
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <b-field class="field-group">
-                                        <b-input type="text" rounded placeholder="Last name" v-model="lastName" />
+                                        <b-input   placeholder="Last name" v-model="lastName" />
                                     </b-field>
                                 </div>
                                 <div class="col-12">
                                     <b-field class="field-group">
-                                        <b-input type="email" rounded placeholder="User Email" v-model="email" />
+                                        <b-input type="email" placeholder="User Email" v-model="email" />
                                     </b-field>
                                 </div>
 
@@ -105,21 +105,21 @@
                                 </div>
                                 <!-- <div class="col-12">
                                 <b-field class="field-group" v-if="this.$route.params.id">
-                                    <b-input minlength="7" type="password" required rounded placeholder="Old Password"
+                                    <b-input minlength="7" type="password" required placeholder="Old Password"
                                         v-model="oldPassword" />
                                 </b-field>
                             </div> -->
                                 <template v-if="changePassword">
                                     <div class="col-12">
                                         <b-field class="field-group">
-                                            <b-input type="password" rounded
+                                            <b-input type="password"
                                                 :placeholder="this.$route.params.id ? 'New Password' : 'Password'"
                                                 v-model="password" />
                                         </b-field>
                                     </div>
                                     <div class="col-12">
                                         <b-field class="field-group">
-                                            <b-input type="password" rounded
+                                            <b-input type="password"
                                                 placeholder="Confirm Password" v-model="confirmPassword" />
                                         </b-field>
                                         <p class="help is-danger mt-0" v-if="errorConfirmPassword">
@@ -132,7 +132,7 @@
                         </div>
 
                         <div class="col-12 text-center button--save--form">
-                            <button class="button is-primary is-rounded"
+                            <button class="button is-primary "
                                 :class="{'is-loading': isLoading}">{{this.$route.params.id ? 'Save Changes' : 'Add User'}}</button>
                         </div>
                     </form>

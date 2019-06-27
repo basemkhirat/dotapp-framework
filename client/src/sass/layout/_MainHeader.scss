@@ -67,7 +67,32 @@
                         color: $textColor;
                     }
                 }
-            }
+
+                @media #{$miwlg}{
+                    padding-top: 0;
+                    top: 130%;
+                    &:after, &:before {
+                        bottom: 100%;
+                        right: 10px;
+                        border: solid transparent;
+                        content: " ";
+                        height: 0;
+                        width: 0;
+                        position: absolute;
+                        pointer-events: none;
+                    }
+                    &:before {
+                        border-color: rgba(194, 225, 245, 0);
+                        border-bottom-color: #fff;
+                        border-width: 10px;
+                        margin-left: -10px;
+                    }
+                    .dropdown-content{
+                        border-top-left-radius: 0;
+                        border-top-right-radius: 0;
+                    }
+                }
+        }
             a {
                 color: $textColorDark;
                 &:hover{
@@ -107,6 +132,7 @@
             min-height: 60px;
         }
     }
+
     .nav{
         display: flex;
         align-items: center;
@@ -169,7 +195,32 @@
         margin-right: 0;
         margin-left: 5px;
     }
-
+    .dropdown-menu {
+        @media #{$miwlg}{
+            padding-top: 0;
+            top: 102%;
+            &:after, &:before {
+                bottom: 100%;
+                left: 70px;
+                border: solid transparent;
+                content: " ";
+                height: 0;
+                width: 0;
+                position: absolute;
+                pointer-events: none;
+            }
+            &:before {
+                border-color: rgba(194, 225, 245, 0);
+                border-bottom-color: #fff;
+                border-width: 10px;
+                margin-left: -10px;
+            }
+            .dropdown-content{
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+            }
+        }
+    }
 }
 
 

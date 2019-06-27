@@ -39,8 +39,8 @@
             <div class="col-12 col-sm-6 col-xl table--item">
                 <div class="block--item--title d-flex align-items-center justify-content-center item--text">
                     <div class="text--title">
-                        <b-tag type="is-warning" rounded v-if="item.type === 'free'">Free</b-tag>
-                        <b-tag type="is-info" rounded v-else>Paid</b-tag>
+                        <b-tag type="is-warning"  v-if="item.type === 'free'">Free</b-tag>
+                        <b-tag type="is-info" v-else>Paid</b-tag>
                     </div>
                 </div>
             </div>
@@ -48,8 +48,8 @@
             <div class="col-12 col-sm-6 col-xl table--item">
                 <div class="block--item--title d-flex align-items-center justify-content-center item--text">
                     <div class="text--title">
-                        <b-tag type="is-success" rounded v-if="item.status === 1">Published</b-tag>
-                        <b-tag type="is-danger" rounded v-else>Not Published</b-tag>
+                        <b-tag type="is-success" v-if="item.status === 1">Published</b-tag>
+                        <b-tag type="is-danger" v-else>Not Published</b-tag>
                     </div>
                 </div>
             </div>

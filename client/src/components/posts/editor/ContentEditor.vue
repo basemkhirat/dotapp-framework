@@ -45,7 +45,7 @@
                         </a>
                     </div>
                     <div class="card--content">
-                        <b-input type="textarea" rows="4" v-model="card.content" rounded placeholder="Blockquote" />
+                        <b-input type="textarea" rows="4" v-model="card.content" placeholder="Blockquote" />
                     </div>
                 </b-collapse>
 
@@ -65,7 +65,7 @@
                         </a>
                     </div>
                     <div class="card--content">
-                        <b-input type="textarea" rows="2" v-model="card.content" rounded placeholder="Content" />
+                        <b-input type="textarea" rows="2" v-model="card.content" placeholder="Content" />
                         <div v-html="card.content" class="text-center mt-3"></div>
                     </div>
                 </b-collapse>

@@ -21,19 +21,19 @@
                          </div>
                          <div class="action--crop">
                               <b-tooltip label="Rotate Left" type="is-dark" position="is-top">
-                                   <button class="button is-dark is-rounded" @click="rotateLeft()"><i class="fas fa-undo"></i></button>
+                                   <button class="button is-dark" @click="rotateLeft()"><i class="fas fa-undo"></i></button>
                               </b-tooltip>
                               <b-tooltip label="Rotate Right" type="is-dark" position="is-top">
-                                   <button class="button is-dark is-rounded" @click="rotateRight()"><i class="fas fa-redo"></i></button>
+                                   <button class="button is-dark" @click="rotateRight()"><i class="fas fa-redo"></i></button>
                               </b-tooltip>
                               <b-tooltip label="Clear Crop" type="is-dark" position="is-top">
-                                   <button class="button is-dark is-rounded" @click="clearCrop()"><i class="fas fa-crop"></i></button>
+                                   <button class="button is-dark" @click="clearCrop()"><i class="fas fa-crop"></i></button>
                               </b-tooltip>
                               <b-tooltip label="Zoom In" type="is-dark" position="is-top">
-                                   <button class="button is-dark is-rounded" @click="zoomIn()"><i class="fas fa-search-plus"></i></button>
+                                   <button class="button is-dark" @click="zoomIn()"><i class="fas fa-search-plus"></i></button>
                               </b-tooltip>
                               <b-tooltip label="Zoom Out" type="is-dark" position="is-top">
-                                   <button class="button is-dark is-rounded" @click="zoomOut()"><i class="fas fa-search-minus"></i></button>
+                                   <button class="button is-dark" @click="zoomOut()"><i class="fas fa-search-minus"></i></button>
                               </b-tooltip>
                          </div>
                     </div>
@@ -60,9 +60,9 @@
                     </div> -->
 
                     <div class="d-flex justify-content-center action--preview--media">
-                        <button class="button is-rounded is-light mr-2" type="button"
+                        <button class="button is-light mr-2" type="button"
                             @click="modalCropImage = false">Cancel</button>
-                        <button class="button is-primary is-rounded"
+                        <button class="button is-primary"
                             type="submit"
                             @click="cropImage()"
                             :class="{'is-loading': isLoading}">Save</button>

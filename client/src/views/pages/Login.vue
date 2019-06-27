@@ -12,13 +12,13 @@
                         <h3>Dashboard</h3>
                     </div>
                     <b-field class="field-group">
-                        <b-input rounded type="email" placeholder="Email" icon="email-outline" v-model="userLogin.email" />
+                        <b-input type="email" placeholder="Email" icon="email-outline" v-model="userLogin.email" />
                     </b-field>
                     <b-field class="field-group">
-                        <b-input rounded type="password" placeholder="Password" icon="key" v-model="userLogin.password"/>
+                        <b-input type="password" placeholder="Password" icon="key" v-model="userLogin.password"/>
                     </b-field>
                     <div class="text-center">
-                        <button class="button is-rounded button-block is-primary w-100" :disabled="formValid" :class="{'is-loading': isLoading}">Login</button>
+                        <button class="button button-block is-primary w-100" :disabled="formValid" :class="{'is-loading': isLoading}">Login</button>
                     </div>
                 </form>
             </div>

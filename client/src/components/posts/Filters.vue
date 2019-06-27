@@ -26,7 +26,6 @@
                     <div class="col-12 col-md">
                          <b-datepicker
                               placeholder="Select a date"
-                              rounded
                               icon="calendar-today">
                          </b-datepicker>
                     </div>
@@ -35,7 +34,6 @@
                               <b-input placeholder="Search..."
                                    type="search"
                                    icon-pack="fa"
-                                   rounded
                                    icon="search">
                               </b-input>
                          </div>

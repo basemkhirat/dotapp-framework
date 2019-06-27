@@ -10,7 +10,7 @@
                               </span>
                          </h2>
 
-                         <button class="button is-primary is-rounded ml-auto" @click="changeModalUploadFiles">
+                         <button class="button is-primary ml-auto" @click="changeModalUploadFiles">
                               Upload
                               <i class="fas fa-cloud-upload-alt ml-2"></i>
                          </button>
@@ -51,7 +51,7 @@
                               <div v-if="itemsSelectedMedia.length">Selected: <strong class="ml-2">{{itemsSelectedMedia.length}}</strong></div>
                               <div class="ml-auto buttons">
                                    <!-- <button :class="{'showActionButton': itemsSelectedMedia}"
-                                   class="button showButtonAddAlbum is-rounded"
+                                   class="button showButtonAddAlbum"
                                    @click="changeModalCreateAlbum">
                                         Add to album
                                         <i class="fas fa-clone ml-2"></i>
@@ -59,7 +59,7 @@
                                    <button
                                    v-if="!galleryMode"
                                    :class="{'showActionButton': itemsSelectedMedia.length}"
-                                   class="button is-rounded showButtonDeleteImage"
+                                   class="button showButtonDeleteImage"
                                    @click="confirmCustomDelete">
                                         Delete
                                         <i class="fas fa-trash ml-2"></i>
@@ -67,17 +67,17 @@
                                    <button
                                    v-if="galleryMode"
                                    :class="{'showActionButton': itemsSelectedMedia.length}"
-                                   class="button is-rounded showButtonDeleteImage"
+                                   class="button showButtonDeleteImage"
                                    @click="confirmCustomSetGallery">
                                         Add To Gallery
                                         <i class="fas fa-images ml-2"></i>
                                    </button>
                                    <!-- <button :class="{'showActionButton': itemsSelectedMedia}"
-                                   class="button is-rounded showButtonInsert">
+                                   class="button showButtonInsert">
                                         Insert to post
                                         <i class="fas fa-share ml-2"></i>
                                    </button> -->
-                                   <button class="button is-rounded is-light ml-4" @click="closeMediaModal">Cancel</button>
+                                   <button class="button is-light ml-4" @click="closeMediaModal">Cancel</button>
                               </div>
                          </div>
                     </div>

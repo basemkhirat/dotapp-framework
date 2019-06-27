@@ -19,7 +19,7 @@
                     </div>
 
                     <div class="page--title--action ml-auto" v-if="isInUserPermissions('tag.create')">
-                        <router-link to="/tagForm" class="button is-primary is-rounded">Add New Tag</router-link>
+                        <router-link to="/tagForm" class="button is-primary ">Add New Tag</router-link>
                     </div>
 
                 </div>

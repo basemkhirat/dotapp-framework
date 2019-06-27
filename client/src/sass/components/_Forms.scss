@@ -15,7 +15,7 @@
     border-color: $borderColorForm !important;
     outline: 0;
     box-shadow: none !important;
-    border-radius: 0;
+    border-radius: 5px;
 
 }
 
@@ -105,7 +105,7 @@ label.label {
         width: 100%;
         min-height: 44px;
         height: auto;
-        border-radius: 25px;
+        border-radius: 5px;
         padding: 0;
         background-color: #fff !important;
     }
@@ -142,8 +142,8 @@ label.label {
         background-color: #fff !important;
         box-shadow: none;
         border-color: $borderColorForm;
-        border-bottom-left-radius: 15px;
-        border-bottom-right-radius: 15px;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
         padding: 0 !important;
     }
 
@@ -365,7 +365,7 @@ label.label {
 .custom--datetime {
     input {
         @extend .input;
-        border-radius: 25px;
+        border-radius: 5px;
         padding-left: 18px;
         font-size: 14px;
     }
@@ -385,7 +385,7 @@ label.label {
 .custom--treeSelect {
     .vue-treeselect__control {
         @extend .input;
-        border-radius: 25px;
+        border-radius: 5px;
         padding-left: 18px;
         min-height: 44px;
         height: auto;
@@ -412,7 +412,7 @@ label.label {
 //  Autocomplete
 .taginput .taginput-container.is-focusable{
     height: auto;
-    border-radius: 25px;
+    border-radius: 5px;
 }
 .taginput-container{
     max-height: none;

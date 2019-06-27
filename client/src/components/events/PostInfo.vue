@@ -53,7 +53,7 @@
                             </v-select>
                             <!-- Event Price -->
                             <div v-if="typeContent.value === 'paid'">
-                                <b-input type="text" class="w-100 mt-3" rounded placeholder="Event Price"
+                                <b-input type="text" class="w-100 mt-3" placeholder="Event Price"
                                     v-model="postInfo.price" />
                             </div>
                         </div>
@@ -78,20 +78,20 @@
                     <b-field class="field-group flex-column">
                         <label class="label">Location</label>
                         <div class="field has-addons">
-                            <b-input type="text" class="w-100" rounded placeholder="Location Title"
+                            <b-input type="text" class="w-100" placeholder="Location Title"
                                 v-model="postInfo.address" />
                             <!-- <p class="control">
                                 <b-tooltip label="Embed Location On Map"
                                 type="is-dark"
                                     position="is-top">
-                                    <button class="button is-primary is-rounded" type="button">
+                                    <button class="button is-primary " type="button">
                                         <i class="fas fa-map-marked-alt"></i>
                                     </button>
                                 </b-tooltip>
 
                             </p> -->
                         </div>
-                        <b-input type="textarea" class="w-100" rows="3" rounded placeholder="Location Embed"
+                        <b-input type="textarea" class="w-100" rows="3" placeholder="Location Embed"
                             v-model="postInfo.map" />
                     </b-field>
                 </div>
@@ -105,7 +105,7 @@
                     <b-field class="field-group flex-column">
                         <label class="label">Tags</label>
                         <b-taginput v-model="postInfo.tags" :data="filteredTags" autocomplete :allow-new="true"
-                            field="name" icon="label" rounded placeholder="Add a tag" :loading="tagsFilterLoading"
+                            field="name" icon="label" placeholder="Add a tag" :loading="tagsFilterLoading"
                             @typing="getFilteredTags">
                         </b-taginput>
                     </b-field>

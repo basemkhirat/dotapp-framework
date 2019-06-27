@@ -1,6 +1,6 @@
 <template>
      <div class="upload--files">
-          <button class="button is-primary is-rounded" @click="uploadFiles">Upload Files</button>
+          <button class="button is-primary" @click="uploadFiles">Upload Files</button>
 
           <input type="file" multiple hidden ref="inputFiles" @input="handelFiles($event)">
 

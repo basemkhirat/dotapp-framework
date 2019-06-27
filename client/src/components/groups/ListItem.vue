@@ -30,8 +30,8 @@
                 </div>
                 <!-- <div class="col-12 col-sm-6 col-xl table--item">
                     <div class="item--text text-md-center">
-                        <b-tag rounded type="is-success" v-if="item.status">Published</b-tag>
-                        <b-tag rounded  type="is-danger" v-else>Not Published</b-tag>
+                        <b-tag type="is-success" v-if="item.status">Published</b-tag>
+                        <b-tag  type="is-danger" v-else>Not Published</b-tag>
                     </div>
                 </div> -->
                 <div class="col-12 col-sm-6 col-xl table--item">
