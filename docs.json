@@ -2644,12 +2644,7 @@
                 ],
                 "responses": {
                     "$ref": "#/responses"
-                },
-                "security": [
-                    {
-                        "bearer token": []
-                    }
-                ]
+                }
             }
         },
         "/newsletter/unsubscribe": {
@@ -2669,12 +2664,7 @@
                 ],
                 "responses": {
                     "$ref": "#/responses"
-                },
-                "security": [
-                    {
-                        "bearer token": []
-                    }
-                ]
+                }
             }
         }
     },
