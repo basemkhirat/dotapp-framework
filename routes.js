@@ -281,15 +281,11 @@ export default {
                             "PUT follow/:id": {
                                 middleware: ["authenticate"],
                                 handler: "EventController.follow"
-                            },
-
-
+                            }
                         }
-
                     }
                 }
             }
-
         }
     }
 }
