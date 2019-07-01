@@ -59,6 +59,10 @@ export default class extends Controller {
             query.where({$text: {$search: req.param("q")}});
         }
 
+        if (req.filled("type")) {
+            query.where("type", req.param("type"));
+        }
+
         query.page(req.param("page"), req.param("limit"));
 
         query.order(req.param("sort_field", "created_at"), req.param("sort_type", "desc"));
