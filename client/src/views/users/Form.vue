@@ -69,7 +69,7 @@
                                         </v-select>
                                     </b-field>
                                 </div>
-                                <div class="col-12 col-sm-6" v-else-if="policies.indexOf('user.status') > -1 && this.$route.params.id">
+                                <div class="col-12" v-else-if="policies.indexOf('user.status') > -1 && this.$route.params.id">
                                     <b-field class="field-group">
                                         <v-select :options="groups" v-model="group" label="name" placeholder="Group"
                                             class="select--with--icon w-100 v--select--scroll">
@@ -79,7 +79,7 @@
                                         </v-select>
                                     </b-field>
                                 </div>
-                                <div class="col-12 col-sm-6">
+                                <!-- <div class="col-12 col-sm-6">
                                     <template v-if="this.$route.params.id">
                                         <b-field class="field-group text-center"
                                             v-if="policies.indexOf('user.status') > -1">
@@ -95,8 +95,7 @@
                                             </b-switch>
                                         </b-field>
                                     </template>
-
-                                </div>
+                                </div> -->
                                 <div class="col-12" v-if="this.$route.params.id">
                                     <b-field class="field-group">
                                         <span class="change--password" @click="changePassword =! changePassword">Change
@@ -249,7 +248,6 @@
                 data.first_name = this.firstName
                 data.last_name = this.lastName
                 data.email = this.email
-                data.status = this.status
                 if (this.group) {
                     data.role = this.group.id
                 }

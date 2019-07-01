@@ -46,6 +46,11 @@ export default {
                  this.usersSelected = []
             }
         },
+        usersSelected(){
+            if(this.usersSelected){
+                this.$emit('checkButtonSelectAll', this.usersSelected)
+            }
+        }
 
     },
     methods:{

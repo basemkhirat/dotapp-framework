@@ -4,7 +4,7 @@
             <div class="col-12 col-lg-6">
                 <div class="filter--items--left">
                     <div class="input--fuild">
-                        <button class="button w-100" :class="{'is-primary' : checkUsers}"
+                        <button class="button w-100" :class="{'is-primary' : checkItem && allItemChecked.length}"
                             @click="selectAllItems">
                             Select All
                         </button>
@@ -51,11 +51,12 @@
     } from '../../repositories/RepositoryFactory'
     const groupsRepository = RepositoryFactory.get('groups')
     export default {
+        props:['allItemChecked'],
         data() {
             return {
                 group: '',
                 groups: [],
-                checkUsers: false,
+                checkItem: false,
                 page: 1,
                 limit: 50,
                 filters: {},
@@ -74,6 +75,11 @@
             this.fetchAllItems()
         },
         watch: {
+            allItemChecked(){
+                if(this.allItemChecked == 0){
+                    this.checkItem= false
+                }
+            },
             group() {
                 if (this.group) {
                     this.filters.group = this.group.id
@@ -104,7 +110,7 @@
         },
         methods: {
             selectAllItems() {
-                this.checkUsers = !this.checkUsers
+                this.checkItem = !this.checkItem
                 this.$emit('selectAllItems')
             },
             async fetchAllItems() {

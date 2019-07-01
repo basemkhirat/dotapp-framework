@@ -755,3 +755,34 @@ a,.dropdown-item{
         opacity: 1;
     }
 }
+
+// Card No Data
+.card--nodata{
+    width: 100%;
+    min-height: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: $textColor;
+    @extend .card--block;
+    @include prefixer(transition, all .25s ease-in-out, webkit moz o);
+    i{
+        font-size: 50px;
+    }
+    span{
+        font-size: 1rem;
+        margin-top: 20px;
+    }
+    .icon{
+        width: 50px;
+        height: 50px;
+        svg{
+            width: 50px;
+            height: 50px;
+        }
+    }
+    &:hover{
+        opacity: 1;
+    }
+}

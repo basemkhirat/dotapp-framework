@@ -47,7 +47,7 @@ export default {
             }
         },
         itemsSelected(){
-            if(this.itemsSelected.length){
+            if(this.itemsSelected){
                 this.$emit('checkButtonSelectAll', this.itemsSelected)
             }
         }

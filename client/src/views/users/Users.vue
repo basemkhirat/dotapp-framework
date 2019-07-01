@@ -12,10 +12,8 @@
                                 ({{total}})
                             </span>
                         </h1>
-
                         <!-- Breadcrumb -->
                         <breadcrumb :links="breadcrumb" />
-
                     </div>
 
                     <div class="page--title--action ml-auto" v-if="isInUserPermissions('user.create')">
@@ -27,7 +25,10 @@
 
         <div class="wrap--content">
             <div class="card-filter--herader">
-                <filter-items @featchByFilter="featchByFilter" @selectAllItems="selectAllItems" />
+                <filter-items
+                @featchByFilter="featchByFilter"
+                @selectAllItems="selectAllItems"
+                :allItemChecked="allItemChecked" />
             </div>
 
             <template v-if="dataLoading">
@@ -35,9 +36,15 @@
             </template>
 
             <template v-else>
-                <list-users @fetchAllItems="fetchAllItems" :allUserSelected="allUserSelected" v-if="users.length"
+                <list-users
+                @fetchAllItems="fetchAllItems"
+                @checkButtonSelectAll="checkButtonSelectAll"
+                :allUserSelected="allUserSelected"
+                v-if="users.length"
                     :data="users" />
-                <div class="no-data" v-else><span>No Data Here</span></div>
+                <template v-else>
+                    <no-data text="No users have been created"/>
+                </template>
             </template>
 
             <template v-if="users">
@@ -73,6 +80,7 @@
                 limit: 10,
                 order: 'is-centered',
                 dataLoading: true,
+                allItemChecked: 0,
                 filters: {},
                 breadcrumb: [{
                     link: '',
@@ -109,7 +117,11 @@
             // Filters
             featchByFilter(filters) {
                 this.fetchAllItems(filters)
-            }
+            },
+            // Check Button Select All Active Or Not
+            checkButtonSelectAll(data) {
+                this.allItemChecked = data
+            },
 
         }
     }

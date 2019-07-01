@@ -70,16 +70,6 @@
                         </a>
                     </div>
                     <div class="card--content">
-                        <!-- <template v-if="card.image">
-                            <b-field class="field-group img--preview" v-if="card.image.thumbnails">
-                                <img :src="card.image.thumbnails.large" alt="">
-                                <a class="delete is-large btn--delete" @click="card.image = {}"></a>
-                            </b-field>
-                        </template>
-                        <div class="file--upload" @click="openModalMedia({type: 'cardImage', index: index})">
-                            {{card.image.image? 'Replace Image' : ' Select Image'}}
-                        </div> -->
-
                         <!-- Main Image OR Video -->
                         <template v-if="card.image">
                             <b-field class="field-group img--preview" v-if="card.image.thumbnails">
@@ -109,18 +99,23 @@
                     </div>
                     <div class="card--content gallery--editor">
                         <template v-if="card.gallery">
-                            <div v-for="(itemImg, indexImg) in card.gallery" :key="itemImg.id" class="gallery--img--editor">
-                                <template v-if="itemImg.thumbnails">
-                                    <b-field class="field-group img--preview" v-if="itemImg.thumbnails">
-                                        <img :src="itemImg.thumbnails.large" alt="">
-                                        <a class="delete is-large btn--delete" @click="card.gallery.splice(indexImg, 1)"></a>
-                                    </b-field>
-                                </template>
+                            <template v-if="card.gallery.length">
+                                <div v-for="(itemImg, indexImg) in card.gallery" :key="itemImg.id" class="gallery--img--editor">
+                                    <template v-if="itemImg.thumbnails">
+                                        <b-field class="field-group img--preview" v-if="itemImg.thumbnails">
+                                            <img :src="itemImg.thumbnails.large" alt="">
+                                            <div class="wrap--replace--media" @click="openModalMedia({type: 'cardGallery', index: index})">
+                                                <div class="btn--replace--media">Replace</div>
+                                            </div>
+                                            <a class="delete is-large btn--delete--media" @click="card.gallery.splice(indexImg, 1)"></a>
+                                        </b-field>
+                                    </template>
+                                </div>
+                            </template>
+                            <div @click="openModalMedia({type: 'cardGallery', index: index})" v-else>
+                                <media-placeholder type="gallery" text="Browse Media" />
                             </div>
                         </template>
-                        <div class="file--upload" @click="openModalMedia({type: 'cardGallery', index: index})">
-                            {{card.gallery.length? 'Replace Images' : ' Select Images'}}
-                        </div>
                     </div>
                 </div>
 
@@ -139,12 +134,18 @@
                         <template v-if="card.video">
                             <b-field class="field-group img--preview" v-if="card.video.thumbnails">
                                 <img :src="card.video.thumbnails.large" alt="">
+                                <div class="wrap--replace--media" @click="openModalMedia({type: 'cardVideo', index: index})">
+                                    <div class="btn--replace--media">Replace</div>
+                                </div>
+                                <a class="delete is-large btn--delete--media" @click="card.video = {}"></a>
                             </b-field>
+
+                            <div @click="openModalMedia({type: 'cardVideo', index: index})" v-else>
+                                <media-placeholder type="video" text="Browse Media" />
+                            </div>
                         </template>
-                        <div class="file--upload" @click="openModalMedia({type: 'cardVideo', index: index})">
-                            {{card.video.image? 'Replace Video' : ' Select Video'}}
-                        </div>
                     </div>
+
                 </div>
 
             </Draggable>

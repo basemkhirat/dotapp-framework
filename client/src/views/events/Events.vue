@@ -37,7 +37,9 @@
             <template v-else>
                 <list @fetchAllItems="fetchAllItems" :allItemsSelected="allItemsSelected"
                     @checkButtonSelectAll="checkButtonSelectAll" :data="events" v-if="events.length" />
-                <div class="no-data" v-else><span>No Data Here</span></div>
+                <template v-else>
+                    <no-data text="No events have been created"/>
+                </template>
             </template>
             <template v-if="events.length">
                 <div class="pagination--custom--number">

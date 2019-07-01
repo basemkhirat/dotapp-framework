@@ -30,11 +30,11 @@
                     </div>
                     <div class="col-6 col-md-3 d-flex">
                         <ul class="d-flex justify-content-end ml-auto align-items-center nav--links">
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a class="search--item" @click="mainSearch = true">
                                     <b-icon pack="fa" icon="search"></b-icon>
                                 </a>
-                            </li>
+                            </li> -->
                             <li class="nav-item">
                                 <a class="search--item" @click="themeSettings()">
                                     <b-icon pack="fas" icon="cogs"></b-icon>

@@ -5,7 +5,7 @@
                 <div class="filter--items--left">
                     <div class="input--fuild">
                         <button class="button w-100"
-                              :class="{'is-primary' : checkItem}"
+                              :class="{'is-primary' : checkItem && allItemChecked.length}"
                               @click="selectAllItems">
                               Select All
                          </button>
