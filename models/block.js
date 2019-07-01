@@ -28,7 +28,10 @@ let schema = Schema({
 
         items: {
             type: Array,
-            default: []
+            default: [],
+            set: function (items) {
+                return Array.isArray(items) ? items : items.toArray(",");
+            }
         }
     },
     {
