@@ -17,7 +17,7 @@
 
                     <div class="page--title--action ml-auto"
                         v-if="this.$route.params.id && isInUserPermissions('tag.create')">
-                        <router-link to="/tagForm" class="button is-primary is-rounded">Add New Tag</router-link>
+                        <router-link to="/tagForm" class="button is-primary ">Add New Tag</router-link>
                     </div>
                 </div>
             </div>
@@ -28,12 +28,12 @@
                     <form class="row mt-3 justify-content-center" @submit.prevent="submitForm()">
                         <div class="col-12 col-md-10 col-lg-8">
                             <b-field class="field-group ">
-                                <b-input type="text" rounded placeholder="Tag Name" v-model="name" />
+                                <b-input   placeholder="Tag Name" v-model="name" />
                             </b-field>
                         </div>
 
                         <div class="col-12 text-center button--save--form ">
-                            <button class="button is-primary is-rounded"
+                            <button class="button is-primary "
                                 :class="{'is-loading': isLoading}">{{this.$route.params.id ? 'Save Changes' : 'Add Tag'}}</button>
                         </div>
                     </form>

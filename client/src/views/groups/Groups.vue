@@ -19,7 +19,7 @@
                     </div>
 
                     <div class="page--title--action ml-auto" v-if="isInUserPermissions('role.create')">
-                        <router-link to="/groupForm" class="button is-primary is-rounded">Add New Group</router-link>
+                        <router-link to="/groupForm" class="button is-primary">Add New Group</router-link>
                     </div>
                 </div>
             </div>

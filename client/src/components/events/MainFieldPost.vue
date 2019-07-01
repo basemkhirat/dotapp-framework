@@ -23,12 +23,12 @@
 
                 <div class="col-12">
                     <b-field class="field-group">
-                        <b-input type="text" size="is-medium" rounded placeholder="Title" v-model="mainFieldPost.title"/>
+                        <b-input type="text" size="is-medium" placeholder="Title" v-model="mainFieldPost.title"/>
                     </b-field>
                 </div>
                 <div class="col-12">
                     <b-field class="field-group">
-                        <b-input type="textarea" rows="2" rounded placeholder="Excerpt" v-model="mainFieldPost.excerpt"/>
+                        <b-input type="textarea" rows="2" placeholder="Excerpt" v-model="mainFieldPost.excerpt"/>
                     </b-field>
                 </div>
             </div>

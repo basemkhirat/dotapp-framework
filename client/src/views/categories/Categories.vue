@@ -20,7 +20,7 @@
 
                     <div class="page--title--action ml-auto" v-if="isInUserPermissions('category.create')">
                         <router-link :to="{ path: '/categoryForm', query: { parentId: this.$route.params.id}}"
-                            class="button is-primary is-rounded">Add New Category</router-link>
+                            class="button is-primary">Add New Category</router-link>
                     </div>
                 </div>
             </div>

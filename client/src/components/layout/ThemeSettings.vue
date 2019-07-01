@@ -5,13 +5,11 @@
                 <label class="label">Menu</label>
                 <b-field class="justify-content-center">
                     <b-radio-button v-model="menuTheme"
-                        class="is-rounded"
                         native-value="vertical">
                         Vertical
                     </b-radio-button>
 
                     <b-radio-button v-model="menuTheme"
-                        class="is-rounded"
                         native-value="horizontal">
                         Horizontal
                     </b-radio-button>

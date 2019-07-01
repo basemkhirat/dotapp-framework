@@ -4,7 +4,7 @@
             <div class="col-12 col-lg">
                 <div class="filter--items--left">
                     <div class="input--fuild">
-                        <button class="button is-rounded w-100" :class="{'is-primary' : checkItem}"
+                        <button class="button w-100" :class="{'is-primary' : checkItem}"
                             @click="selectAllItems">
                             Select All
                         </button>
@@ -23,7 +23,7 @@
                                 (this.dateFrom && this.dateTo ? ' - ' : '') +
                                 (this.dateTo ? `To: ${this.dateTo}` : '')"
                             >
-                            <button class="button is-rounded w-100" @click="filterByDate">
+                            <button class="button w-100" @click="filterByDate">
                                 <i class="far fa-calendar-alt"></i>
                             </button>
                         </b-tooltip>
@@ -65,7 +65,7 @@
                     </div>
                     <div class="input--fuild">
                         <div class="search icon--right">
-                            <b-input placeholder="Search..." type="search" icon-pack="fa" rounded icon="search"
+                            <b-input placeholder="Search..." type="search" icon-pack="fa" icon="search"
                                 v-model="searchQuery">
                             </b-input>
                         </div>
@@ -93,9 +93,9 @@
                     </b-field>
                 </div>
                 <div class="d-flex justify-content-center">
-                    <button class="button is-rounded is-danger mr-2" type="button"
+                    <button class="button is-danger mr-2" type="button"
                         @click="unsetDate()">Unset Date</button>
-                    <button class="button is-primary is-rounded"
+                    <button class="button is-primary"
                         @click="setDate"
                         type="button">Set Date</button>
                 </div>

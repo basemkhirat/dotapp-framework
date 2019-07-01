@@ -31,21 +31,21 @@
                                         <img src="./../../assets/images/img-placeholder.png" v-else class="avatar-l"
                                             alt="">
                                     </div>
-                                    <a class="button is-dark is-rounded m-2 is-small" @click="openModalMedia('image')">
+                                    <a class="button is-dark m-2 is-small" @click="openModalMedia('image')">
                                         Change Photo</a>
                                 </div>
                             </b-field>
                             <b-field class="field-group">
-                                <b-input type="text" rounded placeholder="Category Name" v-model="name" />
+                                <b-input type="text" placeholder="Category Name" v-model="name" />
                             </b-field>
                             <b-field class="field-group">
-                                <b-input type="textarea" rounded rows="4" placeholder="Description"
+                                <b-input type="textarea" rows="4" placeholder="Description"
                                     v-model="description" />
                             </b-field>
                         </div>
 
                         <div class="col-12 text-center button--save--form">
-                            <button class="button is-primary is-rounded"
+                            <button class="button is-primary"
                                 :class="{'is-loading': isLoading}">{{this.$route.params.id ? 'Save Changes' : 'Add Category'}}</button>
                         </div>
                     </form>

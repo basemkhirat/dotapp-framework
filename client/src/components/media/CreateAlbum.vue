@@ -13,10 +13,10 @@
                               </template>
                          </v-select>
                     </div>
-                    
+
                     <div class="text-center mt-4">
                          <transition name="slide-left">
-                              <button class="button is-rounded is-light is-large" @click="createNewAlbum = !createNewAlbum">
+                              <button class="button is-light is-large" @click="createNewAlbum = !createNewAlbum">
                                    Create Album <i class="fas fa-plus ml-2"></i>
                               </button>
                          </transition>
@@ -24,34 +24,33 @@
                     <transition name="slide-left">
                          <div class="text-center mt-4" v-if="createNewAlbum">
                               <b-field class="mb-0">
-                                   <b-input 
+                                   <b-input
                                    icon-pack="fas"
                                    icon="images"
                                    expanded
-                                   rounded 
                                    placeholder="New Album" type="text"></b-input>
                                    <p class="control">
-                                        <button class="button is-primary is-rounded">Add</button>
+                                        <button class="button is-primary">Add</button>
                                    </p>
                               </b-field>
                          </div>
                     </transition>
-                    
+
                </section>
-               
+
                <div class="modal--footer px-3">
                     <hr class="mt-0">
                     <div class="d-flex justify-content-center pb-4">
-                         <button class="button is-rounded is-light mr-2" @click="closeModalCreateAlbum">Cancel</button>
-                         <button class="button is-primary is-rounded">Done</button>
-                    </div>    
+                         <button class="button is-light mr-2" @click="closeModalCreateAlbum">Cancel</button>
+                         <button class="button is-primary">Done</button>
+                    </div>
                </div>
           </div>
      </b-modal>
 </template>
 
 <script>
-     
+
      export default {
           props:['modalCreateAlbum'],
           data(){
@@ -74,8 +73,8 @@
                closeModalCreateAlbum(){
                     this.$emit('changeModalCreateAlbum')
                },
-               
-               
+
+
           }
      }
 </script>

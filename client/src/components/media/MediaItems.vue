@@ -163,7 +163,7 @@
 
                             <div class="content--edit--image mt-4">
                                 <b-field>
-                                    <b-input rounded v-model="itemSelected.title" placeholder="Title" type="text">
+                                    <b-input v-model="itemSelected.title" placeholder="Title" type="text">
                                     </b-input>
                                 </b-field>
                                 <b-field>
@@ -173,7 +173,7 @@
 
                                 <!-- <div class="field has-addons justify-content-center">
                                     <p class="control flex-fill">
-                                        <a class="button is-rounded w-100" v-clipboard:copy="itemSelected.url"
+                                        <a class="button w-100" v-clipboard:copy="itemSelected.url"
                                             v-clipboard:success="onCopy" v-clipboard:error="onError">
                                             <span class="icon is-small">
                                                 <i class="fas fa-link"></i>
@@ -199,7 +199,7 @@
                                         </a>
                                     </p>
                                     <p class="control flex-fill">
-                                        <a class="button is-rounded w-100" @click="confirmCustomDelete()">
+                                        <a class="button w-100" @click="confirmCustomDelete()">
                                             <span class="icon is-small">
                                                 <i class="fas fa-trash"></i>
                                             </span>
@@ -210,9 +210,9 @@
                                 <!-- <hr class="mt-0"> -->
 
                                 <div class="d-flex justify-content-center action--preview--media">
-                                    <button class="button is-rounded is-light mr-2" type="button"
+                                    <button class="button is-light mr-2" type="button"
                                         @click="modalQuickEdit = false">Cancel</button>
-                                    <button class="button is-primary is-rounded" type="submit"
+                                    <button class="button is-primary" type="submit"
                                         :class="{'is-loading': isLoading}">Save</button>
                                 </div>
                             </div>

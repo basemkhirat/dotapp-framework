@@ -15,7 +15,7 @@
                     </div>
 
                     <div class="page--title--action ml-auto">
-                        <button class="button is-primary is-rounded" @click="submitForm">Save Changes</button>
+                        <button class="button is-primary  " @click="submitForm">Save Changes</button>
                     </div>
                 </div>
             </div>
@@ -34,7 +34,7 @@
 
                             <!-- Main Button Save On Desktop Screen -->
                             <div class="text-center button--save--form d-none d-lg-block">
-                                <button class="button is-primary is-rounded" :class="{'is-loading': isLoading}"
+                                <button class="button is-primary  " :class="{'is-loading': isLoading}"
                                     type="submit">Save Changes</button>
                             </div>
                         </div>
@@ -46,7 +46,7 @@
 
                     <!-- Main Button Save On Mobile Screen -->
                     <div class="text-center button--save--form d-block d-lg-none w-100">
-                        <button class="button is-primary is-rounded" :class="{'is-loading': isLoading}"
+                        <button class="button is-primary  " :class="{'is-loading': isLoading}"
                             type="submit">Save
                             Changes</button>
                     </div>

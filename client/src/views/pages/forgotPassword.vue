@@ -15,10 +15,10 @@
                             <h3>Reset Password</h3>
                         </div>
                         <b-field class="field-group">
-                            <b-input rounded type="email" placeholder="Email" icon="email-outline" name="email" v-model="email" />
+                            <b-input type="email" placeholder="Email" icon="email-outline" name="email" v-model="email" />
                         </b-field>
                         <div class="text-center">
-                            <button class="button is-rounded button-block is-primary w-100"
+                            <button class="button button-block is-primary w-100"
                                 :class="{'is-loading': isLoading}">Reset Password</button>
                         </div>
                     </form>
@@ -31,11 +31,10 @@
                             <h3>Reset Password</h3>
                         </div>
                         <b-field class="field-group">
-                        <b-input rounded  required type="text" placeholder="Code" v-model="code"/>
+                        <b-input   required type="text" placeholder="Code" v-model="code"/>
                         </b-field>
                         <b-field class="field-group">
                             <b-input
-                                rounded
                                 type="password"
                                 placeholder="Password"
                                 required
@@ -46,7 +45,7 @@
                             </b-input>
                         </b-field>
                         <div class="text-center">
-                            <button class="button is-rounded button-block is-primary w-100"
+                            <button class="button button-block is-primary w-100"
                                 :class="{'is-loading': isLoading}">Reset Password</button>
                         </div>
                     </form>

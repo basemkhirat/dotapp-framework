@@ -4,12 +4,12 @@
                <form @submit.prevent="submitForm">
                     <h3>Upload</h3>
                     <section class="modal-card-body p-4">
-                         <b-input icon-pack="fas" icon="link" :disabled="files.length >= 1" rounded placeholder="URL" type="url" v-model="itemLink"></b-input>
+                         <b-input icon-pack="fas" icon="link" :disabled="files.length >= 1" placeholder="URL" type="url" v-model="itemLink"></b-input>
                          <div class="text-gray py-4 text-center">
                               Or
                          </div>
                          <div class="text-center">
-                              <button class="button is-rounded is-dark" @click="uploadFiles" :disabled="itemLink.length >=1">
+                              <button class="button is-dark" @click="uploadFiles" :disabled="itemLink.length >=1">
                                    <span v-if="files.length">{{ files.length }} File Selected</span>
                                    <span v-else>Select files <i class="fas fa-cloud-upload-alt ml-2"></i></span>
                               </button>
@@ -19,8 +19,8 @@
 
                     <hr class="mt-0">
                     <div class="d-flex justify-content-center ">
-                         <button class="button is-rounded is-light mr-2" type="button" @click="closeModalUploadFile({newItem: false})">Cancel</button>
-                         <button class="button is-primary is-rounded" type="submit" :class="{'is-loading': isLoading}">Add</button>
+                         <button class="button is-light mr-2" type="button" @click="closeModalUploadFile({newItem: false})">Cancel</button>
+                         <button class="button is-primary" type="submit" :class="{'is-loading': isLoading}">Add</button>
                     </div>
                </form>
         </div>
@@ -74,7 +74,7 @@
                 this.isLoading = false
                 let data = {}
                 if(this.itemLink){
-                     data.payload  = this.itemLink 
+                     data.payload  = this.itemLink
                       this.isLoading = true
                       this.newMediaItem(data)
                 } else if (this.files.length){
@@ -84,7 +84,7 @@
                          this.newMediaItem(data)
                      })
                 }
-               
+
             },
 
 
