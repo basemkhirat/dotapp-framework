@@ -78,9 +78,6 @@ export default class extends Controller {
      */
     create(req, res) {
 
-        if (!req.can("user.create")) {
-            return res.forbidden();
-        }
 
         if (req.filled("status") && !req.can("user.status")) {
             return res.forbidden();

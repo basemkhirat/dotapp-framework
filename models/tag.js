@@ -40,8 +40,6 @@ schema.statics.saveNames = function (names, next) {
 
                 } else {
 
-                    // Tag is not exist. Create it.
-
                     let tag = new Tag();
 
                     tag.name = name;

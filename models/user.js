@@ -109,6 +109,10 @@ schema.methods.comparePassword = function (password, callback) {
     });
 };
 
+schema.virtual("name").get(function () {
+    return this.first_name + " " + this.last_name;
+});
+
 schema.methods.getRole = function (attribute = null, callback) {
 
     let role = this.role;

@@ -1,4 +1,4 @@
-import { server, token } from '../index';
+import {server, token} from '../index';
 import faker from 'faker';
 
 let post = {
@@ -18,6 +18,38 @@ describe("Post", function () {
                 post.id = response.body.data;
                 done();
             });
+    });
+
+
+    it("like the created post", function (done) {
+
+        server.put("/api/post/like/" + post.id)
+            .set('Authorization', 'Bearer ' + token)
+            .send({
+                id: post.id
+            })
+            .expect(200, done);
+    });
+
+    it("follow the created post", function (done) {
+
+        server.put("/api/post/follow/" + post.id)
+            .set('Authorization', 'Bearer ' + token)
+            .send({
+                id: post.id
+            })
+            .expect(200, done);
+    });
+
+    it("comment the created post", function (done) {
+
+        server.put("/api/post/comment/" + post.id)
+            .set('Authorization', 'Bearer ' + token)
+            .send({
+                id: post.id,
+                body: faker.company.companyName()
+            })
+            .expect(200, done);
     });
 
     it("find post by id", function (done) {

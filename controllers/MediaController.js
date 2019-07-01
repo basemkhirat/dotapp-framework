@@ -15,8 +15,6 @@ export default class extends Controller {
      */
     findOne(req, res) {
 
-        if (!req.can("media.view")) return res.forbidden();
-
         let id = req.param("id");
 
         Media.findById(id).populate("user").exec((error, media) => {
@@ -32,8 +30,6 @@ export default class extends Controller {
      * @param res
      */
     find(req, res) {
-
-        if (!req.can("media.view")) return res.forbidden();
 
         let query = Media.find();
 

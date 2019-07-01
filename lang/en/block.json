@@ -1,0 +1,22 @@
+{
+    "name_taken": "Block name is already taken",
+
+    "events": {
+        "created": "Block created successfully",
+        "updated": "Block updated successfully",
+        "deleted": "Block deleted successfully"
+    },
+
+    "permissions": {
+        "create": "Creating categories",
+        "update": "Updating categories",
+        "delete": "Deleting categories"
+    },
+
+    "errors": {
+        "block_not_found": "Block not found",
+        "update_denied": "You don't have a policy to update :block",
+        "delete_denied": "You don't have a policy to delete :block",
+        "operation_not_allowed": "Operation is not allowed"
+    }
+}

@@ -35,22 +35,34 @@ export default {
 
                     "/user": {
 
-                        middleware: "authenticate",
-
                         group: {
-                            "GET /": "UserController.find",
-                            "GET /:id": "UserController.findOne",
+
                             "POST /": {
                                 middleware: "validate:user",
                                 handler: "UserController.create"
                             },
+                            "GET /": {
+                                middleware: ["authenticate"],
+                                handler: "UserController.find"
+                            },
+                            "GET /:id": {
+                                middleware: ["authenticate"],
+                                handler: "UserController.findOne"
+                            },
                             "PUT /:id": {
-                                middleware: "validate:user",
+                                middleware: ["authenticate", "validate:user"],
                                 handler: "UserController.update"
                             },
-                            "DELETE /:id": "UserController.destroy",
-                            "PATCH /": "UserController.bulk"
+                            "DELETE /:id": {
+                                middleware: ["authenticate"],
+                                handler: "UserController.destroy"
+                            },
+                            "PATCH /": {
+                                middleware: ["authenticate"],
+                                handler: "UserController.bulk"
+                            }
                         }
+
                     },
 
                     "/permission": {
@@ -65,19 +77,33 @@ export default {
 
                     "/media": {
 
-                        middleware: "authenticate",
-
                         group: {
                             "GET /": "MediaController.find",
                             "GET /thumbnails": "MediaController.findThumbnails",
                             "GET /types": "MediaController.findTypes",
                             "GET /extensions": "MediaController.findExtensions",
                             "GET /:id": "MediaController.findOne",
-                            "POST /": "MediaController.create",
-                            "PUT /thumbnail/:id": "MediaController.updateThumbnail",
-                            "PUT /:id": "MediaController.update",
-                            "DELETE /:id": "MediaController.destroy",
-                            "PATCH /": "MediaController.bulk"
+                            "POST /": {
+                                middleware: ["authenticate"],
+                                handler: "MediaController.create"
+                            },
+                            "PUT /thumbnail/:id": {
+                                middleware: ["authenticate"],
+                                handler: "MediaController.updateThumbnail"
+                            },
+                            "PUT /:id": {
+                                middleware: ["authenticate"],
+                                handler: "MediaController.update"
+                            },
+                            "DELETE /:id": {
+                                middleware: ["authenticate"],
+                                handler: "MediaController.destroy"
+                            },
+                            "PATCH /": {
+                                middleware: ["authenticate"],
+                                handler: "MediaController.bulk"
+                            }
+
                         }
                     },
 
@@ -103,88 +129,167 @@ export default {
 
                     "/category": {
 
-                        middleware: "authenticate",
-
                         group: {
+
                             "GET /": "CategoryController.find",
                             "GET /:id": "CategoryController.findOne",
+
                             "POST /": {
-                                middleware: "validate:category",
+                                middleware: ["authenticate", "validate:category"],
                                 handler: "CategoryController.create"
                             },
+
                             "PUT /:id": {
-                                middleware: "validate:category",
+                                middleware: ["authenticate", "validate:category"],
                                 handler: "CategoryController.update"
                             },
-                            "DELETE /:id": "CategoryController.destroy",
-                            "PATCH /": "CategoryController.bulk"
+                            "DELETE /:id": {
+                                middleware: ["authenticate"],
+                                handler: "CategoryController.destroy"
+                            },
+                            "PATCH /": {
+                                middleware: ["authenticate"],
+                                handler: "CategoryController.bulk"
+                            }
                         }
+                    },
+
+                    "/block": {
+
+                        group: {
+
+                            "GET /": "BlockController.find",
+                            "GET /:id": "BlockController.findOne",
+                            "GET /slug/:slug": "BlockController.findBySlug",
+
+                            "POST /": {
+                                middleware: ["authenticate", "validate:block"],
+                                handler: "BlockController.create"
+                            },
+
+                            "PUT /:id": {
+                                middleware: ["authenticate", "validate:block"],
+                                handler: "BlockController.update"
+                            },
+
+                            "DELETE /:id": {
+                                middleware: ["authenticate"],
+                                handler: "BlockController.destroy"
+                            },
+                            "PATCH /": {
+                                middleware: ["authenticate"],
+                                handler: "BlockController.bulk"
+                            }
+                        }
+
                     },
 
                     "/tag": {
 
-                        middleware: "authenticate",
-
                         group: {
+
                             "GET /": "TagController.find",
                             "GET /:id": "TagController.findOne",
+
                             "POST /": {
-                                middleware: "validate:tag",
+                                middleware: ["authenticate", "validate:tag"],
                                 handler: "TagController.create"
                             },
+
                             "PUT /:id": {
-                                middleware: "validate:tag",
+                                middleware: ["authenticate", "validate:tag"],
                                 handler: "TagController.update"
                             },
-                            "DELETE /:id": "TagController.destroy",
-                            "PATCH /": "TagController.bulk"
+
+                            "DELETE /:id": {
+                                middleware: ["authenticate"],
+                                handler: "TagController.destroy"
+                            },
+                            "PATCH /": {
+                                middleware: ["authenticate"],
+                                handler: "TagController.bulk"
+                            }
                         }
                     },
 
                     "/post": {
 
-                        middleware: "authenticate",
-
                         group: {
+
                             "GET /": "PostController.find",
                             "GET /formats": "PostController.findFormats",
                             "GET /:id": "PostController.findOne",
+
                             "POST /": {
-                                middleware: "validate:post",
+                                middleware: ["authenticate", "validate:post"],
                                 handler: "PostController.create"
                             },
                             "PUT /:id": {
-                                middleware: "validate:post",
+                                middleware: ["authenticate", "validate:post"],
                                 handler: "PostController.update"
                             },
-                            "DELETE /:id": "PostController.destroy",
-                            "PATCH /": "PostController.bulk"
+                            "DELETE /:id": {
+                                middleware: ["authenticate"],
+                                handler: "PostController.destroy",
+                            },
+                            "PATCH /": {
+                                middleware: ["authenticate"],
+                                handler: "PostController.bulk"
+                            },
+                            "PUT /like/:id": {
+                                middleware: ["authenticate"],
+                                handler: "PostController.like"
+                            },
+                            "PUT /follow/:id": {
+                                middleware: ["authenticate"],
+                                handler: "PostController.follow"
+                            },
+                            "PUT /comment/:id": {
+                                middleware: ["authenticate"],
+                                handler: "PostController.comment"
+                            }
+
                         }
                     },
 
                     "/event": {
 
-                        middleware: "authenticate",
-
                         group: {
+
                             "GET /": "EventController.find",
                             "GET /:id": "EventController.findOne",
                             "POST /": {
-                                middleware: "validate:event",
+                                middleware: ["authenticate", "validate:event"],
                                 handler: "EventController.create"
                             },
                             "PUT /:id": {
-                                middleware: "validate:event",
+                                middleware: ["authenticate", "validate:event"],
                                 handler: "EventController.update"
                             },
-                            "DELETE /:id": "EventController.destroy",
-                            "PATCH /": "EventController.bulk",
-                            "PUT like/:id": "EventController.like",
-                            "PUT follow/:id": "EventController.follow",
+                            "DELETE /:id": {
+                                middleware: ["authenticate"],
+                                handler: "EventController.destroy"
+                            },
+                            "PATCH /": {
+                                middleware: ["authenticate"],
+                                handler: "EventController.bulk"
+                            },
+                            "PUT like/:id": {
+                                middleware: ["authenticate"],
+                                handler: "EventController.like"
+                            },
+                            "PUT follow/:id": {
+                                middleware: ["authenticate"],
+                                handler: "EventController.follow"
+                            },
+
+
                         }
+
                     }
                 }
             }
+
         }
     }
 }

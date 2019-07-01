@@ -1,5 +1,8 @@
 import Controller from "~/controllers/Controller";
 import Post from '~/models/post';
+import Like from '~/models/like';
+import Follow from '~/models/follow';
+import Comment from '~/models/comment';
 import async from "async";
 
 export default class extends Controller {
@@ -10,8 +13,6 @@ export default class extends Controller {
      * @param res
      */
     find(req, res) {
-
-        if (!req.can("post.view")) return res.forbidden();
 
         let query = Post.find();
 
@@ -70,8 +71,6 @@ export default class extends Controller {
      * @param res
      */
     findOne(req, res) {
-
-        if (!req.can("post.view")) return res.forbidden();
 
         let id = req.param("id");
 
@@ -162,6 +161,112 @@ export default class extends Controller {
                 return res.message(req.lang("post.events.updated")).ok(id);
             });
         });
+    }
+
+    /**
+     * Like/unlink post
+     * @param req
+     * @param res
+     */
+    like(req, res) {
+
+        let id = req.param("id");
+
+        Post.findById(id, (error, post) => {
+            if (error) return res.serverError(error);
+            if (!post) return res.notFound(req.lang("post.errors.post_not_found"));
+
+            Like.toggle({
+                type: "post",
+                object: id,
+                user: req.user.id
+            }, (error, state) => {
+                if (error) return res.validationError(error);
+
+                if (state === "liked") {
+                    post.likes = post.likes + 1;
+                } else if (state === "unliked") {
+                    post.likes = post.likes - 1;
+                }
+
+                post.save(error => {
+                    if (error) return res.serverError(error);
+
+                    res.ok(state);
+                });
+            });
+        });
+
+    }
+
+    /**
+     * Follow/unfollow post
+     * @param req
+     * @param res
+     */
+    follow(req, res) {
+
+        let id = req.param("id");
+
+        Post.findById(id, (error, post) => {
+            if (error) return res.serverError(error);
+            if (!post) return res.notFound(req.lang("post.errors.post_not_found"));
+
+            Follow.toggle({
+                type: "post",
+                object: id,
+                user: req.user.id
+            }, (error, state) => {
+                if (error) return res.validationError(error);
+
+                if (state === "followed") {
+                    post.followers = post.followers + 1;
+                } else if (state === "unfollowed") {
+                    post.followers = post.followers - 1;
+                }
+
+                post.save(error => {
+                    if (error) return res.serverError(error);
+
+                    res.ok(state);
+                });
+            });
+        });
+
+    }
+
+    /**
+     * Comment post
+     * @param req
+     * @param res
+     */
+    comment(req, res) {
+
+        let id = req.param("id");
+        let body = req.param("body");
+
+        Post.findById(id, (error, post) => {
+            if (error) return res.serverError(error);
+            if (!post) return res.notFound(req.lang("post.errors.post_not_found"));
+
+            Comment.add({
+                type: "post",
+                object: id,
+                user: req.user.id,
+                body: body
+            }, (error, state) => {
+                if (error) return res.validationError(error);
+
+                post.comments = post.comments + 1;
+
+                post.save(error => {
+                    if (error) return res.serverError(error);
+
+                    res.ok(state);
+                });
+            });
+        });
+
     }
 
     /**

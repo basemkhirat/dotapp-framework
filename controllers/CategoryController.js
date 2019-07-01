@@ -11,8 +11,6 @@ export default class extends Controller {
      */
     findOne(req, res) {
 
-        if (!req.can("category.view")) return res.forbidden();
-
         let id = req.param("id");
 
         Category.findById(id).populate("user").populate("image").populate("parent").exec((error, category) => {
@@ -33,8 +31,6 @@ export default class extends Controller {
      * @param res
      */
     find(req, res) {
-
-        if (!req.can("category.view")) return res.forbidden();
 
         let query = Category.find().where("parent", req.param("parent"));
 

@@ -43,6 +43,24 @@ let schema = Schema({
         type: String
     },
 
+    likes: {
+        hide: true,
+        type: Number,
+        default: 0
+    },
+
+    followers: {
+        hide: true,
+        type: Number,
+        default: 0
+    },
+
+    comments: {
+        hide: true,
+        type: Number,
+        default: 0
+    },
+
     media: {
         type: Schema.Types.ObjectId,
         ref: 'media'

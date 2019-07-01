@@ -13,8 +13,6 @@ export default class extends Controller {
      */
     find(req, res) {
 
-        if (!req.can("event.manage")) return res.forbidden();
-
         let query = Event.find();
 
         if (req.filled("user")) {
@@ -68,8 +66,6 @@ export default class extends Controller {
      * @param res
      */
     findOne(req, res) {
-
-        if (!req.can("event.manage")) return res.forbidden();
 
         let id = req.param("id");
 

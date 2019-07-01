@@ -11,8 +11,6 @@ export default class extends Controller {
      */
     findOne(req, res) {
 
-        if (!req.can("tag.view")) return res.forbidden();
-
         let id = req.param("id");
 
         Tag.findById(id).populate("user").exec(function (error, tag) {
@@ -30,8 +28,6 @@ export default class extends Controller {
      * @param res
      */
     find(req, res) {
-
-        if (!req.can("tag.view")) return res.forbidden();
 
         let query = Tag.find();
 

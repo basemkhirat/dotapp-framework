@@ -1,0 +1,22 @@
+{
+    "name_taken": "إسم البلوك موجود مسبقاَ",
+
+    "events": {
+        "created": "تم إضافة البلوك بنجاح",
+        "updated": "تم تحديث البلوك بنجاح",
+        "deleted": "تم حذف البلوك بنجاح"
+    },
+
+    "permissions": {
+        "create": "إضافة البلوكات",
+        "update": "تحديث البلوكات",
+        "delete": "حذف البلوكات"
+    },
+
+    "errors": {
+        "block_not_found": "البلوك غير موجود",
+        "update_denied": "غير مسموح بتحديث التصنيف :block",
+        "delete_denied": "غير مسموح بحذف :block",
+        "operation_not_allowed": "العملية غير مسموح بها"
+    }
+}

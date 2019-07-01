@@ -1,32 +1,33 @@
 import { server, token } from '../index';
 import faker from 'faker';
 
-let tag = {
+let block = {
     name: faker.company.companyName()
 };
 
-describe("Tag", function () {
+describe("Block", function () {
 
-    it("create a new tag", function (done) {
-        server.post("/api/tag")
+    it("create a new block", function (done) {
+
+        server.post("/api/block")
             .set('Authorization', 'Bearer ' + token)
-            .send(tag)
+            .send(block)
             .expect(200)
             .end(function (error, response) {
                 if (error) return done(error);
-                tag.id = response.body.data;
+                block.id = response.body.data;
                 done();
             });
     });
 
-    it("find tag by id", function (done) {
-        server.get("/api/tag/" + tag.id)
+    it("find block by id", function (done) {
+        server.get("/api/block/" + block.id)
             .set('Authorization', 'Bearer ' + token)
             .expect(200, done);
     });
 
-    it("update tag by tag id", function (done) {
-        server.put("/api/tag/" + tag.id)
+    it("update block by id", function (done) {
+        server.put("/api/block/" + block.id)
             .set('Authorization', 'Bearer ' + token)
             .send({
                 name: faker.company.companyName()
@@ -35,37 +36,37 @@ describe("Tag", function () {
     });
 
     it("list all categories", function (done) {
-        server.get('/api/tag')
+        server.get('/api/block')
             .set('Authorization', 'Bearer ' + token)
             .expect(200, done);
     });
 
-    it("delete tag by id", function (done) {
-        server.delete("/api/tag/" + tag.id)
+    it("delete block by id", function (done) {
+        server.delete("/api/block/" + block.id)
             .set('Authorization', 'Bearer ' + token)
             .expect(200, done);
     });
 
     it("perform bulk delete operations", function (done) {
 
-        let tag = {
+        let block = {
             name: faker.company.companyName()
         };
 
-        server.post("/api/tag")
+        server.post("/api/block")
             .set('Authorization', 'Bearer ' + token)
-            .send(tag)
+            .send(block)
             .expect(200)
             .end(function (error, response) {
                 if (error) return done(error);
 
-                tag.id = response.body.data;
+                block.id = response.body.data;
 
-                server.patch("/api/tag")
+                server.patch("/api/block")
                     .set('Authorization', 'Bearer ' + token)
                     .send({
                         operation: "delete",
-                        ids: [tag.id]
+                        ids: [block.id]
                     })
                     .expect(200, done);
             });

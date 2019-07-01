@@ -14,35 +14,31 @@ export default {
         "view",
         "create",
         "update",
-        "delete",
+        "delete"
     ],
 
     media: [
-        "view",
         "create",
         "update",
-        "delete",
+        "delete"
     ],
 
     category: [
-        "view",
         "create",
         "update",
         "delete"
     ],
 
     tag: [
-        "view",
         "create",
         "update",
         "delete"
     ],
 
     post: [
-        "view",
         "create",
         "update",
-        "delete",
+        "delete"
     ],
 
     event: [
