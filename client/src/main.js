@@ -120,6 +120,21 @@ Vue.component('breadcrumb', {
     </nav>`
 })
 
+Vue.component('mediaPlaceholder', {
+  data(){
+    return {
+    }
+  },
+  props:['type', 'text'],
+  template: `
+    <div class="placeholder--media">
+        <div v-if='type == "image"' class="d-flex align-items-center justify-content-center flex-column">
+            <i class="far fa-image"></i>
+            <span>{{text}}</span>
+        </div>
+    </div>`
+})
+
 new Vue({
   router,
   store,

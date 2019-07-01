@@ -9,12 +9,16 @@
                             <template v-if="mediaItemPreview">
                                 <b-field class="field-group img--preview img--preview--mainimg" v-if="mediaItemPreview.thumbnails">
                                     <img :src="mediaItemPreview.thumbnails.max">
+                                    <div class="wrap--replace--media" @click="openModalMedia('mainArticlePhoto')">
+                                        <div class="btn--replace--media">Replace</div>
+                                    </div>
+                                    <a class="delete is-large btn--delete--media" @click="mediaItemPreview = ''"></a>
                                 </b-field>
                             </template>
-                            <div class="file--upload" @click="openModalMedia('mainArticlePhoto')">
-                                <span v-if="mediaItemPreview.image">Replace</span>
-                                <span v-else> Select Main Image Or Video</span>
+                            <div @click="openModalMedia('mainArticlePhoto')" v-else>
+                                 <media-placeholder type="image" text="Browse Media" />
                             </div>
+
                         </div>
                     </b-field>
                 </div>

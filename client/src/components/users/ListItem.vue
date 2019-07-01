@@ -47,7 +47,10 @@
                         {{user.role.name}}
                     </template>
                     <template v-else>
-                        --------
+                        <span class="icon">
+                            <i class="fas fa-award"></i>
+                        </span>
+                        No role
                     </template>
                 </div>
             </div>

@@ -731,3 +731,27 @@ a,.dropdown-item{
 
 
 
+
+// Media Placeholder
+.placeholder--media{
+    width: 100%;
+    min-height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: $borderColor;
+    cursor: pointer;
+    opacity: .8;
+    @include prefixer(transition, all .25s ease-in-out, webkit moz o);
+    i{
+        font-size: 50px;
+    }
+    span{
+        font-size: 1rem;
+        margin-top: 10px;
+    }
+    &:hover{
+        opacity: 1;
+    }
+}

@@ -94,7 +94,7 @@
                         name: 'Media',
                         link: '/media',
                         icon: 'fa fa-images',
-                        role: 'media.view'
+                        role: true
                     },
                     {
                         name: 'Events',
@@ -111,19 +111,19 @@
                                 name: 'Posts',
                                 link: '/posts',
                                 icon: 'far fa-newspaper',
-                                role: 'post.view'
+                                role: true
                             },
                             {
                                 name: 'Categories',
                                 link: '/categories',
                                 icon: 'fas fa-puzzle-piece',
-                                role: 'category.view'
+                                role: true
                             },
                             {
                                 name: 'Tags',
                                 link: '/tags',
                                 icon: 'fas fa-tags',
-                                role: 'tag.view'
+                                role: true
                             },
                         ]
                     },
