@@ -1,0 +1,10 @@
+{
+    "events": {
+        "subscribed": "Email subscribed successfully",
+        "unsubscribed": "Email unsubscribed successfully"
+    },
+    "errors": {
+        "email_not_found": "Email not found",
+        "email_already_subscribed": "Email is already subscribed"
+    }
+}

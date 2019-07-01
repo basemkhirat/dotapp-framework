@@ -285,6 +285,13 @@ export default {
                         }
                     },
 
+                    "/newsletter": {
+                        group: {
+                            "POST /subscribe": "NewsletterController.subscribe",
+                            "POST /unsubscribe": "NewsletterController.unsubscribe",
+                        }
+                    },
+
                     "/weather": "WeatherController.index"
                 }
             }
