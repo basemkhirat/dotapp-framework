@@ -283,7 +283,9 @@ export default {
                                 handler: "EventController.follow"
                             }
                         }
-                    }
+                    },
+
+                    "/weather": "WeatherController.index"
                 }
             }
         }
