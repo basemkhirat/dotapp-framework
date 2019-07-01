@@ -108,18 +108,18 @@ const router = new Router({
                     path: "/media",
                     name: "media",
                     component: () => import("./views/media/Media.vue"),
-                    meta: {
-                        role: "media.view"
-                    },
+                    // meta: {
+                    //     role: "media.view"
+                    // },
                     beforeEnter: routerGuard
                 },
                 {
                     path: "/posts",
                     name: "posts",
                     component: () => import("./views/posts/Posts.vue"),
-                    meta: {
-                        role: 'post.view'
-                    },
+                    // meta: {
+                    //     role: 'post.view'
+                    // },
                     beforeEnter: routerGuard
                 },
                 {
@@ -136,9 +136,9 @@ const router = new Router({
                     name: "categories",
                     component: () =>
                         import("./views/categories/Categories.vue"),
-                    meta: {
-                        role: "category.view"
-                    },
+                    // meta: {
+                    //     role: "category.view"
+                    // },
                     beforeEnter: routerGuard
                 },
                 {
@@ -154,9 +154,9 @@ const router = new Router({
                     path: "/tags",
                     name: "tags",
                     component: () => import("./views/tags/Tags.vue"),
-                    meta: {
-                        role: "tag.view"
-                    },
+                    // meta: {
+                    //     role: "tag.view"
+                    // },
                     beforeEnter: routerGuard
                 },
                 {

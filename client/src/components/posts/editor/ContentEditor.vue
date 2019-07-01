@@ -8,15 +8,11 @@
             <Draggable v-for="(card, index) in cards" :key="card.id">
 
                 <!-- Paragraph Card -->
-                <b-collapse class="card--block" v-if="card.type === 'paragraph'">
-                    <div slot="trigger" slot-scope="props" class="card-header">
+                <div class="card--block" v-if="card.type === 'paragraph'">
+                    <div class="card-header">
                         <p class="card-header-title card-header-title-drop">
                             Paragraph
                         </p>
-                        <a class="card-header-icon p-0">
-                            <b-icon :icon="props.open ? 'menu-down' : 'menu-up'">
-                            </b-icon>
-                        </a>
                         <a class="card-header-icon" @click="deleteCard(index)">
                             <b-icon icon="close">
                             </b-icon>
@@ -27,18 +23,14 @@
                             :editorToolbar="toolbarEditor"
                             v-model="card.content"/>
                     </div>
-                </b-collapse>
+                </div>
 
                 <!-- Blockquote Card -->
-                <b-collapse class="card--block" v-if="card.type === 'blockquote'">
-                    <div slot="trigger" slot-scope="props" class="card-header">
+                <div class="card--block" v-if="card.type === 'blockquote'">
+                    <div class="card-header">
                         <p class="card-header-title card-header-title-drop">
                             Blockquote
                         </p>
-                        <a class="card-header-icon p-0">
-                            <b-icon :icon="props.open ? 'menu-down' : 'menu-up'">
-                            </b-icon>
-                        </a>
                         <a class="card-header-icon" @click="deleteCard(index)">
                             <b-icon icon="close">
                             </b-icon>
@@ -47,18 +39,14 @@
                     <div class="card--content">
                         <b-input type="textarea" rows="4" v-model="card.content" placeholder="Blockquote" />
                     </div>
-                </b-collapse>
+                </div>
 
                 <!-- Embed Card -->
-                <b-collapse class="card--block preview--iframe" v-if="card.type === 'embed'">
-                    <div slot="trigger" slot-scope="props" class="card-header">
+                <div class="card--block preview--iframe" v-if="card.type === 'embed'">
+                    <div class="card-header">
                         <p class="card-header-title card-header-title-drop">
                             Embed
                         </p>
-                        <a class="card-header-icon p-0">
-                            <b-icon :icon="props.open ? 'menu-down' : 'menu-up'">
-                            </b-icon>
-                        </a>
                         <a class="card-header-icon" @click="deleteCard(index)">
                             <b-icon icon="close">
                             </b-icon>
@@ -68,25 +56,21 @@
                         <b-input type="textarea" rows="2" v-model="card.content" placeholder="Content" />
                         <div v-html="card.content" class="text-center mt-3"></div>
                     </div>
-                </b-collapse>
+                </div>
 
                 <!-- Card Image -->
-                <b-collapse class="card--block" v-if="card.type === 'image'">
-                    <div slot="trigger" slot-scope="props" class="card-header">
+                <div class="card--block" v-if="card.type === 'image'">
+                    <div class="card-header">
                         <p class="card-header-title card-header-title-drop">
                             Image
                         </p>
-                        <a class="card-header-icon p-0">
-                            <b-icon :icon="props.open ? 'menu-down' : 'menu-up'">
-                            </b-icon>
-                        </a>
                         <a class="card-header-icon" @click="deleteCard(index)">
                             <b-icon icon="close">
                             </b-icon>
                         </a>
                     </div>
                     <div class="card--content">
-                        <template v-if="card.image">
+                        <!-- <template v-if="card.image">
                             <b-field class="field-group img--preview" v-if="card.image.thumbnails">
                                 <img :src="card.image.thumbnails.large" alt="">
                                 <a class="delete is-large btn--delete" @click="card.image = {}"></a>
@@ -94,20 +78,30 @@
                         </template>
                         <div class="file--upload" @click="openModalMedia({type: 'cardImage', index: index})">
                             {{card.image.image? 'Replace Image' : ' Select Image'}}
-                        </div>
+                        </div> -->
+
+                        <!-- Main Image OR Video -->
+                        <template v-if="card.image">
+                            <b-field class="field-group img--preview" v-if="card.image.thumbnails">
+                                <img :src="card.image.thumbnails.large" alt="">
+                                <div class="wrap--replace--media" @click="openModalMedia({type: 'cardImage', index: index})">
+                                    <div class="btn--replace--media">Replace</div>
+                                </div>
+                                <a class="delete is-large btn--delete--media" @click="card.image = {}"></a>
+                            </b-field>
+                            <div @click="openModalMedia({type: 'cardImage', index: index})" v-else>
+                                <media-placeholder type="image" text="Browse Media" />
+                            </div>
+                        </template>
                     </div>
-                </b-collapse>
+                </div>
 
                 <!-- Card Gallery -->
-                <b-collapse class="card--block" v-if="card.type === 'gallery'">
-                    <div slot="trigger" slot-scope="props" class="card-header">
+                <div class="card--block" v-if="card.type === 'gallery'">
+                    <div class="card-header">
                         <p class="card-header-title card-header-title-drop">
                             Gallery
                         </p>
-                        <a class="card-header-icon p-0">
-                            <b-icon :icon="props.open ? 'menu-down' : 'menu-up'">
-                            </b-icon>
-                        </a>
                         <a class="card-header-icon" @click="deleteCard(index)">
                             <b-icon icon="close">
                             </b-icon>
@@ -128,18 +122,14 @@
                             {{card.gallery.length? 'Replace Images' : ' Select Images'}}
                         </div>
                     </div>
-                </b-collapse>
+                </div>
 
                 <!-- Video Card-->
-                <b-collapse class="card--block" v-if="card.type === 'video'">
-                    <div slot="trigger" slot-scope="props" class="card-header">
+                <div class="card--block" v-if="card.type === 'video'">
+                    <div class="card-header">
                         <p class="card-header-title card-header-title-drop">
                             Video
                         </p>
-                        <a class="card-header-icon p-0">
-                            <b-icon :icon="props.open ? 'menu-down' : 'menu-up'">
-                            </b-icon>
-                        </a>
                         <a class="card-header-icon" @click="deleteCard(index)">
                             <b-icon icon="close">
                             </b-icon>
@@ -155,7 +145,7 @@
                             {{card.video.image? 'Replace Video' : ' Select Video'}}
                         </div>
                     </div>
-                </b-collapse>
+                </div>
 
             </Draggable>
         </Container>
