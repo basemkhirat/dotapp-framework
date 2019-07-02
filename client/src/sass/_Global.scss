@@ -851,15 +851,16 @@ a,.dropdown-item{
 
     }
     .addNewItem{
-
+        padding: 0 30px;
     }
 }
 .wrap--block--items {
     // border-top: 1px solid $borderColor;
     margin-top: 20px;
     padding: 20px 30px;
-    background-color: #f5f6fa;
+    background-color: #fff;
     .block--item{
+        background-color: #f5f6fa;
         // border: 0;
         // margin: 0;
         // & + .block--item{

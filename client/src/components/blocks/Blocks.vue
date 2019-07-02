@@ -7,8 +7,8 @@
           :active.sync="modalBlocks"
           :can-cancel="false"
           @close="closeBlockModal"
-          :width="1200" scroll="keep"
-          class="modal--custom modal--lg blocks">
+          :width="1400" scroll="keep"
+          class="modal--custom blocks">
                 <div class="page--head">
                     <div class="wrap--content">
                         <div class="page--title">

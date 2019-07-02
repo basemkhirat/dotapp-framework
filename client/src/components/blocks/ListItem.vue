@@ -109,7 +109,7 @@
             ></b-autocomplete>
             <div class="control">
               <button
-                class="button is-success"
+                class="button is-primary"
                 :disabled="checkSameId"
                 :class="{'is-loading': isLoadingNewItem}"
                 @click="addNewItem"
@@ -125,7 +125,7 @@
             @click="saveChanges()"
             :class="{'is-loading': isLoading}"
           >Save Changes</button>
-          <button class="button is-dark m-1" @click="canceleBlock()">Cancele</button>
+          <button class="button is-dark m-1" @click="canceleBlock()">Cancel</button>
         </div>
       </template>
     </b-collapse>
