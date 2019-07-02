@@ -10,6 +10,9 @@
         height: 70px;
         padding: 0 30px;
         @include prefixer (transition, all .25s ease-in-out, webkit moz o);
+        @media #{$mwlg} {
+            padding: 0;
+        }
         .wrap--content{
             min-height: 60px;
         }
@@ -38,6 +41,7 @@
     }
 
     .nav--links {
+        min-height: 60px;
         li {
             margin-left: 24px;
         }

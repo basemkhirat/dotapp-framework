@@ -11,6 +11,8 @@ Vue.component('v-select', vSelect)
 import 'vue-select/dist/vue-select.css';
 
 import App from './App.vue'
+// Main Style
+import './sass/core.scss';
 
 
 import Buefy from 'buefy'

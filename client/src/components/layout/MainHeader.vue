@@ -36,6 +36,11 @@
                                 </a>
                             </li> -->
                             <li class="nav-item">
+                                <a class="search--item" @click="openModalBlocks">
+                                    <b-icon pack="fas" icon="th-large"></b-icon>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="search--item" @click="themeSettings()">
                                     <b-icon pack="fas" icon="cogs"></b-icon>
                                 </a>
@@ -130,6 +135,10 @@
             //Setting Theme
             themeSettings() {
                 this.$refs.themeSettings.themeSettings()
+            },
+            // Open Modal Blocks
+            openModalBlocks(){
+                this.$store.commit('openBlocksModal')
             }
         }
     }

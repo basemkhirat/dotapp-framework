@@ -25,6 +25,9 @@
         <!-- Media -->
         <app-media-modal />
 
+        <!-- Blocks Component -->
+        <app-blocks />
+
     </div>
 </template>
 
@@ -32,6 +35,7 @@
     import MainHeader from './components/layout/MainHeader'
     import MainSidebar from './components/layout/MainSidebar'
     import AppMediaModal from './components/media/MediaModal'
+    import AppBlocks from './components/blocks/Blocks'
     import {mapState} from 'vuex'
     export default {
         data() {
@@ -48,6 +52,7 @@
             MainHeader,
             MainSidebar,
             AppMediaModal,
+            AppBlocks
         },
 
     }

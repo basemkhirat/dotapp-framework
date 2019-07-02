@@ -59,7 +59,7 @@
                                     </b-field>
                                 </div>
 
-                                <div class="col-12 col-sm-6" v-if="!this.$route.params.id">
+                                <div class="col-12" v-if="!this.$route.params.id">
                                     <b-field class="field-group">
                                         <v-select :options="groups" v-model="group" label="name" placeholder="Group"
                                             class="select--with--icon w-100 v--select--scroll">
