@@ -30,7 +30,7 @@ export default class extends Controller {
             return res.validationError(req.lang("weather.errors.city_required"));
         }
 
-        let url = this.baseURL + "/forecast/?cnt=8&units=metric&q=" + city + "&appid=" + this.key + "&lang=" + lang;
+        let url = this.baseURL + "/forecast/daily?cnt=8&units=metric&q=" + city + "&appid=" + this.key + "&lang=" + lang;
         let key = "weather-" + city + "-" + lang;
 
         Cache.get(key, function (error, data) {
@@ -38,15 +38,15 @@ export default class extends Controller {
             if (data) return res.ok(data);
 
             request({url: url, json: true}, (error, response, body) => {
-                if(error) return    res.serverError(error);
+                if(error) return res.serverError(error);
+
+                if (response.statusCode === 404) {
+                    return res.notFound(req.lang("weather.errors.city_not_found"));
+                }
 
                 if (response.statusCode === 200) {
                     Cache.set(key, body, "5h");
                     return res.ok(body);
-                }
-
-                if (response.statusCode === 404) {
-                    return res.notFound(req.lang("weather.errors.city_not_found"));
                 }
 
                 return res.serverError(body);
