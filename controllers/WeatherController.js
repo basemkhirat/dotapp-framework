@@ -17,32 +17,39 @@ export default class extends Controller {
     key = "3280d7e53dd8de414de2cae6d9d3cfd5";
 
     /**
-     * City code
-     * @type {number}
-     */
-    city = 379252;
-
-    /**
      * Get weather data
      * @param req
      * @param res
      */
     index(req, res) {
 
-        let url = this.baseURL + "/forecast/?cnt=8&units=metric&id=" + this.city + "&appid=" + this.key + "&lang=ar";
-        let key = "weather_data";
+        let lang = req.param("lang", req.language);
+        let city = req.param("city", "");
+
+        if(city === ""){
+            return res.validationError(req.lang("weather.errors.city_required"));
+        }
+
+        let url = this.baseURL + "/forecast/?cnt=8&units=metric&q=" + city + "&appid=" + this.key + "&lang=" + lang;
+        let key = "weather-" + city + "-" + lang;
 
         Cache.get(key, function (error, data) {
             if (error) return res.serverError(error);
             if (data) return res.ok(data);
 
             request({url: url, json: true}, (error, response, body) => {
-                if (error) return res.serverError(error);
+                if(error) return    res.serverError(error);
 
-                if (!error && response.statusCode === 200) {
-                    Cache.set(key, body, "60m");
+                if (response.statusCode === 200) {
+                    Cache.set(key, body, "5h");
                     return res.ok(body);
                 }
+
+                if (response.statusCode === 404) {
+                    return res.notFound(req.lang("weather.errors.city_not_found"));
+                }
+
+                return res.serverError(body);
             });
         });
     }

@@ -1052,7 +1052,6 @@
                         "description": "Parent Category ID",
                         "type": "string"
                     }
-
                 ],
                 "responses": {
                     "$ref": "#/responses"
@@ -1194,7 +1193,6 @@
                             "type": "string"
                         }
                     }
-
                 ],
                 "responses": {
                     "$ref": "#/responses"
@@ -1630,7 +1628,6 @@
                         "description": "Event content",
                         "type": "string"
                     },
-
                     {
                         "name": "type",
                         "in": "query",
@@ -1647,21 +1644,18 @@
                         "description": "Event price",
                         "type": "string"
                     },
-
                     {
                         "name": "address",
                         "in": "query",
                         "description": "Event address",
                         "type": "string"
                     },
-
                     {
                         "name": "map",
                         "in": "query",
                         "description": "Event map embed",
                         "type": "string"
                     },
-
                     {
                         "name": "media",
                         "in": "query",
@@ -1814,7 +1808,6 @@
                         "description": "Event content",
                         "type": "string"
                     },
-
                     {
                         "name": "type",
                         "in": "query",
@@ -1831,21 +1824,18 @@
                         "description": "Event price",
                         "type": "string"
                     },
-
                     {
                         "name": "address",
                         "in": "query",
                         "description": "Event address",
                         "type": "string"
                     },
-
                     {
                         "name": "map",
                         "in": "query",
                         "description": "Event map embed",
                         "type": "string"
                     },
-
                     {
                         "name": "media",
                         "in": "query",
@@ -1920,7 +1910,6 @@
                 ]
             }
         },
-
         "/event/like/{id}": {
             "put": {
                 "tags": [
@@ -1946,7 +1935,6 @@
                 ]
             }
         },
-
         "/event/follow/{id}": {
             "put": {
                 "tags": [
@@ -1972,7 +1960,6 @@
                 ]
             }
         },
-
         "/tag": {
             "get": {
                 "tags": [
@@ -2175,7 +2162,6 @@
                 ]
             }
         },
-
         "/block/{id}": {
             "get": {
                 "tags": [
@@ -2273,7 +2259,6 @@
                 ]
             }
         },
-
         "/block/slug/{slug}": {
             "get": {
                 "tags": [
@@ -2294,7 +2279,6 @@
                 }
             }
         },
-
         "/post/formats": {
             "get": {
                 "tags": [
@@ -2430,7 +2414,6 @@
                 ]
             }
         },
-
         "/post/like/{id}": {
             "put": {
                 "tags": [
@@ -2456,7 +2439,6 @@
                 ]
             }
         },
-
         "/post/follow/{id}": {
             "put": {
                 "tags": [
@@ -2482,7 +2464,6 @@
                 ]
             }
         },
-
         "/post/comment/{id}": {
             "put": {
                 "tags": [
@@ -2515,7 +2496,6 @@
                 ]
             }
         },
-
         "/tag/{id}": {
             "get": {
                 "tags": [
@@ -2620,8 +2600,6 @@
                 ]
             }
         },
-
-
         "/newsletter/subscribe": {
             "post": {
                 "tags": [
@@ -2655,6 +2633,36 @@
                         "description": "Email",
                         "required": true,
                         "type": "string"
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/responses"
+                }
+            }
+        },
+        "/weather": {
+            "get": {
+                "tags": [
+                    "Weather"
+                ],
+                "summary": "Get weather data",
+                "parameters": [
+                    {
+                        "name": "city",
+                        "in": "query",
+                        "description": "City",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "lang",
+                        "in": "query",
+                        "description": "lang",
+                        "type": "string",
+                        "enum": [
+                            "ar",
+                            "en"
+                        ]
                     }
                 ],
                 "responses": {

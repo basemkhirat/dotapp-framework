@@ -1,0 +1,6 @@
+{
+    "errors": {
+        "city_required": "City name required",
+        "city_not_found": "City not found"
+    }
+}

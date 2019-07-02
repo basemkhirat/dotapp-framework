@@ -292,7 +292,7 @@ export default {
                         }
                     },
 
-                    "/weather": "WeatherController.index"
+                    "GET /weather": "WeatherController.index"
                 }
             }
         }
