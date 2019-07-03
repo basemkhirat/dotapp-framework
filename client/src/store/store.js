@@ -10,7 +10,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    toggleNavSlide: false
+    toggleNavSlide: false,
+    blockModal: false
   },
   mutations: {
     // Toggle Open Nav Sidebar
@@ -37,6 +38,13 @@ export default new Vuex.Store({
         } else {
             document.body.classList.remove("sidebar--mini")
         }
+    },
+    // Blocks Modal
+    openBlocksModal(state){
+        state.blockModal = true
+    },
+    closeBlocksModal(state){
+        state.blockModal = false
     }
   },
   actions: {

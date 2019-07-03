@@ -19,6 +19,9 @@
 
 }
 
+.autocomplete .input{
+    height: 48px !important;
+}
 
 
 .control.has-icons-left .input,
@@ -97,7 +100,7 @@ label.label {
 
 .v-select.select--with--icon {
     width: auto;
-    min-width: 210px;
+    min-width: 205px;
     display: inline-block;
 
     .dropdown-toggle,
@@ -108,6 +111,10 @@ label.label {
         border-radius: 5px;
         padding: 0;
         background-color: #fff !important;
+    }
+
+    .vs__selected-options{
+        padding-right: 0 !important;
     }
 
     &.vs--open {

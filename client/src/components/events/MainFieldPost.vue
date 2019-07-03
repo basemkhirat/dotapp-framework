@@ -8,7 +8,7 @@
                     <b-field class="field-group">
                         <div>
                             <!-- Main Image OR Video -->
-                            <template v-if="mediaItemPreview">
+                            <template v-if="mediaItemPreview.image">
                                 <b-field class="field-group img--preview img--preview--mainimg" v-if="mediaItemPreview.thumbnails">
                                     <img :src="mediaItemPreview.thumbnails.max">
                                     <div class="wrap--replace--media" @click="openModalMedia('mainArticlePhoto')">
