@@ -44,6 +44,12 @@ body {
         }
     }
 
+    .blocks{
+        .modal-content{
+            padding: 15px 30px;
+        }
+    }
+
 }
 .menuIsHorizontal{
     .main--content{
@@ -437,7 +443,7 @@ a,.dropdown-item{
     margin-top: 15px;
 
     .search{
-        min-width: 280px;
+        min-width: 260px;
     }
 
     // .row{

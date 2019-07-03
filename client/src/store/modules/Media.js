@@ -25,7 +25,7 @@ const Media = {
             state.imageAndVideo = false
         },
         resetPostData(state){
-            state.mainArticlePhoto = ''
+            state.mainArticlePhoto = {}
         },
         // Open Global Media
         openMediaModal(state) {
