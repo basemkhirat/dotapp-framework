@@ -50,7 +50,17 @@ let schema = Schema({
 
         password_token_expiration: {
             type: Number
-        }
+        },
+
+        email_verification_code: {
+            type: String
+        },
+
+        email_verification_code_expiration: {
+            type: Number
+        },
+
+
     },
     {
         timestamps: {

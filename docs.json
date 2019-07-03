@@ -83,6 +83,27 @@
                 }
             }
         },
+
+        "/auth/verify": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Activate account by email verification code",
+                "parameters": [
+                    {
+                        "name": "code",
+                        "in": "query",
+                        "description": "Email verification code",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/responses"
+                }
+            }
+        },
         "/auth/user": {
             "get": {
                 "tags": [

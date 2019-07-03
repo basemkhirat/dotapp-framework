@@ -98,8 +98,19 @@ export default class extends Controller {
         user.role = req.param("role", user.role);
         user.status = req.param("status", user.status);
 
+        if(!req.user){
+            user.email_verification_code = Math.random().toString(36).slice(-8);
+            user.email_verification_code_expiration = Date.now() + 3600000;
+        }
+
         user.save((error, user) => {
             if (error) return res.serverError(error);
+
+            if(!req.user){
+                console.log("emaolll");
+                req.mail(user, "VerifyEmail");
+            }
+
             return res.message(req.lang("user.events.created")).ok(user.id);
         });
     }

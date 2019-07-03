@@ -1,0 +1,42 @@
+<div><%= req.lang("auth.hi") %> <%= user.first_name %></div>
+
+<p>
+
+    <%= req.lang("auth.welcome_new_user") %>
+
+    <br/><br/>
+
+    <%= req.lang("auth.your_code_is") %>
+
+    <br/><br/>
+
+</p>
+
+<div class="email-code"><%= user.email_verification_code %></div>
+
+<br/>
+
+<div><%= req.lang("auth.code_expiration_note") %></div>
+
+<style>
+
+    * {
+        direction: ltr;
+    }
+
+    .email-code {
+        text-align: center;
+        background: #f5f5f5;
+        font-size: 16px;
+        line-height: 40px;
+        height: 40px;
+        margin: 20px 0;
+    }
+
+</style>
+
+
+
+
+
+

@@ -95,8 +95,6 @@ export default class extends Controller {
                 if (same) return res.validationError(req.lang("auth.cannot_use_same_password"));
 
                 user.password = req.param("password");
-                user.password_token = undefined;
-                user.password_token_expiration = undefined;
 
                 user.save((error, user) => {
                     if (error) return res.serverError(error);
@@ -106,6 +104,33 @@ export default class extends Controller {
                     return res.message(req.lang("auth.events.password_changed")).ok();
                 });
             });
+        });
+    }
+
+    /**
+     * Verify email
+     * @param req
+     * @param res
+     * @returns {*}
+     */
+    verify(req, res) {
+
+        let code = req.param("code");
+
+        User.findOne({email_verification_code: code, email_verification_code_expiration: {$gt: Date.now()}}, (error, user) => {
+            if (error) return res.serverError(error);
+            if (!user) return res.validationError(req.lang("auth.invalid_email_verification_code"));
+
+                user.status = 1;
+
+                user.save((error, user) => {
+                    if (error) return res.serverError(error);
+
+                    req.mail(user, "EmailVerified");
+
+                    return res.message(req.lang("auth.events.email_verified")).ok();
+                });
+
         });
     }
 
