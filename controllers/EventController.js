@@ -23,6 +23,10 @@ export default class extends Controller {
             query.where("status", req.param("status"));
         }
 
+        if (req.filled("type")) {
+            query.where("type", req.param("type"));
+        }
+
         if (req.filled("tags")) {
             let tags = Array.isArray(req.param("tags")) ? req.param("tags") : req.param("tags").toArray();
             query.where('tags').in(tags);
