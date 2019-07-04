@@ -39,7 +39,8 @@ export default {
             {name: "medium", width: 256, height: 256, mode: "contain", quality: 100},
             {name: "small", width: 128, height: 128, mode: "contain", quality: 100},
             {name: "large", width: 500, height: 400, mode: "contain", quality: 100},
-            {name: "max", width: 1000, height: 600, mode: "contain", quality: 100}
+            {name: "max", width: 1000, height: 600, mode: "contain", quality: 100},
+            {name: "card", width: 300, height: 200, mode: "contain", quality: 100}
         ]
     }
 }
