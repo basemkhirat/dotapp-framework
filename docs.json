@@ -1540,6 +1540,12 @@
                         ]
                     },
                     {
+                        "name": "address",
+                        "in": "query",
+                        "description": "Address",
+                        "type": "string"
+                    },
+                    {
                         "name": "type",
                         "in": "query",
                         "description": "Event type",
