@@ -2,7 +2,7 @@
     "rate_limit_exceeded" : "تم تخطي الحد الأقصي من الطلب علي الخادم",
     "bad_request": "الطلب غير صالح",
     "forbidden": "الصلاحية غير موجودة",
-    "not_found": "الخدمة غير موجودة",
+    "not_found": "الصفحة غير موجودة",
     "server_error": "خطأ في السيرفر",
     "not_authenticated": "غير مسجل",
     "validation_error": "بعض البيانات المدخلة غير صحيحة",
