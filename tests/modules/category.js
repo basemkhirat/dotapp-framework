@@ -23,6 +23,17 @@ describe("Category", function () {
     it("find category by id", function (done) {
         server.get("/api/category/" + category.id)
             .set('Authorization', 'Bearer ' + token)
+            .expect(200)
+            .end(function (error, response) {
+                if (error) return done(error);
+                category.slug = response.body.data.slug;
+                done();
+            });
+    });
+
+    it("find category by slug", function (done) {
+        server.get("/api/category/slug/" + category.slug)
+            .set('Authorization', 'Bearer ' + token)
             .expect(200, done);
     });
 

@@ -136,6 +136,7 @@ export default {
 
                             "GET /": "CategoryController.find",
                             "GET /:id": "CategoryController.findOne",
+                            "GET /slug/:slug": "CategoryController.findBySlug",
 
                             "POST /": {
                                 middleware: ["authenticate", "validate:category"],
@@ -193,6 +194,7 @@ export default {
 
                             "GET /": "TagController.find",
                             "GET /:id": "TagController.findOne",
+                            "GET /name/:name": "TagController.findByName",
 
                             "POST /": {
                                 middleware: ["authenticate", "validate:tag"],
@@ -222,6 +224,7 @@ export default {
                             "GET /": "PostController.find",
                             "GET /formats": "PostController.findFormats",
                             "GET /:id": "PostController.findOne",
+                            "GET /slug/:slug": "PostController.findBySlug",
 
                             "POST /": {
                                 middleware: ["authenticate", "validate:post"],
@@ -261,6 +264,8 @@ export default {
 
                             "GET /": "EventController.find",
                             "GET /:id": "EventController.findOne",
+                            "GET /slug/:slug": "EventController.findBySlug",
+
                             "POST /": {
                                 middleware: ["authenticate", "validate:event"],
                                 handler: "EventController.create"

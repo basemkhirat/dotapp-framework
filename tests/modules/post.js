@@ -55,6 +55,17 @@ describe("Post", function () {
     it("find post by id", function (done) {
         server.get("/api/post/" + post.id)
             .set('Authorization', 'Bearer ' + token)
+            .expect(200)
+            .end(function (error, response) {
+                if (error) return done(error);
+                post.slug = response.body.data.slug;
+                done();
+            });
+    });
+
+    it("find post by slug", function (done) {
+        server.get("/api/post/slug/" + post.slug)
+            .set('Authorization', 'Bearer ' + token)
             .expect(200, done);
     });
 

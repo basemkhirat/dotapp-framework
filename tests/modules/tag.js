@@ -25,6 +25,12 @@ describe("Tag", function () {
             .expect(200, done);
     });
 
+    it("find tag by name", function (done) {
+        server.get("/api/tag/name/" + tag.name)
+            .set('Authorization', 'Bearer ' + token)
+            .expect(200, done);
+    });
+
     it("update tag by tag id", function (done) {
         server.put("/api/tag/" + tag.id)
             .set('Authorization', 'Bearer ' + token)

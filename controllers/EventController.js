@@ -91,6 +91,28 @@ export default class extends Controller {
     }
 
     /**
+     * Find event by slug
+     * @param req
+     * @param res
+     */
+    findBySlug(req, res) {
+
+        let slug = req.param("slug");
+
+        Event.where("slug", slug).findOne()
+            .populate("categories")
+            .populate("tags")
+            .populate("user")
+            .populate("media")
+            .exec((error, event) => {
+                if (error) return res.serverError(error);
+                if (!event) return res.notFound(req.lang("event.errors.event_not_found"));
+
+                return res.ok(res.attachPolicies(event, "event"));
+            });
+    }
+
+    /**
      * Create a new event
      * @param req
      * @param res

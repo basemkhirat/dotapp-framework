@@ -26,6 +26,31 @@ export default class extends Controller {
     }
 
     /**
+     * Find category by slug
+     * @param req
+     * @param res
+     */
+    findBySlug(req, res) {
+
+        let slug = req.param("slug");
+
+        Category.where("slug", slug).findOne()
+            .populate("user")
+            .populate("image")
+            .populate("parent")
+            .exec((error, category) => {
+                if (error) return res.serverError(error);
+                if (!category) return res.notFound(req.lang("category.errors.category_not_found"));
+
+                category.getChildren((error, children) => {
+                    if (error) return res.serverError(error);
+                    category.children = children;
+                    return res.ok(res.attachPolicies(category, "category"));
+                });
+            });
+    }
+
+    /**
      * Find all categories
      * @param req
      * @param res

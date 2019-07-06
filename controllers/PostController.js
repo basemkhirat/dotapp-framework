@@ -93,6 +93,33 @@ export default class extends Controller {
     }
 
     /**
+     * Find post by slug
+     * @param req
+     * @param res
+     */
+    findBySlug(req, res) {
+
+        let slug = req.param("slug");
+
+        Post.where("slug", slug).findOne()
+            .populate("categories")
+            .populate("tags")
+            .populate("user")
+            .populate("media")
+            .exec((error, post) => {
+
+                if (error) return res.serverError(error);
+                if (!post) return res.notFound(req.lang("post.errors.post_not_found"));
+
+                post.getContent((error, content) => {
+                    if (error) return res.serverError(error);
+                    post.content = content;
+                    return res.ok(res.attachPolicies(post, "post"));
+                });
+            });
+    }
+
+    /**
      * Create a new post
      * @param req
      * @param res

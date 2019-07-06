@@ -23,6 +23,25 @@ export default class extends Controller {
     }
 
     /**
+     * Find tag by name
+     * @param req
+     * @param res
+     */
+    findByName(req, res) {
+
+        let name = req.param("name");
+
+        Tag.where("name", name).findOne()
+            .populate("user")
+            .exec(function (error, tag) {
+                if (error) return res.serverError(error);
+                if (!tag) return res.notFound(req.lang("tag.errors.tag_not_found"));
+
+                return res.ok(res.attachPolicies(tag, "tag"));
+            });
+    }
+
+    /**
      * Find all categories
      * @param req
      * @param res

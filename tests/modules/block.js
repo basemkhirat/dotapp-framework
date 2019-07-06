@@ -23,6 +23,17 @@ describe("Block", function () {
     it("find block by id", function (done) {
         server.get("/api/block/" + block.id)
             .set('Authorization', 'Bearer ' + token)
+            .expect(200)
+            .end(function (error, response) {
+                if (error) return done(error);
+                block.slug = response.body.data.slug;
+                done();
+            });
+    });
+
+    it("find block by slug", function (done) {
+        server.get("/api/block/slug/" + block.slug)
+            .set('Authorization', 'Bearer ' + token)
             .expect(200, done);
     });
 

@@ -978,6 +978,28 @@
                 ]
             }
         },
+
+        "/category/slug/{slug}": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Get category by slug",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Category slug",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/responses"
+                }
+            }
+        },
+
         "/category": {
             "get": {
                 "tags": [
@@ -1778,6 +1800,26 @@
                 ]
             }
         },
+        "/event/slug/{slug}": {
+            "get": {
+                "tags": [
+                    "Events"
+                ],
+                "summary": "Get event by slug",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Event slug",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/responses"
+                }
+            }
+        },
         "/event/{id}": {
             "get": {
                 "tags": [
@@ -2093,6 +2135,27 @@
                 ]
             }
         },
+
+        "/tag/name/{name}": {
+            "get": {
+                "tags": [
+                    "Tags"
+                ],
+                "summary": "Get tag by name",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "Tag name",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/responses"
+                }
+            }
+        },
         "/category/{id}": {
             "get": {
                 "tags": [
@@ -2317,6 +2380,7 @@
                 }
             }
         },
+
         "/post/{id}": {
             "get": {
                 "tags": [
@@ -2441,6 +2505,28 @@
                 ]
             }
         },
+
+        "/post/slug/{slug}": {
+            "get": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Get post by slug",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Post slug",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/responses"
+                }
+            }
+        },
+
         "/post/like/{id}": {
             "put": {
                 "tags": [

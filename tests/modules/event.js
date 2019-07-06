@@ -39,6 +39,17 @@ describe("Event", function () {
     it("find event by id", function (done) {
         server.get("/api/event/" + event.id)
             .set('Authorization', 'Bearer ' + token)
+            .expect(200)
+            .end(function (error, response) {
+                if (error) return done(error);
+                event.slug = response.body.data.slug;
+                done();
+            });
+    });
+
+    it("find event by slug", function (done) {
+        server.get("/api/event/slug/" + event.slug)
+            .set('Authorization', 'Bearer ' + token)
             .expect(200, done);
     });
 
