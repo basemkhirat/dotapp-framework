@@ -158,6 +158,34 @@ export default {
                         }
                     },
 
+                    "/author": {
+
+                        group: {
+
+                            "GET /": "AuthorController.find",
+                            "GET /:id": "AuthorController.findOne",
+                            "GET /slug/:slug": "AuthorController.findBySlug",
+
+                            "POST /": {
+                                middleware: ["authenticate", "validate:author"],
+                                handler: "AuthorController.create"
+                            },
+
+                            "PUT /:id": {
+                                middleware: ["authenticate", "validate:author"],
+                                handler: "AuthorController.update"
+                            },
+                            "DELETE /:id": {
+                                middleware: ["authenticate"],
+                                handler: "AuthorController.destroy"
+                            },
+                            "PATCH /": {
+                                middleware: ["authenticate"],
+                                handler: "AuthorController.bulk"
+                            }
+                        }
+                    },
+
                     "/block": {
 
                         group: {

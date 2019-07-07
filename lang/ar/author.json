@@ -1,0 +1,21 @@
+{
+    "name_taken": "إسم الكاتب موجود مسبقاَ",
+    "slug_taken": "الإسم اللطيف موجود مسبقاَ",
+
+    "events": {
+        "created": "تم إضافة الكاتب بنجاح",
+        "updated": "تم تحديث الكاتب بنجاح",
+        "deleted": "تم حذف الكاتب بنجاح"
+    },
+
+    "permissions": {
+        "manage": "التحكم بكتاب الرأي"
+    },
+
+    "errors": {
+        "author_not_found": "الكاتب غير موجود",
+        "update_denied": "غير مسموح بتحديث الكاتب :author",
+        "delete_denied": "غير مسموح بحذف :author",
+        "operation_not_allowed": "العملية غير مسموح بها"
+    }
+}

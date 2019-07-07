@@ -54,7 +54,7 @@ export default class extends Controller {
 
         query.order(req.param("sort_field", "created_at"), req.param("sort_type", "desc"));
 
-        query.populate("categories").populate("tags").populate("user").populate("media");
+        query.populate("categories").populate("tags").populate("user").populate("author").populate("media");
 
         query.execWithCount((error, result) => {
             if (error) return res.serverError(error);
@@ -79,6 +79,7 @@ export default class extends Controller {
             .populate("tags")
             .populate("user")
             .populate("media")
+            .populate("author")
             .exec((error, post) => {
 
                 if (error) return res.serverError(error);
@@ -106,6 +107,7 @@ export default class extends Controller {
             .populate("tags")
             .populate("user")
             .populate("media")
+            .populate("author")
             .exec((error, post) => {
 
                 if (error) return res.serverError(error);
@@ -137,6 +139,7 @@ export default class extends Controller {
         post.content = req.param("content", post.content);
         post.media = req.param("media", post.media);
         post.format = req.param("format", post.format);
+        post.author = req.param("author", post.author);
         post.user = req.user.id;
         post.lang = req.param("lang", post.lang);
         post.status = req.param("status", post.status);
@@ -174,6 +177,7 @@ export default class extends Controller {
             post.media = req.param("media", post.media);
             post.format = req.param("format", post.format);
             post.status = req.param("status", post.status);
+            post.author = req.param("author", post.author);
             post.lang = req.param("lang", post.lang);
             post.published_at = req.param("published_at", post.published_at);
             post.categories = req.param("categories", post.categories);

@@ -71,6 +71,11 @@ let schema = Schema({
         ref: 'user'
     },
 
+    author: {
+        type: Schema.Types.ObjectId,
+        ref: 'author'
+    },
+
     categories: [{
         type: Schema.Types.ObjectId,
         ref: 'category'
@@ -101,6 +106,7 @@ schema.index({lang: 1});
 schema.index({status: 1});
 schema.index({media: 1});
 schema.index({user: 1});
+schema.index({author: 1});
 schema.index({categories: 1});
 schema.index({tags: 1});
 schema.index({format: 1});
