@@ -46,12 +46,22 @@ schema.methods.getItems = function (callback) {
 
     if (this.type === "post") {
 
-        Post.find({_id: {$in: this.items}})
+        Post.find({_id: {$in: this.items}, type: "post"})
             .populate("media").populate("categories").populate("tags")
             .exec((error, items) => {
             if (error) return callback(error);
             callback(null, items);
         });
+
+
+    } else if (this.type === "article") {
+
+        Post.find({_id: {$in: this.items}, type: "article"})
+            .populate("author").populate("media").populate("categories").populate("tags")
+            .exec((error, items) => {
+                if (error) return callback(error);
+                callback(null, items);
+            });
 
     } else if (this.type === "event") {
 

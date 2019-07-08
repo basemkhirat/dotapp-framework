@@ -30,5 +30,9 @@ export default function (req, res) {
         rules.name = 'required|block_name_available:' + req.param("id", 0);
     }
 
+    if (creating || req.has("type")) {
+        rules.type = 'required';
+    }
+
     return new Validator(req.all(), rules);
 }
