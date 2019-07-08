@@ -61,10 +61,31 @@ export default class extends Controller {
 
         query.execWithCount((error, result) => {
             if (error) return res.serverError(error);
-            return res.ok({
-                total: result.total,
-                docs: res.attachPolicies(result.docs, "event")
-            });
+
+            if (req.user) {
+
+                async.map(result.docs, function (event, callback) {
+                        event.isLikedBy(req.user.id, (error, liked) => {
+                            if (error) return res.serverError(error);
+                            event.is_liked = liked;
+                            callback(error, event);
+                        });
+                    },
+                    function (error, events) {
+                        return res.ok({
+                            total: result.total,
+                            docs: res.attachPolicies(events, "event")
+                        });
+                    }
+                );
+
+            } else {
+                return res.ok({
+                    total: result.total,
+                    docs: res.attachPolicies(result.docs, "event")
+                });
+            }
+
         });
     }
 
@@ -86,7 +107,15 @@ export default class extends Controller {
                 if (error) return res.serverError(error);
                 if (!event) return res.notFound(req.lang("event.errors.event_not_found"));
 
-                return res.ok(res.attachPolicies(event, "event"));
+                if (req.user) {
+                    event.isLikedBy(req.user.id, (error, liked) => {
+                        if (error) return res.serverError(error);
+                        event.is_liked = liked;
+                        return res.ok(res.attachPolicies(event, "event"));
+                    });
+                } else {
+                    return res.ok(res.attachPolicies(event, "event"));
+                }
             });
     }
 
@@ -108,7 +137,15 @@ export default class extends Controller {
                 if (error) return res.serverError(error);
                 if (!event) return res.notFound(req.lang("event.errors.event_not_found"));
 
-                return res.ok(res.attachPolicies(event, "event"));
+                if (req.user) {
+                    event.isLikedBy(req.user.id, (error, liked) => {
+                        if (error) return res.serverError(error);
+                        event.is_liked = liked;
+                        return res.ok(res.attachPolicies(event, "event"));
+                    });
+                } else {
+                    return res.ok(res.attachPolicies(event, "event"));
+                }
             });
     }
 

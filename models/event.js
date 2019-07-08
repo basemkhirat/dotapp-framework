@@ -1,6 +1,8 @@
 import moment from 'moment';
 import {Mongoose, Schema} from './model';
 import Tag from './tag';
+import Like from './like';
+import Category from "./category";
 
 let schema = Schema({
 
@@ -67,6 +69,11 @@ let schema = Schema({
     likes: {
         type: Number,
         default: 0
+    },
+
+    is_liked: {
+        type: Boolean,
+        default: false
     },
 
     followers: {
@@ -136,6 +143,15 @@ schema.pre("save", function (next) {
         next(null, self);
     });
 });
+
+schema.methods.isLikedBy = (id, callback) => {
+
+    Like.where("type", "event").where("user", id)
+        .countDocuments((error, count) => {
+        if (error) return callback(error);
+        callback(null, count > 0);
+    });
+};
 
 
 export default Mongoose.model("event", schema, "event");
