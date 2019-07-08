@@ -94,7 +94,12 @@ export default class extends Controller {
             .populate("tags")
             .populate("user")
             .populate("media")
-            .populate("author")
+            .populate({
+                path: 'author',
+                populate: {
+                    path: 'image'
+                }
+            })
             .exec((error, post) => {
 
                 if (error) return res.serverError(error);
@@ -122,7 +127,12 @@ export default class extends Controller {
             .populate("tags")
             .populate("user")
             .populate("media")
-            .populate("author")
+            .populate({
+                path: 'author',
+                populate: {
+                    path: 'image'
+                }
+            })
             .exec((error, post) => {
 
                 if (error) return res.serverError(error);
