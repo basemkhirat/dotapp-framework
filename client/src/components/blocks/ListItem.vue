@@ -176,12 +176,15 @@ export default {
   watch: {
     showChildren() {
       if (this.showChildren) {
+          let filters = {};
         this.getBlock();
         this.showChildren = true;
         if (this.item.type === "event") {
           this.fetchAllEvents();
         } else if (this.item.type === "post") {
-          this.fetchAllPosts();
+          this.fetchAllPosts(filters, 'post');
+        } else if (this.item.type === "article") {
+        this.fetchAllPosts(filters, 'article');
         } else if (this.item.type === "category") {
           this.fetchAllCategories();
         }
@@ -223,8 +226,6 @@ export default {
       this.block.items.map(item => {
         data.items.push(item.id);
       });
-      console.log('data :', data);
-      console.log('this.block.items :', this.block.items);
       const block = await blocksRepository.updateBlock(this.item.id, data);
       this.isLoading = false;
       if (block.success) {
@@ -287,7 +288,9 @@ export default {
       if (this.item.type === "event") {
         this.fetchAllEvents(filters);
       } else if (this.item.type === "post") {
-        this.fetchAllPosts(filters);
+        this.fetchAllPosts(filters, 'post');
+      }else if (this.item.type === "article") {
+        this.fetchAllPosts(filters, 'article');
       } else if (this.item.type === "category") {
         this.fetchAllCategories(filters);
       }
@@ -303,12 +306,13 @@ export default {
       this.itemsData = events.data.docs;
       this.isFetching = false;
     },
-    async fetchAllPosts(filters) {
+    async fetchAllPosts(filters, type) {
       this.isFetching = true;
       const posts = await postsRepository.getAllPosts(
         this.page,
         this.limit,
-        filters
+        filters,
+        type
       );
       this.itemsData = posts.data.docs;
       this.isFetching = false;

@@ -8,7 +8,19 @@
           :native-value="item.id"
         ></b-checkbox>
       </div>
-
+        <div class="col-12 col-sm-6 col-xl table--item">
+            <div class="block--item--title d-flex align-items-center item--text">
+                <div class="item--avatar--img">
+                    <template v-if="item.image">
+                        <img :src="item.image.thumbnails.small" :alt="item.image.title">
+                    </template>
+                    <img src="./../../assets/images/user/64.png">
+                </div>
+                <div class="text--title text-capitalize">
+                    {{item.first_name}}
+                </div>
+            </div>
+        </div>
       <div class="col-12 col-sm-6 col-xl table--item">
         <div class="block--item--title d-flex align-items-center item--text">
           <div class="text--title">{{item.name}}</div>
