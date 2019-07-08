@@ -2,7 +2,6 @@ import moment from 'moment';
 import {Mongoose, Schema} from './model';
 import Tag from './tag';
 import Like from './like';
-import Category from "./category";
 
 let schema = Schema({
 
@@ -144,15 +143,16 @@ schema.pre("save", function (next) {
     });
 });
 
-schema.methods.isLikedBy = (id, callback) => {
+schema.methods.isLikedBy = function (id, callback) {
 
     Like.where("type", "event")
         .where("user", id)
         .where("object", this._id)
+
         .countDocuments((error, count) => {
-        if (error) return callback(error);
-        callback(null, count > 0);
-    });
+            if (error) return callback(error);
+            callback(null, count > 0);
+        });
 };
 
 
