@@ -49,15 +49,21 @@ schema.methods.getItems = function (callback) {
         Post.find({_id: {$in: this.items}, type: "post"})
             .populate("media").populate("categories").populate("tags")
             .exec((error, items) => {
-            if (error) return callback(error);
-            callback(null, items);
-        });
+                if (error) return callback(error);
+                callback(null, items);
+            });
 
 
     } else if (this.type === "article") {
 
         Post.find({_id: {$in: this.items}, type: "article"})
             .populate("author").populate("media").populate("categories").populate("tags")
+            .populate({
+                path: 'author',
+                populate: {
+                    path: 'image'
+                }
+            })
             .exec((error, items) => {
                 if (error) return callback(error);
                 callback(null, items);
@@ -68,9 +74,9 @@ schema.methods.getItems = function (callback) {
         Event.find({_id: {$in: this.items}})
             .populate("media").populate("categories").populate("tags")
             .exec((error, items) => {
-            if (error) return callback(error);
-            callback(null, items);
-        });
+                if (error) return callback(error);
+                callback(null, items);
+            });
 
     } else {
         callback(null, []);
