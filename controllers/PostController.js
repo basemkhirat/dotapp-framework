@@ -62,7 +62,14 @@ export default class extends Controller {
 
         query.order(req.param("sort_field", "created_at"), req.param("sort_type", "desc"));
 
-        query.populate("categories").populate("tags").populate("user").populate("author").populate("media");
+        query.populate("categories").populate("tags").populate("user")
+            .populate({
+                path: 'author',
+                populate: {
+                    path: 'image'
+                }
+            })
+            .populate("media");
 
         query.execWithCount((error, result) => {
             if (error) return res.serverError(error);
