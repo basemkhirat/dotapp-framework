@@ -1375,6 +1375,7 @@
                         "type": "string",
                         "enum": [
                             "post",
+                            "article",
                             "event"
                         ]
                     },
@@ -2590,6 +2591,7 @@
                         "type": "string",
                         "enum": [
                             "post",
+                            "article",
                             "event"
                         ]
                     },
