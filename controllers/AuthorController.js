@@ -82,7 +82,7 @@ export default class extends Controller {
      */
     create(req, res) {
 
-        if (!req.can("author.create")) return res.forbidden();
+        if (!req.can("author.manage")) return res.forbidden();
 
         let author = new Author();
 
@@ -111,7 +111,7 @@ export default class extends Controller {
             if (error) return res.serverError(error);
             if (!author) return res.notFound(req.lang("author.errors.author_not_found"));
 
-            if (!req.can("author.update", author)) {
+            if (!req.can("author.manage", author)) {
                 return res.forbidden(req.lang("author.errors.update_denied", {author: author.name}));
             }
 
@@ -140,7 +140,7 @@ export default class extends Controller {
             if (error) return res.serverError(error);
             if (!author) return res.notFound(req.lang("author.errors.author_not_found"));
 
-            if (!req.can("author.delete", author)) {
+            if (!req.can("author.manage", author)) {
                 return res.forbidden(req.lang("author.errors.delete_denied", {author: author.name}));
             }
 
@@ -182,7 +182,7 @@ export default class extends Controller {
 
                     if (operation === "delete") {
 
-                        if (!req.can("author.delete", author)) {
+                        if (!req.can("author.manage", author)) {
                             return res.forbidden(req.lang("author.errors.delete_denied", {
                                 author: author.name
                             }));

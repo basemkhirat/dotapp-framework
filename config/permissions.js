@@ -44,4 +44,8 @@ export default {
     event: [
         "manage"
     ],
+
+    author: [
+        "manage"
+    ]
 }
