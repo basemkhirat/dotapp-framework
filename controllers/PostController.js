@@ -32,8 +32,8 @@ export default class extends Controller {
             query.where("type", req.param("type"));
         }
 
-        if (req.filled("editor")) {
-            query.where("editor", req.param("editor"));
+        if (req.filled("author")) {
+            query.where("author", req.param("author"));
         }
 
         if (req.filled("tags")) {
