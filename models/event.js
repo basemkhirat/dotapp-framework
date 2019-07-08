@@ -148,7 +148,7 @@ schema.methods.isLikedBy = (id, callback) => {
 
     Like.where("type", "event")
         .where("user", id)
-        .where("object", this.id)
+        .where("object", this._id)
         .countDocuments((error, count) => {
         if (error) return callback(error);
         callback(null, count > 0);
