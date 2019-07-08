@@ -33,11 +33,13 @@ export default {
             }
         });
     },
-    getAllPosts(page, limit, filters = {}) {
+    getAllPosts(page, limit, filters = {}, type = null) {
         let statusQuery = (filters.status && filters.status !== '') ? '&status=' + filters.status : '';
         let searchQuery = (filters.searchQuery && filters.searchQuery !== '') ? '&q=' + filters.searchQuery : '';
         let orderQuery = filters.order ? "&sort_type=" + filters.order : "";
         let formatQuery = filters.format ? "&format=" + filters.format : "";
+        let authorQuery = filters.author ? "&author=" + filters.author : "";
+        let postType = type ? "&type=" + type : "";
         // let categoriesQuery = filters.categories ? "&categories=" + filters.categories : "";
 
         let categoriesQuery = '';
@@ -51,7 +53,8 @@ export default {
         let dateFromQuery = filters.dateFrom ? "&from_date=" + filters.dateFrom : "";
         let dateToQuery = filters.dateTo ? "&to_date=" + filters.dateTo : "";
 
-        let filterQuery = searchQuery + statusQuery + orderQuery + formatQuery + dateFromQuery + dateToQuery + categoriesQuery;
+        let filterQuery = searchQuery + statusQuery + orderQuery + formatQuery + dateFromQuery +
+        dateToQuery + categoriesQuery + postType + authorQuery;
 
         return Repository.get(`${resource}?page=${page}&limit=${limit}${filterQuery}&sort_field=_id`).then((response) => {
             if (response.data.success) {
