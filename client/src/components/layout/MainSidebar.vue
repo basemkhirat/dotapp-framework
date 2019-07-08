@@ -62,8 +62,10 @@
                     { name: 'Groups', link: '/groups', icon: 'fas fa-users', role: 'role.view'},
                     { name: 'Media', link: '/media', icon: 'fa fa-images', role: true},
                     { name: 'Posts', link: '/posts', icon: 'far fa-newspaper', role: true},
+                    { name: 'Articles', link: '/articles', icon: 'far fa-newspaper', role: true},
                     { name: 'Categories', link: '/categories', icon: 'fas fa-puzzle-piece', role: true},
                     { name: 'Tags', link: '/tags', icon: 'fas fa-tags', role: true},
+                    { name: 'authors', link: '/authors', icon: 'fas fa-tags', role: true},
                     {
                         name: 'Events',
                         link: '/events',

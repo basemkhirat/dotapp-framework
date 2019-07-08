@@ -2,7 +2,8 @@ import { server, token } from '../index';
 import faker from 'faker';
 
 let block = {
-    name: faker.company.companyName()
+    name: faker.company.companyName(),
+    type: "post"
 };
 
 describe("Block", function () {

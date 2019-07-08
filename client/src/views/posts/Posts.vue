@@ -107,7 +107,7 @@
             },
             async fetchAllItems(filters) {
                 this.dataLoading = true
-                const posts = await postsRepository.getAllPosts(this.page, this.limit, filters)
+                const posts = await postsRepository.getAllPosts(this.page, this.limit, filters, 'post')
                 this.posts = posts.data.docs;
                 this.total = posts.data.total;
                 this.dataLoading = false;

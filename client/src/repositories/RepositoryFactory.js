@@ -7,6 +7,7 @@ import tagsRepository from "./tagsRepository";
 import postsRepository from "./postsRepository";
 import eventsRepository from "./eventsRepository";
 import blocksRepository from "./blocksRepository";
+import authorsRepository from "./authorsRepository";
 
 const repositories = {
     users: usersRepository,
@@ -18,6 +19,7 @@ const repositories = {
     posts: postsRepository,
     events: eventsRepository,
     blocks: blocksRepository,
+    authors: authorsRepository,
 };
 
 export const RepositoryFactory = {

@@ -132,6 +132,24 @@ const router = new Router({
                     beforeEnter: routerGuard
                 },
                 {
+                    path: "/articles",
+                    name: "articles",
+                    component: () => import("./views/articles/Articles.vue"),
+                    // meta: {
+                    //     role: 'post.view'
+                    // },
+                    beforeEnter: routerGuard
+                },
+                {
+                    path: "/articleForm/:id?",
+                    name: "articleForm",
+                    component: () => import("./views/articles/Form.vue"),
+                    meta: {
+                        role: 'post.update'
+                    },
+                    beforeEnter: routerGuard
+                },
+                {
                     path: "/categories/:id?",
                     name: "categories",
                     component: () =>
@@ -169,6 +187,25 @@ const router = new Router({
                     beforeEnter: routerGuard
                 },
                 {
+                    path: "/authors",
+                    name: "authors",
+                    component: () =>
+                        import("./views/authors/Authors.vue"),
+                    // meta: {
+                    //     role: "author.view"
+                    // },
+                    beforeEnter: routerGuard
+                },
+                {
+                    path: "/authorForm/:id?",
+                    name: "authorForm",
+                    component: () => import("./views/authors/Form.vue"),
+                    meta: {
+                        role: "author.manage"
+                    },
+                    beforeEnter: routerGuard
+                },
+                {
                     path: "/notAuthorized",
                     name: "notAuthorized",
                     component: () => import("./views/pages/NotAuthorized.vue")
@@ -183,6 +220,9 @@ const router = new Router({
                     path: "/eventForm/:id?",
                     name: "eventForm",
                     component: () => import("./views/events/Form.vue"),
+                    meta: {
+                        role: "event.manage"
+                    },
                     beforeEnter: routerGuard
                 },
             ]

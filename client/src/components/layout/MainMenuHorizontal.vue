@@ -114,6 +114,12 @@
                                 role: true
                             },
                             {
+                                name: 'articles',
+                                link: '/articles',
+                                icon: 'far fa-newspaper',
+                                role: true
+                            },
+                            {
                                 name: 'Categories',
                                 link: '/categories',
                                 icon: 'fas fa-puzzle-piece',
@@ -123,6 +129,12 @@
                                 name: 'Tags',
                                 link: '/tags',
                                 icon: 'fas fa-tags',
+                                role: true
+                            },
+                            {
+                                name: 'Authors',
+                                link: '/authors',
+                                icon: 'fas fa-users',
                                 role: true
                             },
                         ]

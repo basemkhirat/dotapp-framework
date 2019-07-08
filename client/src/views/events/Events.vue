@@ -18,7 +18,7 @@
 
                     </div>
 
-                    <div class="page--title--action ml-auto" v-if="isInUserPermissions('post.create')">
+                    <div class="page--title--action ml-auto" v-if="isInUserPermissions('event.manage')">
                         <router-link to="/eventForm" class="button is-primary">Add New Event</router-link>
                     </div>
                 </div>
