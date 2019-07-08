@@ -37,5 +37,6 @@ export default {
      * since some legacy browsers (IE11, various SmartTVs) choke on 204.
      */
 
-    optionsSuccessStatus: 204
+    optionsSuccessStatus: 204,
+
 };

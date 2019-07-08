@@ -35,8 +35,14 @@ let schema = Schema({
         }
     },
 
+    type: {
+        type: String,
+        default: "post"
+    },
+
     format: {
-        type: String
+        type: String,
+        default: "post"
     },
 
     lang: {

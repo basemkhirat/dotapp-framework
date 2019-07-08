@@ -28,6 +28,14 @@ export default class extends Controller {
             query.where("format", req.param("format"));
         }
 
+        if (req.filled("type")) {
+            query.where("type", req.param("type"));
+        }
+
+        if (req.filled("editor")) {
+            query.where("editor", req.param("editor"));
+        }
+
         if (req.filled("tags")) {
             let tags = Array.isArray(req.param("tags")) ? req.param("tags") : req.param("tags").toArray();
             query.where('tags').in(tags);
@@ -139,6 +147,7 @@ export default class extends Controller {
         post.content = req.param("content", post.content);
         post.media = req.param("media", post.media);
         post.format = req.param("format", post.format);
+        post.type = req.param("type", post.type);
         post.author = req.param("author", post.author);
         post.user = req.user.id;
         post.lang = req.param("lang", post.lang);
@@ -177,6 +186,7 @@ export default class extends Controller {
             post.media = req.param("media", post.media);
             post.format = req.param("format", post.format);
             post.status = req.param("status", post.status);
+            post.type = req.param("type", post.type);
             post.author = req.param("author", post.author);
             post.lang = req.param("lang", post.lang);
             post.published_at = req.param("published_at", post.published_at);

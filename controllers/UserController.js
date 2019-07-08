@@ -93,7 +93,7 @@ export default class extends Controller {
         user.password = req.param("password", user.password);
         user.first_name = req.param("first_name", user.first_name);
         user.last_name = req.param("last_name", user.last_name);
-        user.lang = req.param("lang", user.lang);
+        user.lang = req.param("lang", req.language);
         user.photo = req.param("photo", user.photo);
         user.role = req.param("role", user.role);
         user.status = req.param("status", user.status);

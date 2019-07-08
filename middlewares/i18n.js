@@ -1,6 +1,7 @@
 import I18n from 'i18n';
 import Config from '~/services/config';
 import moment from "moment";
+import parser from 'accept-language-parser';
 
 export default function () {
 
@@ -12,21 +13,29 @@ export default function () {
 
         let default_locale = config.defaultLocale;
 
-        //console.log(req.headers["accept-language"]);
+        if (req.headers["accept-language"] !== undefined) {
+
+            let header_lang = req.headers["accept-language"];
+
+            if (config.locales.indexOf(header_lang) > -1) {
+
+                default_locale = header_lang;
+
+            } else {
+
+                let languages = parser.parse(header_lang);
+
+                if (languages.length) {
+                    default_locale = languages[0].code;
+                }
+            }
+        }
 
         if (req.user && config.locales.indexOf(req.user.lang) > -1) {
             default_locale = req.user.lang;
         }
 
-        // if (req.headers["Language"] !== undefined) {
-        //     default_locale = req.headers["Language"];
-        // }
-        //
-        // console.log( req.headers['accept-language']);
-
         req.language = default_locale;
-
-      //  console.log(req.language);
 
         moment.locale(default_locale);
 
