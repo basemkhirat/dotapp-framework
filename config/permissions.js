@@ -41,6 +41,12 @@ export default {
         "delete"
     ],
 
+    page: [
+        "create",
+        "update",
+        "delete"
+    ],
+
     event: [
         "manage"
     ],

@@ -1,45 +1,44 @@
-import { server, token } from '../index';
+import {server, token} from '../index';
 import faker from 'faker';
 
-let block = {
-    name: faker.company.companyName(),
-    type: "post"
+let page = {
+    title: faker.company.companyName()
 };
 
-describe("Block", function () {
+describe("page", function () {
 
-    it("create a new block", function (done) {
+    it("create a new page", function (done) {
 
-        server.post("/api/block")
+        server.post("/api/page")
             .set('Authorization', 'Bearer ' + token)
-            .send(block)
+            .send(page)
             .expect(200)
             .end(function (error, response) {
                 if (error) return done(error);
-                block.id = response.body.data;
+                page.id = response.body.data;
                 done();
             });
     });
 
-    it("find block by id", function (done) {
-        server.get("/api/block/" + block.id)
+    it("find page by id", function (done) {
+        server.get("/api/page/" + page.id)
             .set('Authorization', 'Bearer ' + token)
             .expect(200)
             .end(function (error, response) {
                 if (error) return done(error);
-                block.slug = response.body.data.slug;
+                page.slug = response.body.data.slug;
                 done();
             });
     });
 
-    it("find block by slug", function (done) {
-        server.get("/api/block/slug/" + block.slug)
+    it("find page by slug", function (done) {
+        server.get("/api/page/slug/" + page.slug)
             .set('Authorization', 'Bearer ' + token)
             .expect(200, done);
     });
 
-    it("update block by id", function (done) {
-        server.put("/api/block/" + block.id)
+    it("update page by id", function (done) {
+        server.put("/api/page/" + page.id)
             .set('Authorization', 'Bearer ' + token)
             .send({
                 name: faker.company.companyName()
@@ -47,41 +46,38 @@ describe("Block", function () {
             .expect(200, done);
     });
 
-    it("list all categories", function (done) {
-        server.get('/api/block')
+    it("list all pages", function (done) {
+        server.get('/api/page')
             .set('Authorization', 'Bearer ' + token)
             .expect(200, done);
     });
 
-    it("delete block by id", function (done) {
-        server.delete("/api/block/" + block.id)
+    it("delete page by id", function (done) {
+        server.delete("/api/page/" + page.id)
             .set('Authorization', 'Bearer ' + token)
             .expect(200, done);
     });
 
     it("perform bulk delete operations", function (done) {
 
-        let block = {
-            name: faker.company.companyName()
+        let page = {
+            title: faker.company.companyName()
         };
 
-        server.post("/api/block")
+        server.post("/api/page")
             .set('Authorization', 'Bearer ' + token)
-            .send({
-                name: faker.company.companyName(),
-                type: "post"
-            })
+            .send(page)
             .expect(200)
             .end(function (error, response) {
                 if (error) return done(error);
 
-                block.id = response.body.data;
+                page.id = response.body.data;
 
-                server.patch("/api/block")
+                server.patch("/api/page")
                     .set('Authorization', 'Bearer ' + token)
                     .send({
                         operation: "delete",
-                        ids: [block.id]
+                        ids: [page.id]
                     })
                     .expect(200, done);
             });

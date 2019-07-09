@@ -23,7 +23,7 @@
 
     "errors": {
         "post_not_found": "الخبر غير موجود",
-        "status_denied": "غير مسموح بتغيير الحالة للخبر :user",
+        "status_denied": "غير مسموح بتغيير الحالة للخبر :post",
         "update_denied": "غير مسموح بتحديث الخبر :post",
         "delete_denied": "غير مسموح بحذف :post",
         "operation_not_allowed": "العملية غير مسموح بها"

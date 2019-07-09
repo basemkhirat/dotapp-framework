@@ -286,6 +286,33 @@ export default {
                         }
                     },
 
+                    "/page": {
+
+                        group: {
+
+                            "GET /": "PageController.find",
+                            "GET /:id": "PageController.findOne",
+                            "GET /slug/:slug": "PageController.findBySlug",
+
+                            "POST /": {
+                                middleware: ["authenticate", "validate:page"],
+                                handler: "PageController.create"
+                            },
+                            "PUT /:id": {
+                                middleware: ["authenticate", "validate:page"],
+                                handler: "PageController.update"
+                            },
+                            "DELETE /:id": {
+                                middleware: ["authenticate"],
+                                handler: "PageController.destroy",
+                            },
+                            "PATCH /": {
+                                middleware: ["authenticate"],
+                                handler: "PageController.bulk"
+                            }
+                        }
+                    },
+
                     "/event": {
 
                         group: {

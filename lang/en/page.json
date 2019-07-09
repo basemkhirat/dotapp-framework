@@ -1,0 +1,23 @@
+{
+    "slug_taken": "Page slug is already taken",
+
+    "events": {
+        "created": "Page created successfully",
+        "updated": "Page updated successfully",
+        "deleted": "Page deleted successfully"
+    },
+
+    "permissions": {
+        "create": "Creating pages",
+        "update": "Updating pages",
+        "delete": "Deleting pages"
+    },
+
+    "errors": {
+        "page_not_found": "Page not found",
+        "status_denied": "You don't have a policy to set post status of :page",
+        "update_denied": "You don't have a policy to update :page",
+        "delete_denied": "You don't have a policy to delete :page",
+        "operation_not_allowed": "Operation is not allowed"
+    }
+}

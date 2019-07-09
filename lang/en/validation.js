@@ -46,5 +46,6 @@ module.exports = {
     regex: 'The :attribute format is invalid',
     taken: 'The :attribute is already taken',
 
-    attributes: {}
+    attributes: {
+    }
 };

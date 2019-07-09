@@ -62,6 +62,7 @@ module.exports = {
         street: 'الشارع',
         zipcode: 'الرمز البريدي',
         phone: 'رقم الهاتف',
-        mobile: 'رقم الجوال'
+        mobile: 'رقم الجوال',
+        title: 'العنوان'
     }
 };
