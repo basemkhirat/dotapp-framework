@@ -344,6 +344,10 @@ export default {
                             "PUT follow/:id": {
                                 middleware: ["authenticate"],
                                 handler: "EventController.follow"
+                            },
+                            "PUT register/:id": {
+                                middleware: ["authenticate"],
+                                handler: "EventController.register"
                             }
                         }
                     },

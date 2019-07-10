@@ -2423,6 +2423,33 @@
                 ]
             }
         },
+
+        "/event/register/{id}": {
+            "put": {
+                "tags": [
+                    "Events"
+                ],
+                "summary": "register/unregister event by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Event ID",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/responses"
+                },
+                "security": [
+                    {
+                        "bearer token": []
+                    }
+                ]
+            }
+        },
+
         "/event/follow/{id}": {
             "put": {
                 "tags": [

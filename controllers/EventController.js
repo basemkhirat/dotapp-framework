@@ -1,6 +1,7 @@
 import Controller from "~/controllers/Controller";
 import Event from '~/models/event';
 import Like from '~/models/like';
+import Reservation from '~/models/reservation';
 import Follow from '~/models/follow';
 import async from "async";
 
@@ -65,10 +66,20 @@ export default class extends Controller {
             if (req.user) {
 
                 async.map(result.docs, function (event, callback) {
-                        event.isLikedBy(req.user.id, (error, liked) => {
+
+                    event.isLikedBy(req.user.id, (error, liked) => {
                             if (error) return res.serverError(error);
+
                             event.is_liked = liked;
-                            callback(error, event);
+
+                            event.isRegisteredBy(req.user.id, (error, registered) => {
+                                if (error) return res.serverError(error);
+
+                                event.is_registered = registered;
+
+                                callback(error, event);
+                            });
+
                         });
                     },
                     function (error, events) {
@@ -111,7 +122,15 @@ export default class extends Controller {
                     event.isLikedBy(req.user.id, (error, liked) => {
                         if (error) return res.serverError(error);
                         event.is_liked = liked;
-                        return res.ok(res.attachPolicies(event, "event"));
+
+                        event.isRegisteredBy(req.user.id, (error, registered) => {
+                            if (error) return res.serverError(error);
+
+                            event.is_registered = registered;
+
+                            return res.ok(res.attachPolicies(event, "event"));
+                        });
+
                     });
                 } else {
                     return res.ok(res.attachPolicies(event, "event"));
@@ -141,7 +160,14 @@ export default class extends Controller {
                     event.isLikedBy(req.user.id, (error, liked) => {
                         if (error) return res.serverError(error);
                         event.is_liked = liked;
-                        return res.ok(res.attachPolicies(event, "event"));
+
+                        event.isRegisteredBy(req.user.id, (error, registered) => {
+                            if (error) return res.serverError(error);
+
+                            event.is_registered = registered;
+
+                            return res.ok(res.attachPolicies(event, "event"));
+                        });
                     });
                 } else {
                     return res.ok(res.attachPolicies(event, "event"));
@@ -257,6 +283,41 @@ export default class extends Controller {
                 event.save(error => {
                     if (error) return res.serverError(error);
 
+                    res.ok(state);
+                });
+            });
+        });
+
+    }
+
+    /**
+     * register/unregister event
+     * @param req
+     * @param res
+     */
+    register(req, res) {
+
+        let id = req.param("id");
+
+        Event.findById(id, (error, event) => {
+            if (error) return res.serverError(error);
+            if (!event) return res.notFound(req.lang("event.errors.event_not_found"));
+
+            Reservation.toggle({
+                type: "event",
+                object: id,
+                user: req.user.id
+            }, (error, state) => {
+                if (error) return res.serverError(error);
+
+                if (state === "registered") {
+                    event.registerations = event.registerations + 1;
+                } else if (state === "unregistered") {
+                    event.registerations = event.registerations - 1;
+                }
+
+                event.save(error => {
+                    if (error) return res.serverError(error);
                     res.ok(state);
                 });
             });
