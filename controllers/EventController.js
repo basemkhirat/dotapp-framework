@@ -166,6 +166,7 @@ export default class extends Controller {
         event.excerpt = req.param("excerpt", event.excerpt);
         event.content = req.param("content", event.content);
         event.media = req.param("media", event.media);
+        event.media_payload = req.param("media_payload");
         event.user = req.user.id;
         event.lang = req.param("lang", event.lang);
         event.status = req.param("status", event.status);
@@ -206,6 +207,7 @@ export default class extends Controller {
             event.status = req.param("status", event.status);
             event.lang = req.param("lang", event.lang);
             event.media = req.param("media", event.media);
+            event.media_payload = req.param("media_payload");
             event.published_at = req.param("published_at", event.published_at);
             event.scheduled_at = req.param("scheduled_at", event.scheduled_at);
             event.categories = req.param("categories", event.categories);

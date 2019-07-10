@@ -2,6 +2,7 @@ import moment from 'moment';
 import {Mongoose, Schema} from './model';
 import Tag from './tag';
 import Like from './like';
+import Resource from '~/services/media';
 
 let schema = Schema({
 
@@ -132,15 +133,21 @@ schema.virtual("scheduled").get(function () {
 
 schema.pre("save", function (next) {
 
-    let self = this;
+    if (this.tag_names !== undefined) {
 
-    Tag.saveNames(self.tag_names, (error, tags) => {
-        if (error) return next(error);
+        Tag.saveNames(this.tag_names, (error, tags) => {
+            if (error) return next(error);
 
-        self.tags = tags;
+            console.log(this.tag_names, tags);
 
-        next(null, self);
-    });
+            this.tags = tags;
+
+            next(null, this);
+        });
+
+    }else{
+        next(null, this);
+    }
 });
 
 schema.methods.isLikedBy = function (id, callback) {
@@ -154,6 +161,25 @@ schema.methods.isLikedBy = function (id, callback) {
             callback(null, count > 0);
         });
 };
+
+schema.pre('save', function (next) {
+
+    if (this.media_payload !== undefined) {
+
+        Resource.create(this.media_payload, (error, media) => {
+            if (error) return next(error);
+            media.save((error, media) => {
+                if (error) next(error);
+                this.media = media.id;
+                this.media_payload = undefined;
+                next(null, this);
+            });
+        });
+
+    } else {
+        next(null, this);
+    }
+});
 
 
 export default Mongoose.model("event", schema, "event");

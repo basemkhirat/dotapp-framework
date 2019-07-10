@@ -186,15 +186,19 @@ schema.virtual("published").get(function () {
 
 schema.pre("save", function (next) {
 
-    let self = this;
+    if (this.tag_names !== undefined) {
 
-    Tag.saveNames(self.tag_names, (error, tags) => {
-        if (error) return next(error);
+        Tag.saveNames(this.tag_names, (error, tags) => {
+            if (error) return next(error);
 
-        self.tags = tags;
+            this.tags = tags;
 
-        next(null, self);
-    });
+            next(null, this);
+        });
+
+    }else{
+        next(null, this);
+    }
 });
 
 

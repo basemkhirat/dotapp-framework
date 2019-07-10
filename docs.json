@@ -2114,6 +2114,14 @@
                         "description": "Media ID",
                         "type": "string"
                     },
+
+                    {
+                        "name": "media_payload",
+                        "in": "query",
+                        "description": "Media payload",
+                        "type": "string"
+                    },
+
                     {
                         "name": "lang",
                         "in": "query",
@@ -2314,6 +2322,14 @@
                         "description": "Media ID",
                         "type": "string"
                     },
+
+                    {
+                        "name": "media_payload",
+                        "in": "query",
+                        "description": "Media payload",
+                        "type": "string"
+                    },
+
                     {
                         "name": "lang",
                         "in": "query",
