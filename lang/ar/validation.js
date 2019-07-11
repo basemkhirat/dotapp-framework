@@ -63,6 +63,7 @@ module.exports = {
         zipcode: 'الرمز البريدي',
         phone: 'رقم الهاتف',
         mobile: 'رقم الجوال',
-        title: 'العنوان'
+        title: 'العنوان',
+        event: 'الفعالية'
     }
 };
