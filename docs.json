@@ -2442,12 +2442,14 @@
                         "name": "email",
                         "in": "query",
                         "description": "Email",
+                        "required": true,
                         "type": "string"
                     },
                     {
                         "name": "first_name",
                         "in": "query",
                         "description": "First Name",
+                        "required": true,
                         "type": "string"
                     },
                     {
