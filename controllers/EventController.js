@@ -296,10 +296,10 @@ export default class extends Controller {
 
                 event.registerations = event.registerations + 1;
 
-                // req.mail({
-                //     user: reservation,
-                //     event: event
-                // }, "EventReserved");
+                req.mail({
+                    user: reservation,
+                    event: event
+                }, "EventReserved");
 
                 event.save(error => {
                     if (error) return res.serverError(error);
