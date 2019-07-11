@@ -9,15 +9,15 @@ import Validator from 'validatorjs';
  */
 export default function (req, res) {
 
-    Validator.registerAsync('email_available', function (email, id, x, passes) {
+    Validator.registerAsync('email_available', function (email, event, x, passes) {
 
-        Reservation.findOne({email: email}).exec((error, user) => {
+        Reservation.findOne({email: email, event: event}).exec((error, user) => {
             return user ? passes(false, req.lang("user.email_taken")) : passes();
         });
     });
 
     let rules = {
-        email: 'required|email|email_available:0',
+        email: 'required|email|email_available:' + req.param("event"),
         first_name: 'required|min:2'
     };
 
