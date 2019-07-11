@@ -77,11 +77,6 @@ let schema = Schema({
         default: false
     },
 
-    is_registered: {
-        type: Boolean,
-        default: false
-    },
-
     followers: {
         type: Number,
         default: 0
@@ -164,18 +159,6 @@ schema.pre("save", function (next) {
 schema.methods.isLikedBy = function (id, callback) {
 
     Like.where("type", "event")
-        .where("user", id)
-        .where("object", this._id)
-
-        .countDocuments((error, count) => {
-            if (error) return callback(error);
-            callback(null, count > 0);
-        });
-};
-
-schema.methods.isRegisteredBy = function (id, callback) {
-
-    Reservation.where("type", "event")
         .where("user", id)
         .where("object", this._id)
 

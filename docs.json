@@ -2437,6 +2437,24 @@
                         "description": "Event ID",
                         "required": true,
                         "type": "string"
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Email",
+                        "type": "string"
+                    },
+                    {
+                        "name": "first_name",
+                        "in": "query",
+                        "description": "First Name",
+                        "type": "string"
+                    },
+                    {
+                        "name": "last_name",
+                        "in": "query",
+                        "description": "Last Name",
+                        "type": "string"
                     }
                 ],
                 "responses": {

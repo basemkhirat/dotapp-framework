@@ -16,7 +16,22 @@ let schema = Schema({
         ref: 'user'
     },
 
-    object: {
+    email: {
+        type: String,
+        lowercase: true
+    },
+
+    first_name: {
+        type: String,
+        default: ""
+    },
+
+    last_name: {
+        type: String,
+        default: ""
+    },
+
+    event: {
         type: Schema.Types.ObjectId,
         ref: 'event'
     }

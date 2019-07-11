@@ -67,19 +67,12 @@ export default class extends Controller {
 
                 async.map(result.docs, function (event, callback) {
 
-                    event.isLikedBy(req.user.id, (error, liked) => {
+                        event.isLikedBy(req.user.id, (error, liked) => {
                             if (error) return res.serverError(error);
 
                             event.is_liked = liked;
 
-                            event.isRegisteredBy(req.user.id, (error, registered) => {
-                                if (error) return res.serverError(error);
-
-                                event.is_registered = registered;
-
-                                callback(error, event);
-                            });
-
+                            callback(error, event);
                         });
                     },
                     function (error, events) {
@@ -123,14 +116,7 @@ export default class extends Controller {
                         if (error) return res.serverError(error);
                         event.is_liked = liked;
 
-                        event.isRegisteredBy(req.user.id, (error, registered) => {
-                            if (error) return res.serverError(error);
-
-                            event.is_registered = registered;
-
-                            return res.ok(res.attachPolicies(event, "event"));
-                        });
-
+                        return res.ok(res.attachPolicies(event, "event"));
                     });
                 } else {
                     return res.ok(res.attachPolicies(event, "event"));
@@ -161,13 +147,7 @@ export default class extends Controller {
                         if (error) return res.serverError(error);
                         event.is_liked = liked;
 
-                        event.isRegisteredBy(req.user.id, (error, registered) => {
-                            if (error) return res.serverError(error);
-
-                            event.is_registered = registered;
-
-                            return res.ok(res.attachPolicies(event, "event"));
-                        });
+                        return res.ok(res.attachPolicies(event, "event"));
                     });
                 } else {
                     return res.ok(res.attachPolicies(event, "event"));
@@ -303,24 +283,25 @@ export default class extends Controller {
             if (error) return res.serverError(error);
             if (!event) return res.notFound(req.lang("event.errors.event_not_found"));
 
-            Reservation.toggle({
-                type: "event",
-                object: id,
-                user: req.user.id
-            }, (error, state) => {
+            let reservation = new Reservation();
+
+            reservation.event = id;
+            reservation.user = req.user.id;
+            reservation.first_name = req.param("first_name");
+            reservation.last_name = req.param("last_name");
+            reservation.email = req.param("email");
+
+            reservation.save(error => {
                 if (error) return res.serverError(error);
 
-                if (state === "registered") {
-                    event.registerations = event.registerations + 1;
-                } else if (state === "unregistered") {
-                    event.registerations = event.registerations - 1;
-                }
+                event.registerations = event.registerations + 1;
 
                 event.save(error => {
                     if (error) return res.serverError(error);
-                    res.ok(state);
+                    res.ok(reservation.id);
                 });
             });
+
         });
 
     }

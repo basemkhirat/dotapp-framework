@@ -346,7 +346,7 @@ export default {
                                 handler: "EventController.follow"
                             },
                             "PUT register/:id": {
-                                middleware: ["authenticate"],
+                                middleware: ["validate:registeration"],
                                 handler: "EventController.register"
                             }
                         }
