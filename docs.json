@@ -2403,7 +2403,7 @@
                 "tags": [
                     "Events"
                 ],
-                "summary": "like/unlike event by id",
+                "summary": "Like/unlike event by id",
                 "parameters": [
                     {
                         "name": "id",
@@ -2429,7 +2429,7 @@
                 "tags": [
                     "Events"
                 ],
-                "summary": "register an event",
+                "summary": "Register an event",
                 "parameters": [
                     {
                         "name": "id",
@@ -2475,7 +2475,7 @@
                 "tags": [
                     "Events"
                 ],
-                "summary": "follow/unfollow event by id",
+                "summary": "Follow/unfollow event by id",
                 "parameters": [
                     {
                         "name": "id",
