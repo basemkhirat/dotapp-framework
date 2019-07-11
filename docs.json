@@ -2429,7 +2429,7 @@
                 "tags": [
                     "Events"
                 ],
-                "summary": "register/unregister event by id",
+                "summary": "register an event",
                 "parameters": [
                     {
                         "name": "id",
