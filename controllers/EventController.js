@@ -58,7 +58,7 @@ export default class extends Controller {
 
         query.order(req.param("sort_field", "created_at"), req.param("sort_type", "desc"));
 
-        query.populate("categories").populate("tags").populate("user").populate("media");
+        query.populate("all_likes").populate("categories").populate("tags").populate("user").populate("media");
 
         query.execWithCount((error, result) => {
             if (error) return res.serverError(error);

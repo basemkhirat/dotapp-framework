@@ -187,5 +187,12 @@ schema.pre('save', function (next) {
     }
 });
 
+schema.virtual('all_likes', {
+    ref: 'reservation',
+    localField: '_id',
+    foreignField: 'event',
+    //count: true
+});
+
 
 export default Mongoose.model("event", schema, "event");

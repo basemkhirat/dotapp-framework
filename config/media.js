@@ -26,6 +26,12 @@ export default {
     image: {
 
         /**
+         * convert all images to jpg
+         */
+
+        force_jpeg: true,
+
+        /**
          * Image quality
          */
 
