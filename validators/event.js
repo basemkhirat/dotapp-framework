@@ -32,11 +32,20 @@ export default function (req, res) {
 
     if (creating || req.has("type")) {
         rules.type = 'required';
-    }
+        }
+
 
     if(creating && req.param("type") === "paid"){
         rules.price = 'required';
         rules.currency = 'required';
+    }
+
+    if (creating || req.has("media_payload")) {
+        rules.media_payload = 'required';
+    }
+
+    if (creating || req.has("categories")) {
+        rules.categories = 'required';
     }
 
     if (creating || req.has("slug")) {

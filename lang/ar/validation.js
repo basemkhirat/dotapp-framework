@@ -29,7 +29,7 @@ module.exports = {
     not_in: ':attribute المختارة غير صحيحة',
     numeric: ':attribute يجب أن تكون رقما',
     present: ':attribute يجب أن يكون معرفا ، يمكن أن يكون فارغا',
-    required: ':attribute مطلوب',
+    required: 'حقل :attribute مطلوب',
     required_if: ':attribute مطلوب حين تكون قيمة ال:other تساوي :value',
     required_unless: ':attribute مطلوب حين تكون قيم ال:other لا تساوي :value',
     required_with: ':attribute مطلوب حين يكون الحقا :field غير فارغ',
@@ -64,6 +64,11 @@ module.exports = {
         phone: 'رقم الهاتف',
         mobile: 'رقم الجوال',
         title: 'العنوان',
-        event: 'الفعالية'
+        event: 'الفعالية',
+        type: 'النوع',
+        media_payload: 'الميديا',
+        categories: 'التصنيفات',
+        price: 'السعر',
+        currency: 'العملة'
     }
 };
