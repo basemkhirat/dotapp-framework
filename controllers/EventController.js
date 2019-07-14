@@ -163,7 +163,6 @@ export default class extends Controller {
      */
     create(req, res) {
 
-        if (!req.can("event.manage")) return res.forbidden();
 
         let event = new Event();
 
@@ -175,7 +174,6 @@ export default class extends Controller {
         event.media_payload = req.param("media_payload");
         event.user = req.user.id;
         event.lang = req.param("lang", event.lang);
-        event.status = req.param("status", event.status);
         event.published_at = req.param("published_at", event.published_at);
         event.scheduled_at = req.param("scheduled_at", event.scheduled_at);
         event.categories = req.param("categories", event.categories);
@@ -184,6 +182,7 @@ export default class extends Controller {
         event.price = req.param("price", event.price);
         event.address = req.param("address", event.address);
         event.map = req.param("map", event.map);
+        event.status = req.can("event.manage") ? req.param("status", event.status) : 0;
 
         event.save((error, event) => {
             if (error) return res.serverError(error);

@@ -1,4 +1,10 @@
 {
+
+    "hi": "Hi",
+    "subscription": "Newsletter subscription",
+    "subscription_welcome": "Thanks for subscription to our newsletter.",
+    "subscription_abstract": "You are about to receive daily and weekly emails and be in touch with latest news",
+
     "events": {
         "subscribed": "Email subscribed successfully",
         "unsubscribed": "Email unsubscribed successfully"

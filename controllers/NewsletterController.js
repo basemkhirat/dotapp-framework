@@ -49,6 +49,8 @@ export default class extends Controller {
                     subscription.save((error, subscription) => {
                         if (error) return res.serverError(error);
 
+                        req.mail(email, "NewsletterSubscribed");
+
                         return res.message(req.lang("subscription.events.subscribed")).ok(subscription.id);
                     });
 

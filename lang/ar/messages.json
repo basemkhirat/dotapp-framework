@@ -4,7 +4,7 @@
     "forbidden": "الصلاحية غير موجودة",
     "not_found": "الصفحة غير موجودة",
     "server_error": "خطأ في السيرفر",
-    "not_authenticated": "غير مسجل",
+    "not_authenticated": "لم تقم بتسجيل الدخول بعد",
     "validation_error": "بعض البيانات المدخلة غير صحيحة",
     "ok": "طلب صحيح",
     "something_wrong": "حدث خطأ"

@@ -99,6 +99,8 @@ export default class extends Controller {
                 user.save((error, user) => {
                     if (error) return res.serverError(error);
 
+                    console.log("changing");
+
                     req.mail(user, "PasswordChanged");
 
                     return res.message(req.lang("auth.events.password_changed")).ok();

@@ -4,20 +4,18 @@ export default class extends Template {
 
     handle(email, callback) {
 
-        this.render("hello", {name: "Express"}, (error, data) => {
+        this.render("mails/newsletter/subscribed", {email}, (error, html) => {
             if (error && callback) return callback(error);
 
             this.send({
                 to: email,
-                subject: "Welcome Mail",
-                html: data
+                subject: this.req.lang("subscription.subscription"),
+                html: html
             }, (error, info) => {
                 if (error && callback) return callback(error);
-                return callback(null, info);
+                if (callback) return callback(null, info);
             });
 
         });
-
     }
-
 }
