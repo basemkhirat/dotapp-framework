@@ -112,6 +112,7 @@
                     this.mainFieldPost.title = this.post.title
                     this.mainFieldPost.excerpt = this.post.excerpt
                     this.mainFieldPost.content = this.post.content
+                    this.mainFieldPost.media = this.post.media.id
                     if(this.post.media){
                         this.mediaItemPreview = this.post.media
                     }

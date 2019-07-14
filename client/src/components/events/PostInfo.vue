@@ -61,12 +61,19 @@
               </v-select>
               <!-- Event Price -->
               <div v-if="typeContent.value === 'paid'">
-                <b-input
-                  type="text"
-                  class="w-100 mt-3"
-                  placeholder="Event Price"
-                  v-model="postInfo.price"
-                />
+                <b-field class="mt-3">
+                  <b-select v-model="postInfo.currency">
+                    <option value="£">£</option>
+                    <option value="$">$</option>
+                    <option value="€">€</option>
+                  </b-select>
+                  <b-input
+                    type="number"
+                    class="w-100"
+                    placeholder="Event Price"
+                    v-model="postInfo.price"
+                  />
+                </b-field>
               </div>
             </div>
           </b-field>
@@ -177,7 +184,8 @@ export default {
         categories: [],
         address: "",
         map: "",
-        price: ""
+        price: "",
+        currency: "£"
       },
       filteredTags: [],
       tagsFilterLoading: false,
@@ -228,6 +236,7 @@ export default {
         this.postInfo.published_at = this.post.published_at;
         this.postInfo.eventDate = this.post.scheduled_at;
         this.postInfo.price = this.post.price;
+        this.postInfo.currency = this.post.currency;
         this.postInfo.address = this.post.address;
         this.postInfo.map = this.post.map;
         if (this.post.type === "free") {
