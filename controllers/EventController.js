@@ -156,6 +156,99 @@ export default class extends Controller {
     }
 
     /**
+     * Find my liked events
+     * @param req
+     * @param res
+     */
+    my_likes(req, res) {
+
+        Like.where("type", "event")
+            .populate("user")
+            .populate({
+                path: "object",
+                populate: {
+                    path: "media"
+                }
+            })
+            .populate({
+                path: "object",
+                populate: {
+                    path: "categories"
+                }
+            })
+            .populate({
+                path: "object",
+                populate: {
+                    path: "tags"
+                }
+            })
+            .populate({
+                path: "object",
+                populate: {
+                    path: "user"
+                }
+            })
+
+            .where("user", req.user.id)
+            .page(req.param("page"), req.param("limit"))
+            .order(req.param("sort_field", "created_at"), req.param("sort_type", "desc"))
+            .execWithCount((error, result) => {
+
+                if (error) return res.serverError(error);
+
+                return res.ok({
+                    total: result.total,
+                    docs: result.docs
+                });
+            });
+    }
+
+    /**
+     * Find my liked events
+     * @param req
+     * @param res
+     */
+    my_registrations(req, res) {
+
+        Reservation.where("user", req.user.id).populate("user")
+            .populate({
+                path: "event",
+                populate: {
+                    path: "media"
+                }
+            })
+            .populate({
+                path: "event",
+                populate: {
+                    path: "categories"
+                }
+            })
+            .populate({
+                path: "event",
+                populate: {
+                    path: "tags"
+                }
+            })
+            .populate({
+                path: "event",
+                populate: {
+                    path: "user"
+                }
+            })
+            .page(req.param("page"), req.param("limit"))
+            .order(req.param("sort_field", "created_at"), req.param("sort_type", "desc"))
+            .execWithCount((error, result) => {
+
+                if (error) return res.serverError(error);
+
+                return res.ok({
+                    total: result.total,
+                    docs: result.docs
+                });
+            });
+    }
+
+    /**
      * Create a new event
      * @param req
      * @param res

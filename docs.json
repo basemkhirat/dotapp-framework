@@ -2398,6 +2398,98 @@
                 ]
             }
         },
+        "/event/likes/me": {
+            "get": {
+                "tags": [
+                    "Events"
+                ],
+                "summary": "Find all my likes",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page Number",
+                        "type": "integer",
+                        "default": 1
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Records Count",
+                        "type": "integer",
+                        "default": 10
+                    },
+                    {
+                        "name": "sort_field",
+                        "in": "query",
+                        "description": "Sorting Field",
+                        "type": "string",
+                        "default": "_id"
+                    },
+                    {
+                        "name": "sort_type",
+                        "in": "query",
+                        "description": "Sorting Direction",
+                        "type": "string",
+                        "default": "desc"
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/responses"
+                },
+                "security": [
+                    {
+                        "bearer token": []
+                    }
+                ]
+            }
+        },
+        "/event/registrations/me": {
+            "get": {
+                "tags": [
+                    "Events"
+                ],
+                "summary": "Find all my registrations",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page Number",
+                        "type": "integer",
+                        "default": 1
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Records Count",
+                        "type": "integer",
+                        "default": 10
+                    },
+                    {
+                        "name": "sort_field",
+                        "in": "query",
+                        "description": "Sorting Field",
+                        "type": "string",
+                        "default": "_id"
+                    },
+                    {
+                        "name": "sort_type",
+                        "in": "query",
+                        "description": "Sorting Direction",
+                        "type": "string",
+                        "default": "desc"
+                    }
+                ],
+                "responses": {
+                    "$ref": "#/responses"
+                },
+                "security": [
+                    {
+                        "bearer token": []
+                    }
+                ]
+            }
+        },
         "/event/like/{id}": {
             "put": {
                 "tags": [
