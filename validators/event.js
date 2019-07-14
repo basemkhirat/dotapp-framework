@@ -30,6 +30,15 @@ export default function (req, res) {
         rules.title = 'required';
     }
 
+    if (creating || req.has("type")) {
+        rules.type = 'required';
+    }
+
+    if(creating && req.param("type") === "paid"){
+        rules.price = 'required';
+        rules.currency = 'required';
+    }
+
     if (creating || req.has("slug")) {
         rules.slug = 'alpha_dash|event_slug_available:' + req.param("id", 0);
     }
