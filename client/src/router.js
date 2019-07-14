@@ -206,6 +206,24 @@ const router = new Router({
                     beforeEnter: routerGuard
                 },
                 {
+                    path: "/pages",
+                    name: "pages",
+                    component: () => import("./views/page/pages.vue"),
+                    // meta: {
+                    //     role: 'page.view'
+                    // },
+                    beforeEnter: routerGuard
+                },
+                {
+                    path: "/pageForm/:id?",
+                    name: "pageForm",
+                    component: () => import("./views/page/Form.vue"),
+                    meta: {
+                        role: 'page.update'
+                    },
+                    beforeEnter: routerGuard
+                },
+                {
                     path: "/notAuthorized",
                     name: "notAuthorized",
                     component: () => import("./views/pages/NotAuthorized.vue")
