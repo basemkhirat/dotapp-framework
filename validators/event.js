@@ -40,7 +40,8 @@ export default function (req, res) {
         rules.currency = 'required';
     }
 
-    if (creating || req.has("media_payload")) {
+
+    if (!req.has("media_payload") && !req.has("media")) {
         rules.media_payload = 'required';
     }
 
