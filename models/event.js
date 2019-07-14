@@ -2,7 +2,6 @@ import moment from 'moment';
 import {Mongoose, Schema} from './model';
 import Tag from './tag';
 import Like from './like';
-import Reservation from './reservation';
 import Resource from '~/services/media';
 
 let schema = Schema({

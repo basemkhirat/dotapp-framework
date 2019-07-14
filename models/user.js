@@ -30,7 +30,7 @@ let schema = Schema({
 
         lang: {
             type: String,
-            default: 'en'
+            default: 'ar'
         },
 
         role: {
