@@ -196,9 +196,16 @@ export default class extends Controller {
 
                 if (error) return res.serverError(error);
 
+                let docs = result.docs;
+
+                docs = docs.map((doc) => {
+                    doc.object.is_liked = true;
+                    return doc;
+                });
+
                 return res.ok({
                     total: result.total,
-                    docs: result.docs
+                    docs: docs
                 });
             });
     }
