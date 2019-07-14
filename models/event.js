@@ -40,11 +40,13 @@ let schema = Schema({
     },
 
     type: {
-        type: String
+        type: String,
+        default: "free"
     },
 
     price: {
-        type: Number
+        type: Number,
+        default: 0
     },
 
     currency: {

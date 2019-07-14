@@ -2,7 +2,8 @@ import { server, token } from '../index';
 import faker from 'faker';
 
 let event = {
-    title: faker.company.companyName()
+    title: faker.company.companyName(),
+    type: "free"
 };
 
 describe("Event", function () {
