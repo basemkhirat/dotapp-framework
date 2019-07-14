@@ -1,5 +1,6 @@
 import {Mongoose, Schema} from './model';
 import Bcrypt from 'bcrypt';
+import Config from '~/services/config';
 
 let schema = Schema({
 
@@ -30,13 +31,13 @@ let schema = Schema({
 
         lang: {
             type: String,
-            default: 'ar'
+            default: Config.get("i18n.defaultLocale")
         },
 
         role: {
             type: Schema.Types.ObjectId,
             ref: 'role',
-            autopopulate: { select: 'id name' }
+            autopopulate: {select: 'id name'}
         },
 
         photo: {
@@ -127,7 +128,7 @@ schema.methods.getRole = function (attribute = null, callback) {
 
     let role = this.role;
 
-    if(!role) {
+    if (!role) {
         return null;
     }
 

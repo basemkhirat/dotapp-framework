@@ -1,6 +1,6 @@
 import moment from 'moment';
 import {Mongoose, Schema} from './model';
-
+import Config from '~/services/config';
 import Media from './media';
 import Tag from './tag';
 import async from 'async';
@@ -46,7 +46,8 @@ let schema = Schema({
     },
 
     lang: {
-        type: String
+        type: String,
+        default: Config.get("i18n.defaultLocale")
     },
 
     likes: {

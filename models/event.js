@@ -3,6 +3,7 @@ import {Mongoose, Schema} from './model';
 import Tag from './tag';
 import Like from './like';
 import Resource from '~/services/media';
+import Config from '~/services/config';
 
 let schema = Schema({
 
@@ -27,7 +28,8 @@ let schema = Schema({
     },
 
     lang: {
-        type: String
+        type: String,
+        default: Config.get("i18n.defaultLocale")
     },
 
     address: {
