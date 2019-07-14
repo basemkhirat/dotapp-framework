@@ -318,8 +318,17 @@ export default {
                         group: {
 
                             "GET /": "EventController.find",
-                            "GET /likes/me": "EventController.my_likes",
-                            "GET /registrations/me": "EventController.my_registrations",
+
+                            "GET /likes/me": {
+                                middleware: ["authenticate"],
+                                handler: "EventController.my_likes"
+                            },
+
+                            "GET /registrations/me": {
+                                middleware: ["authenticate"],
+                                handler: "EventController.my_registrations"
+                            },
+
                             "GET /:id": "EventController.findOne",
                             "GET /slug/:slug": "EventController.findBySlug",
 
