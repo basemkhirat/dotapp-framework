@@ -2097,6 +2097,17 @@
                         "type": "string"
                     },
                     {
+                        "name": "currency",
+                        "in": "query",
+                        "description": "Event price currency",
+                        "type": "string",
+                        "enum": [
+                            "£",
+                            "$",
+                            "€"
+                        ]
+                    },
+                    {
                         "name": "address",
                         "in": "query",
                         "description": "Event address",

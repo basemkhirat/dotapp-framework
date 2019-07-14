@@ -47,6 +47,11 @@ let schema = Schema({
         type: Number
     },
 
+    currency: {
+        type: String,
+        default: "£"
+    },
+
     media: {
         type: Schema.Types.ObjectId,
         ref: 'media'

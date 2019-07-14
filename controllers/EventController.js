@@ -280,6 +280,7 @@ export default class extends Controller {
         event.tag_names = req.param("tags");
         event.type = req.param("type", event.type);
         event.price = req.param("price", event.price);
+        event.currency = req.param("currency", event.currency);
         event.address = req.param("address", event.address);
         event.map = req.param("map", event.map);
         event.status = req.can("event.manage") ? req.param("status", event.status) : 0;
@@ -319,6 +320,7 @@ export default class extends Controller {
             event.tag_names = req.param("tags");
             event.type = req.param("type", event.type);
             event.price = req.param("price", event.price);
+            event.currency = req.param("currency", event.currency);
             event.address = req.param("address", event.address);
             event.map = req.param("map", event.map);
 
