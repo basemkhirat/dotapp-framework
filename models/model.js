@@ -2,9 +2,12 @@ import mongoose from 'mongoose';
 import moment from "moment";
 import mongooseSlugUpdater from 'mongoose-slug-updater';
 import mongooseAutoPopulate from 'mongoose-autopopulate';
+import mongooseIntl from 'mongoose-intl';
+import Config from '~/services/config';
 
 mongoose.plugin(mongooseAutoPopulate);
 mongoose.plugin(mongooseSlugUpdater);
+mongoose.plugin(mongooseIntl, { languages: ['en', 'ar'], defaultLanguage: Config.get("i18n.defaultLocale") });
 
 mongoose.plugin(function (schema) {
 

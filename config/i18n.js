@@ -4,7 +4,7 @@ export default {
      * you may alter a site wide default locale
      */
 
-    defaultLocale: process.env.APP_LOCALE || 'en',
+    defaultLocale: "ar",
 
     /**
      * setup some locales - other locales default to en silently

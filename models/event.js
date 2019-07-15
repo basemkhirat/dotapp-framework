@@ -55,6 +55,11 @@ let schema = Schema({
         default: "£"
     },
 
+    place: {
+        type: Schema.Types.ObjectId,
+        ref: 'place'
+    },
+
     media: {
         type: Schema.Types.ObjectId,
         ref: 'media'

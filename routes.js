@@ -158,6 +158,34 @@ export default {
                         }
                     },
 
+                    "/place": {
+
+                        group: {
+                            "GET /": "PlaceController.find",
+                            "GET /search": "PlaceController.search",
+                            "GET /:id": "PlaceController.findOne",
+                            "GET /slug/:slug": "PlaceController.findBySlug",
+
+                            "POST /": {
+                                middleware: ["authenticate", "validate:place"],
+                                handler: "PlaceController.create"
+                            },
+
+                            "PUT /:id": {
+                                middleware: ["authenticate", "validate:place"],
+                                handler: "PlaceController.update"
+                            },
+                            "DELETE /:id": {
+                                middleware: ["authenticate"],
+                                handler: "PlaceController.destroy"
+                            },
+                            "PATCH /": {
+                                middleware: ["authenticate"],
+                                handler: "PlaceController.bulk"
+                            }
+                        }
+                    },
+
                     "/author": {
 
                         group: {

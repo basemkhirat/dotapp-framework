@@ -107,6 +107,7 @@ export default class extends Controller {
             .populate("tags")
             .populate("user")
             .populate("media")
+            .populate({path: "place", populate: {path: "parent", populate: {path: "parent"}}})
             .exec((error, event) => {
                 if (error) return res.serverError(error);
                 if (!event) return res.notFound(req.lang("event.errors.event_not_found"));
@@ -138,6 +139,7 @@ export default class extends Controller {
             .populate("tags")
             .populate("user")
             .populate("media")
+            .populate({path: "place", populate: {path: "parent", populate: {path: "parent"}}})
             .exec((error, event) => {
                 if (error) return res.serverError(error);
                 if (!event) return res.notFound(req.lang("event.errors.event_not_found"));
@@ -284,6 +286,7 @@ export default class extends Controller {
         event.address = req.param("address", event.address);
         event.map = req.param("map", event.map);
         event.status = req.can("event.manage") ? req.param("status", event.status) : 0;
+        event.place = req.param("place", event.place);
 
         event.save((error, event) => {
             if (error) return res.serverError(error);
@@ -323,6 +326,7 @@ export default class extends Controller {
             event.currency = req.param("currency", event.currency);
             event.address = req.param("address", event.address);
             event.map = req.param("map", event.map);
+            event.place = req.param("place", event.place);
 
             if (req.filled("tags")) {
                 event.tag_names = req.param("tags");

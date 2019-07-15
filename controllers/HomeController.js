@@ -1,4 +1,5 @@
 import Controller from './Controller';
+import Place from '~/models/place';
 
 export default class extends Controller {
 
@@ -9,6 +10,17 @@ export default class extends Controller {
      * @param next
      */
     index(req, res, next) {
-        res.ok("Hi");
+
+
+        let places = Place.find();
+
+        places.populate({path: "parent", populate: {path: "parent"}});
+
+        places.find((error, places) => {
+            if(error) return res.serverError(error);
+            res.ok(places);
+        })
+
+
     }
 };
