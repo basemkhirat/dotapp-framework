@@ -5,6 +5,12 @@
     margin-bottom: 5px !important;
     font-family: $mainFont;
 }
+.select select{
+    min-height: 44px;
+}
+.select:not(.is-multiple):not(.is-loading)::after{
+    top: 22px;
+}
 
 .input,
 .taginput .taginput-container.is-focusable,
