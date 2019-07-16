@@ -2223,6 +2223,12 @@
                         "type": "string"
                     },
                     {
+                        "name": "place",
+                        "in": "query",
+                        "description": "Place ID",
+                        "type": "string"
+                    },
+                    {
                         "name": "lang",
                         "in": "query",
                         "description": "Lang",

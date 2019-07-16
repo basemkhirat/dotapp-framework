@@ -28,6 +28,10 @@ export default class extends Controller {
             query.where("type", req.param("type"));
         }
 
+        if (req.filled("place")) {
+            query.where("place", req.param("place"));
+        }
+
         if (req.filled("address")) {
             query.where("address", new RegExp(req.param("address")));
         }
