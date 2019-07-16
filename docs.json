@@ -2223,6 +2223,12 @@
                         "type": "string"
                     },
                     {
+                        "name": "place",
+                        "in": "query",
+                        "description": "Place ID",
+                        "type": "string"
+                    },
+                    {
                         "name": "lang",
                         "in": "query",
                         "description": "Lang",
@@ -2344,6 +2350,12 @@
                         "name": "slug",
                         "in": "query",
                         "description": "Event slug",
+                        "type": "string"
+                    },
+                    {
+                        "name": "place",
+                        "in": "query",
+                        "description": "Event place ID",
                         "type": "string"
                     },
                     {
@@ -2575,6 +2587,12 @@
                         "name": "content",
                         "in": "query",
                         "description": "Event content",
+                        "type": "string"
+                    },
+                    {
+                        "name": "place",
+                        "in": "query",
+                        "description": "Event place ID",
                         "type": "string"
                     },
                     {

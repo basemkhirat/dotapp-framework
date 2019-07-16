@@ -77,6 +77,25 @@ Vue.filter('textLimit', function (value, num) {
         return value
     }
 })
+// Vue Filter Location Event
+Vue.filter('address', function (value) {
+    if (!value) return ''
+
+    if (value) {
+        let place = value.name
+        if (value.parent) {
+            place =
+                place + "-" + value.parent.name;
+            if (value.parent.parent) {
+                place =
+                    place +
+                    "-" +
+                    value.parent.parent.name;
+            }
+        }
+        return place
+    }
+})
 
 
 

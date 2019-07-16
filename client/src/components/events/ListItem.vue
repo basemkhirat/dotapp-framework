@@ -5,7 +5,7 @@
                 <b-checkbox v-model="checkItemSelected" @input="updateCheckbox(item.id)" :native-value="item.id">
                 </b-checkbox>
             </div>
-            <div class="col-12 col-sm-6 col-xl table--item-4">
+            <div class="col-12 col-sm-6 col-xl-3 table--item-4">
                 <div class="block--item--title d-flex align-items-center item--text">
                     <div class="text--title">
                         {{item.title}}
@@ -13,11 +13,11 @@
                 </div>
             </div>
             <div class="col-12 col-sm-6 col-xl table--item">
-                <div class="item--text">
+                <div class="item--text" v-if="item.place">
                     <span class="icon">
                         <i class="fas fa-map-marker-alt"></i>
                     </span>
-                    {{item.address}}
+                    {{item.place | address}}
                 </div>
             </div>
             <div class="col-12 col-sm-6 col-xl table--item">
@@ -54,6 +54,16 @@
                 </div>
             </div>
 
+            <div class="col-12 col-sm-6 col-xl-1 table--item">
+                <div class="item--text text-md-center">
+                    <div class="field" v-if="item.policies.indexOf('event.manage') > -1">
+                        <b-switch @input="changeStatus" v-model="eventStatus" :true-value="1" :false-value="0">
+                            Active
+                        </b-switch>
+                    </div>
+                </div>
+            </div>
+
             <div class="col-12 col-sm-12 col-xl item--text table--item">
                 <div class="all--item--action d-flex align-item-center">
                     <div class="all--item--action d-flex align-item-center">
@@ -80,6 +90,7 @@
         data() {
             return {
                 checkItemSelected: false,
+                eventStatus: this.item.status
             };
         },
         watch: {
@@ -93,7 +104,6 @@
                 } else {
                     this.checkItemSelected = false
                 }
-
             }
         },
         methods: {
@@ -135,6 +145,9 @@
                     hasIcon: true,
                     onConfirm: () => this.deleteEvent(id)
                 })
+            },
+            changeStatus() {
+                this.updateEvent(this.item.id, {status: this.eventStatus})
             }
         }
     }

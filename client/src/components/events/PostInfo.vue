@@ -1,9 +1,9 @@
 <template>
     <div class="col-12 col-lg-4">
-        <div class="card--block">
-            <div class="card--content">
+        <!-- <div class="card--block"> -->
+            <!-- <div class="card--content"> -->
                 <!-- Status -->
-                <div class="post--info--item">
+                <!-- <div class="post--info--item">
                     <b-field class="field-group align-items-center justify-content-between">
                         <label class="label">Status</label>
                         <b-switch
@@ -12,7 +12,7 @@
                             :false-value="0"
                         >Published</b-switch>
                     </b-field>
-                </div>
+                </div> -->
                 <!-- Schedule Date -->
                 <!-- <div class="post--info--item">
           <b-field class="field-group flex-column">
@@ -26,8 +26,8 @@
             ></datetime>
           </b-field>
                 </div>-->
-            </div>
-        </div>
+            <!-- </div>
+        </div> -->
 
         <!-- Add Tags -->
         <div class="card--block">

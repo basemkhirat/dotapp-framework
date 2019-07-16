@@ -30,39 +30,12 @@ export default function (req, res) {
         rules.title = 'required';
     }
 
-    if (creating || req.has("type")) {
-        rules.type = 'required';
+    if (creating || req.has("place")) {
+        rules.place = 'required';
     }
 
-
-    if (creating && req.param("type") === "paid") {
-        rules.price = 'required';
-        rules.currency = 'required';
-    }
-
-
-    if (creating) {
-
-        if (req.has("media")) {
-            rules.media = 'required';
-        } else if (req.has("media_payload")) {
-            rules.media_payload = 'required';
-        } else {
-            rules.media = 'required';
-        }
-    } else {
-
-        rules.media = 'required';
-
-    }
-
-
-    // if (!req.has("media_payload") && !req.has("media")) {
-    //     rules.media_payload = 'required';
-    // }
-
-    if (creating || req.has("categories")) {
-        rules.categories = 'required';
+    if (creating || req.has("scheduled_at")) {
+        rules.scheduled_at = 'required';
     }
 
     if (creating || req.has("slug")) {

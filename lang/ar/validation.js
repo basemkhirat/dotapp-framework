@@ -69,6 +69,8 @@ module.exports = {
         media_payload: 'الميديا',
         categories: 'التصنيفات',
         price: 'السعر',
-        currency: 'العملة'
+        currency: 'العملة',
+        scheduled_at: 'التاريخ',
+        place: 'المكان'
     }
 };

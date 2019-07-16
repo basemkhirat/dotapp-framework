@@ -28,6 +28,10 @@ export default class extends Controller {
             query.where("type", req.param("type"));
         }
 
+        if (req.filled("place")) {
+            query.where("place", req.param("place"));
+        }
+
         if (req.filled("address")) {
             query.where("address", new RegExp(req.param("address")));
         }
@@ -58,7 +62,8 @@ export default class extends Controller {
 
         query.order(req.param("sort_field", "created_at"), req.param("sort_type", "desc"));
 
-        query.populate("all_likes").populate("categories").populate("tags").populate("user").populate("media");
+        query.populate("categories").populate("tags").populate("user").populate("media")
+            .populate({path: "place", populate: {path: "parent", populate: {path: "parent"}}});
 
         query.execWithCount((error, result) => {
             if (error) return res.serverError(error);
@@ -276,7 +281,6 @@ export default class extends Controller {
         event.media_payload = req.param("media_payload");
         event.user = req.user.id;
         event.lang = req.param("lang", event.lang);
-        event.published_at = req.param("published_at", event.published_at);
         event.scheduled_at = req.param("scheduled_at", event.scheduled_at);
         event.categories = req.param("categories", event.categories);
         event.tag_names = req.param("tags");
@@ -317,7 +321,6 @@ export default class extends Controller {
             event.lang = req.param("lang", event.lang);
             event.media = req.param("media", event.media);
             event.media_payload = req.param("media_payload");
-            event.published_at = req.param("published_at", event.published_at);
             event.scheduled_at = req.param("scheduled_at", event.scheduled_at);
             event.categories = req.param("categories", event.categories);
             event.tag_names = req.param("tags");
