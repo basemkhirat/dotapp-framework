@@ -30,6 +30,10 @@ export default function (req, res) {
         rules.title = 'required';
     }
 
+    if (creating || req.has("place")) {
+        rules.place = 'required';
+    }
+
     if (creating || req.has("scheduled_at")) {
         rules.scheduled_at = 'required';
     }

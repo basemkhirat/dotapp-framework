@@ -70,6 +70,7 @@ module.exports = {
         categories: 'التصنيفات',
         price: 'السعر',
         currency: 'العملة',
-        scheduled_at: 'التاريخ'
+        scheduled_at: 'التاريخ',
+        place: 'المكان'
     }
 };
