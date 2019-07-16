@@ -143,11 +143,16 @@ schema.index({
 });
 
 schema.virtual("published").get(function () {
-    return moment(this.published_at).fromNow();
+    if(this.published_at){
+        return moment(this.published_at).fromNow();
+    }
+
 });
 
 schema.virtual("scheduled").get(function () {
-    return moment(this.scheduled_at).fromNow();
+    if(this.scheduled_at){
+        return moment(this.scheduled_at).fromNow();
+    }
 });
 
 schema.pre("save", function (next) {
