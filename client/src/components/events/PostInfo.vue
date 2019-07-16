@@ -1,40 +1,16 @@
 <template>
   <div class="col-12 col-lg-4">
-    <div class="card--block">
-      <div class="card--content">
-        <!-- Status -->
-        <div class="post--info--item">
-          <b-field class="field-group align-items-center justify-content-between">
-            <label class="label">Status</label>
-            <b-switch v-model="postInfo.status" :true-value="1" :false-value="0">Published</b-switch>
-          </b-field>
-        </div>
-        <!-- Schedule Date -->
-        <div class="post--info--item">
-          <b-field class="field-group flex-column">
-            <label class="label">Schedule</label>
-            <datetime
-              type="datetime"
-              class="custom--datetime theme-primary"
-              placeholder="Schedule Date"
-              v-model="postInfo.published_at"
-              use12-hour
-            ></datetime>
-          </b-field>
-        </div>
-      </div>
-    </div>
 
     <!-- Add Tags -->
     <div class="card--block">
       <div class="card--content">
         <div class="post--info--item">
           <b-field class="field-group flex-column">
-            <label class="label">Event Date & Time</label>
+            <label class="label">Scheduled at</label>
             <datetime
               type="datetime"
               class="custom--datetime theme-primary"
-              placeholder="Event Date"
+              placeholder="Scheduled at"
               v-model="postInfo.eventDate"
               use12-hour
             ></datetime>
@@ -81,7 +57,7 @@
         <!-- Categories -->
         <div class="post--info--item">
           <b-field class="field-group flex-column">
-            <label class="label">categories</label>
+            <label class="label">Categories</label>
             <treeselect
               class="custom--treeSelect"
               :show-count="true"
