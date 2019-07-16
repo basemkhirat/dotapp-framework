@@ -105,11 +105,6 @@ let schema = Schema({
         default: 0
     },
 
-    published_at: {
-        type: Date,
-        default: Date.now
-    },
-
     scheduled_at: {
         type: Date,
         default: Date.now
@@ -134,19 +129,11 @@ schema.index({likes: 1});
 schema.index({followers: 1});
 schema.index({created_at: -1});
 schema.index({updated_at: -1});
-schema.index({published_at: -1});
 schema.index({scheduled_at: -1});
 schema.index({
     title: 'text',
     slug: 'text',
     excerpt: 'text'
-});
-
-schema.virtual("published").get(function () {
-    if(this.published_at){
-        return moment(this.published_at).fromNow();
-    }
-
 });
 
 schema.virtual("scheduled").get(function () {
@@ -161,8 +148,6 @@ schema.pre("save", function (next) {
 
         Tag.saveNames(this.tag_names, (error, tags) => {
             if (error) return next(error);
-
-            console.log(this.tag_names, tags);
 
             this.tags = tags;
 
@@ -188,7 +173,7 @@ schema.methods.isLikedBy = function (id, callback) {
 
 schema.pre('save', function (next) {
 
-    if (this.media_payload !== undefined) {
+    if (this.media_payload) {
 
         Resource.create(this.media_payload, (error, media) => {
             if (error) return next(error);
@@ -204,13 +189,5 @@ schema.pre('save', function (next) {
         next(null, this);
     }
 });
-
-schema.virtual('all_likes', {
-    ref: 'reservation',
-    localField: '_id',
-    foreignField: 'event',
-    //count: true
-});
-
 
 export default Mongoose.model("event", schema, "event");
