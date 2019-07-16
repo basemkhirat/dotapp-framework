@@ -2353,6 +2353,12 @@
                         "type": "string"
                     },
                     {
+                        "name": "place",
+                        "in": "query",
+                        "description": "Event place ID",
+                        "type": "string"
+                    },
+                    {
                         "name": "excerpt",
                         "in": "query",
                         "description": "Event excerpt",
@@ -2581,6 +2587,12 @@
                         "name": "content",
                         "in": "query",
                         "description": "Event content",
+                        "type": "string"
+                    },
+                    {
+                        "name": "place",
+                        "in": "query",
+                        "description": "Event place ID",
                         "type": "string"
                     },
                     {
