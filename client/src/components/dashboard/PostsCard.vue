@@ -39,6 +39,9 @@
                                     :alt="props.row.title"
                                 />
                             </div>
+                            <div class="placeholder-img thumbnail--post" v-else>
+                                <img src="../../assets/images/img-placeholder.png" />
+                            </div>
                         </b-table-column>
 
                         <b-table-column>

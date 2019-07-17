@@ -45,20 +45,19 @@
                 </div>
             </div>
 
-            <div class="col-12 col-sm-6 col-xl table--item">
+            <!-- <div class="col-12 col-sm-6 col-xl table--item">
                 <div class="block--item--title d-flex align-items-center justify-content-center item--text">
                     <div class="text--title">
                         <b-tag type="is-success" v-if="item.status === 1">Published</b-tag>
                         <b-tag type="is-danger" v-else>Not Published</b-tag>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <div class="col-12 col-sm-6 col-xl-1 table--item">
                 <div class="item--text text-md-center">
                     <div class="field" v-if="item.policies.indexOf('event.manage') > -1">
                         <b-switch @input="changeStatus" v-model="eventStatus" :true-value="1" :false-value="0">
-                            Active
                         </b-switch>
                     </div>
                 </div>

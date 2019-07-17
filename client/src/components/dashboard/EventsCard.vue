@@ -39,6 +39,9 @@
                                     :alt="props.row.title"
                                 />
                             </div>
+                            <div class="placeholder-img thumbnail--post" v-else>
+                                <img src="../../assets/images/img-placeholder.png" />
+                            </div>
                         </b-table-column>
 
                         <b-table-column>
@@ -64,7 +67,7 @@
                             </div>
                         </b-table-column>
 
-                        <b-table-column >
+                        <b-table-column>
                             <div class="item--text" v-if="props.row.place">
                                 <span class="icon">
                                     <i class="fas fa-map-marker-alt"></i>
@@ -73,9 +76,11 @@
                             </div>
                         </b-table-column>
                         <b-table-column centered>
-                            <div class="block--item--title d-flex align-items-center justify-content-center item--text">
+                            <div
+                                class="block--item--title d-flex align-items-center justify-content-center item--text"
+                            >
                                 <div class="text--title">
-                                    <b-tag type="is-warning"  v-if="props.row.type === 'free'">Free</b-tag>
+                                    <b-tag type="is-warning" v-if="props.row.type === 'free'">Free</b-tag>
                                     <b-tag type="is-info" v-else>Paid</b-tag>
                                 </div>
                             </div>
@@ -122,8 +127,11 @@ export default {
     methods: {
         // Get Latest events
         async fetchAllItems() {
-            this.dataLoading = true
-            const events = await eventsRepository.getAllEvents(this.page, this.limit)
+            this.dataLoading = true;
+            const events = await eventsRepository.getAllEvents(
+                this.page,
+                this.limit
+            );
             this.events = events.data.docs;
             this.dataLoading = false;
         }

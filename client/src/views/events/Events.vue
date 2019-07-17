@@ -71,7 +71,7 @@
                 allItemsSelected: false,
                 allItemChecked: 0,
                 page: 1,
-                limit: 1,
+                limit: 10,
                 order: 'is-centered',
                 dataLoading: true,
                 breadcrumb: [{

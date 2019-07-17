@@ -22,20 +22,30 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-xl table--item">
+                <!-- <div class="col-12 col-sm-6 col-xl table--item">
                     <div class="block--item--title d-flex align-items-center justify-content-center item--text">
                         <div class="text--title">
                             <b-tag type="is-success"  v-if="item.status === 1">Published</b-tag>
                             <b-tag type="is-danger"  v-else>Not Published</b-tag>
                         </div>
                     </div>
-                </div>
+                </div> -->
+
                 <div class="col-12 col-sm-6 col-xl table--item">
                     <div class="item--text">
                         <span class="icon">
                             <i class="fas fa-clock"></i>
                         </span>
                         {{item.created}}
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-6 col-xl-1 table--item">
+                    <div class="item--text text-md-center">
+                        <div class="field" v-if="item.policies.indexOf('post.update') > -1">
+                            <b-switch @input="changeStatus" v-model="postStatus" :true-value="1" :false-value="0">
+                            </b-switch>
+                        </div>
                     </div>
                 </div>
 
@@ -62,6 +72,7 @@
         data () {
             return {
                 checkItemSelected: false,
+                postStatus: this.item.status
             };
         },
         watch:{
@@ -114,6 +125,10 @@
                     hasIcon: true,
                     onConfirm: () => this.deletePost(id)
                 })
+            },
+            // Change Status Post
+            changeStatus() {
+                this.updatePost(this.item.id, {status: this.postStatus})
             }
         }
     }

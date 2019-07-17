@@ -6,7 +6,7 @@
                     <i class="far fa-user"></i>
                 </span>
                 <div class="text-center">
-                    <p class="statistics--title"> User</p>
+                    <p class="statistics--title"> Users</p>
                     <p class="statistics--number">{{usersTotal}}</p>
                 </div>
             </div>
