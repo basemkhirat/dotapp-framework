@@ -1,7 +1,7 @@
 
 const GlobalSettings = {
     state: {
-        menuTheme: localStorage.getItem('menuTheme') ? localStorage.getItem('menuTheme') : 'vertical'
+        menuTheme: localStorage.getItem('menuTheme') ? localStorage.getItem('menuTheme') : 'horizontal'
     },
     getters: {
 
