@@ -7,7 +7,7 @@ import Config from '~/services/config';
 
 mongoose.plugin(mongooseAutoPopulate);
 mongoose.plugin(mongooseSlugUpdater);
-mongoose.plugin(mongooseIntl, { languages: ['en', 'ar'], defaultLanguage: Config.get("i18n.defaultLocale") });
+mongoose.plugin(mongooseIntl, {languages: ['en', 'ar'], defaultLanguage: Config.get("i18n.defaultLocale")});
 
 mongoose.plugin(function (schema) {
 
@@ -23,19 +23,40 @@ mongoose.plugin(function (schema) {
 
     schema.query.execWithCount = function (callback) {
 
-        return this.exec((error, docs) => {
-            if (error) return callback(error);
+        if (this.options.limit === 0) {
 
             this.limit(undefined).skip(undefined).sort(undefined);
 
-            this.countDocuments((error, total) => {
+            return this.countDocuments((error, total) => {
                 if (error) return callback(error);
+
                 callback(null, {
                     total: total,
-                    docs: docs
+                    docs: []
                 })
             });
-        });
+
+        } else {
+
+
+            return this.exec((error, docs) => {
+                if (error) return callback(error);
+
+                this.limit(undefined).skip(undefined).sort(undefined);
+
+                this.countDocuments((error, total) => {
+                    if (error) return callback(error);
+
+                    callback(null, {
+                        total: total,
+                        docs: docs
+                    })
+                });
+            });
+
+        }
+
+
     };
 
     /**
