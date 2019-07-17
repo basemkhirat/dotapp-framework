@@ -3,7 +3,8 @@ import faker from 'faker';
 
 let event = {
     title: faker.company.companyName(),
-    type: "free"
+    place: "5d2c782c63a44d713664a600",
+    scheduled_at: "2099-07-08T18:15:46.829+02:00"
 };
 
 describe("Event", function () {
