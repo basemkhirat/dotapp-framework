@@ -197,7 +197,6 @@ export default {
   created() {
     this.$emit("setDataFromChild", this.postInfo);
     this.fetchAllCategories();
-    this.fetchAllAuthors();
   },
   methods: {
     // Send Data To Parent

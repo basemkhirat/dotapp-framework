@@ -8,7 +8,7 @@
 
 html,
 body {
-    background-color: #f5f6fa;
+    background-color: #F8F8F8;
     font-family: $mainFont;
 
 }
@@ -480,6 +480,86 @@ a,
         opacity: 1;
     }
 }
+
+
+.widget--wrapper{
+    text-align: center;
+    padding: 30px;
+    .card--content{
+        margin-top: 0;
+        padding: 0 !important;
+    }
+    .widget--icon{
+        width: 60px;
+        height: 60px;
+        line-height: 60px;
+        border-radius: 50%;
+        display: inline-block;
+        text-align: center;
+        margin: 0 auto 15px;
+        font-size: 24px;
+    }
+    .widget--number{
+        font-size: 34px;
+        color: #2d2f39;
+        line-height: 54px;
+        letter-spacing: .86px;
+        font-weight: 900;
+    }
+    .widget--title {
+        color: $textColor;
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+}
+
+.list--statistics{
+    display: flex;
+    align-items: center;
+    .statistics--content{
+        display: flex;
+        align-items: center;
+    }
+    .list-statistics-item{
+        margin-left: 30px;
+        &:first-child{
+            margin-left: 0;
+        }
+        @media #{$xs}{
+            margin-left: 20px;
+        }
+    }
+    .statistics--icon{
+        width: 45px;
+        height: 45px;
+        line-height: 45px;
+        border-radius: 50%;
+        display: inline-block;
+        text-align: center;
+        margin-right: 8px;
+        font-size: 18px;
+        @media #{$xs}{
+            width: 40px;
+            height: 40px;
+            margin-right: 5px;
+        }
+    }
+    .statistics--number{
+        font-size: 15px;
+        color: #2d2f39;
+        letter-spacing: .86px;
+        font-weight: 900;
+    }
+    .statistics--title {
+        color: $textColor;
+        font-size: 13px;
+        margin-bottom: 0;
+    }
+}
+
+
+
 
 .pagination--custom--number {
     ul {

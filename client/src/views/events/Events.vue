@@ -71,7 +71,7 @@
                 allItemsSelected: false,
                 allItemChecked: 0,
                 page: 1,
-                limit: 10,
+                limit: 1,
                 order: 'is-centered',
                 dataLoading: true,
                 breadcrumb: [{
@@ -80,6 +80,7 @@
                 }]
             };
         },
+
         components: {
             List,
             FilterItems,

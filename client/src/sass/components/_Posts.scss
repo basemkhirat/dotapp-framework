@@ -183,3 +183,90 @@
 }
 
 
+.table--feed{
+    tr{
+        padding: 10px 0;
+    }
+    .thumbnail--post--content{
+        max-width: 120px;
+        @media #{$mwsm}{
+            max-width: 200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+    .thumbnail--post{
+        width: 100%;
+        height: 60px;
+        background-color: #f7f7f7;
+        @media #{$mwsm}{
+            height: 120px;
+        }
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+    .post--date{
+        color: #666;
+        margin-top: 5px;
+        font-size: 14px;
+    }
+    .post--title{
+        font-size: 14px;
+        font-weight: 500;
+        color: $textColor;
+        a{
+            display: block;
+        }
+    }
+    a{
+        color: $textColor;
+        &:hover{
+            color: $mainColor;
+        }
+
+    }
+
+    .table td, .table th {
+        padding: .9em 0.75em;
+        vertical-align: middle;
+    }
+    .text--title{
+        font-size: 14px;
+    }
+    .created--by{
+        color: #666;
+        min-width: 120px;
+        justify-content: center;
+    }
+}
+
+.no--header{
+    .table{
+        thead{
+            display: none !important;
+        }
+    }
+}
+
+.card--feed{
+    .card-header{
+        background-color: #203054;
+        color: #fff;
+        border-radius: 5px 6px 0 0;
+        .card-header-title{
+            color: #fff;
+            padding: 15px 15px;
+            .icon{
+                font-size: 18px;
+                width: 40px;
+            }
+        }
+    }
+    .loading--data,
+    .card--nodata{
+        border: 0 !important;
+    }
+}

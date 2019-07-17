@@ -2,7 +2,7 @@
 // Buttons
 .button{
     font-family: $mainFont;
-    font-weight: 700;
+    font-weight: 500;
     align-self: flex-start;
     -ms-flex-item-align: start;
     position: relative;
@@ -15,7 +15,7 @@
     transition: background-color .25s ease-out;
     // color: #fff;
     height: auto;
-    font-size: 15px;
+    font-size: 14px;
 }
 button{
     outline: 0;

@@ -24,9 +24,8 @@
          }
      }
      .menu--scroll{
-         height:calc(100vh - 90px); 
+         height:calc(100vh - 90px);
      }
-     
 
      .wrap--upper--nav{
         padding: 10px 10px;
@@ -59,7 +58,7 @@
             margin-left: 20px;
         }
      }
- 
+
      .navbar-item {
          margin: 5px 0;
          font-size: 15px;
@@ -77,19 +76,18 @@
          background-color: initial;
          -webkit-transition: all .3s linear;
          transition: all .3s linear;
- 
          i{
              margin-right: 10px;
-             font-size: 18px;
+             font-size: 16px;
              color: #596376;
-             width: 34px;
+             width: 30px;
              display: inline-block;
              text-align: center;
          }
          .icon--dropdown--item{
              i{
                  width: auto;
- 
+
              }
              margin-left: auto;
          }
@@ -131,11 +129,11 @@
              display: inline-block;
              text-align: center;
          }
-         
+
      }
      .menu--dropdown{
          @include prefixer(transition, all .25s ease-in-out, webkit moz o);
-        
+
          .item--has--submenu{
              display: flex;
              @include prefixer(transition, all .25s ease-in-out, webkit moz o);
@@ -165,7 +163,7 @@
                      &:hover{
                          opacity: .8;
                      }
-                     
+
                  }
              }
          }
@@ -193,7 +191,7 @@
         .head-logo{
             display: none;
         }
-    } 
+    }
     .menu--dropdown {
         position: relative;
         &:hover{
@@ -224,7 +222,7 @@
         }
     }
  }
- 
+
  .overlay--sidebar{
      position: fixed;
      top: 0;
@@ -236,7 +234,7 @@
      background-color: rgba(0, 0, 0, .7);
      @include prefixer(transition, all .25s ease-in-out, webkit moz o);
  }
- 
+
  .btn-open--sidebar,
  .btn-close--sidebar {
      font-size: 28px;
@@ -250,7 +248,7 @@
  .btn-close--sidebar {
      display: none;
  }
- 
+
  body.sidebarOpen{
      height: 100vh;
      overflow: hidden;
@@ -267,7 +265,7 @@
      @include prefixer(transition, all .25s ease-in-out, webkit moz o);
  }
 
- 
+
  // Responsive
  @media (max-width: 1199.98px) {
      .main--sidebar {
@@ -276,11 +274,9 @@
      .btn-open--sidebar{
          display: inline-block;
      }
-
-
     .is--mainSidebar--open{
         box-shadow: 1px 1px 5px rgba(255, 255, 255, .1) !important;
-        
+
         .main--sidebar {
             left: 0;
         }
@@ -298,6 +294,6 @@
             display: inline-block;
         }
     }
-    
-     
+
+
  }
