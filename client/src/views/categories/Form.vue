@@ -145,14 +145,14 @@
                     data.parent = this.$route.query.parentId
                 }
 
-                if (this.name) {
-                    this.isLoading = true
-                    if (this.$route.params.id) {
-                        this.updateCategory(this.$route.params.id, data)
-                    } else {
-                        this.newCategory(data)
-                    }
+
+                this.isLoading = true
+                if (this.$route.params.id) {
+                    this.updateCategory(this.$route.params.id, data)
+                } else {
+                    this.newCategory(data)
                 }
+
             },
 
             async newCategory(data) {
