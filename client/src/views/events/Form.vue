@@ -129,7 +129,7 @@
                 data.scheduled_at = this.postInfo.eventDate
                 data.price = this.postInfo.price
                 data.currency = this.postInfo.currency
-                data.address = this.postInfo.address
+                data.place = this.postInfo.place
                 data.map = this.postInfo.map
                 data.type = this.postInfo.type
 

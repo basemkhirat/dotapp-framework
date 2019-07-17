@@ -9,6 +9,7 @@ import eventsRepository from "./eventsRepository";
 import blocksRepository from "./blocksRepository";
 import authorsRepository from "./authorsRepository";
 import pagesRepository from "./pagesRepository";
+import placesRepository from "./placesRepository";
 
 const repositories = {
     users: usersRepository,
@@ -22,6 +23,7 @@ const repositories = {
     blocks: blocksRepository,
     authors: authorsRepository,
     pages: pagesRepository,
+    places: placesRepository,
 };
 
 export const RepositoryFactory = {
