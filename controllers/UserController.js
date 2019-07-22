@@ -59,7 +59,7 @@ export default class extends Controller {
      */
     findOne(req, res) {
 
-        //if (!req.can("user.view")) return res.forbidden();
+        if (!req.can("user.view")) return res.forbidden();
 
         let id = req.param("id");
 

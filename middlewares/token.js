@@ -12,7 +12,7 @@ export default function () {
         req.token = false;
         req.user = false;
         req.permissions = [];
-        req.policies = {};
+        req.policies = custom_policies;
         req.can = Auth.can.bind({req});
         req.hasPermission = Auth.hasPermission.bind({req});
         req.getUser = Auth.getUser.bind({req});
