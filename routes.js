@@ -49,7 +49,6 @@ export default {
                                 handler: "UserController.find"
                             },
                             "GET /:id": {
-                                middleware: ["authenticate"],
                                 handler: "UserController.findOne"
                             },
                             "PUT /:id": {
