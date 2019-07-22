@@ -2,7 +2,9 @@ export default {
 
     user: {
 
-        view: true,
+        view: function () {
+            return true;
+        },
 
         /**
          * users allowed to update:
