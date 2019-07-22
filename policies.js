@@ -2,6 +2,8 @@ export default {
 
     user: {
 
+        view: true,
+
         /**
          * users allowed to update:
          * - super admins
@@ -14,7 +16,7 @@ export default {
 
         update(req, user = false) {
 
-            if(!user){
+            if (!user) {
                 return false
             }
 
@@ -22,7 +24,7 @@ export default {
                 return true;
             }
 
-            if(req.hasPermission("user.update")){
+            if (req.hasPermission("user.update")) {
                 return true;
             }
         },
@@ -83,7 +85,7 @@ export default {
 
         delete(req, user = false) {
 
-            if(!user){
+            if (!user) {
                 return false;
             }
 
@@ -91,7 +93,7 @@ export default {
                 return false;
             }
 
-            if(req.hasPermission("user.delete")){
+            if (req.hasPermission("user.delete")) {
                 return true;
             }
         }
