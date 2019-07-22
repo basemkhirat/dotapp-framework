@@ -110,8 +110,8 @@ export default class extends Controller {
         Event.findById(id)
             .populate("categories")
             .populate("tags")
-            .populate("user")
             .populate("media")
+            .populate({path: "user", populate: {path: "photo"}})
             .populate({path: "place", populate: {path: "parent", populate: {path: "parent"}}})
             .exec((error, event) => {
                 if (error) return res.serverError(error);
@@ -142,8 +142,8 @@ export default class extends Controller {
         Event.where("slug", slug).findOne()
             .populate("categories")
             .populate("tags")
-            .populate("user")
             .populate("media")
+            .populate({path: "user", populate: {path: "photo"}})
             .populate({path: "place", populate: {path: "parent", populate: {path: "parent"}}})
             .exec((error, event) => {
                 if (error) return res.serverError(error);
