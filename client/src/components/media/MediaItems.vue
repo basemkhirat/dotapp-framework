@@ -361,18 +361,20 @@
                 })
             },
             confirmCustomSetImage(item) {
-                this.$dialog.confirm({
-                    title: 'Select Item',
-                    message: 'Are you sure you want to <b>select</b> this item? This action cannot be undone.',
-                    confirmText: 'Select Image',
-                    type: 'is-primary',
-                    icon: 'information-outline',
-                    hasIcon: true,
-                    onConfirm: () => {
-                        this.$store.commit('setItemSelected', item)
-                        this.$store.commit('openMediaImage')
-                    }
-                })
+                // this.$dialog.confirm({
+                //     title: 'Select Item',
+                //     message: 'Are you sure you want to <b>select</b> this item? This action cannot be undone.',
+                //     confirmText: 'Select Image',
+                //     type: 'is-primary',
+                //     icon: 'information-outline',
+                //     hasIcon: true,
+                //     onConfirm: () => {
+                //         this.$store.commit('setItemSelected', item)
+                //         this.$store.commit('openMediaImage')
+                //     }
+                // })
+                this.$store.commit('setItemSelected', item)
+                this.$store.commit('openMediaImage')
             },
 
             aleartMessage(textMessage) {
