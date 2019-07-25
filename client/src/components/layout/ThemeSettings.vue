@@ -2,16 +2,16 @@
     <div>
         <div class="theme--settings" :class="{'openTheme' : widgetThemeSetting}">
             <div class="item--setting">
-                <label class="label">Menu</label>
+                <label class="label">{{lang.themeSettings.menu}}</label>
                 <b-field class="justify-content-center">
                     <b-radio-button v-model="menuTheme"
                         native-value="vertical">
-                        Vertical
+                        {{lang.themeSettings.vertical}}
                     </b-radio-button>
 
                     <b-radio-button v-model="menuTheme"
                         native-value="horizontal">
-                        Horizontal
+                        {{lang.themeSettings.horizontal}}
                     </b-radio-button>
                 </b-field>
 
@@ -25,6 +25,8 @@
 
 <script>
 import {mapState} from 'vuex'
+import { LangAR, LangEN } from "./../../helpers/Lang";
+
 export default {
     data(){
         return {
@@ -37,8 +39,16 @@ export default {
     },
     computed:{
         ...mapState({
+            userData: state => state.login.userData,
             manuThemeState: state => state.globalSettings.menuTheme,
-        })
+        }),
+        lang() {
+                if(this.userData.lang === 'ar'){
+                    return LangAR
+                } else {
+                    return LangEN
+                }
+            }
     },
     mounted(){
         if(this.manuThemeState){

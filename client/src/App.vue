@@ -22,6 +22,7 @@ export default {
     }
   },
   created(){
+    document.body.classList.add('lang--ar')
   }
 }
 </script>

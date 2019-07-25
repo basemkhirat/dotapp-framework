@@ -5,7 +5,7 @@
                 <div class="row align-items-center h-100">
                     <div class="col-6 col-md-9 d-flex align-items-center">
                         <div class="nav--brand" v-if="menuTheme === 'horizontal'">
-                            Dashboard
+                            {{lang.header.dashboardName}}
                         </div>
                         <template v-if="menuTheme === 'vertical'">
                             <div class="btn-open--sidebar" @click="navMenuOpen">
@@ -56,16 +56,16 @@
                                         <img src="../../assets/images/user/user-64.png" alt="user name" v-else>
                                     </a>
                                     <b-dropdown-item custom>
-                                        Logged as <b>{{userData.first_name}} {{userData.last_name}}</b>
+                                         <b>{{userData.first_name}} {{userData.last_name}}</b>
                                     </b-dropdown-item>
                                     <hr class="dropdown-divider">
                                     <b-dropdown-item @click="goToSettings()">
                                         <b-icon pack="fa" icon="cog"></b-icon>
-                                        Profile
+                                        {{lang.header.profile}}
                                     </b-dropdown-item>
                                     <b-dropdown-item @click="logout()">
                                         <b-icon pack="fa" icon="sign-out-alt"></b-icon>
-                                        Logout
+                                        {{lang.header.logout}}
                                     </b-dropdown-item>
                                 </b-dropdown>
                             </li>
@@ -91,6 +91,7 @@
     import Search from '../search/Search'
     import ThemeSettings from './ThemeSettings'
     import MainMenuHorizontal from './MainMenuHorizontal'
+    import {LangAR, LangEN} from './../../helpers/Lang'
     import {
         mapState
     } from 'vuex';
@@ -111,7 +112,15 @@
             ...mapState({
                 userData: state => state.login.userData,
                 menuTheme: state => state.globalSettings.menuTheme,
-            })
+            }),
+
+            lang() {
+                if(this.userData.lang === 'ar'){
+                    return LangAR
+                } else {
+                    return LangEN
+                }
+            }
         },
         created() {
             this.$store.dispatch('fetchUserData');

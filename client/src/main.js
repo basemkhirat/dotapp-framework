@@ -42,12 +42,6 @@ Vue.use(VueScrollTo, {
 // config file with base endpoint url
 axios.defaults.baseURL = process.env.APP_URL + '/api';
 
-const  accessToken  =  localStorage.getItem("token");
-
-if (accessToken) {
-    axios.defaults.headers.common['Authorization'] = "Bearer " + accessToken
-}
-
 // Check User Is Authorized
 axios.interceptors.response.use((response) => {
     return response
@@ -58,6 +52,20 @@ axios.interceptors.response.use((response) => {
     }
     return Promise.reject(error.response);
 });
+
+const  accessToken  =  localStorage.getItem("token");
+
+const  userData  =  JSON.parse(localStorage.getItem("userData"));
+
+if (accessToken) {
+    axios.defaults.headers.common['Authorization'] = "Bearer " + accessToken
+}
+// Set User Lang
+if (userData) {
+    axios.defaults.headers["accept-language"] = userData.lang;
+} else {
+    axios.defaults.headers["accept-language"] = 'ar';
+}
 
 
 // Vue Mixins
