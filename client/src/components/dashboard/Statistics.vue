@@ -6,7 +6,7 @@
                     <i class="far fa-user"></i>
                 </span>
                 <div class="text-center">
-                    <p class="statistics--title"> Users</p>
+                    <p class="statistics--title"> {{$t('pages.dashboard.statistics.users')}}</p>
                     <p class="statistics--number">{{usersTotal}}</p>
                 </div>
             </div>
@@ -17,7 +17,7 @@
                     <i class="far fa-newspaper"></i>
                 </span>
                 <div class="text-center">
-                    <p class="statistics--title"> Posts</p>
+                    <p class="statistics--title"> {{$t('pages.dashboard.statistics.posts')}}</p>
                     <p class="statistics--number">{{postsTotal}}</p>
                 </div>
             </div>
@@ -28,7 +28,7 @@
                     <i class="far fa-calendar-alt"></i>
                 </span>
                 <div class="text-center">
-                    <p class="statistics--title"> Events</p>
+                    <p class="statistics--title"> {{$t('pages.dashboard.statistics.events')}}</p>
                     <p class="statistics--number">{{eventsTotal}}</p>
                 </div>
             </div>

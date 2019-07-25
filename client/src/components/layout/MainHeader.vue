@@ -5,7 +5,7 @@
                 <div class="row align-items-center h-100">
                     <div class="col-6 col-md-9 d-flex align-items-center">
                         <div class="nav--brand" v-if="menuTheme === 'horizontal'">
-                            {{lang.header.dashboardName}}
+                            {{$t('header.dashboardName')}}
                         </div>
                         <template v-if="menuTheme === 'vertical'">
                             <div class="btn-open--sidebar" @click="navMenuOpen">
@@ -61,11 +61,11 @@
                                     <hr class="dropdown-divider">
                                     <b-dropdown-item @click="goToSettings()">
                                         <b-icon pack="fa" icon="cog"></b-icon>
-                                        {{lang.header.profile}}
+                                        {{$t('header.profile')}}
                                     </b-dropdown-item>
                                     <b-dropdown-item @click="logout()">
                                         <b-icon pack="fa" icon="sign-out-alt"></b-icon>
-                                        {{lang.header.logout}}
+                                        {{$t('header.logout')}}
                                     </b-dropdown-item>
                                 </b-dropdown>
                             </li>
@@ -91,7 +91,6 @@
     import Search from '../search/Search'
     import ThemeSettings from './ThemeSettings'
     import MainMenuHorizontal from './MainMenuHorizontal'
-    import {LangAR, LangEN} from './../../helpers/Lang'
     import {
         mapState
     } from 'vuex';
@@ -114,14 +113,8 @@
                 menuTheme: state => state.globalSettings.menuTheme,
             }),
 
-            lang() {
-                if(this.userData.lang === 'ar'){
-                    return LangAR
-                } else {
-                    return LangEN
-                }
-            }
         },
+
         created() {
             this.$store.dispatch('fetchUserData');
         },

@@ -86,16 +86,15 @@ export default {
         ...mapState({
             userData: state => state.login.userData,
             role: state => state.login.userDataPermission
-        }),
-
+        })
     },
     mounted() {
         if (this.userData.lang === "ar") {
-            this.lang =  LangAR;
-            this.setMenuItems()
+            this.lang = LangAR;
+            this.setMenuItems();
         } else {
-            this.lang =  LangEN;
-            this.setMenuItems()
+            this.lang = LangEN;
+            this.setMenuItems();
         }
     },
     watch: {
@@ -112,8 +111,7 @@ export default {
     methods: {
         // Set Menu Items
         setMenuItems() {
-
-           this.AsideLinks = [
+            this.AsideLinks = [
                 {
                     name: this.lang.menuItems.dashboard,
                     link: "/",
@@ -188,8 +186,8 @@ export default {
                         }
                     ]
                 }
-            ]
-            this.checkLinksRole()
+            ];
+            this.checkLinksRole();
         },
         checkLinksRole() {
             this.links = [];

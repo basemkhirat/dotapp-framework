@@ -14,6 +14,10 @@ import App from './App.vue'
 // Main Style
 import './sass/core.scss';
 
+// Language Plugin
+import VueI18n from 'vue-i18n'
+Vue.use(VueI18n)
+import {LangAR, LangEN}  from './helpers/Lang'
 
 import Buefy from 'buefy'
 Vue.use(Buefy)
@@ -63,9 +67,28 @@ if (accessToken) {
 // Set User Lang
 if (userData) {
     axios.defaults.headers["accept-language"] = userData.lang;
+    if(userData.lang === 'ar') {
+        document.body.classList.add('lang--ar')
+    } else {
+        document.body.classList.remove('lang--ar')
+    }
 } else {
+    document.body.classList.add('lang--ar')
     axios.defaults.headers["accept-language"] = 'ar';
 }
+
+// Ready translated locale messages
+const language = {
+    en: LangEN,
+    ar: LangAR
+  }
+
+  // Create VueI18n instance with options
+  const i18n = new VueI18n({
+    locale: userData ? userData.lang : 'ar',
+    messages: language,
+  })
+
 
 
 // Vue Mixins
@@ -139,7 +162,7 @@ Vue.component('breadcrumb', {
     <nav class="breadcrumb has-arrow-separator custom--breadcrumb " aria-label="breadcrumbs">
         <ul>
             <li>
-                <router-link class="is--link" to="/">Backend</router-link>
+                <router-link class="is--link" to="/">{{$t('dashboardName')}}</router-link>
             </li>
             <li v-for="(link , index) in links" :key="index">
                 <router-link class="is--link" v-if="link.link" :to="link.link">{{link.label}}</router-link>
@@ -211,5 +234,6 @@ Vue.component('noData', {
 new Vue({
   router,
   store,
+  i18n,
   render: h => h(App)
 }).$mount('#app')

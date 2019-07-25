@@ -6,7 +6,7 @@
                 <span class="icon">
                     <i class="far fa-newspaper"></i>
                 </span>
-                Latest Posts
+                {{$t('pages.dashboard.latestPosts')}}
             </p>
         </div>
 
@@ -62,8 +62,12 @@
                         </b-table-column>
                         <b-table-column centered>
                             <div class="text--title">
-                                <b-tag type="is-success" v-if="props.row.status === 1">Published</b-tag>
-                                <b-tag type="is-danger" v-else>Not Published</b-tag>
+                                <b-tag type="is-success" v-if="props.row.status === 1">
+                                    {{$t('published')}}
+                                </b-tag>
+                                <b-tag type="is-danger" v-else>
+                                    {{$t('notPublished')}}
+                                </b-tag>
                             </div>
                         </b-table-column>
                         <b-table-column centered>

@@ -5,7 +5,9 @@
             <div class="wrap--content">
                 <div class="page--title">
                     <div>
-                        <h1 class="title--text">Dashboard</h1>
+                        <h1 class="title--text">
+                            {{$t('pages.dashboard.pageName')}}
+                        </h1>
 
                         <!-- Breadcrumb -->
                         <breadcrumb :links="breadcrumb" />
@@ -22,6 +24,7 @@
             <div class="row justify-content-center">
                 <!-- Start Widget -->
                 <div class="col-12 col-sm-12 col-md-8 ">
+
 
                     <!-- Posts Card -->
                     <posts-card />
@@ -58,7 +61,7 @@ export default {
             breadcrumb: [
                 {
                     link: "",
-                    label: "dashboard"
+                    label: this.$t('pages.dashboard.breadcrumb[0]')
                 }
             ]
         };

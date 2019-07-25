@@ -6,7 +6,7 @@
                 <span class="icon">
                     <i class="far fa-calendar-alt"></i>
                 </span>
-                Latest Events
+                {{$t('pages.dashboard.latestEvents')}}
             </p>
         </div>
 
@@ -62,8 +62,12 @@
                         </b-table-column>
                         <b-table-column centered>
                             <div class="text--title">
-                                <b-tag type="is-success" v-if="props.row.status === 1">Published</b-tag>
-                                <b-tag type="is-danger" v-else>Not Published</b-tag>
+                                <b-tag type="is-success" v-if="props.row.status === 1">
+                                    {{$t('published')}}
+                                </b-tag>
+                                <b-tag type="is-danger" v-else>
+                                    {{$t('notPublished')}}
+                                </b-tag>
                             </div>
                         </b-table-column>
 
@@ -80,8 +84,12 @@
                                 class="block--item--title d-flex align-items-center justify-content-center item--text"
                             >
                                 <div class="text--title">
-                                    <b-tag type="is-warning" v-if="props.row.type === 'free'">Free</b-tag>
-                                    <b-tag type="is-info" v-else>Paid</b-tag>
+                                    <b-tag type="is-warning" v-if="props.row.type === 'free'">
+                                        {{$t('free')}}
+                                    </b-tag>
+                                    <b-tag type="is-info" v-else>
+                                        {{$t('paid')}}
+                                    </b-tag>
                                 </div>
                             </div>
                         </b-table-column>
