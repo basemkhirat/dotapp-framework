@@ -7,7 +7,7 @@
                         <button class="button w-100"
                               :class="{'is-primary' : checkItem && allItemChecked.length}"
                               @click="selectAllItems">
-                              Select All
+                             {{$t('selectAll')}}
                          </button>
                     </div>
                 </div>
@@ -16,7 +16,7 @@
                 <div class="filter--items--right">
                     <div class="input--fuild">
                         <div class="search icon--right">
-                            <b-input placeholder="Search..." type="search" icon-pack="fa" icon="search" v-model="searchQuery">
+                            <b-input :placeholder="$t('search') + '...'" type="search" icon-pack="fa" icon="search" v-model="searchQuery">
                             </b-input>
                         </div>
                     </div>

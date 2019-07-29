@@ -6,11 +6,11 @@
                     <div class="input--fuild">
                         <button class="button w-100" :class="{'is-primary' : checkItem && allItemChecked.length}"
                             @click="selectAllItems">
-                            Select All
+                            {{$t('selectAll')}}
                         </button>
                     </div>
                     <div class="input--fuild">
-                        <v-select :options="groups" v-model="group" label="name" placeholder="Sort By Group"
+                        <v-select :options="groups" v-model="group" label="name" :placeholder="$t('sorByGroup')"
                             class="select--with--icon w-100 v--select--scroll">
                             <template slot="option" slot-scope="option">
                                 {{ option.name }}
@@ -18,7 +18,8 @@
                         </v-select>
                     </div>
                     <div class="input--fuild">
-                        <v-select :options="allStatus" v-model="status" label="name" placeholder="Sort By Status"
+                        <v-select :options="allStatus" v-model="status" label="name"
+                        :placeholder="$t('sorByStatus')"
                             class="select--with--icon w-100 v--select--scroll w-fuild-md">
                             <template slot="option" slot-scope="option">
                                 {{ option.name }}
@@ -31,7 +32,7 @@
                 <div class="filter--items--right">
                     <div class="input--fuild">
                         <div class="search icon--right">
-                            <b-input placeholder="Search..." type="search" icon-pack="fa" icon="search"
+                            <b-input :placeholder="$t('search') + '...'" type="search" icon-pack="fa" icon="search"
                                 v-model="searchQuery">
                             </b-input>
                         </div>
@@ -64,10 +65,10 @@
                 status: '',
                 allStatus: [{
                     id: '1',
-                    name: 'Active'
+                    name: this.$t('active')
                 }, {
                     id: '0',
-                    name: 'Not Active'
+                    name: this.$t('notActive')
                 }],
             }
         },

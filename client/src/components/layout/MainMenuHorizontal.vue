@@ -69,7 +69,7 @@
 
 <script>
 import { mapState } from "vuex";
-import { LangAR, LangEN } from "./../../helpers/Lang";
+import { LangAR, LangEN } from "./../../helpers/lang/Lang";
 
 export default {
     data() {

@@ -34,7 +34,7 @@
 
                         <div class="col-12 text-center button--save--form ">
                             <button class="button is-primary "
-                                :class="{'is-loading': isLoading}">{{this.$route.params.id ? 'Save Changes' : 'Add Tag'}}</button>
+                                :class="{'is-loading': isLoading}">{{this.$route.params.id ? $t('saveChanges') : 'Add Tag'}}</button>
                         </div>
                     </form>
                 </div>

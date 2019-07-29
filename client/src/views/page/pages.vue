@@ -7,7 +7,7 @@
                 <div class="page--title">
                     <div>
                         <h1 class="title--text">
-                            Pages
+                            {{$t('pages')}}
                             <span class="badge--count" v-if="total">
                                 ({{total}})
                             </span>

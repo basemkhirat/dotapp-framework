@@ -124,7 +124,7 @@
             class="button is-primary m-1"
             @click="saveChanges()"
             :class="{'is-loading': isLoading}"
-          >Save Changes</button>
+          >{{$t('saveChanges')}}</button>
           <button class="button is-dark m-1" @click="canceleBlock()">Cancel</button>
         </div>
       </template>

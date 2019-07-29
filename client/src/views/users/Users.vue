@@ -7,7 +7,7 @@
                 <div class="page--title">
                     <div>
                         <h1 class="title--text">
-                            Users
+                            {{$t('users')}}
                             <span class="badge--count" v-if="total">
                                 ({{total}})
                             </span>
@@ -17,7 +17,7 @@
                     </div>
 
                     <div class="page--title--action ml-auto" v-if="isInUserPermissions('user.create')">
-                        <router-link to="/userForm" class="button is-primary ">Add New User</router-link>
+                        <router-link to="/userForm" class="button is-primary ">{{$t('usersPage.addNewUser')}}</router-link>
                     </div>
                 </div>
             </div>
@@ -43,7 +43,7 @@
                 v-if="users.length"
                     :data="users" />
                 <template v-else>
-                    <no-data text="No users have been created"/>
+                    <no-data :text="$t('usersPage.messages.noData')"/>
                 </template>
             </template>
 
@@ -84,7 +84,7 @@
                 filters: {},
                 breadcrumb: [{
                     link: '',
-                    label: 'users'
+                    label: this.$t('users')
                 }]
             };
         },

@@ -7,7 +7,7 @@
                 <div class="page--title">
                     <div>
                         <h1 class="title--text">
-                            Groups
+                            {{ $t('groups')}}
                         </h1>
 
                         <!-- Breadcrumb -->
@@ -17,7 +17,7 @@
 
                     <div class="page--title--action ml-auto"
                         v-if="this.$route.params.id && isInUserPermissions('role.create')">
-                        <router-link to="/groupForm" class="button is-primary">Add New Group</router-link>
+                        <router-link to="/groupForm" class="button is-primary">{{ $t('groupsPage.addNewGroup')}}</router-link>
                     </div>
                 </div>
             </div>
@@ -34,22 +34,24 @@
                     <form class="row mt-3 justify-content-center" @submit.prevent="submitForm()">
                         <div class="col-12 col-md-10 col-lg-8 ">
                             <b-field class="field-group mb-4">
-                                <b-input type="text" placeholder="Group Name" v-model="name" />
+                                <b-input type="text" :placeholder="$t('groupName')" v-model="name" />
                             </b-field>
                         </div>
 
                         <div class="col-12 col-md-10 col-lg-8 checkbox--group permissions--items">
                             <div class="row align-items-center">
                                 <div class="col-12 col-sm-6">
-                                    <h3> Add Permissions To Group </h3>
+                                    <h3>
+                                        {{ $t('groupsPage.addPermissionsToGroup')}}
+                                    </h3>
                                 </div>
                                 <div class="col-12 col-sm-6 text-center text-sm-right">
                                     <button class="button my-3 mr-2" v-if="permissions.length" type="button"
                                         @click="unSelectAllPermissions">
-                                        Unselect All
+                                        {{$t('unselectAll')}}
                                     </button>
                                     <button class="button my-3" type="button" @click="selectAllPermissions">
-                                        Select All
+                                        {{$t('selectAll')}}
                                     </button>
 
                                 </div>
@@ -86,7 +88,7 @@
 
                         <div class="col-12 text-center button--save--form mt-0">
                             <button class="button is-primary"
-                                :class="{'is-loading': isLoading}">{{this.$route.params.id ? 'Save Changes' : 'Add Group'}}</button>
+                                :class="{'is-loading': isLoading}">{{this.$route.params.id ? $t('saveChanges') : $t('add') }}</button>
                         </div>
                     </form>
                 </div>
@@ -117,10 +119,10 @@
                 allPermissions: [],
                 breadcrumb: [{
                     link: '/groups',
-                    label: 'groups'
+                    label: this.$t('groupsPage.breadcrumb[0]')
                 }, {
                     link: '',
-                    label: 'add & update group'
+                    label: this.$t('groupsPage.breadcrumb[1]')
                 }]
 
             };

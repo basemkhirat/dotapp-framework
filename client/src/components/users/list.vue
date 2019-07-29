@@ -8,8 +8,8 @@
         <template>
             <div class="all--actions" :class="{'show--action--bottom': usersSelected.length}">
                 <div class="wrap--content">
-                    <button class="button is-warning" @click="confirmCustomUpdate()">Ban All Selected</button>
-                    <button class="button is-danger" @click="deleteItems()">Delete All Selected</button>
+                    <button class="button is-warning" @click="confirmCustomUpdate()">{{$t('banAllSelected')}}</button>
+                    <button class="button is-danger" @click="deleteItems()">{{$t('deleteAllSelected')}}</button>
                 </div>
             </div>
         </template>
@@ -111,9 +111,10 @@ export default {
         },
         confirmCustomDelete(ids) {
             this.$dialog.confirm({
-                title: 'Deleting Users',
-                message: 'Are you sure you want to <b>delete</b> All Users? This action cannot be undone.',
-                confirmText: 'Delete Users',
+                title: this.$t('usersPage.messages.deleteUsers.title'),
+                message: this.$t('usersPage.messages.deleteUsers.message'),
+                confirmText: this.$t('usersPage.messages.deleteUsers.confirmText'),
+                cancelText: this.$t('usersPage.messages.deleteUsers.cancelText'),
                 type: 'is-danger',
                 hasIcon: true,
                 onConfirm: () => this.deleteUsers(ids)
@@ -121,9 +122,10 @@ export default {
         },
         confirmCustomUpdate() {
             this.$dialog.confirm({
-                title: 'Ban Users',
-                message: 'Are you sure you want to <b>ban</b> All Users? This action cannot be undone.',
-                confirmText: 'Ban Users',
+               title: this.$t('usersPage.messages.banUsers.title'),
+                message: this.$t('usersPage.messages.banUsers.message'),
+                confirmText: this.$t('usersPage.messages.banUsers.confirmText'),
+                cancelText: this.$t('usersPage.messages.banUsers.cancelText'),
                 type: 'is-primary',
                 icon: 'information-outline',
                 hasIcon: true,

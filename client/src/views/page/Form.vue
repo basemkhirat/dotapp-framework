@@ -12,7 +12,9 @@
           </div>
 
           <div class="page--title--action ml-auto">
-            <button class="button is-primary" @click="submitForm">Save Changes</button>
+            <button class="button is-primary" @click="submitForm">
+                {{$t('saveChanges')}}
+            </button>
           </div>
         </div>
       </div>
@@ -35,7 +37,8 @@
                   class="button is-primary"
                   :class="{'is-loading': isLoading}"
                   type="submit"
-                >Save Changes</button>
+                >
+                {{$t('saveChanges')}}</button>
               </div>
             </div>
           </div>

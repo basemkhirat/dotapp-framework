@@ -31,7 +31,7 @@
                     </div>
                     <div class="col-12 col-md">
                          <div class="search">
-                              <b-input placeholder="Search..."
+                              <b-input :placeholder="$t('search') + '...'"
                                    type="search"
                                    icon-pack="fa"
                                    icon="search">

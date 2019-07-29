@@ -6,7 +6,7 @@
                 <span class="icon">
                     <i class="far fa-calendar-alt"></i>
                 </span>
-                {{$t('pages.dashboard.latestEvents')}}
+                {{$t('dashboardPage.latestEvents')}}
             </p>
         </div>
 

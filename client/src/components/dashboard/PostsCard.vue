@@ -6,7 +6,7 @@
                 <span class="icon">
                     <i class="far fa-newspaper"></i>
                 </span>
-                {{$t('pages.dashboard.latestPosts')}}
+                {{$t('dashboardPage.latestPosts')}}
             </p>
         </div>
 

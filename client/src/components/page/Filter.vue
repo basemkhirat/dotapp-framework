@@ -32,7 +32,7 @@
                     </div>
                     <div class="input--fuild">
                         <div class="search icon--right">
-                            <b-input placeholder="Search..." type="search" icon-pack="fa" icon="search"
+                            <b-input :placeholder="$t('search') + '...'" type="search" icon-pack="fa" icon="search"
                                 v-model="searchQuery">
                             </b-input>
                         </div>

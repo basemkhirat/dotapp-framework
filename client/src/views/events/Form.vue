@@ -16,7 +16,8 @@
                     <div class="page--title--action ml-auto">
                         <button class="button is-primary"
                         :class="{'is-loading': isLoading}"
-                        @click="submitForm">Save Changes</button>
+                        @click="submitForm">
+                        {{$t('saveChanges')}}</button>
                     </div>
                 </div>
             </div>
@@ -33,7 +34,8 @@
                             <!-- Main Button Save On Desktop Screen -->
                             <div class="text-center button--save--form d-none d-lg-block">
                                 <button class="button is-primary" :class="{'is-loading': isLoading}"
-                                    type="submit">Save Changes</button>
+                                    type="submit">
+                                    {{$t('saveChanges')}}</button>
                             </div>
                         </div>
 

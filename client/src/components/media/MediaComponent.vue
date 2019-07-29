@@ -58,7 +58,9 @@
         <div class="all--actions" :class="{'show--action--bottom': itemsSelectedMedia.length}">
             <div class="wrap--content">
                 <!-- <button class="button is-warning" @click="banItems()">Ban All Selected</button> -->
-                <button class="button is-danger" @click="confirmCustomDelete()">Delete All Selected</button>
+                <button class="button is-danger" @click="confirmCustomDelete()">
+                    {{$t('deleteAllSelected')}}
+                </button>
             </div>
         </div>
 

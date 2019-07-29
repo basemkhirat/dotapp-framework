@@ -7,7 +7,7 @@
                 <div class="page--title">
                     <div>
                         <h1 class="title--text">
-                            Users
+                            {{$t('users')}}
                         </h1>
 
                         <!-- Breadcrumb -->
@@ -17,7 +17,7 @@
 
                     <div class="page--title--action ml-auto"
                         v-if="this.$route.params.id && isInUserPermissions('user.create')">
-                        <router-link to="/userForm" class="button is-primary ">Add New User</router-link>
+                        <router-link to="/userForm" class="button is-primary ">{{$t('usersPage.addNewUser')}}</router-link>
                     </div>
                 </div>
             </div>
@@ -38,30 +38,30 @@
                                             </div>
                                             <a class="button is-dark  m-2 is-small"
                                                 @click="openModalMedia('image')">
-                                                Change Photo
+                                                {{$t('changePhoto')}}
                                             </a>
                                         </div>
                                     </b-field>
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <b-field class="field-group">
-                                        <b-input   placeholder="First name" v-model="firstName" />
+                                        <b-input  :placeholder="$t('firstName')" v-model="firstName" />
                                     </b-field>
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <b-field class="field-group">
-                                        <b-input   placeholder="Last name" v-model="lastName" />
+                                        <b-input :placeholder="$t('lastName')" v-model="lastName" />
                                     </b-field>
                                 </div>
                                 <div class="col-12">
                                     <b-field class="field-group">
-                                        <b-input type="email" placeholder="User Email" v-model="email" />
+                                        <b-input type="email" :placeholder="$t('email')" v-model="email" />
                                     </b-field>
                                 </div>
 
                                 <div class="col-12" v-if="!this.$route.params.id">
                                     <b-field class="field-group">
-                                        <v-select :options="groups" v-model="group" label="name" placeholder="Group"
+                                        <v-select :options="groups" v-model="group" label="name" :placeholder="$t('group')"
                                             class="select--with--icon w-100 v--select--scroll">
                                             <template slot="option" slot-scope="option">
                                                 {{ option.name }}
@@ -71,7 +71,7 @@
                                 </div>
                                 <div class="col-12" v-else-if="policies.indexOf('user.status') > -1 && this.$route.params.id">
                                     <b-field class="field-group">
-                                        <v-select :options="groups" v-model="group" label="name" placeholder="Group"
+                                        <v-select :options="groups" v-model="group" label="name" :placeholder="$t('group')"
                                             class="select--with--icon w-100 v--select--scroll">
                                             <template slot="option" slot-scope="option">
                                                 {{ option.name }}
@@ -79,50 +79,29 @@
                                         </v-select>
                                     </b-field>
                                 </div>
-                                <!-- <div class="col-12 col-sm-6">
-                                    <template v-if="this.$route.params.id">
-                                        <b-field class="field-group text-center"
-                                            v-if="policies.indexOf('user.status') > -1">
-                                            <b-switch v-model="userStatus" true-value="Active" false-value="Not Active">
-                                                Active
-                                            </b-switch>
-                                        </b-field>
-                                    </template>
-                                    <template v-else>
-                                        <b-field class="field-group text-center">
-                                            <b-switch v-model="userStatus" true-value="Active" false-value="Not Active">
-                                                Active
-                                            </b-switch>
-                                        </b-field>
-                                    </template>
-                                </div> -->
+
                                 <div class="col-12" v-if="this.$route.params.id">
                                     <b-field class="field-group">
-                                        <span class="change--password" @click="changePassword =! changePassword">Change
-                                            Password</span>
+                                        <span class="change--password" @click="changePassword =! changePassword">
+                                            {{$t('changePassword')}}
+                                            </span>
                                     </b-field>
                                 </div>
-                                <!-- <div class="col-12">
-                                <b-field class="field-group" v-if="this.$route.params.id">
-                                    <b-input minlength="7" type="password" required placeholder="Old Password"
-                                        v-model="oldPassword" />
-                                </b-field>
-                            </div> -->
                                 <template v-if="changePassword">
                                     <div class="col-12">
                                         <b-field class="field-group">
                                             <b-input type="password"
-                                                :placeholder="this.$route.params.id ? 'New Password' : 'Password'"
+                                                :placeholder="this.$route.params.id ? this.$t('newPassword') : this.$t('password')"
                                                 v-model="password" />
                                         </b-field>
                                     </div>
                                     <div class="col-12">
                                         <b-field class="field-group">
                                             <b-input type="password"
-                                                placeholder="Confirm Password" v-model="confirmPassword" />
+                                                :placeholder="$t('confirmPassword')" v-model="confirmPassword" />
                                         </b-field>
                                         <p class="help is-danger mt-0" v-if="errorConfirmPassword">
-                                            Please fill the same password.
+                                            {{$t('usersPage.messages.samePassword')}}
                                         </p>
                                     </div>
                                 </template>
@@ -132,7 +111,7 @@
 
                         <div class="col-12 text-center button--save--form">
                             <button class="button is-primary "
-                                :class="{'is-loading': isLoading}">{{this.$route.params.id ? 'Save Changes' : 'Add User'}}</button>
+                                :class="{'is-loading': isLoading}">{{this.$route.params.id ? this.$t('saveChanges') : this.$t('add')}}</button>
                         </div>
                     </form>
                 </div>
@@ -178,10 +157,10 @@
                 limit: 100,
                 breadcrumb: [{
                     link: '/users',
-                    label: 'users'
+                    label: this.$t('usersPage.breadcrumb[0]')
                 }, {
                     link: '',
-                    label: 'add & update user'
+                    label: this.$t('usersPage.breadcrumb[1]')
                 }]
             };
         },

@@ -8,7 +8,9 @@
         <template>
             <div class="all--actions" :class="{'show--action--bottom': itemsSelected.length}">
                 <div class="wrap--content">
-                    <button class="button is-danger" @click="deleteItems()">Delete All Selected</button>
+                    <button class="button is-danger" @click="deleteItems()">
+                        {{$t('deleteAllSelected')}}
+                    </button>
                 </div>
             </div>
         </template>

@@ -107,14 +107,34 @@
 
     // Block Item
     .block--item {
+        padding: 20px 60px 15px 15px;
         .block--item--title .item--avatar--img {
             margin-right: 0;
             margin-left: 5px;
+        }
+        .item--checkbox {
+            right: 20px;
+            left: auto;
         }
 
         .icon {
             margin-left: 5px;
             margin-right: 0;
+        }
+    }
+
+    .permissions--items{
+        @media (min-width: 576px){
+            .text-sm-right {
+                text-align: left !important;
+            }
+        }
+        .checkbox--switch .switch--item{
+            direction: ltr;
+        }
+        .mr-2 {
+            margin-left: 0.5rem !important;
+            margin-right: 0 !important;
         }
     }
 
@@ -168,6 +188,24 @@
         direction: ltr;
         text-align: left;
     }
+    .dialog{
+        .media{
+            align-items: center;
+            .media-left {
+                margin-left: 1rem;
+                margin-right: 0;
+            }
+            .media-content{
+                text-align: right;
+            }
+        }
+    }
+    .notices .snackbar .action{
+        margin-right: auto;
+        margin-left: 8px;;
+    }
+
+
 
     .theme--settings {
         right: auto;
@@ -215,6 +253,10 @@
     }
     &.menuIsVertical.sidebar--mini .main--content{
         padding: 80px 100px 100px 30px;
+    }
+    .modal-card-foot .button:not(:last-child) {
+        margin-right: 0;
+        margin-left: 10px;
     }
 
 }

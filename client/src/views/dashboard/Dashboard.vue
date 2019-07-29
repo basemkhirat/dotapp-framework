@@ -6,7 +6,7 @@
                 <div class="page--title">
                     <div>
                         <h1 class="title--text">
-                            {{$t('pages.dashboard.pageName')}}
+                            {{$t('dashboardPage.pageName')}}
                         </h1>
 
                         <!-- Breadcrumb -->
@@ -61,7 +61,7 @@ export default {
             breadcrumb: [
                 {
                     link: "",
-                    label: this.$t('pages.dashboard.breadcrumb[0]')
+                    label: this.$t('dashboardPage.breadcrumb[0]')
                 }
             ]
         };

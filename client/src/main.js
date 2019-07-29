@@ -17,7 +17,7 @@ import './sass/core.scss';
 // Language Plugin
 import VueI18n from 'vue-i18n'
 Vue.use(VueI18n)
-import {LangAR, LangEN}  from './helpers/Lang'
+import {LangAR, LangEN}  from './helpers/lang/Lang.js'
 
 import Buefy from 'buefy'
 Vue.use(Buefy)

@@ -7,7 +7,7 @@
                 <div class="page--title">
                     <div>
                         <h1 class="title--text">
-                            Groups
+                            {{$t('groups')}}
                             <span class="badge--count" v-if="total">
                                 ({{total}})
                             </span>
@@ -19,7 +19,7 @@
                     </div>
 
                     <div class="page--title--action ml-auto" v-if="isInUserPermissions('role.create')">
-                        <router-link to="/groupForm" class="button is-primary">Add New Group</router-link>
+                        <router-link to="/groupForm" class="button is-primary">{{$t('groupsPage.addNewGroup')}}</router-link>
                     </div>
                 </div>
             </div>
@@ -38,7 +38,7 @@
                 <list @fetchAllItems="fetchAllItems" :allItemsSelected="allItemsSelected"
                     @checkButtonSelectAll="checkButtonSelectAll" :data="groups" v-if="groups.length" />
                 <template v-else>
-                    <no-data text="No groups have been created"/>
+                    <no-data :text="$t('groupsPage.messages.noData')"/>
                 </template>
             </template>
             <template v-if="groups.length">
@@ -77,7 +77,7 @@
                 dataLoading: true,
                 breadcrumb: [{
                     link: '',
-                    label: 'groups'
+                    label: this.$t('groupsPage.breadcrumb[0]')
                 }]
             };
         },

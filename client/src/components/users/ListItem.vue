@@ -50,7 +50,7 @@
                         <span class="icon">
                             <i class="fas fa-award"></i>
                         </span>
-                        No role
+                        {{$t('noRole')}}
                     </template>
                 </div>
             </div>
@@ -58,7 +58,7 @@
                 <div class="item--text text-md-center">
                     <div class="field" v-if="user.policies.indexOf('user.status') > -1">
                         <b-switch v-model="userStatus" true-value="Active" false-value="Not Active">
-                            Active
+                            {{$t('active')}}
                         </b-switch>
                     </div>
                 </div>
@@ -160,7 +160,6 @@
                 })
             },
 
-
             aleartMessage(textMessage){
                 this.$snackbar.open({
                     message: textMessage,
@@ -174,9 +173,10 @@
             },
             confirmCustomDelete(id) {
                 this.$dialog.confirm({
-                    title: 'Deleting User',
-                    message: 'Are you sure you want to <b>delete</b> This User? This action cannot be undone.',
-                    confirmText: 'Delete User',
+                    title: this.$t('usersPage.messages.deleteUser.title'),
+                    message: this.$t('usersPage.messages.deleteUser.message'),
+                    confirmText: this.$t('usersPage.messages.deleteUser.confirmText'),
+                    cancelText: this.$t('usersPage.messages.deleteUser.cancelText'),
                     type: 'is-danger',
                     hasIcon: true,
                     onConfirm: () => this.deleteUser(id)

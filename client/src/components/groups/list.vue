@@ -9,7 +9,7 @@
             <div class="all--actions" :class="{'show--action--bottom': itemsSelected.length}">
                 <div class="wrap--content">
                     <!-- <button class="button is-warning" @click="banItems()">Ban All Selected</button> -->
-                    <button class="button is-danger" @click="deleteItems()">Delete All Selected</button>
+                    <button class="button is-danger" @click="deleteItems()">{{$t('deleteAllSelected')}}</button>
                 </div>
             </div>
         </template>
@@ -114,9 +114,10 @@ export default {
         },
         confirmCustomDelete(ids) {
             this.$dialog.confirm({
-                title: 'Deleting Groups',
-                message: 'Are you sure you want to <b>delete</b> all Groups? This action cannot be undone.',
-                confirmText: 'Delete Groups',
+                title: this.$t('groupsPage.messages.deleteGroups.title'),
+                message: this.$t('groupsPage.messages.deleteGroups.message'),
+                confirmText: this.$t('groupsPage.messages.deleteGroups.confirmText'),
+                cancelText: this.$t('groupsPage.messages.deleteGroups.cancelText'),
                 type: 'is-danger',
                 hasIcon: true,
                 onConfirm: () => this.deleteGroups(ids)

@@ -36,7 +36,7 @@
                 </div> -->
                 <div class="col-12 col-sm-6 col-xl table--item">
                     <div class="item--text text-md-center">
-                        ({{item.permissions.length}}) Permissions
+                        ({{item.permissions.length}}) {{$t('permissions')}}
                     </div>
                 </div>
 
@@ -44,7 +44,7 @@
                     <div class="item--text text-md-center" v-if="item.policies.indexOf('role.update') > -1">
                         <div class="field">
                             <b-switch v-model="item.status" :true-value="1" :false-value="0" @input="changeStatus(item.id, item.status)">
-                                Active
+                                {{$t('active')}}
                             </b-switch>
                         </div>
                     </div>
@@ -155,9 +155,10 @@
             },
             confirmCustomDelete(id) {
                 this.$dialog.confirm({
-                    title: 'Deleting Group',
-                    message: 'Are you sure you want to <b>delete</b> This Group? This action cannot be undone.',
-                    confirmText: 'Delete Group',
+                    title: this.$t('groupsPage.messages.deleteGroup.title'),
+                    message: this.$t('groupsPage.messages.deleteGroup.message'),
+                    confirmText: this.$t('groupsPage.messages.deleteGroup.confirmText'),
+                    cancelText: this.$t('groupsPage.messages.deleteGroup.cancelText'),
                     type: 'is-danger',
                     hasIcon: true,
                     onConfirm: () => this.deleteGroup(id)

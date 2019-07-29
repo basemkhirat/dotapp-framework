@@ -84,7 +84,8 @@
 
                         <div class="col-12 text-center button--save--form">
                             <button class="button is-primary"
-                                :class="{'is-loading': isLoading}">Save Changes</button>
+                                :class="{'is-loading': isLoading}">
+                                {{$t('saveChanges')}}</button>
                         </div>
                     </form>
                 </div>
