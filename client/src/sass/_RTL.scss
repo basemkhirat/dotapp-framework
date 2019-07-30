@@ -259,4 +259,33 @@
         margin-left: 10px;
     }
 
+    .media--preview--right{
+        direction: rtl;
+        text-align: right;
+        .text-left{
+            text-align: right !important;
+        }
+        .ml-auto{
+            margin-left: 0 !important;
+            margin-right: auto !important;
+        }
+        .mr-2 {
+            margin-right: 0 !important;
+            margin-left: 0.5rem;
+        }
+    }
+    .modal--custom{
+        .text-left{
+            text-align: right !important;
+        }
+        .button.mr-2{
+            margin-right: 0 !important;
+            margin-left: 0.5rem;
+        }
+    }
+    .tag:not(body) .delete {
+        margin-right: 0.25rem;
+        margin-left: -0.375rem;
+    }
+
 }

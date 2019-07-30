@@ -5,37 +5,37 @@
                 <span class="icon">
                     <i class="fas fa-paragraph"></i>
                 </span>
-                paragraph
+                {{$t('paragraph')}}
             </li>
             <li class="menu--item" @click="setEditorType('image')">
                 <span class="icon">
                     <i class="fas fa-image"></i>
                 </span>
-                Image
+                {{$t('image')}}
             </li>
             <li class="menu--item" @click="setEditorType('gallery')">
                 <span class="icon">
                     <i class="fas fa-images"></i>
                 </span>
-                Gallery
+                {{$t('gallery')}}
             </li>
             <li class="menu--item" @click="setEditorType('video')">
                 <span class="icon">
                     <i class="fas fa-video"></i>
                 </span>
-                video
+                {{$t('video')}}
             </li>
             <li class="menu--item" @click="setEditorType('blockquote')">
                 <span class="icon">
                     <i class="fas fa-quote-right"></i>
                 </span>
-                blockquote
+                {{$t('blockquote')}}
             </li>
             <li class="menu--item" @click="setEditorType('embed')">
                 <span class="icon">
                     <i class="fas fa-link"></i>
                 </span>
-                embed
+                {{$t('embed')}}
             </li>
         </ul>
     </div>

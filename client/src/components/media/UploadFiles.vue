@@ -2,16 +2,17 @@
     <b-modal :canCancel="false" :width="580" :active.sync="uploadFileFromParent" scroll="keep" class="modal--custom">
         <div class="modal--content">
                <form @submit.prevent="submitForm">
-                    <h3>Upload</h3>
+                    <h3>{{$t('upload')}}</h3>
                     <section class="modal-card-body p-4">
-                         <b-input icon-pack="fas" icon="link" :disabled="files.length >= 1" placeholder="URL" type="url" v-model="itemLink"></b-input>
+                         <b-input icon-pack="fas" icon="link" :disabled="files.length >= 1"
+                             :placeholder="$t('url')" type="url" v-model="itemLink"></b-input>
                          <div class="text-gray py-4 text-center">
-                              Or
+                              {{$t('or')}}
                          </div>
                          <div class="text-center">
                               <button class="button is-dark" @click="uploadFiles" :disabled="itemLink.length >=1">
-                                   <span v-if="files.length">{{ files.length }} File Selected</span>
-                                   <span v-else>Select files <i class="fas fa-cloud-upload-alt ml-2"></i></span>
+                                   <span v-if="files.length">{{ files.length }} {{$t('fileSelected')}}</span>
+                                   <span v-else> {{$t('selectFiles')}}<i class="fas fa-cloud-upload-alt ml-2"></i></span>
                               </button>
                               <input type="file" multiple hidden ref="inputFiles" @input="handelFiles($event)">
                          </div>
@@ -19,8 +20,8 @@
 
                     <hr class="mt-0">
                     <div class="d-flex justify-content-center ">
-                         <button class="button is-light mr-2" type="button" @click="closeModalUploadFile({newItem: false})">Cancel</button>
-                         <button class="button is-primary" type="submit" :class="{'is-loading': isLoading}">Add</button>
+                         <button class="button is-light mr-2" type="button" @click="closeModalUploadFile({newItem: false})">{{$t('cancel')}}</button>
+                         <button class="button is-primary" type="submit" :class="{'is-loading': isLoading}">{{$t('add')}}</button>
                     </div>
                </form>
         </div>

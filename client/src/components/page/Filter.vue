@@ -6,7 +6,7 @@
                     <div class="input--fuild">
                         <button class="button w-100" :class="{'is-primary' : checkItem}"
                             @click="selectAllItems">
-                            Select All
+                            {{$t('selectAll')}}
                         </button>
                     </div>
                 </div>
@@ -23,7 +23,7 @@
                     </div>
 
                     <div class="input--fuild">
-                        <v-select :options="allStatus" v-model="status" label="name" placeholder="Sort By Status"
+                        <v-select :options="allStatus" v-model="status" label="name" :placeholder="$t('sorByStatus')"
                             class="select--with--icon w-100 v--select--scroll w-fuild-md">
                             <template slot="option" slot-scope="option">
                                 {{ option.name }}
@@ -63,10 +63,10 @@
                 filters: {categories: []},
                 allStatus: [{
                     id: '1',
-                    name: 'Published'
+                    name: this.$t('published')
                 }, {
                     id: '0',
-                    name: 'Not Published'
+                    name: this.$t('notPublished')
                 }],
                 page: 1,
                 limit: 100,

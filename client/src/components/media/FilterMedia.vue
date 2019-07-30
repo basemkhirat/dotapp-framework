@@ -2,12 +2,14 @@
      <div class="filter--media py-4">
           <div class="row align-items-center">
                <div class="col-12 col-md-7">
-                    <v-select :options="allTypes" v-model="type" label="title" class="select--with--icon v--select--scroll my-2 my-md-0" v-if="previewItemAction">
+                    <v-select :options="allTypes" v-model="type" label="title"
+                    class="select--with--icon v--select--scroll my-2 my-md-0" v-if="previewItemAction">
                          <template slot="option" slot-scope="option">
                               {{ option.title }}
                          </template>
                     </v-select>
-                    <v-select :options="orderOptions" v-model="order" label="title" class="select--with--icon ml-0 ml-md-4 v--select--scroll my-2 my-md-0">
+                    <v-select :options="orderOptions" v-model="order" label="title"
+                    class="select--with--icon ml-0 ml-md-4 v--select--scroll my-2 my-md-0">
                          <template slot="option" slot-scope="option">
                               {{ option.title }}
                          </template>
@@ -67,7 +69,7 @@ export default {
                     }
                ],
                orderOptions: order,
-               type: 'All',
+               type: this.$t('all'),
                order: 'Recent',
                filters: {},
                searchQuery: '',
@@ -113,7 +115,7 @@ export default {
         async getMediaType() {
             const types = await mediaRepository.getMediaType()
             this.allTypes = types
-            this.allTypes.unshift({title: 'All', type: 'all'})
+            this.allTypes.unshift({title: this.$t('all'), type: 'all'})
         },
      }
 }

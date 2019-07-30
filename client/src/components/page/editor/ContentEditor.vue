@@ -11,7 +11,7 @@
                 <div class="card--block" v-if="card.type === 'paragraph'">
                     <div class="card-header">
                         <p class="card-header-title card-header-title-drop">
-                            Paragraph
+                            {{$t('paragraph')}}
                         </p>
                         <a class="card-header-icon" @click="deleteCard(index)">
                             <b-icon icon="close">
@@ -29,7 +29,7 @@
                 <div class="card--block" v-if="card.type === 'blockquote'">
                     <div class="card-header">
                         <p class="card-header-title card-header-title-drop">
-                            Blockquote
+                            {{$t('blockquote')}}
                         </p>
                         <a class="card-header-icon" @click="deleteCard(index)">
                             <b-icon icon="close">
@@ -37,7 +37,7 @@
                         </a>
                     </div>
                     <div class="card--content">
-                        <b-input type="textarea" rows="4" v-model="card.content" placeholder="Blockquote" />
+                        <b-input type="textarea" rows="4" v-model="card.content" :placeholder="$t('blockquote')" />
                     </div>
                 </div>
 
@@ -45,7 +45,7 @@
                 <div class="card--block preview--iframe" v-if="card.type === 'embed'">
                     <div class="card-header">
                         <p class="card-header-title card-header-title-drop">
-                            Embed
+                            {{$t('embed')}}
                         </p>
                         <a class="card-header-icon" @click="deleteCard(index)">
                             <b-icon icon="close">
@@ -53,7 +53,7 @@
                         </a>
                     </div>
                     <div class="card--content">
-                        <b-input type="textarea" rows="2" v-model="card.content" placeholder="Content" />
+                        <b-input type="textarea" rows="2" v-model="card.content" :placeholder="$t('content')" />
                         <div v-html="card.content" class="text-center mt-3"></div>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
                 <div class="card--block" v-if="card.type === 'image'">
                     <div class="card-header">
                         <p class="card-header-title card-header-title-drop">
-                            Image
+                            {{$t('image')}}
                         </p>
                         <a class="card-header-icon" @click="deleteCard(index)">
                             <b-icon icon="close">
@@ -75,12 +75,12 @@
                             <b-field class="field-group img--preview" v-if="card.image.thumbnails">
                                 <img :src="card.image.thumbnails.large" alt="">
                                 <div class="wrap--replace--media" @click="openModalMedia({type: 'cardImage', index: index})">
-                                    <div class="btn--replace--media">Replace</div>
+                                    <div class="btn--replace--media">{{$t('replace')}}</div>
                                 </div>
                                 <a class="delete is-large btn--delete--media" @click="card.image = {}"></a>
                             </b-field>
                             <div @click="openModalMedia({type: 'cardImage', index: index})" v-else>
-                                <media-placeholder type="image" text="Browse Media" />
+                                <media-placeholder type="image" :text="$t('browseMedia')" />
                             </div>
                         </template>
                     </div>
@@ -90,7 +90,7 @@
                 <div class="card--block" v-if="card.type === 'gallery'">
                     <div class="card-header">
                         <p class="card-header-title card-header-title-drop">
-                            Gallery
+                            {{$t('gallery')}}
                         </p>
                         <a class="card-header-icon" @click="deleteCard(index)">
                             <b-icon icon="close">
@@ -105,7 +105,7 @@
                                         <b-field class="field-group img--preview" v-if="itemImg.thumbnails">
                                             <img :src="itemImg.thumbnails.large" alt="">
                                             <div class="wrap--replace--media" @click="openModalMedia({type: 'cardGallery', index: index})">
-                                                <div class="btn--replace--media">Replace</div>
+                                                <div class="btn--replace--media">{{$t('replace')}}</div>
                                             </div>
                                             <a class="delete is-large btn--delete--media" @click="card.gallery.splice(indexImg, 1)"></a>
                                         </b-field>
@@ -113,7 +113,7 @@
                                 </div>
                             </template>
                             <div @click="openModalMedia({type: 'cardGallery', index: index})" v-else>
-                                <media-placeholder type="gallery" text="Browse Media" />
+                                <media-placeholder type="gallery" :text="$t('browseMedia')" />
                             </div>
                         </template>
                     </div>
@@ -123,7 +123,7 @@
                 <div class="card--block" v-if="card.type === 'video'">
                     <div class="card-header">
                         <p class="card-header-title card-header-title-drop">
-                            Video
+                            {{$t('video')}}
                         </p>
                         <a class="card-header-icon" @click="deleteCard(index)">
                             <b-icon icon="close">
@@ -135,13 +135,13 @@
                             <b-field class="field-group img--preview" v-if="card.video.thumbnails">
                                 <img :src="card.video.thumbnails.large" alt="">
                                 <div class="wrap--replace--media" @click="openModalMedia({type: 'cardVideo', index: index})">
-                                    <div class="btn--replace--media">Replace</div>
+                                    <div class="btn--replace--media">{{$t('replace')}}</div>
                                 </div>
                                 <a class="delete is-large btn--delete--media" @click="card.video = {}"></a>
                             </b-field>
 
                             <div @click="openModalMedia({type: 'cardVideo', index: index})" v-else>
-                                <media-placeholder type="video" text="Browse Media" />
+                                <media-placeholder type="video" :text="$t('browseMedia')" />
                             </div>
                         </template>
                     </div>

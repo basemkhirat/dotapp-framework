@@ -101,7 +101,7 @@
                         <div class="col-12 col-md-4 col-xl-3 media--preview--right">
 
                              <div class="text-left">
-                                <h3 class="modal-card-title text-left">Action</h3>
+                                <h3 class="modal-card-title text-left">{{$t('action')}}</h3>
                                 <div class="active--media--items">
                                     <a class="button m-1" v-clipboard:copy="itemSelected.url"
                                         v-clipboard:success="onCopy" v-clipboard:error="onError">
@@ -110,7 +110,7 @@
                                                 <i class="fas fa-link"></i>
                                             </span>
                                         </div>
-                                        <span>Copy link</span>
+                                        <span>{{$t('copyLink')}}</span>
                                     </a>
 
                                     <a class="button m-1" target="_blank" :href="itemSelected.url">
@@ -119,7 +119,7 @@
                                                 <i class="fas fa-external-link-square-alt"></i>
                                             </span>
                                         </div>
-                                        <span>External</span>
+                                        <span>{{$t('external')}}</span>
                                     </a>
                                     <a class="button m-1" @click="btnOpenModalCrop()" v-if="itemSelected.type === 'image'">
                                         <div>
@@ -127,7 +127,7 @@
                                                 <i class="fas fa-crop"></i>
                                             </span>
                                         </div>
-                                        <span>Crop</span>
+                                        <span>{{$t('crop')}}</span>
                                     </a>
 
                                     <a class="button m-1" @click="confirmCustomDelete()">
@@ -136,7 +136,7 @@
                                                 <i class="fas fa-trash"></i>
                                             </span>
                                         </div>
-                                        <span>Delete</span>
+                                        <span>{{$t('delete')}}</span>
                                     </a>
                                 </div>
                             </div>
@@ -144,7 +144,7 @@
                             <hr class="mt-4">
 
                             <div class="text-left">
-                                <h3 class="modal-card-title text-left">Edit Item Details</h3>
+                                <h3 class="modal-card-title text-left">{{$t('editItemDetails')}}</h3>
                                 <div class="createdBy d-flex align-items-center" v-if="itemSelected.user">
                                     <div class="d-flex align-items-center">
                                         <div class="avatar mr-2">
@@ -163,57 +163,19 @@
 
                             <div class="content--edit--image mt-4">
                                 <b-field>
-                                    <b-input v-model="itemSelected.title" placeholder="Title" type="text">
+                                    <b-input v-model="itemSelected.title" :placeholder="$t('title')" type="text">
                                     </b-input>
                                 </b-field>
                                 <b-field>
-                                    <b-input placeholder="Description" v-model="itemSelected.description" rows="5"
+                                    <b-input :placeholder="$t('description')" v-model="itemSelected.description" rows="5"
                                         type="textarea"></b-input>
                                 </b-field>
 
-                                <!-- <div class="field has-addons justify-content-center">
-                                    <p class="control flex-fill">
-                                        <a class="button w-100" v-clipboard:copy="itemSelected.url"
-                                            v-clipboard:success="onCopy" v-clipboard:error="onError">
-                                            <span class="icon is-small">
-                                                <i class="fas fa-link"></i>
-                                            </span>
-                                            <span>Copy link</span>
-                                        </a>
-
-                                    </p>
-                                    <p class="control flex-fill">
-                                                <a class="button w-100">
-                                                    <span class="icon is-small">
-                                                        <i class="fas fa-crop"></i>
-                                                    </span>
-                                                    <span>Crop</span>
-                                                </a>
-                                            </p>
-                                    <p class="control flex-fill">
-                                        <a class="button w-100" target="_blank" :href="itemSelected.url">
-                                            <span class="icon is-small">
-                                                <i class="fas fa-external-link-square-alt"></i>
-                                            </span>
-                                            <span>External</span>
-                                        </a>
-                                    </p>
-                                    <p class="control flex-fill">
-                                        <a class="button w-100" @click="confirmCustomDelete()">
-                                            <span class="icon is-small">
-                                                <i class="fas fa-trash"></i>
-                                            </span>
-                                            <span>Delete</span>
-                                        </a>
-                                    </p>
-                                </div> -->
-                                <!-- <hr class="mt-0"> -->
-
                                 <div class="d-flex justify-content-center action--preview--media">
                                     <button class="button is-light mr-2" type="button"
-                                        @click="modalQuickEdit = false">Cancel</button>
+                                        @click="modalQuickEdit = false">{{$t('cancel')}}</button>
                                     <button class="button is-primary" type="submit"
-                                        :class="{'is-loading': isLoading}">Save</button>
+                                        :class="{'is-loading': isLoading}">{{$t('save')}}</button>
                                 </div>
                             </div>
                         </div>
@@ -288,13 +250,13 @@
             onCopy: function () {
                 // this.$snackbar.open(`copy to clipboard`)
                 this.$snackbar.open({
-                    message: 'copy to clipboard',
+                    message: this.$t('copyToClipboard'),
                     type: 'is-success',
                 })
             },
             onError: function () {
                 this.$snackbar.open({
-                    message: 'Failed to copy Link',
+                    message: this.$t('failedToCopyLink'),
                     type: 'is-danger',
                 })
             },

@@ -5,13 +5,13 @@ export default {
     messages: {
         noData: 'No Groups have been created',
         deleteGroups: {
-            title: 'Deleting Users',
+            title: 'Deleting Groups',
             message: 'Are you sure you want to <b>delete</b> All Groups? This action cannot be undone.',
             confirmText: 'Delete',
             cancelText: 'Cancel'
         },
         deleteGroup: {
-            title: 'Deleting User',
+            title: 'Deleting Group',
             message: 're you sure you want to <b>delete</b> This Group? This action cannot be undone.',
             confirmText: 'Delete',
             cancelText: 'Cancel'

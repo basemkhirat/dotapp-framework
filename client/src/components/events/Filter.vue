@@ -123,10 +123,10 @@
                 filters: {categories: []},
                 allStatus: [{
                     id: '1',
-                    name: 'Published'
+                    name: this.$t('published')
                 }, {
                     id: '0',
-                    name: 'Not Published'
+                    name: this.$t('notPublished')
                 }],
                 categories: [],
                 allCategories: [],

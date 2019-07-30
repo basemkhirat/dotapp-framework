@@ -5,7 +5,9 @@
       <div class="wrap--content">
         <div class="page--title">
           <div>
-            <h1 class="title--text">Pages</h1>
+            <h1 class="title--text">
+                {{$t('pages')}}
+            </h1>
 
             <!-- Breadcrumb -->
             <breadcrumb :links="breadcrumb" />
@@ -79,11 +81,11 @@ export default {
       breadcrumb: [
         {
           link: "/pages",
-          label: "pages"
+          label: this.$t('pagesPage.breadcrumb[0]')
         },
         {
           link: "",
-          label: "add & update page"
+          label: this.$t('pagesPage.breadcrumb[1]')
         }
       ],
       postInfo: {},

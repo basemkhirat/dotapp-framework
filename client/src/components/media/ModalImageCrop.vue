@@ -61,11 +61,11 @@
 
                     <div class="d-flex justify-content-center action--preview--media">
                         <button class="button is-light mr-2" type="button"
-                            @click="modalCropImage = false">Cancel</button>
+                            @click="modalCropImage = false">{{$t('cancel')}}</button>
                         <button class="button is-primary"
                             type="submit"
                             @click="cropImage()"
-                            :class="{'is-loading': isLoading}">Save</button>
+                            :class="{'is-loading': isLoading}">{{$t('save')}}</button>
                     </div>
                </div>
           </div>

@@ -4,6 +4,9 @@ import dashboardPage from './Dashboard'
 import usersPage from './Users'
 import groupsPage from './Groups'
 import pagesPage from './Pages'
+import mediaPage from './Media'
+import postsPage from './Posts'
+
 
 
 export const AR = {
@@ -12,5 +15,7 @@ export const AR = {
     dashboardPage,
     usersPage,
     groupsPage,
-    pagesPage
+    pagesPage,
+    mediaPage,
+    postsPage,
 }

@@ -669,7 +669,12 @@ a,
     font-weight: 500;
     color: $mainColor;
 }
-
+.card-header-title{
+    text-transform: capitalize;
+}
+.modal--crop--image{
+    direction: ltr;
+}
 .modal-content {
     width: 100%;
     max-width: 600px;

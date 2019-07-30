@@ -5,8 +5,8 @@
         <!-- Status -->
         <div class="post--info--item">
           <b-field class="field-group align-items-center justify-content-between">
-            <label class="label mb-0">Status</label>
-            <b-switch v-model="postInfo.status" :true-value="1" :false-value="0">Published</b-switch>
+            <label class="label mb-0">{{$t('status')}}</label>
+            <b-switch v-model="postInfo.status" :true-value="1" :false-value="0">{{$t('published')}}</b-switch>
           </b-field>
         </div>
       </div>
@@ -17,7 +17,7 @@
       <div class="card--content">
         <div class="post--info--item">
           <b-field class="field-group flex-column">
-            <label class="label">Tags</label>
+            <label class="label">{{$t('tags')}}</label>
             <b-taginput
               v-model="postInfo.tags"
               :data="filteredTags"
@@ -25,7 +25,7 @@
               :allow-new="true"
               field="name"
               icon="label"
-              placeholder="Add a tag"
+              :placeholder="$t('addATag')"
               :loading="tagsFilterLoading"
               @typing="getFilteredTags"
             ></b-taginput>

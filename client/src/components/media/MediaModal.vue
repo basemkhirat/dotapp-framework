@@ -11,12 +11,12 @@
             <div class="pb-0" v-if="stateMediaModal">
                 <div class="upper--media d-flex align-items-center">
                     <h2 class="title--one">
-                        Media
+                        {{$t('media')}}
                         <span class="badge--count" v-if="total">({{total}})</span>
                     </h2>
 
                     <button class="button is-primary ml-auto" @click="changeModalUploadFiles">
-                        Upload
+                        {{$t('upload')}}
                         <i class="fas fa-cloud-upload-alt ml-2"></i>
                     </button>
                 </div>
@@ -72,7 +72,7 @@
                                 class="button showButtonDeleteImage"
                                 @click="confirmCustomDelete"
                             >
-                                Delete
+                                {{$t('delete')}}
                                 <i class="fas fa-trash ml-2"></i>
                             </button>
                             <button
@@ -81,7 +81,7 @@
                                 class="button showButtonDeleteImage"
                                 @click="confirmCustomSetGallery"
                             >
-                                Add To Gallery
+                                 {{$t('addToGallery')}}
                                 <i class="fas fa-images ml-2"></i>
                             </button>
                             <!-- <button :class="{'showActionButton': itemsSelectedMedia}"
@@ -89,7 +89,7 @@
                                         Insert to post
                                         <i class="fas fa-share ml-2"></i>
                             </button>-->
-                            <button class="button is-light ml-4" @click="closeMediaModal">Cancel</button>
+                            <button class="button is-light ml-4" @click="closeMediaModal">{{$t('cancel')}}</button>
                         </div>
                     </div>
                 </div>
@@ -228,10 +228,14 @@ export default {
 
         confirmCustomDelete() {
             this.$dialog.confirm({
-                title: "Deleting Items",
-                message:
-                    "Are you sure you want to <b>delete</b> this Items? This action cannot be undone.",
-                confirmText: "Delete Items",
+                title: this.$t("mediaPage.messages.deleteItems.title"),
+                message: this.$t("mediaPage.messages.deleteItems.message"),
+                confirmText: this.$t(
+                    "mediaPage.messages.deleteItems.confirmText"
+                ),
+                cancelText: this.$t(
+                    "mediaPage.messages.deleteItems.cancelText"
+                ),
                 type: "is-danger",
                 hasIcon: true,
                 onConfirm: () => {

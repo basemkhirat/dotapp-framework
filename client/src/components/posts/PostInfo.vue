@@ -12,11 +12,11 @@
         <!-- Schedule Date -->
         <div class="post--info--item">
           <b-field class="field-group flex-column">
-            <label class="label">Schedule</label>
+            <label class="label">{{$t('schedule')}}</label>
             <datetime
               type="datetime"
               class="custom--datetime theme-primary"
-              placeholder="Schedule Date"
+              :placeholder="$t('schedule')"
               v-model="postInfo.published_at"
               use12-hour
             ></datetime>
@@ -25,12 +25,12 @@
         <!-- Format -->
         <div class="post--info--item">
           <b-field class="field-group flex-column">
-            <label class="label">Format</label>
+            <label class="label">{{$t('format')}}</label>
             <v-select
               :options="allFormat"
               v-model="postInfo.format"
               label="name"
-              placeholder="format"
+             :placeholder="$t('format')"
               class="select--with--icon w-100 v--select--scroll"
             >
               <template slot="option" slot-scope="option">{{ option.name }}</template>
@@ -45,7 +45,7 @@
       <div class="card--content">
         <div class="post--info--item">
           <b-field class="field-group flex-column">
-            <label class="label">categories</label>
+            <label class="label">{{$t('categories')}}</label>
             <treeselect
               class="custom--treeSelect"
               :show-count="true"
@@ -63,7 +63,7 @@
       <div class="card--content">
         <div class="post--info--item">
           <b-field class="field-group flex-column">
-            <label class="label">Tags</label>
+            <label class="label">{{$t('tags')}}</label>
             <b-taginput
               v-model="postInfo.tags"
               :data="filteredTags"
@@ -71,7 +71,7 @@
               :allow-new="true"
               field="name"
               icon="label"
-              placeholder="Add a tag"
+              :placeholder="$t('addATag')"
               :loading="tagsFilterLoading"
               @typing="getFilteredTags"
             ></b-taginput>

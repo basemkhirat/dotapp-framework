@@ -6,7 +6,7 @@
                     <div class="input--fuild">
                         <button class="button w-100" :class="{'is-primary' : checkItem}"
                             @click="selectAllItems">
-                            Select All
+                            {{$t('selectAll')}}
                         </button>
                     </div>
                 </div>
@@ -40,14 +40,14 @@
                     <div class="input--fuild">
                         <v-select :options="allCategories" v-model="categories" label="name"
                         multiple
-                            placeholder="Sort By Categories" class="select--with--icon w-100 v--select--scroll">
+                            :placeholder="$t('sortByCategories')" class="select--with--icon w-100 v--select--scroll">
                             <template slot="option" slot-scope="option">
                                 {{ option.name }}
                             </template>
                         </v-select>
                     </div>
                     <div class="input--fuild">
-                        <v-select :options="allFormat" v-model="format" label="name" placeholder="Sort By Format"
+                        <v-select :options="allFormat" v-model="format" label="name" :placeholder="$t('sortByFormat')"
                             class="select--with--icon w-100 v--select--scroll w-fuild-md">
                             <template slot="option" slot-scope="option">
                                 {{ option.name }}
@@ -56,7 +56,7 @@
                     </div>
 
                     <div class="input--fuild">
-                        <v-select :options="allStatus" v-model="status" label="name" placeholder="Sort By Status"
+                        <v-select :options="allStatus" v-model="status" label="name" :placeholder="$t('sorByStatus')"
                             class="select--with--icon w-100 v--select--scroll w-fuild-md">
                             <template slot="option" slot-scope="option">
                                 {{ option.name }}
@@ -80,24 +80,24 @@
           :width="640" scroll="keep" class="modal--custom">
                 <div class="card-content text-left">
                     <b-field class="field-group flex-column">
-                        <label class="label">Date From</label>
-                        <datetime type="datetime" class="custom--datetime theme-primary" placeholder="From"
+                        <label class="label">{{$t('from')}}</label>
+                        <datetime type="datetime" class="custom--datetime theme-primary" :placeholder="$t('from')"
                             v-model="dateFrom" use12-hour>
                         </datetime>
                     </b-field>
                     <b-field class="field-group flex-column">
-                        <label class="label">Date To</label>
-                        <datetime type="datetime" class="custom--datetime theme-primary" placeholder="To"
+                        <label class="label">{{$t('to')}}</label>
+                        <datetime type="datetime" class="custom--datetime theme-primary" :placeholder="$t('to')"
                             v-model="dateTo" use12-hour>
                         </datetime>
                     </b-field>
                 </div>
                 <div class="d-flex justify-content-center">
                     <button class="button is-danger mr-2" type="button"
-                        @click="unsetDate()">Unset Date</button>
+                        @click="unsetDate()">{{$t('unsetDate')}}</button>
                     <button class="button is-primary"
                         @click="setDate"
-                        type="button">Set Date</button>
+                        type="button">{{$t('setDate')}}</button>
                 </div>
         </b-modal>
 
@@ -131,10 +131,10 @@
                 filters: {categories: []},
                 allStatus: [{
                     id: '1',
-                    name: 'Published'
+                    name: this.$t('published')
                 }, {
                     id: '0',
-                    name: 'Not Published'
+                    name: this.$t('notPublished')
                 }],
                 categories: [],
                 allCategories: [],

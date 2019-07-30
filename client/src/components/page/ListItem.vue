@@ -26,8 +26,8 @@
       <div class="col-12 col-sm-6 col-xl table--item">
         <div class="block--item--title d-flex align-items-center justify-content-center item--text">
           <div class="text--title">
-            <b-tag type="is-success" v-if="item.status === 1">Published</b-tag>
-            <b-tag type="is-danger" v-else>Not Published</b-tag>
+            <b-tag type="is-success" v-if="item.status === 1">{{$t('published')}}</b-tag>
+            <b-tag type="is-danger" v-else>{{$t('notPublished')}}</b-tag>
           </div>
         </div>
       </div>
@@ -121,10 +121,10 @@ export default {
     },
     confirmCustomDelete(id) {
       this.$dialog.confirm({
-        title: "Deleting Page",
-        message:
-          "Are you sure you want to <b>delete</b> This Page? This action cannot be undone.",
-        confirmText: "Delete Page",
+        title: this.$t('pagesPage.messages.deletePage.title'),
+        message: this.$t('pagesPage.messages.deletePage.message'),
+        confirmText: this.$t('pagesPage.messages.deletePage.confirmText'),
+        cancelText: this.$t('pagesPage.messages.deletePage.cancelText'),
         type: "is-danger",
         hasIcon: true,
         onConfirm: () => this.deletePage(id)

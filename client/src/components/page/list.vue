@@ -103,10 +103,10 @@ export default {
     },
     confirmCustomDelete(ids) {
       this.$dialog.confirm({
-        title: "Deleting Pages",
-        message:
-          "Are you sure you want to <b>delete</b> all pages? This action cannot be undone.",
-        confirmText: "Delete Pages",
+        title: this.$t('pagesPage.messages.deletePages.title'),
+        message: this.$t('pagesPage.messages.deletePages.message'),
+        confirmText: this.$t('pagesPage.messages.deletePages.confirmText'),
+        cancelText: this.$t('pagesPage.messages.deletePages.cancelText'),
         type: "is-danger",
         hasIcon: true,
         onConfirm: () => this.deletePages(ids)

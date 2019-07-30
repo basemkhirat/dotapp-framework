@@ -44,6 +44,7 @@
                     <div class="item--text text-md-center">
                         <div class="field" v-if="item.policies.indexOf('post.update') > -1">
                             <b-switch @input="changeStatus" v-model="postStatus" :true-value="1" :false-value="0">
+                                {{$t('published')}}
                             </b-switch>
                         </div>
                     </div>
@@ -118,9 +119,10 @@
             },
             confirmCustomDelete(id) {
                 this.$dialog.confirm({
-                    title: 'Deleting Post',
-                    message: 'Are you sure you want to <b>delete</b> This Post? This action cannot be undone.',
-                    confirmText: 'Delete Post',
+                    title: this.$t('postsPage.messages.deletePost.title'),
+                    message: this.$t('postsPage.messages.deletePost.message'),
+                    confirmText: this.$t('postsPage.messages.deletePost.confirmText'),
+                    cancelText: this.$t('postsPage.messages.deletePost.cancelText'),
                     type: 'is-danger',
                     hasIcon: true,
                     onConfirm: () => this.deletePost(id)

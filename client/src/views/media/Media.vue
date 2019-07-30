@@ -7,7 +7,7 @@
                 <div class="page--title">
                     <div>
                         <h1 class="title--text">
-                            Media
+                            {{$t('media')}}
                             <span class="badge--count" v-if="total">
                                 ({{total}})
                             </span>
@@ -20,7 +20,7 @@
 
                     <div class="page--title--action ml-auto" v-if="isInUserPermissions('role.create')">
                         <button class="button is-primary" @click="changeModalUploadFiles">
-                            Upload
+                            {{$t('upload')}}
                             <i class="fas fa-cloud-upload-alt ml-2"></i>
                         </button>
                     </div>
@@ -45,7 +45,7 @@
                 total: '',
                 breadcrumb: [{
                     link: '',
-                    label: 'media'
+                    label: this.$t('mediaPage.breadcrumb[0]')
                 }]
             };
         },

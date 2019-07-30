@@ -19,7 +19,9 @@
                     </div>
 
                     <div class="page--title--action ml-auto" v-if="isInUserPermissions('page.create')">
-                        <router-link to="/pageForm" class="button is-primary ">Add New Page</router-link>
+                        <router-link to="/pageForm" class="button is-primary ">
+                            {{$t('pagesPage.addNewPage')}}
+                        </router-link>
                     </div>
                 </div>
             </div>
@@ -38,7 +40,7 @@
                 <list @fetchAllItems="fetchAllItems" :allItemsSelected="allItemsSelected"
                     @checkButtonSelectAll="checkButtonSelectAll" :data="pages" v-if="pages.length" />
                 <template v-else>
-                    <no-data text="No pages have been created"/>
+                    <no-data :text="$t('pagesPage.messages.noData')"/>
                 </template>
             </template>
             <template v-if="pages.length">
@@ -76,7 +78,7 @@
                 dataLoading: true,
                 breadcrumb: [{
                     link: '',
-                    label: 'pages'
+                    label: this.$t('pagesPage.breadcrumb[0]')
                 }]
             };
         },
@@ -99,7 +101,6 @@
                 } else {
                     this.allItemsSelected = false
                 }
-                // this.allItemsSelected =! this.allItemsSelected
             },
             // Check Button Select All Active Or Not
             checkButtonSelectAll(data) {
