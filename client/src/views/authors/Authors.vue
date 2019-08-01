@@ -7,7 +7,7 @@
                 <div class="page--title">
                     <div>
                         <h1 class="title--text">
-                            Authors
+                            {{$t('authors')}}
                             <span class="badge--count" v-if="total">
                                 ({{total}})
                             </span>
@@ -20,7 +20,7 @@
 
                     <div class="page--title--action ml-auto" v-if="isInUserPermissions('author.manage')">
                         <router-link :to="{ path: '/authorForm'}"
-                            class="button is-primary">Add New Author</router-link>
+                            class="button is-primary">{{$t('authorsPage.addNewAuthor')}}</router-link>
                     </div>
                 </div>
             </div>
@@ -38,7 +38,7 @@
                 <list @fetchAllItems="fetchAllItems" :allItemsSelected="allItemsSelected"
                     @checkButtonSelectAll="checkButtonSelectAll" :data="authors" v-if="authors.length" />
                 <template v-else>
-                    <no-data text="No authors have been created"/>
+                    <no-data :text="$t('authorsPage.messages.noData')"/>
                 </template>
             </template>
             <template v-if="authors.length">
@@ -75,7 +75,7 @@
                 dataLoading: true,
                 breadcrumb: [{
                     link: '',
-                    label: 'authors'
+                    label: this.$t('authorsPage.breadcrumb[0]')
                 }]
             };
         },

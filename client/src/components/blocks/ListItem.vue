@@ -31,7 +31,7 @@
           <span class="icon">
             <i class="fas fa-th-large"></i>
           </span>
-          Items
+          {{$t('items')}}
           ({{block.items? block.items.length : item.items.length}})
         </div>
       </div>
@@ -91,7 +91,7 @@
           <!-- </transition-group> -->
         </div>
         <template v-else>
-          <no-data text="No items have been created" />
+          <no-data :text="`No ${$t('blocks')} have been created`" />
         </template>
 
         <div>
@@ -99,7 +99,7 @@
             <b-autocomplete
               :data="itemsData"
               v-model="itemFieldInput"
-              placeholder="Add Item"
+              :placeholder="$t('add')"
               :open-on-focus="true"
               field="title"
               class="w-100"
@@ -113,7 +113,7 @@
                 :disabled="checkSameId"
                 :class="{'is-loading': isLoadingNewItem}"
                 @click="addNewItem"
-              >Add</button>
+              >{{$t('add')}}</button>
             </div>
           </b-field>
         </div>
@@ -125,7 +125,7 @@
             @click="saveChanges()"
             :class="{'is-loading': isLoading}"
           >{{$t('saveChanges')}}</button>
-          <button class="button is-dark m-1" @click="canceleBlock()">Cancel</button>
+          <button class="button is-dark m-1" @click="canceleBlock()">{{$t('cancel')}}</button>
         </div>
       </template>
     </b-collapse>

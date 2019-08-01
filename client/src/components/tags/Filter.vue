@@ -7,7 +7,7 @@
                         <button class="button w-100"
                               :class="{'is-primary' : checkItem}"
                               @click="selectAllItems">
-                              Select All
+                              {{$t('selectAll')}}
                          </button>
                     </div>
                     <!-- <div class="input--fuild">

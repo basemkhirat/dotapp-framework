@@ -108,9 +108,10 @@ export default {
         },
         confirmCustomDelete(ids) {
             this.$dialog.confirm({
-                title: 'Deleting Categories',
-                message: 'Are you sure you want to <b>delete</b> all Categories? This action cannot be undone.',
-                confirmText: 'Delete Categories',
+                title: this.$t('categoriesPage.messages.deleteCategories.title'),
+                message: this.$t('categoriesPage.messages.deleteCategories.message'),
+                confirmText: this.$t('categoriesPage.messages.deleteCategories.confirmText'),
+                cancelText: this.$t('categoriesPage.messages.deleteCategories.cancelText'),
                 type: 'is-danger',
                 hasIcon: true,
                 onConfirm: () => this.deleteCategories(ids)

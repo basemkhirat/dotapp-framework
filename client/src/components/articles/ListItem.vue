@@ -112,9 +112,10 @@
             },
             confirmCustomDelete(id) {
                 this.$dialog.confirm({
-                    title: 'Deleting Post',
-                    message: 'Are you sure you want to <b>delete</b> This Post? This action cannot be undone.',
-                    confirmText: 'Delete Post',
+                    title: this.$t('articlesPage.messages.deleteArticle.title'),
+                    message: this.$t('articlesPage.messages.deleteArticle.message'),
+                    confirmText: this.$t('articlesPage.messages.deleteArticle.confirmText'),
+                    cancelText: this.$t('articlesPage.messages.deleteArticle.cancelText'),
                     type: 'is-danger',
                     hasIcon: true,
                     onConfirm: () => this.deletePost(id)

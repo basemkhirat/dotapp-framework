@@ -125,10 +125,10 @@ export default {
     },
     confirmCustomDelete(id) {
       this.$dialog.confirm({
-        title: "Deleting Author",
-        message:
-          "Are you sure you want to <b>delete</b> This Author? This action cannot be undone.",
-        confirmText: "Delete Group",
+        title: this.$t('authorsPage.messages.deleteAuthor.title'),
+        message: this.$t('authorsPage.messages.deleteAuthor.message'),
+        confirmText: this.$t('authorsPage.messages.deleteAuthor.confirmText'),
+        cancelText: this.$t('authorsPage.messages.deleteAuthor.cancelText'),
         type: "is-danger",
         hasIcon: true,
         onConfirm: () => this.deleteAuthor(id)

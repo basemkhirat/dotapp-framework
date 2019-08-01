@@ -14,14 +14,14 @@
                         <div class="page--title">
                             <div>
                                 <h2 class="title--text">
-                                    Blocks
+                                    {{$t('blocks')}}
                                     <span class="badge--count" v-if="total">
                                         ({{total}})
                                     </span>
                                 </h2>
                             </div>
                             <div class="page--title--action ml-auto">
-                                <button class="button is-dark" @click="closeBlockModal()">Close</button>
+                                <button class="button is-dark" @click="closeBlockModal()">{{$t('close')}}</button>
                             </div>
                         </div>
 
@@ -34,7 +34,7 @@
                     <template v-else>
                         <list :data="blocks" v-if="blocks.length" />
                         <template v-else>
-                            <no-data text="No blocks have been created"/>
+                            <no-data :text="`No ${$t('blocks')} have been created`"/>
                         </template>
                     </template>
                     <template v-if="blocks.length">

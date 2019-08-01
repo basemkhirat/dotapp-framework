@@ -7,7 +7,7 @@
                 <div class="page--title">
                     <div>
                         <h1 class="title--text">
-                            Authors
+                            {{$t('authors')}}
                         </h1>
 
                         <!-- Breadcrumb -->
@@ -16,7 +16,7 @@
                     </div>
                     <div class="page--title--action ml-auto"
                         v-if="this.$route.params.id && isInUserPermissions('author.manage')">
-                        <button @click="addNewAuthor()" class="button is-primary ">Add New Author</button>
+                        <button @click="addNewAuthor()" class="button is-primary ">{{$t('authorsPage.addNewAuthor')}}</button>
                     </div>
                 </div>
             </div>
@@ -35,21 +35,22 @@
                                             alt="">
                                     </div>
                                     <a class="button is-dark m-2 is-small" @click="openModalMedia('image')">
-                                        Change Photo</a>
+                                        {{$t('changePhoto')}}
+                                    </a>
                                 </div>
                             </b-field>
                             <b-field class="field-group">
-                                <b-input type="text" placeholder="Author Name" v-model="name" />
+                                <b-input type="text" :placeholder="$t('name')" v-model="name" />
                             </b-field>
                             <b-field class="field-group">
-                                <b-input type="textarea" rows="4" placeholder="Description"
+                                <b-input type="textarea" rows="4" :placeholder="$t('description')"
                                     v-model="description" />
                             </b-field>
                         </div>
 
                         <div class="col-12 text-center button--save--form">
                             <button class="button is-primary"
-                                :class="{'is-loading': isLoading}">{{this.$route.params.id ? $t('saveChanges') : 'Add Author'}}</button>
+                                :class="{'is-loading': isLoading}">{{this.$route.params.id ? $t('saveChanges') : $t('add')}}</button>
                         </div>
                     </form>
                 </div>
@@ -81,10 +82,10 @@
                 photo: '',
                 breadcrumb: [{
                     link: '/authors',
-                    label: 'authors'
+                    label: this.$t('authorsPage.breadcrumb[0]')
                 }, {
                     link: '',
-                    label: 'add & update author'
+                    label: this.$t('authorsPage.breadcrumb[1]')
                 }]
             };
         },

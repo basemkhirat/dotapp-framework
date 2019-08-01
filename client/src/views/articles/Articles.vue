@@ -7,7 +7,7 @@
                 <div class="page--title">
                     <div>
                         <h1 class="title--text">
-                            Articles
+                            {{$t('articles')}}
                             <span class="badge--count" v-if="total">
                                 ({{total}})
                             </span>
@@ -19,7 +19,7 @@
                     </div>
 
                     <div class="page--title--action ml-auto" v-if="isInUserPermissions('post.create')">
-                        <router-link to="/articleForm" class="button is-primary ">Add New Article</router-link>
+                        <router-link to="/articleForm" class="button is-primary ">{{$t('articlesPage.addNewArticle')}}</router-link>
                     </div>
                 </div>
             </div>
@@ -38,7 +38,7 @@
                 <list @fetchAllItems="fetchAllItems" :allItemsSelected="allItemsSelected"
                     @checkButtonSelectAll="checkButtonSelectAll" :data="posts" v-if="posts.length" />
                 <template v-else>
-                    <no-data text="No posts have been created"/>
+                    <no-data :text="$t('articlesPage.messages.noData')"/>
                 </template>
             </template>
             <template v-if="posts.length">
@@ -77,7 +77,7 @@ import { type } from 'os';
                 dataLoading: true,
                 breadcrumb: [{
                     link: '',
-                    label: 'articles'
+                    label: this.$t('articlesPage.breadcrumb[0]')
                 }]
             };
         },

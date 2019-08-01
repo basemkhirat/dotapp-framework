@@ -7,7 +7,7 @@
                 <div class="page--title">
                     <div>
                         <h1 class="title--text">
-                            Categories
+                            {{$t('categories')}}
                         </h1>
 
                         <!-- Breadcrumb -->
@@ -32,21 +32,22 @@
                                             alt="">
                                     </div>
                                     <a class="button is-dark m-2 is-small" @click="openModalMedia('image')">
-                                        Change Photo</a>
+                                        {{$t('changePhoto')}}
+                                        </a>
                                 </div>
                             </b-field>
                             <b-field class="field-group">
-                                <b-input type="text" placeholder="Category Name" v-model="name" />
+                                <b-input type="text" :placeholder="$t('categoryName')" v-model="name" />
                             </b-field>
                             <b-field class="field-group">
-                                <b-input type="textarea" rows="4" placeholder="Description"
+                                <b-input type="textarea" rows="4" :placeholder="$t('description')"
                                     v-model="description" />
                             </b-field>
                         </div>
 
                         <div class="col-12 text-center button--save--form">
                             <button class="button is-primary"
-                                :class="{'is-loading': isLoading}">{{this.$route.params.id ? $t('saveChanges') : 'Add Category'}}</button>
+                                :class="{'is-loading': isLoading}">{{this.$route.params.id ? $t('saveChanges') : $t('add')}}</button>
                         </div>
                     </form>
                 </div>
@@ -78,10 +79,10 @@
                 photo: '',
                 breadcrumb: [{
                     link: '/categories',
-                    label: 'categories'
+                    label: this.$t("categoriesPage.breadcrumb[0]")
                 }, {
                     link: '',
-                    label: 'add & update category'
+                    label: this.$t("categoriesPage.breadcrumb[1]")
                 }]
             };
         },

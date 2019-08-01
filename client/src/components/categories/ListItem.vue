@@ -39,7 +39,7 @@
                     <span class="icon">
                         <i class="fas fa-th-large"></i>
                     </span>
-                    Children
+                    {{$t('children')}}
                     ({{item.children.length}})
                 </div>
             </div>
@@ -120,9 +120,10 @@
             },
             confirmCustomDelete(id) {
                 this.$dialog.confirm({
-                    title: 'Deleting Group',
-                    message: 'Are you sure you want to <b>delete</b> This Group? This action cannot be undone.',
-                    confirmText: 'Delete Group',
+                    title: this.$t('categoriesPage.messages.deleteCategory.title'),
+                    message: this.$t('categoriesPage.messages.deleteCategory.message'),
+                    confirmText: this.$t('categoriesPage.messages.deleteCategory.confirmText'),
+                    cancelText: this.$t('categoriesPage.messages.deleteCategory.cancelText'),
                     type: 'is-danger',
                     hasIcon: true,
                     onConfirm: () => this.deleteCategory(id)

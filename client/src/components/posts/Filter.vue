@@ -19,9 +19,9 @@
                             type="is-dark"
                             :active="(!this.modalFilterByDate) && (!!this.dateFrom.length || !!this.dateTo.length)"
                             :label="
-                                (this.dateFrom ? `From: ${this.dateFrom}` : '') +
+                                (this.dateFrom ? `${$t('from')}: ${this.dateFrom}` : '') +
                                 (this.dateFrom && this.dateTo ? ' - ' : '') +
-                                (this.dateTo ? `To: ${this.dateTo}` : '')"
+                                (this.dateTo ? `${$t('to')}: ${this.dateTo}` : '')"
                             >
                             <button class="button w-100" @click="filterByDate">
                                 <i class="far fa-calendar-alt"></i>
@@ -56,7 +56,7 @@
                     </div>
 
                     <div class="input--fuild">
-                        <v-select :options="allStatus" v-model="status" label="name" :placeholder="$t('sorByStatus')"
+                        <v-select :options="allStatus" v-model="status" label="name" :placeholder="$t('sortByStatus')"
                             class="select--with--icon w-100 v--select--scroll w-fuild-md">
                             <template slot="option" slot-scope="option">
                                 {{ option.name }}
@@ -145,8 +145,17 @@
                 modalFilterByDate: false,
                 dateFrom: '',
                 dateTo: '',
-                orderOptions: order,
-                order: 'Recent',
+                order: { "title": this.$t('aecent'), "value": "desc" },
+                orderOptions : [
+                    {
+                        title: this.$t('aecent'),
+                        value: 'desc'
+                    },
+                    {
+                        title: this.$t('recent'),
+                        value: 'asc'
+                    }
+                ],
             }
         },
         components: {

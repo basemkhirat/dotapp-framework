@@ -7,7 +7,7 @@
                 <div class="page--title">
                     <div>
                         <h1 class="title--text">
-                            Tags
+                        {{$t('tags')}}
                         </h1>
 
                         <!-- Breadcrumb -->
@@ -17,7 +17,7 @@
 
                     <div class="page--title--action ml-auto"
                         v-if="this.$route.params.id && isInUserPermissions('tag.create')">
-                        <router-link to="/tagForm" class="button is-primary ">Add New Tag</router-link>
+                        <router-link to="/tagForm" class="button is-primary ">{{$t('tagsPage.addNewTag')}}</router-link>
                     </div>
                 </div>
             </div>
@@ -28,13 +28,13 @@
                     <form class="row mt-3 justify-content-center" @submit.prevent="submitForm()">
                         <div class="col-12 col-md-10 col-lg-8">
                             <b-field class="field-group ">
-                                <b-input   placeholder="Tag Name" v-model="name" />
+                                <b-input :placeholder="$t('name')" v-model="name" />
                             </b-field>
                         </div>
 
                         <div class="col-12 text-center button--save--form ">
                             <button class="button is-primary "
-                                :class="{'is-loading': isLoading}">{{this.$route.params.id ? $t('saveChanges') : 'Add Tag'}}</button>
+                                :class="{'is-loading': isLoading}">{{this.$route.params.id ? $t('saveChanges') : $t('add')}}</button>
                         </div>
                     </form>
                 </div>
@@ -57,10 +57,10 @@
                 isLoading: false,
                 breadcrumb: [{
                     link: '/tags',
-                    label: 'tags'
+                    label: this.$t("tagsPage.breadcrumb[0]")
                 }, {
                     link: '',
-                    label: 'add & update tag'
+                    label: this.$t("tagsPage.breadcrumb[1]")
                 }]
             };
         },

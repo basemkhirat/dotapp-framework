@@ -6,6 +6,11 @@ import groupsPage from './Groups'
 import pagesPage from './Pages'
 import mediaPage from './Media'
 import postsPage from './Posts'
+import articlesPage from './Articles'
+import eventsPage from './Events'
+import categoriesPage from './Categories'
+import tagsPage from './Tags'
+import authorsPage from './Authors'
 
 
 export const AR = {
@@ -17,4 +22,9 @@ export const AR = {
     pagesPage,
     mediaPage,
     postsPage,
+    articlesPage,
+    eventsPage,
+    categoriesPage,
+    tagsPage,
+    authorsPage,
 }

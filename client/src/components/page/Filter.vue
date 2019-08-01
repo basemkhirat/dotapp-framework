@@ -23,7 +23,7 @@
                     </div>
 
                     <div class="input--fuild">
-                        <v-select :options="allStatus" v-model="status" label="name" :placeholder="$t('sorByStatus')"
+                        <v-select :options="allStatus" v-model="status" label="name" :placeholder="$t('sortByStatus')"
                             class="select--with--icon w-100 v--select--scroll w-fuild-md">
                             <template slot="option" slot-scope="option">
                                 {{ option.name }}
@@ -46,10 +46,6 @@
 
 <script>
     import {
-        order
-    } from './../../helpers/Variables'
-
-    import {
         RepositoryFactory
     } from '../../repositories/RepositoryFactory'
     const categoriesRepository = RepositoryFactory.get('categories')
@@ -70,8 +66,18 @@
                 }],
                 page: 1,
                 limit: 100,
-                orderOptions: order,
-                order: 'Recent',
+
+                order: { "title": this.$t('aecent'), "value": "desc" },
+                orderOptions : [
+                    {
+                        title: this.$t('aecent'),
+                        value: 'desc'
+                    },
+                    {
+                        title: this.$t('recent'),
+                        value: 'asc'
+                    }
+                ],
             }
         },
         watch: {

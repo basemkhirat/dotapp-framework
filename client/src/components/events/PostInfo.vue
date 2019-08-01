@@ -34,11 +34,11 @@
             <div class="card--content">
                 <div class="post--info--item">
                     <b-field class="field-group flex-column">
-                        <label class="label">Event Date & Time</label>
+                        <label class="label">{{$t('eventDateAndTime')}}</label>
                         <datetime
                             type="datetime"
                             class="custom--datetime theme-primary"
-                            placeholder="Event Date"
+                            :placeholder="$t('eventDate')"
                             v-model="postInfo.eventDate"
                             use12-hour
                         ></datetime>
@@ -52,13 +52,13 @@
                 <!-- Type -->
                 <div class="post--info--item">
                     <b-field class="field-group flex-column">
-                        <label class="label">Type</label>
+                        <label class="label">{{$t('type')}}</label>
                         <div>
                             <v-select
                                 :options="allType"
                                 v-model="typeContent"
                                 label="name"
-                                placeholder="type"
+                                :placeholder="$t('type')"
                                 class="select--with--icon w-100 v--select--scroll"
                             >
                                 <template slot="option" slot-scope="option">{{ option.name }}</template>
@@ -74,7 +74,7 @@
                                     <b-input
                                         type="number"
                                         class="w-100"
-                                        placeholder="Event Price"
+                                        :placeholder="$('eventPrice')"
                                         v-model="postInfo.price"
                                     />
                                 </b-field>
@@ -85,7 +85,7 @@
                 <!-- Categories -->
                 <div class="post--info--item">
                     <b-field class="field-group flex-column">
-                        <label class="label">categories</label>
+                        <label class="label">{{$t('categories')}}</label>
                         <treeselect
                             class="custom--treeSelect"
                             :show-count="true"
@@ -104,11 +104,11 @@
                 <!-- Location -->
                 <div class="post--info--item">
                     <b-field class="field-group flex-column">
-                        <label class="label">Address</label>
+                        <label class="label">{{$t('address')}}</label>
                         <div class="field has-addons">
                             <b-autocomplete
                                 v-model="place"
-                                placeholder="Address"
+                                :placeholder="$t('address')"
                                 :open-on-focus="true"
                                 :allow-new="false"
                                 :data="places"
@@ -123,7 +123,7 @@
                             type="textarea"
                             class="w-100"
                             rows="3"
-                            placeholder="Location Embed"
+                            :placeholder="$t('locationEmbed')"
                             v-model="postInfo.map"
                         />
                     </b-field>

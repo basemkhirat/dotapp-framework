@@ -7,7 +7,7 @@
                 <div class="page--title">
                     <div>
                         <h1 class="title--text">
-                            Categories
+                             {{$t('categories')}}
                             <span class="badge--count" v-if="total">
                                 ({{total}})
                             </span>
@@ -20,7 +20,7 @@
 
                     <div class="page--title--action ml-auto" v-if="isInUserPermissions('category.create')">
                         <router-link :to="{ path: '/categoryForm', query: { parentId: this.$route.params.id}}"
-                            class="button is-primary">Add New Category</router-link>
+                            class="button is-primary">{{$t('categoriesPage.addNewCategory')}}</router-link>
                     </div>
                 </div>
             </div>
@@ -38,7 +38,7 @@
                 <list @fetchAllItems="fetchAllItems" :allItemsSelected="allItemsSelected"
                     @checkButtonSelectAll="checkButtonSelectAll" :data="categories" v-if="categories.length" />
                 <template v-else>
-                    <no-data text="No categories have been created"/>
+                    <no-data :text="$t('categoriesPage.messages.noData')"/>
                 </template>
             </template>
             <template v-if="categories.length">
@@ -75,7 +75,7 @@
                 dataLoading: true,
                 breadcrumb: [{
                     link: '',
-                    label: 'categories'
+                    label: this.$t("categoriesPage.breadcrumb[0]")
                 }]
             };
         },

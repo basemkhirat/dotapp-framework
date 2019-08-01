@@ -89,9 +89,10 @@ const tagsRepository = RepositoryFactory.get('tags')
             },
             confirmCustomDelete(id) {
                 this.$dialog.confirm({
-                    title: 'Deleting Tag',
-                    message: 'Are you sure you want to <b>delete</b> This Tag? This action cannot be undone.',
-                    confirmText: 'Delete Tag',
+                    title: this.$t('tagsPage.messages.deleteTag.title'),
+                    message: this.$t('tagsPage.messages.deleteTag.message'),
+                    confirmText: this.$t('tagsPage.messages.deleteTag.confirmText'),
+                    cancelText: this.$t('tagsPage.messages.deleteTag.cancelText'),
                     type: 'is-danger',
                     hasIcon: true,
                     onConfirm: () => this.deleteTag(id)

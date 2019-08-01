@@ -39,8 +39,8 @@
             <div class="col-12 col-sm-6 col-xl table--item">
                 <div class="block--item--title d-flex align-items-center justify-content-center item--text">
                     <div class="text--title">
-                        <b-tag type="is-warning"  v-if="item.type === 'free'">Free</b-tag>
-                        <b-tag type="is-info" v-else>Paid</b-tag>
+                        <b-tag type="is-warning"  v-if="item.type === 'free'">{{$t('free')}}</b-tag>
+                        <b-tag type="is-info" v-else>{{$t('paid')}}</b-tag>
                     </div>
                 </div>
             </div>
@@ -137,9 +137,10 @@
             },
             confirmCustomDelete(id) {
                 this.$dialog.confirm({
-                    title: 'Deleting Event',
-                    message: 'Are you sure you want to <b>delete</b> this event? This action cannot be undone.',
-                    confirmText: 'Delete Event',
+                    title: this.$t('eventsPage.messages.deleteEvent.title'),
+                    message: this.$t('eventsPage.messages.deleteEvent.message'),
+                    confirmText: this.$t('eventsPage.messages.deleteEvent.confirmText'),
+                    cancelText: this.$t('eventsPage.messages.deleteEvent.cancelText'),
                     type: 'is-danger',
                     hasIcon: true,
                     onConfirm: () => this.deleteEvent(id)

@@ -19,7 +19,7 @@
                     </div>
                     <div class="input--fuild">
                         <v-select :options="allStatus" v-model="status" label="name"
-                        :placeholder="$t('sorByStatus')"
+                        :placeholder="$t('sortByStatus')"
                             class="select--with--icon w-100 v--select--scroll w-fuild-md">
                             <template slot="option" slot-scope="option">
                                 {{ option.name }}

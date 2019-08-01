@@ -5,7 +5,7 @@
       <div class="wrap--content">
         <div class="page--title">
           <div>
-            <h1 class="title--text">Artices</h1>
+            <h1 class="title--text">{{$t('articles')}}</h1>
 
             <!-- Breadcrumb -->
             <breadcrumb :links="breadcrumb" />
@@ -50,8 +50,7 @@
           <!-- Main Button Save On Mobile Screen -->
           <div class="text-center button--save--form d-block d-lg-none w-100">
             <button class="button is-primary" :class="{'is-loading': isLoading}" type="submit">
-              Save
-              Changes
+               {{$t('saveChanges')}}
             </button>
           </div>
         </div>
@@ -80,11 +79,11 @@ export default {
       breadcrumb: [
         {
           link: "/articles",
-          label: "articles"
+          label: this.$t('articlesPage.breadcrumb[0]')
         },
         {
           link: "",
-          label: "add & update article"
+          label: this.$t('articlesPage.breadcrumb[1]')
         }
       ],
       postInfo: {},

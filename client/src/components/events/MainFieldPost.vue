@@ -12,13 +12,13 @@
                                 <b-field class="field-group img--preview img--preview--mainimg" v-if="mediaItemPreview.thumbnails">
                                     <img :src="mediaItemPreview.thumbnails.max">
                                     <div class="wrap--replace--media" @click="openModalMedia('mainArticlePhoto')">
-                                        <div class="btn--replace--media">Replace</div>
+                                        <div class="btn--replace--media">{{$t('replace')}}</div>
                                     </div>
                                     <a class="delete is-large btn--delete--media" @click="mediaItemPreview = ''"></a>
                                 </b-field>
                             </template>
                             <div @click="openModalMedia('mainArticlePhoto')" v-else>
-                                 <media-placeholder type="image" text="Browse Media" />
+                                 <media-placeholder type="image" :text="$t('browseMedia')" />
                             </div>
                         </div>
                     </b-field>
@@ -26,12 +26,12 @@
 
                 <div class="col-12">
                     <b-field class="field-group">
-                        <b-input type="text" size="is-medium" placeholder="Title" v-model="mainFieldPost.title"/>
+                        <b-input type="text" size="is-medium" :placeholder="$t('title')" v-model="mainFieldPost.title"/>
                     </b-field>
                 </div>
                 <div class="col-12">
                     <b-field class="field-group">
-                        <b-input type="textarea" rows="2" placeholder="Excerpt" v-model="mainFieldPost.excerpt"/>
+                        <b-input type="textarea" rows="2" :placeholder="$t('excerpt')" v-model="mainFieldPost.excerpt"/>
                     </b-field>
                 </div>
             </div>
@@ -42,7 +42,7 @@
     <div class="card--block">
         <div class="card-header">
             <p class="card-header-title ">
-                Event Content
+                {{$t('eventContent')}}
             </p>
         </div>
         <div class="card--content">

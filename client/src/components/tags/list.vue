@@ -108,9 +108,10 @@ export default {
         },
         confirmCustomDelete(ids) {
             this.$dialog.confirm({
-                title: 'Deleting tags',
-                message: 'Are you sure you want to <b>delete</b> all tags? This action cannot be undone.',
-                confirmText: 'Delete tags',
+                title: this.$t('tagsPage.messages.deleteTags.title'),
+                message: this.$t('tagsPage.messages.deleteTags.message'),
+                confirmText: this.$t('tagsPage.messages.deleteTags.confirmText'),
+                cancelText: this.$t('tagsPage.messages.deleteTags.cancelText'),
                 type: 'is-danger',
                 hasIcon: true,
                 onConfirm: () => this.deleteTags(ids)

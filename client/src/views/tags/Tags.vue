@@ -7,7 +7,7 @@
                 <div class="page--title">
                     <div>
                         <h1 class="title--text">
-                            Tags
+                            {{$t('tags')}}
                             <span class="badge--count" v-if="total">
                                 ({{total}})
                             </span>
@@ -19,7 +19,7 @@
                     </div>
 
                     <div class="page--title--action ml-auto" v-if="isInUserPermissions('tag.create')">
-                        <router-link to="/tagForm" class="button is-primary ">Add New Tag</router-link>
+                        <router-link to="/tagForm" class="button is-primary ">{{$t('tagsPage.addNewTag')}}</router-link>
                     </div>
 
                 </div>
@@ -38,7 +38,7 @@
                 <list @fetchAllItems="fetchAllItems" :allItemsSelected="allItemsSelected"
                     @checkButtonSelectAll="checkButtonSelectAll" :data="tags" v-if="tags.length" />
                 <template v-else>
-                    <no-data text="No tags have been created"/>
+                    <no-data :text="$t('tagsPage.messages.noData')"/>
                 </template>
             </template>
             <template v-if="tags.length">
@@ -76,7 +76,7 @@
                 dataLoading: true,
                 breadcrumb: [{
                     link: '',
-                    label: 'tags'
+                    label: this.$t("tagsPage.breadcrumb[0]")
                 }]
             };
         },
