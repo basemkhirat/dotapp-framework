@@ -69,7 +69,7 @@ mongoose.plugin(function (schema) {
 
         limit = parseInt(limit), page = parseInt(page);
 
-        limit = limit < 50 ? limit : 50;
+        limit = limit < 800 ? limit : 800;
 
         return this.limit(limit).skip((page - 1) * limit);
     };
@@ -80,14 +80,14 @@ mongoose.plugin(function (schema) {
      * @param direction
      * @returns {*}
      */
-    schema.query.order = function (field = "_id", direction = "desc") {
+    schema.query.order = function (field = "created_at", direction = "desc") {
         return this.sort({[field]: direction === "desc" ? -1 : 1});
     };
 });
 
 mongoose.plugin(function (schema) {
 
-    var toHide = [
+    let toHide = [
         "_id",
         "created_at",
         "updated_at"

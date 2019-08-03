@@ -41,7 +41,7 @@ export default class extends Controller {
         query.where("name").ne("superadmin");
 
         if (req.filled("q")) {
-            query.where({$text: {$search: req.param("q")}});
+            query.where("name", new RegExp(req.param("q")));
         }
 
         if (req.filled("status")) {

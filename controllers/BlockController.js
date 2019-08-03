@@ -56,7 +56,7 @@ export default class extends Controller {
         let query = Block.find().where("parent", req.param("parent"));
 
         if (req.filled("q")) {
-            query.where({$text: {$search: req.param("q")}});
+            query.where("name", new RegExp(req.param("q")));
         }
 
         if (req.filled("type")) {
