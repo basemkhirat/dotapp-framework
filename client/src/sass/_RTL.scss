@@ -247,6 +247,10 @@
         left: auto;
         right: 250px;
     }
+    &.menuIsHorizontal .all--actions{
+        left: 0;
+        right: 0;
+    }
     &.menuIsVertical.sidebar--mini .main--header {
         right: 70px;
         left: auto;
