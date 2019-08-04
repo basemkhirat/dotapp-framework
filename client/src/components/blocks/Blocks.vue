@@ -7,6 +7,7 @@
           :active.sync="modalBlocks"
           :can-cancel="false"
           @close="closeBlockModal"
+          full-screen
           :width="1400" scroll="keep"
           class="modal--custom blocks">
                 <div class="page--head">
@@ -27,7 +28,7 @@
 
                     </div>
                 </div>
-                <div class="wrap--content">
+                <div class="wrap--content blocks--content">
                     <template v-if="dataLoading">
                         <loading-data></loading-data>
                     </template>

@@ -1101,13 +1101,22 @@ a,
 }
 
 .blocks {
+
     .modal-content {
         background-color: #f5f6fa;
         padding: 0;
     }
 
+    .blocks--content{
+        height: 100%;
+        overflow-y: auto;
+        max-height: calc(100vh - 280px);
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
     .page--head {
-        margin-bottom: 30px;
+        border-bottom: 1px solid $borderColor;
     }
 
     .block--item {
