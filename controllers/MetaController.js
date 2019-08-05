@@ -17,7 +17,10 @@ export default class extends Controller {
             data = data.toObject();
 
             if (type == "home") {
+
                 // do something..
+
+                return res.ok(data);
             }
 
             if (type == "post") {
