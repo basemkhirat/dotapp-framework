@@ -29,10 +29,13 @@ export default function () {
                     default_locale = languages[0].code;
                 }
             }
-        }
 
-        if (req.user && config.locales.indexOf(req.user.lang) > -1) {
-            default_locale = req.user.lang;
+        } else {
+
+            if (req.user && config.locales.indexOf(req.user.lang) > -1) {
+                default_locale = req.user.lang;
+            }
+
         }
 
         req.language = default_locale;

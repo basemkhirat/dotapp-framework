@@ -203,4 +203,11 @@ schema.pre("save", function (next) {
 });
 
 
+schema.statics.meta = function (id, lang) {
+
+    return "lang " + lang;
+
+};
+
+
 export default Mongoose.model("post", schema, "post");

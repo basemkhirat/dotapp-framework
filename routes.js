@@ -390,6 +390,12 @@ export default {
                         }
                     },
 
+                    "/meta": {
+                        group: {
+                            "GET /:type?/:id?": "MetaController.find",
+                        }
+                    },
+
                     "/newsletter": {
                         group: {
                             "POST /subscribe": "NewsletterController.subscribe",
