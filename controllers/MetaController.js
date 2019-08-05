@@ -6,11 +6,51 @@ import Category from '~/models/category';
 
 export default class extends Controller {
 
+    render(data) {
+
+        let head = {};
+
+        head.title = data.title;
+
+        head.meta = [];
+
+        for (let key in data.meta) {
+
+            if (key == "og") {
+
+                for (let og_key in data.meta.og) {
+                    head.meta.push({
+                        name: key + ":" + og_key,
+                        content: data.meta.og[og_key]
+                    })
+                }
+
+
+            } else if (key == "twitter") {
+
+                for (let twitter_key in data.meta.twitter) {
+                    head.meta.push({
+                        name: key + ":" + twitter_key,
+                        content: data.meta.twitter[twitter_key]
+                    })
+                }
+
+            } else {
+                head.meta.push({
+                    name: key,
+                    content: data.meta[key]
+                })
+            }
+        }
+
+        return head;
+    }
+
     async find(req, res) {
 
         try {
 
-            let type = req.param("type", "home");
+            let type = req.param("type");
 
             let data = await Meta.where("type", "default").findOne();
 
@@ -20,10 +60,9 @@ export default class extends Controller {
 
                 // do something..
 
-                return res.ok(data);
-            }
+                return res.ok(this.render(data));
 
-            if (type == "post") {
+            }else if (type == "post") {
 
                 let id = req.param("id");
 
@@ -67,12 +106,9 @@ export default class extends Controller {
                     data.meta.twitter.image = post.media.thumbnails.large;
                 }
 
-                return res.ok(data);
+                return res.ok(this.render(data));
 
-
-            }
-
-            if (type == "event") {
+            }else if (type == "event") {
 
                 let id = req.param("id");
 
@@ -116,11 +152,9 @@ export default class extends Controller {
                     data.meta.twitter.image = event.media.thumbnails.large;
                 }
 
-                return res.ok(data);
+                return res.ok(this.render(data));
 
-            }
-
-            if (type == "category") {
+            }else if (type == "category") {
 
                 let id = req.param("id");
 
@@ -155,8 +189,10 @@ export default class extends Controller {
                     data.meta.twitter.image = category.image.thumbnails.large;
                 }
 
-                return res.ok(data);
+                return res.ok(this.render(data));
 
+            }else{
+                return res.ok(this.render(data));
             }
 
         } catch (e) {
