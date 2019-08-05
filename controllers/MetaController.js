@@ -122,6 +122,7 @@ export default class extends Controller {
                     .populate("image")
                     .exec();
 
+
                 if (category) {
 
                     data.type = "category";
