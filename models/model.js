@@ -89,8 +89,6 @@ mongoose.plugin(function (schema) {
 
     let toHide = [
         "_id",
-        "created_at",
-        "updated_at"
     ];
 
     schema.eachPath(function (pathname, schemaType) {
