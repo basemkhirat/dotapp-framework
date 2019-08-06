@@ -11,9 +11,6 @@ export default function (options) {
 
         field: options.name,
 
-        alwaysRecreate: true,
-        update: true,
-
         generator: function (slugText, separator) {
             slugText = slugText.toLowerCase().replace(/([^a-z0-9\-\_\u0600-\u06FF]+)/g, separator).replace(new RegExp(separator + '{2,}', 'g'), separator);
             if (slugText.substr(-1) === separator) {
