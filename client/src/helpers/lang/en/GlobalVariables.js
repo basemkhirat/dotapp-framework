@@ -23,7 +23,10 @@ export default {
     themeSettings: {
         menu: "Menu",
         vertical: "Vertical",
-        horizontal: "Horizontal"
+        horizontal: "Horizontal",
+        language: 'Language',
+        arabic: 'Arabic',
+        english: 'English'
     },
 
     // Variables

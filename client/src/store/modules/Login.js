@@ -58,7 +58,7 @@ const Login = {
         },
 
         // Forgot Password
-        forgotPassword({ commit, state, dispatch }, loginData) {
+        forgotPassword({ commit, state }, loginData) {
             commit("resetState");
             axios
                 .post("/auth/forget", loginData)
@@ -73,7 +73,7 @@ const Login = {
         },
 
         // Reset Password
-        resetPassword({ commit, state, dispatch }, loginData) {
+        resetPassword({ commit, state }, loginData) {
             commit("resetState");
             axios
                 .post("/auth/reset", loginData)
@@ -87,7 +87,7 @@ const Login = {
                 });
         },
 
-        async checkUserData({ commit, state }, loginData) {
+        async checkUserData({ state }) {
             try {
                 const AuthStr = 'Bearer ' + state.token;
                 const response = await axios
@@ -101,9 +101,16 @@ const Login = {
                 state.loginErrorMessage = error.data.data[0];
             }
         },
-        fetchUserData({ commit, state }, loginData) {
+        fetchUserData({ state }) {
             axios.get("/auth/user").then(response => {
-                localStorage.setItem("userData", JSON.stringify(response.data.data));
+                let userData = response.data.data
+                let lang = localStorage.getItem('language')? localStorage.getItem('language') : null
+                if (lang){
+                    userData.lang = lang
+                    localStorage.setItem("userData", JSON.stringify(userData));
+                } else {
+                    localStorage.setItem("userData", JSON.stringify(userData));
+                }
                 state.userData = response.data.data;
             })
         }

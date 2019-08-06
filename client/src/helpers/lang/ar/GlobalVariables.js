@@ -24,6 +24,9 @@ export default {
         menu: 'القائمة',
         vertical: 'عمودي',
         horizontal: 'أفقي',
+        language: 'اللغة',
+        arabic: 'العربية',
+        english: 'الانجليزية'
     },
 
     // Variables

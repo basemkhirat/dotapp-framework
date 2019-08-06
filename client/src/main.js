@@ -10,15 +10,20 @@ import vSelect from 'vue-select'
 Vue.component('v-select', vSelect)
 import 'vue-select/dist/vue-select.css';
 
+// Scroll Bar
+import PerfectScrollbar from 'vue2-perfect-scrollbar'
+import 'vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css'
+Vue.use(PerfectScrollbar)
+
 import App from './App.vue'
 // Main Style
 import './sass/core.scss';
 
+
 // Language Plugin
 import VueI18n from 'vue-i18n'
 Vue.use(VueI18n)
-import {LangAR, LangEN}  from './helpers/lang/Lang.js'
-
+import {LangEN, LangAR}  from './helpers/lang/Lang.js'
 import Buefy from 'buefy'
 Vue.use(Buefy)
 
@@ -67,6 +72,7 @@ if (accessToken) {
 // Set User Lang
 if (userData) {
     axios.defaults.headers["accept-language"] = userData.lang;
+    console.log('acceptlang :',  userData.lang);
     if(userData.lang === 'ar') {
         document.body.classList.add('lang--ar')
     } else {

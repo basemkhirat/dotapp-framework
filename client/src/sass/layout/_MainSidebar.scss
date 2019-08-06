@@ -25,6 +25,7 @@
      }
      .menu--scroll{
          height:calc(100vh - 90px);
+         overflow-x: hidden !important;
      }
 
      .wrap--upper--nav{

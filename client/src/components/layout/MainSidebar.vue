@@ -7,9 +7,7 @@
                 </span>
                 <div class="head-logo">{{$t('header.dashboardName')}}</div>
             </div>
-
-            <!-- <vue-perfect-scrollbar class="menu--scroll" :settings="scrollSettings"> -->
-            <div class="menu--scroll">
+            <perfect-scrollbar class="menu--scroll">
                 <ul class="menu-list">
                     <li v-for="(list,i) in links" :key="i">
                         <a v-if="list.media" class="navbar-item" @click="openMedia()">
@@ -37,9 +35,7 @@
                         />
                     </li>
                 </ul>
-
-                <!-- </vue-perfect-scrollbar> -->
-            </div>
+            </perfect-scrollbar>
         </aside>
         <transition name="fade">
             <div @click="closeSidebar()" class="overlay--mainSidebar"></div>
@@ -50,7 +46,6 @@
 </template>
 
 <script>
-// import VuePerfectScrollbar from 'vue-perfect-scrollbar';
 import MenuItem from "./MenuItem";
 import { mapState } from "vuex";
 import { LangAR, LangEN } from "./../../helpers/lang/Lang";
@@ -165,7 +160,6 @@ export default {
         }
     },
     components: {
-        // VuePerfectScrollbar,
         MenuItem
     },
 
@@ -278,5 +272,8 @@ export default {
 }
 .close--menu {
     display: none;
+}
+.menu--scroll{
+    direction: ltr;
 }
 </style>

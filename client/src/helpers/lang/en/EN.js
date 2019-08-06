@@ -13,7 +13,8 @@ import tagsPage from './Tags'
 import authorsPage from './Authors'
 
 
-export const AR = {
+
+export const EN = {
     ...GlobalVariables,
     // Pages
     dashboardPage,
@@ -27,4 +28,5 @@ export const AR = {
     categoriesPage,
     tagsPage,
     authorsPage,
+
 }

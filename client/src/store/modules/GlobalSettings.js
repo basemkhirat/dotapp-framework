@@ -1,7 +1,7 @@
 
 const GlobalSettings = {
     state: {
-        menuTheme: localStorage.getItem('menuTheme') ? localStorage.getItem('menuTheme') : 'horizontal'
+        menuTheme: localStorage.getItem('menuTheme') ? localStorage.getItem('menuTheme') : 'horizontal',
     },
     getters: {
 
@@ -11,7 +11,7 @@ const GlobalSettings = {
             state.menuTheme = theme
             localStorage.setItem('menuTheme', theme)
             this.commit('miniSidebarOpen')
-        }
+        },
     },
     actions: {
 
