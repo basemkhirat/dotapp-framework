@@ -21,6 +21,7 @@ export default class extends Controller {
                 for (let og_key in data.meta.og) {
                     head.meta.push({
                         name: key + ":" + og_key,
+                        property: key + ":" + og_key,
                         content: data.meta.og[og_key]
                     })
                 }
