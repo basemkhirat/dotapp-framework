@@ -1,19 +1,12 @@
 import {Mongoose, Schema} from './model';
 import Post from '~/models/post';
 import Event from '~/models/event';
+import slug from '~/models/plugins/slug';
 
 let schema = Schema({
 
         name: {
             type: String
-        },
-
-        slug: {
-            type: String,
-            slug: "name",
-            slugPaddingSize: 4,
-            uniqueSlug: true,
-            permanent: true
         },
 
         description: {
@@ -86,5 +79,7 @@ schema.methods.getItems = function (callback) {
 schema.index({created_at: -1});
 schema.index({updated_at: -1});
 schema.index({name: 'text', description: 'text'});
+schema.plugin(slug({name: "slug", source: "name"}));
+
 
 export default Mongoose.model("block", schema, "block");

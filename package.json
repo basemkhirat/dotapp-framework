@@ -40,6 +40,7 @@
         "mongoose-materialized": "^0.2.0",
         "mongoose-nested-set": "0.0.7",
         "mongoose-slug-updater": "^3.1.4",
+        "mongoose-url-slugs": "^1.0.2",
         "morgan": "^1.9.0",
         "nodemailer": "^6.2.1",
         "redis": "^2.8.0",

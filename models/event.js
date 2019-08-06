@@ -4,19 +4,12 @@ import Tag from './tag';
 import Like from './like';
 import Resource from '~/services/media';
 import Config from '~/services/config';
+import slug from '~/models/plugins/slug';
 
 let schema = Schema({
 
     title: {
         type: String
-    },
-
-    slug: {
-        type: String,
-        slug: "title",
-        slugPaddingSize: 4,
-        uniqueSlug: true,
-        permanent: true
     },
 
     excerpt: {
@@ -135,6 +128,7 @@ schema.index({
     slug: 'text',
     excerpt: 'text'
 });
+schema.plugin(slug({name: "slug", source: "title"}));
 
 schema.virtual("scheduled").get(function () {
     if(this.scheduled_at){

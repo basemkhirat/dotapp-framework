@@ -4,19 +4,12 @@ import Config from '~/services/config';
 import Media from './media';
 import Tag from './tag';
 import async from 'async';
+import slug from '~/models/plugins/slug';
 
 let schema = Schema({
 
     title: {
         type: String
-    },
-
-    slug: {
-        type: String,
-        slug: "title",
-        slugPaddingSize: 4,
-        uniqueSlug: true,
-        permanent: true
     },
 
     excerpt: {
@@ -120,6 +113,8 @@ schema.index({format: 1});
 schema.index({created_at: -1});
 schema.index({updated_at: -1});
 schema.index({published_at: -1});
+schema.plugin(slug({name: "slug", source: "title"}));
+
 schema.index({
     title: 'text',
     slug: 'text',
@@ -201,13 +196,6 @@ schema.pre("save", function (next) {
         next(null, this);
     }
 });
-
-
-schema.statics.meta = function (id, lang) {
-
-    return "lang " + lang;
-
-};
 
 
 export default Mongoose.model("post", schema, "post");

@@ -3,19 +3,12 @@ import {Mongoose, Schema} from './model';
 import Media from './media';
 import Tag from './tag';
 import async from 'async';
+import slug from '~/models/plugins/slug';
 
 let schema = Schema({
 
     title: {
         type: String
-    },
-
-    slug: {
-        type: String,
-        slug: "title",
-        slugPaddingSize: 4,
-        uniqueSlug: true,
-        permanent: true
     },
 
     excerpt: {
@@ -78,6 +71,7 @@ schema.index({
     slug: 'text',
     excerpt: 'text'
 });
+schema.plugin(slug({name: "slug", source: "title"}));
 
 schema.methods.getContent = function (next) {
 
