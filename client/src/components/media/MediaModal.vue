@@ -67,7 +67,7 @@
                                         <i class="fas fa-clone ml-2"></i>
                             </button>-->
                             <button
-                                v-if="!galleryMode"
+                                v-if="galleryMode"
                                 :class="{'showActionButton': itemsSelectedMedia.length}"
                                 class="button showButtonDeleteImage"
                                 @click="confirmCustomDelete"
@@ -89,7 +89,7 @@
                                         Insert to post
                                         <i class="fas fa-share ml-2"></i>
                             </button>-->
-                            <button class="button is-light ml-4" @click="closeMediaModal">{{$t('cancel')}}</button>
+                            <button class="button is-light ml-3" @click="closeMediaModal">{{$t('cancel')}}</button>
                         </div>
                     </div>
                 </div>

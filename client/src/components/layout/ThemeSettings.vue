@@ -16,6 +16,25 @@
                         {{$t('themeSettings.horizontal')}}
                     </b-radio-button>
                 </b-field>
+            </div>
+            <!-- Language -->
+            <div class="item--setting">
+                <label class="label">
+                    {{$t('themeSettings.language')}}
+                </label>
+                <b-field class="justify-content-center">
+                    <b-radio-button v-model="language"
+                        @input="changeLanguage()"
+                        native-value="ar">
+                        {{$t('themeSettings.arabic')}}
+                    </b-radio-button>
+
+                    <b-radio-button v-model="language"
+                        @input="changeLanguage()"
+                        native-value="en">
+                        {{$t('themeSettings.english')}}
+                    </b-radio-button>
+                </b-field>
 
             </div>
         </div>
@@ -33,6 +52,7 @@ export default {
         return {
             widgetThemeSetting: false,
             menuTheme: '',
+            language: '',
         }
     },
     created(){
@@ -40,6 +60,7 @@ export default {
     },
     computed:{
         ...mapState({
+            userData: state => state.login.userData,
             manuThemeState: state => state.globalSettings.menuTheme,
         }),
     },
@@ -47,10 +68,16 @@ export default {
         if(this.manuThemeState){
             this.menuTheme = this.manuThemeState
         }
+        if(this.userData){
+            this.language = this.userData.lang
+        }
     },
     watch:{
         menuTheme(){
             this.$store.commit('setMenuTheme', this.menuTheme)
+        },
+        language(){
+            this.setUserData()
         },
         manuThemeState(){
             this.checkMenuTheme()
@@ -70,6 +97,15 @@ export default {
                 document.body.classList.remove('menuIsHorizontal')
                 document.body.classList.add('menuIsVertical')
             }
+        },
+        setUserData() {
+            localStorage.setItem('language', this.language)
+            let userData = this.userData
+            userData.lang = this.language
+            localStorage.setItem("userData", JSON.stringify(userData));
+        },
+        changeLanguage() {
+            window.location.reload()
         }
     },
 
