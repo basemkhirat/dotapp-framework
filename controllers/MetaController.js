@@ -20,6 +20,7 @@ export default class extends Controller {
 
                 for (let og_key in data.meta.og) {
                     head.meta.push({
+                        hid: key + ":" + og_key,
                         name: key + ":" + og_key,
                         property: key + ":" + og_key,
                         content: data.meta.og[og_key]
@@ -31,6 +32,7 @@ export default class extends Controller {
 
                 for (let twitter_key in data.meta.twitter) {
                     head.meta.push({
+                        hid: key + ":" + twitter_key,
                         name: key + ":" + twitter_key,
                         content: data.meta.twitter[twitter_key]
                     })
@@ -38,6 +40,7 @@ export default class extends Controller {
 
             } else {
                 head.meta.push({
+                    hid: key,
                     name: key,
                     content: data.meta[key]
                 })
