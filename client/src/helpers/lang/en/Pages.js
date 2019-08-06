@@ -1,5 +1,5 @@
 export default {
-    addNewGroup: 'Add New Group',
+    addNewPage: 'Add New Page',
     breadcrumb: ['pages', 'add & update page'],
     messages: {
         noData: 'No pages have been created',
