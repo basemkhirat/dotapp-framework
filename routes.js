@@ -22,10 +22,10 @@ module.exports = {
                                 middleware: validate("auth"),
                                 handler: "AuthController.token"
                             },
-                            "GET /facebook": {
+                            "POST /facebook": {
                                 handler: "AuthController.facebook"
                             },
-                            "GET /google": {
+                            "POST /google": {
                                 handler: "AuthController.google"
                             },
                             "POST /forget": {
