@@ -64,22 +64,27 @@ export default class extends Controller {
                     .where("provider_id", body.id)
                     .findOne();
 
-                let email_exists = await User.where("email", body.email).countDocuments();
+                if (!user) {
 
-                if (!user && !email_exists) {
+                    let email_exists = await User.where("email", body.email).countDocuments();
 
-                    let user = new User();
+                    if (!email_exists) {
 
-                    user.email = body.email;
-                    user.first_name = body.name;
-                    user.last_name = "";
-                    user.lang = req.language;
-                    user.photo_payload = "https://graph.facebook.com/" + body.id + "/picture";
-                    user.status = 1;
-                    user.provider = "facebook";
-                    user.provider_id = body.id;
+                        let user = new User();
 
-                    user = await user.save();
+                        user.email = body.email;
+                        user.first_name = body.name;
+                        user.last_name = "";
+                        user.lang = req.language;
+                        user.photo_payload = "https://graph.facebook.com/" + body.id + "/picture";
+                        user.status = 1;
+                        user.provider = "facebook";
+                        user.provider_id = body.id;
+
+                        user = await user.save();
+                    }
+
+
                 }
 
                 let response = user.toObject();
