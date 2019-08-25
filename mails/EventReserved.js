@@ -1,21 +1,17 @@
-import Template from '~/services/mail/template';
+export default function (data, callback) {
 
-export default class extends Template {
+    this.render("mails/event_reserved", data, (error, html) => {
+        if (error && callback) return callback(error);
 
-    handle(data, callback) {
-
-        this.render("mails/event_reserved", data, (error, html) => {
+        this.send({
+            to: data.user.email,
+            subject: "نور | تفاصيل الحجز",
+            html: html
+        }, (error, info) => {
             if (error && callback) return callback(error);
-
-            this.send({
-                to: data.user.email,
-                subject: "نور | تفاصيل الحجز",
-                html: html
-            }, (error, info) => {
-                if (error && callback) return callback(error);
-                if (callback) return callback(null, info);
-            });
-
+            if (callback) return callback(null, info);
         });
-    }
+
+    });
 }
+

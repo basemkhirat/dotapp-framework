@@ -1,4 +1,4 @@
-import {Mongoose, Schema} from './model';
+import {Model, Schema} from 'dotapp/model';
 
 let schema = Schema({
         type: {
@@ -9,4 +9,4 @@ let schema = Schema({
 
 schema.index({type: 1});
 
-export default Mongoose.model("meta", schema, "meta");
+export default Model("meta", schema, "meta");

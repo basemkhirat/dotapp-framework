@@ -1,10 +1,10 @@
 import Controller from "~/controllers/Controller";
 import Media from '~/models/media';
-import Resource from '~/services/media';
+import Resource from 'dotapp/services/media';
 import async from "async";
 import path from 'path';
-import Storage from '~/services/storage';
-import Config from '~/services/config';
+import Storage from 'dotapp/services/storage';
+import Config from 'dotapp/services/config';
 
 export default class extends Controller {
 

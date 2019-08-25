@@ -102,7 +102,7 @@ describe("Media", function () {
 
         this.timeout(120000);
 
-        media.payload = "https://soundcloud.com/user9175165/deep-shamanic-meditation-relaxing-powerful-meditation-music-for-deep-relaxation-sleep-music-030";
+            media.payload = "https://soundcloud.com/user9175165/deep-shamanic-meditation-relaxing-powerful-meditation-music-for-deep-relaxation-sleep-music-030";
 
         server.post("/api/media")
             .set('Authorization', 'Bearer ' + token)

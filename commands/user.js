@@ -8,9 +8,10 @@ export default class {
 
     action(args, done) {
 
-        this.log("Listing all user");
+        this.log("Listing all users");
 
         User.find().exec((error, users) => {
+            if(error) throw error
             this.log(users);
             done(error, users);
         });

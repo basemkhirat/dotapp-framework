@@ -1,6 +1,6 @@
 import request from "request";
 import Controller from "~/controllers/Controller";
-import Cache from '~/services/cache';
+import Cache from 'dotapp/services/cache';
 
 export default class extends Controller {
 

@@ -1,4 +1,4 @@
-import {Mongoose, Schema} from './model';
+import {Model, Schema} from 'dotapp/model';
 import slug from '~/models/plugins/slug';
 
 let schema = Schema({
@@ -25,4 +25,4 @@ schema.index({parent: 1});
 schema.index({name: 'text', code: 'text'});
 schema.plugin(slug({name: "slug", source: "name"}));
 
-export default Mongoose.model("place", schema, "place");
+export default Model("place", schema, "place");

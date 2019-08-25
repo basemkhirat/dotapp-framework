@@ -1,4 +1,4 @@
-import {Mongoose, Schema} from './model';
+import {Model, Schema} from 'dotapp/model';
 
 let schema = Schema({
 
@@ -124,5 +124,4 @@ schema.statics.delete = function (data, callback) {
     });
 };
 
-
-export default Mongoose.model("follow", schema, "follow");
+export default Model("follow", schema, "follow");

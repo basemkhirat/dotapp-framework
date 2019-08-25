@@ -1,5 +1,5 @@
 import moment from 'moment';
-import {Mongoose, Schema} from './model';
+import {Model, Schema} from 'dotapp/model';
 import Media from './media';
 import Tag from './tag';
 import async from 'async';
@@ -140,4 +140,4 @@ schema.pre("save", function (next) {
     }
 });
 
-export default Mongoose.model("page", schema, "page");
+export default Model("page", schema, "page");

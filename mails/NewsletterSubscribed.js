@@ -1,21 +1,16 @@
-import Template from '~/services/mail/template';
+export default function (email, callback) {
 
-export default class extends Template {
+    this.render("mails/newsletter/subscribed", {email}, (error, html) => {
+        if (error && callback) return callback(error);
 
-    handle(email, callback) {
-
-        this.render("mails/newsletter/subscribed", {email}, (error, html) => {
+        this.send({
+            to: email,
+            subject: this.req.lang("subscription.subscription"),
+            html: html
+        }, (error, info) => {
             if (error && callback) return callback(error);
-
-            this.send({
-                to: email,
-                subject: this.req.lang("subscription.subscription"),
-                html: html
-            }, (error, info) => {
-                if (error && callback) return callback(error);
-                if (callback) return callback(null, info);
-            });
-
+            if (callback) return callback(null, info);
         });
-    }
+
+    });
 }

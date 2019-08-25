@@ -78,7 +78,6 @@ export default class extends Controller {
      */
     create(req, res) {
 
-
         if (req.filled("status") && !req.can("user.status")) {
             return res.forbidden();
         }
@@ -107,7 +106,6 @@ export default class extends Controller {
             if (error) return res.serverError(error);
 
             if(!req.user){
-                console.log("emaolll");
                 req.mail(user, "VerifyEmail");
             }
 

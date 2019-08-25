@@ -1,6 +1,8 @@
+#!/usr/bin/env node
+
 import app from "./app";
-import Config from "~/services/config";
-import Log from "~/services/log";
+import Config from "dotapp/services/config";
+import Log from "dotapp/services/log";
 
 app.listen(
     Config.get('app.port'),

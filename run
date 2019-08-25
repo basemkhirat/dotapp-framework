@@ -2,6 +2,6 @@
 
 process.env.APP_CONSOLE = true;
 
-require('babel-register');
+require('@babel/register');
 
-require('./services/command');
+require('dotapp/services/command');

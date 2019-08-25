@@ -1,7 +1,8 @@
 import jwt from 'jsonwebtoken';
 import Controller from "~/controllers/Controller";
 import User from '~/models/user';
-import Config from '~/services/config';
+import Config from 'dotapp/services/config';
+import request from 'request';
 
 export default class extends Controller {
 
@@ -21,7 +22,7 @@ export default class extends Controller {
             if (error) return res.serverError(error);
             if (!user) return res.validationError(req.lang("auth.email_not_found"));
 
-            user.comparePassword(password,  (error, valid) => {
+            user.comparePassword(password, (error, valid) => {
 
                 if (error) return res.serverError(error);
                 if (!valid) return res.validationError(req.lang("auth.invalid_password"));
@@ -42,6 +43,131 @@ export default class extends Controller {
 
                 res.ok(response);
             });
+        });
+    }
+
+    /**
+     * login by facebook
+     * @param req
+     * @param res
+     */
+    facebook(req, res) {
+
+        let access_token = req.param("access_token");
+        let url = "https://graph.facebook.com/me?fields=email,name&access_token=" + access_token;
+
+        request({url: url, json: true}, async (error, response, body) => {
+
+            if (response.statusCode === 200) {
+
+                let user = await User.where("provider", "facebook")
+                    .where("provider_id", body.id)
+                    .findOne();
+
+                if (!user) {
+
+                    let email_exists = await User.where("email", body.email).countDocuments();
+
+                    if (email_exists) {
+                        return res.validationError(req.lang("user.email_taken"));
+                    }
+
+                    let user = new User();
+
+                    user.email = body.email;
+                    user.first_name = body.name;
+                    user.last_name = "";
+                    user.lang = req.language;
+                    user.photo_payload = "https://graph.facebook.com/" + body.id + "/picture";
+                    user.status = 1;
+                    user.provider = "facebook";
+                    user.provider_id = body.id;
+
+                    user = await user.save();
+                }
+
+                let response = user.toObject();
+
+                response.token = jwt.sign(
+                    user.toJSON(),
+                    Config.get("jwt.secret"),
+                    {expiresIn: Config.get("jwt.expires")}
+                );
+
+                response.token_expiration = Config.get("jwt.expires");
+
+                return res.message(req.lang("user.events.created")).ok(response);
+
+            } else {
+                return res.serverError(body.error.message);
+            }
+
+        });
+
+
+    }
+
+
+    /**
+     * login by google
+     * @param req
+     * @param res
+     */
+    google(req, res) {
+
+        let access_token = req.param("access_token");
+        let url = "https://www.googleapis.com/plus/v1/people/me?personfields=names,image&key=AIzaSyD9jk0l10St-qTgHex78671WMKc8m1UcK4&access_token=" + access_token;
+
+        console.log(url);
+
+        request({url: url, json: true}, async (error, response, body) => {
+
+            if (response.statusCode === 200) {
+
+                let user = await User.where("provider", "google")
+                    .where("provider_id", body.id)
+                    .findOne();
+
+                let email = body.emails[0].value;
+
+                if (!user) {
+
+                    let email_exists = await User.where("email", email).countDocuments();
+
+                    if (email_exists) {
+                        return res.validationError(req.lang("user.email_taken"));
+                    }
+
+                    let user = new User();
+
+                    user.email = email;
+                    user.first_name = email.split("@")[0];
+                    user.last_name = "";
+                    user.lang = req.language;
+                    user.photo_payload = body.image.url;
+                    user.status = 1;
+                    user.provider = "google";
+                    user.provider_id = body.id;
+
+                    user = await user.save();
+                }
+
+                let response = user.toObject();
+
+                response.token = jwt.sign(
+                    user.toJSON(),
+                    Config.get("jwt.secret"),
+                    {expiresIn: Config.get("jwt.expires")}
+                );
+
+                response.token_expiration = Config.get("jwt.expires");
+
+                return res.message(req.lang("user.events.created")).ok(response);
+
+            } else {
+                return res.serverError(body.error.message);
+            }
+
         });
     }
 
@@ -99,8 +225,6 @@ export default class extends Controller {
                 user.save((error, user) => {
                     if (error) return res.serverError(error);
 
-                    console.log("changing");
-
                     req.mail(user, "PasswordChanged");
 
                     return res.message(req.lang("auth.events.password_changed")).ok();
@@ -119,19 +243,22 @@ export default class extends Controller {
 
         let code = req.param("code");
 
-        User.findOne({email_verification_code: code, email_verification_code_expiration: {$gt: Date.now()}}, (error, user) => {
+        User.findOne({
+            email_verification_code: code,
+            email_verification_code_expiration: {$gt: Date.now()}
+        }, (error, user) => {
             if (error) return res.serverError(error);
             if (!user) return res.validationError(req.lang("auth.invalid_email_verification_code"));
 
-                user.status = 1;
+            user.status = 1;
 
-                user.save((error, user) => {
-                    if (error) return res.serverError(error);
+            user.save((error, user) => {
+                if (error) return res.serverError(error);
 
-                    req.mail(user, "EmailVerified");
+                req.mail(user, "EmailVerified");
 
-                    return res.message(req.lang("auth.events.email_verified")).ok();
-                });
+                return res.message(req.lang("auth.events.email_verified")).ok();
+            });
 
         });
     }

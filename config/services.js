@@ -22,14 +22,15 @@ export default {
     },
 
     youtube: {
-
         key: process.env.YOUTUBE_KEY
-
     },
 
     soundcloud: {
-
         key: process.env.SOUNDCLOUD_KEY
+    },
+
+
+    google: {
 
     }
 

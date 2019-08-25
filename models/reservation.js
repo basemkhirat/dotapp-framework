@@ -1,4 +1,4 @@
-import {Mongoose, Schema} from './model';
+import {Model, Schema} from 'dotapp/model';
 
 let schema = Schema({
 
@@ -146,4 +146,4 @@ schema.statics.delete = function (data, callback) {
 };
 
 
-export default Mongoose.model("reservation", schema, "reservation");
+export default Model("reservation", schema, "reservation");

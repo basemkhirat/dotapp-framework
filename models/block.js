@@ -1,4 +1,4 @@
-import {Mongoose, Schema} from './model';
+import {Model, Schema} from 'dotapp/model';
 import Post from '~/models/post';
 import Event from '~/models/event';
 import slug from '~/models/plugins/slug';
@@ -81,5 +81,4 @@ schema.index({updated_at: -1});
 schema.index({name: 'text', description: 'text'});
 schema.plugin(slug({name: "slug", source: "name"}));
 
-
-export default Mongoose.model("block", schema, "block");
+export default Model("block", schema, "block");

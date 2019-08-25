@@ -1,6 +1,7 @@
-import {Mongoose, Schema} from './model';
+import {Model, Schema} from 'dotapp/model';
 import Bcrypt from 'bcrypt';
-import Config from '~/services/config';
+import Config from 'dotapp/services/config';
+import Resource from 'dotapp/services/media';
 
 let schema = Schema({
 
@@ -61,6 +62,15 @@ let schema = Schema({
             type: Number
         },
 
+        provider: {
+            type: String,
+            default: "local"
+        },
+
+        provider_id: {
+            type: String
+        }
+
 
     },
     {
@@ -90,7 +100,7 @@ schema.index({
  * generate password salt
  */
 schema.pre('save', function (next) {
-    if (this.isModified("password") || this.isNew) {
+    if (this.provider == "local" && (this.isModified("password") || this.isNew)) {
         Bcrypt.genSalt(10, (error, salt) => {
             if (error) return next(error);
             Bcrypt.hash(this.password, salt, (error, hash) => {
@@ -99,6 +109,25 @@ schema.pre('save', function (next) {
                 next(null, this);
             });
         });
+    } else {
+        next(null, this);
+    }
+});
+
+schema.pre('save', function (next) {
+
+    if (this.photo_payload) {
+
+        Resource.create(this.photo_payload, (error, media) => {
+            if (error) return next(error);
+            media.save((error, media) => {
+                if (error) next(error);
+                this.photo = media.id;
+                this.photo_payload = undefined;
+                next(null, this);
+            });
+        });
+
     } else {
         next(null, this);
     }
@@ -158,6 +187,6 @@ schema.methods.hasRole = function (name = false, callback) {
     return false;
 };
 
-export default Mongoose.model("user", schema, "user");
+export default Model("user", schema, "user");
 
 

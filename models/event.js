@@ -1,9 +1,9 @@
 import moment from 'moment';
-import {Mongoose, Schema} from './model';
+import {Model, Schema} from 'dotapp/model';
 import Tag from './tag';
 import Like from './like';
-import Resource from '~/services/media';
-import Config from '~/services/config';
+import Resource from 'dotapp/services/media';
+import Config from 'dotapp/services/config';
 import slug from '~/models/plugins/slug';
 
 let schema = Schema({
@@ -184,4 +184,4 @@ schema.pre('save', function (next) {
     }
 });
 
-export default Mongoose.model("event", schema, "event");
+export default Model("event", schema, "event");

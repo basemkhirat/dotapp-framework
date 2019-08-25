@@ -1,6 +1,6 @@
-import {Mongoose, Schema} from './model';
+import {Model, Schema} from 'dotapp/model';
 import slug from '~/models/plugins/slug';
-import Category from './category';
+import Category from "./category";
 
 let schema = Schema({
 
@@ -59,4 +59,4 @@ schema.index({updated_at: -1});
 schema.index({name: 'text', slug: 'text', description: 'text'});
 schema.plugin(slug({name: "slug", source: "name"}));
 
-export default Mongoose.model("category", schema, "category");
+export default Model("category", schema, "category");

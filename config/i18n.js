@@ -91,27 +91,27 @@ export default {
      * @param msg
      */
 
-    logDebugFn: function (msg) {
-        // console.log('debug', msg);
-    },
-
-    /**
-     * setting of log level WARN - default to require('debug')('i18n:warn')
-     * @param msg
-     */
-
-    logWarnFn: function (msg) {
-        // console.log('warn', msg);
-    },
-
-    /**
-     * setting of log level ERROR - default to require('debug')('i18n:error')
-     * @param msg
-     */
-
-    logErrorFn: function (msg) {
-        // console.log('error', msg);
-    },
+    // logDebugFn: function (msg) {
+    //     // console.log('debug', msg);
+    // },
+    //
+    // /**
+    //  * setting of log level WARN - default to require('debug')('i18n:warn')
+    //  * @param msg
+    //  */
+    //
+    // logWarnFn: function (msg) {
+    //     // console.log('warn', msg);
+    // },
+    //
+    // /**
+    //  * setting of log level ERROR - default to require('debug')('i18n:error')
+    //  * @param msg
+    //  */
+    //
+    // logErrorFn: function (msg) {
+    //     // console.log('error', msg);
+    // },
 
     /**
      * object or [obj1, obj2] to bind the i18n api and current locale to - defaults to null

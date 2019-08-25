@@ -1,5 +1,5 @@
 import Controller from "~/controllers/Controller";
-import Config from '~/services/config';
+import Config from 'dotapp/services/config';
 
 export default class extends Controller {
 

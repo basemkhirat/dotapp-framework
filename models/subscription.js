@@ -1,4 +1,4 @@
-import {Mongoose, Schema} from './model';
+import {Model, Schema} from 'dotapp/model';
 
 let schema = Schema({
 
@@ -23,4 +23,4 @@ schema.index({created_at: -1});
 schema.index({updated_at: -1});
 schema.index({email: 'text'});
 
-export default Mongoose.model("subscription", schema, "subscription");
+export default Model("subscription", schema, "subscription");

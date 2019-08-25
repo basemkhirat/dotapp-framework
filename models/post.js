@@ -1,6 +1,6 @@
 import moment from 'moment';
-import {Mongoose, Schema} from './model';
-import Config from '~/services/config';
+import {Schema, Model} from 'dotapp/model';
+import Config from 'dotapp/services/config';
 import Media from './media';
 import Tag from './tag';
 import async from 'async';
@@ -198,4 +198,4 @@ schema.pre("save", function (next) {
 });
 
 
-export default Mongoose.model("post", schema, "post");
+export default Model("post", schema, "post");

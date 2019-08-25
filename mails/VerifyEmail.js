@@ -1,21 +1,17 @@
-import Template from '~/services/mail/template';
+export default function (user, callback) {
 
-export default class extends Template {
+    this.render("mails/auth/verify_email", {user}, (error, html) => {
+        if (error && callback) return callback(error);
 
-    handle(user, callback) {
-
-        this.render("mails/auth/verify_email", {user}, (error, html) => {
+        this.send({
+            to: user.email,
+            subject: this.req.lang("auth.email_verification"),
+            html: html
+        }, (error, info) => {
             if (error && callback) return callback(error);
-
-            this.send({
-                to: user.email,
-                subject: this.req.lang("auth.email_verification"),
-                html: html
-            }, (error, info) => {
-                if (error && callback) return callback(error);
-                if(callback) return callback(null, info);
-            });
-
+            if (callback) return callback(null, info);
         });
-    }
+
+    });
 }
+

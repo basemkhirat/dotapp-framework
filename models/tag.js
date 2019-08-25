@@ -1,4 +1,4 @@
-import {Mongoose, Schema} from './model';
+import {Model, Schema} from 'dotapp/model';
 import async from 'async';
 
 let schema = Schema({
@@ -62,4 +62,4 @@ schema.index({created_at: -1});
 schema.index({updated_at: -1});
 schema.index({name: 'text'});
 
-export default Mongoose.model("tag", schema, "tag");
+export default Model("tag", schema, "tag");

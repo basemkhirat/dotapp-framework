@@ -1,11 +1,15 @@
 {
     "presets": [
-        "es2015"
+        [
+            "@babel/preset-env",
+            {
+                "useBuiltIns": "usage",
+                "corejs": "3"
+            }
+        ]
     ],
     "plugins": [
-        [
-            "babel-plugin-transform-class-properties"
-        ],
+        "@babel/plugin-proposal-class-properties",
         [
             "babel-plugin-root-import",
             {

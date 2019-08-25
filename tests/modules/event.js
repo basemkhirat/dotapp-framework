@@ -79,7 +79,9 @@ describe("Event", function () {
     it("perform bulk delete operations", function (done) {
 
         let event = {
-            title: faker.company.companyName()
+            title: faker.company.companyName(),
+            place: "5d2c782c63a44d713664a600",
+            scheduled_at: "2099-07-08T18:15:46.829+02:00"
         };
 
         server.post("/api/event")

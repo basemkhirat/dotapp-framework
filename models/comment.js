@@ -1,4 +1,4 @@
-import {Mongoose, Schema} from './model';
+import {Model, Schema} from 'dotapp/model';
 
 let schema = Schema({
 
@@ -95,4 +95,4 @@ schema.statics.add = function (data, callback) {
 };
 
 
-export default Mongoose.model("comment", schema, "comment");
+export default Model("comment", schema, "comment");

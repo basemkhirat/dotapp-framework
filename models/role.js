@@ -1,4 +1,4 @@
-import {Mongoose, Schema} from './model';
+import {Model, Schema} from 'dotapp/model';
 
 let schema = Schema({
 
@@ -43,4 +43,4 @@ schema.index({permissions: 1});
 schema.index({status: 1});
 schema.index({name: "text"});
 
-export default Mongoose.model("role", schema, "role");
+export default Model("role", schema, "role");

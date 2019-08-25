@@ -1,6 +1,7 @@
-import {Mongoose, Schema} from './model';
-import Storage from '~/services/storage';
-import Image from '~/services/media/handlers/file_image';
+import {Model, Schema} from 'dotapp/model';
+import Storage from 'dotapp/services/storage';
+import Image from 'dotapp/services/media/handlers/file_image';
+import Config from 'dotapp/services/config';
 import path from 'path';
 
 let schema = Schema({
@@ -115,11 +116,11 @@ schema.path("thumbnails").get(function () {
 
     } else if (this.data.path) {
 
-        thumbnails.default = _url("default/files/" + path.extname(this.data.path).split(".").pop()) + ".png";
+        thumbnails.default = Config.get("app.url") + "/" + "default/files/" + path.extname(this.data.path).split(".").pop() + ".png";
 
     } else {
 
-        thumbnails.default = _url("default/providers/" + this.provider + ".png");
+        thumbnails.default = Config.get("app.url") + "/" + "default/providers/" + this.provider + ".png";
 
     }
 
@@ -146,4 +147,4 @@ schema.pre('remove', function (next) {
     next();
 });
 
-export default Mongoose.model("media", schema, "media");
+export default Model("media", schema, "media");
