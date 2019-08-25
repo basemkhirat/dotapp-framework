@@ -64,13 +64,9 @@ export default class extends Controller {
                     .where("provider_id", body.id)
                     .findOne();
 
-                if (!user) {
+                let email_exists = await User.where("email", body.email).countDocuments();
 
-                    let email_exists = await User.where("email", body.email).countDocuments();
-
-                    if (email_exists) {
-                        return res.validationError(req.lang("user.email_taken"));
-                    }
+                if (!user && !email_exists) {
 
                     let user = new User();
 
