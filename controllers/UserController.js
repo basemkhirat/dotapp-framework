@@ -96,6 +96,7 @@ export default class extends Controller {
         user.photo = req.param("photo", user.photo);
         user.role = req.param("role", user.role);
         user.status = req.param("status", user.status);
+        user.photo_payload = req.param("photo_payload");
 
         if(!req.user){
             user.email_verification_code = Math.random().toString(36).slice(-8);
@@ -145,6 +146,7 @@ export default class extends Controller {
             user.photo = req.param("photo", user.photo);
             user.status = req.param("status", user.status);
             user.role = req.param("role", user.role);
+            user.photo_payload = req.param("photo_payload");
 
             if (req.filled("password")) {
                 user.password = req.param("password");

@@ -83,8 +83,6 @@ export default class extends Controller {
 
                         user = await user.save();
                     }
-
-
                 }
 
                 let response = user.toObject();
