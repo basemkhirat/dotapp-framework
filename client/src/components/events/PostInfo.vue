@@ -64,21 +64,23 @@
                                 <template slot="option" slot-scope="option">{{ option.name }}</template>
                             </v-select>
                             <!-- Event Price -->
-                            <div v-if="typeContent.value === 'paid'">
-                                <b-field class="mt-3">
-                                    <b-select v-model="postInfo.currency">
-                                        <option value="£">£</option>
-                                        <option value="$">$</option>
-                                        <option value="€">€</option>
-                                    </b-select>
-                                    <b-input
-                                        type="number"
-                                        class="w-100"
-                                        :placeholder="$('eventPrice')"
-                                        v-model="postInfo.price"
-                                    />
-                                </b-field>
-                            </div>
+                            <template v-if="typeContent">
+                                <div v-if="typeContent.value === 'paid'">
+                                    <b-field class="mt-3">
+                                        <b-select v-model="postInfo.currency">
+                                            <option value="£">£</option>
+                                            <option value="$">$</option>
+                                            <option value="€">€</option>
+                                        </b-select>
+                                        <b-input
+                                            type="number"
+                                            class="w-100"
+                                            :placeholder="$t('eventPrice')"
+                                            v-model="postInfo.price"
+                                        />
+                                    </b-field>
+                                </div>
+                            </template>
                         </div>
                     </b-field>
                 </div>

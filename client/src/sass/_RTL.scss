@@ -273,11 +273,13 @@
         .main--header {
             right: 0 !important;
             left: auto !important;
-            .nav--links li{
+
+            .nav--links li {
                 margin-left: 24px;
                 margin-right: 0;
             }
         }
+
         .main--sidebar {
             left: auto !important;
             right: -100% !important;
@@ -301,6 +303,7 @@
     .all--actions {
         left: auto;
         right: 250px;
+
         @media #{$mwlg} {
             width: 100%;
             right: 0;
@@ -392,4 +395,38 @@
         }
     }
 
+}
+
+
+.lang--ar {
+
+    .field.has-addons .control:first-child:not(:only-child) .button,
+    .field.has-addons .control:first-child:not(:only-child) .input,
+    .field.has-addons .control:first-child:not(:only-child) .custom--treeSelect .vue-treeselect__control,
+    .custom--treeSelect .field.has-addons .control:first-child:not(:only-child) .vue-treeselect__control,
+    .field.has-addons .control:first-child:not(:only-child) .custom--datetime input,
+    .custom--datetime .field.has-addons .control:first-child:not(:only-child) input,
+    .field.has-addons .control:first-child:not(:only-child) .taginput .taginput-container.is-focusable,
+    .taginput .field.has-addons .control:first-child:not(:only-child) .taginput-container.is-focusable,
+    .field.has-addons .control:first-child:not(:only-child) .select select {
+        border-bottom-right-radius: 5px;
+        border-top-right-radius: 5px;
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+    }
+
+    .field.has-addons .control:last-child:not(:only-child) .button,
+    .field.has-addons .control:last-child:not(:only-child) .input,
+    .field.has-addons .control:last-child:not(:only-child) .custom--treeSelect .vue-treeselect__control,
+    .custom--treeSelect .field.has-addons .control:last-child:not(:only-child) .vue-treeselect__control,
+    .field.has-addons .control:last-child:not(:only-child) .custom--datetime input,
+    .custom--datetime .field.has-addons .control:last-child:not(:only-child) input,
+    .field.has-addons .control:last-child:not(:only-child) .taginput .taginput-container.is-focusable,
+    .taginput .field.has-addons .control:last-child:not(:only-child) .taginput-container.is-focusable,
+    .field.has-addons .control:last-child:not(:only-child) .select select {
+        border-bottom-left-radius: 5px;
+        border-top-left-radius: 5px;
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+    }
 }

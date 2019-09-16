@@ -72,7 +72,6 @@ if (accessToken) {
 // Set User Lang
 if (userData) {
     axios.defaults.headers["accept-language"] = userData.lang;
-    console.log('acceptlang :',  userData.lang);
     if(userData.lang === 'ar') {
         document.body.classList.add('lang--ar')
     } else {
