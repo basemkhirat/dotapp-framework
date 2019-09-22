@@ -108,7 +108,7 @@ export default {
     blocks: 'Blocks',
     items: 'Items',
     recent: 'Recent',
-    Aecent: 'Aecent',
+    aecent: 'Aecent',
 
     // Placeholder
     sorByGroup: "Sort By Group",

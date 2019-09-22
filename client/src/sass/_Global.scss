@@ -18,8 +18,6 @@ body {
     font-size: .9rem;
 }
 
-
-
 .menuIsVertical {
     .main--content {
         padding: 80px 30px 100px 280px;
@@ -415,6 +413,8 @@ a,
     .item--text {
         margin-top: 5px;
         margin-bottom: 5px;
+        display: flex;
+        align-items: center;
     }
 
     .icon {
@@ -425,6 +425,7 @@ a,
     .all--item--action {
         text-align: right;
         justify-content: flex-end;
+        width: 100%;
 
         @media #{$mwlg} {
             justify-content: center;
@@ -1113,10 +1114,13 @@ a,
         max-height: calc(100vh - 280px);
         padding-top: 20px;
         padding-bottom: 20px;
+        overflow-x: hidden;
     }
 
     .page--head {
         border-bottom: 1px solid $borderColor;
+        padding-top: 0px;
+        padding-bottom: 15px;
     }
 
     .block--item {
