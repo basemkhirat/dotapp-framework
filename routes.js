@@ -166,6 +166,30 @@ module.exports = {
                         }
                     },
 
+                    "/device": {
+
+                        group: {
+                            "GET /": "DeviceController.find",
+                            "GET /:id": "DeviceController.findOne",
+                            "POST /": {
+                                middleware: [authenticate(), validate("device")],
+                                handler: "DeviceController.create"
+                            },
+                            "PUT /:id": {
+                                middleware: [authenticate(), validate("device")],
+                                handler: "DeviceController.update"
+                            },
+                            "DELETE /:id": {
+                                middleware: authenticate(),
+                                handler: "DeviceController.destroy"
+                            },
+                            "PATCH /": {
+                                middleware: authenticate(),
+                                handler: "DeviceController.bulk"
+                            }
+                        }
+                    },
+
                     "/place": {
 
                         group: {

@@ -76,7 +76,7 @@ export default class extends Controller {
      * @param req
      * @param res
      */
-    search(req, res) {
+    async search(req, res) {
 
         let query = Place.find();
 
@@ -84,9 +84,11 @@ export default class extends Controller {
             query.where("name.ar", new RegExp(req.param("q")));
         }
 
-        query.page(req.param("page"), req.param("limit"));
+        let p = await query.page(req.param("page"), req.param("limit"));
 
-        query.populate({path: "parent", populate: {path: "parent"}});
+        let x = query.populate({path: "parent", populate: {path: "parent"}});
+
+        return res.ok(p);
 
         query.execWithCount((error, result) => {
 

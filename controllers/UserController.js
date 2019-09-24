@@ -12,44 +12,48 @@ export default class extends Controller {
      */
     async find(req, res) {
 
+        try {
 
-        if (!req.can("user.view")) return res.forbidden();
+            if (!req.can("user.view")) return res.forbidden();
 
-        let query = User.find();
+            let superadmin = await Role.where("name", "superadmin").findOne();
 
-        let superadmin = await Role.where("name", "superadmin").findOne();
+            let query = User.find();
 
-        query.where("role").ne(superadmin.id);
+            query.where("role").ne(superadmin.id);
 
-        if (req.filled("status")) {
-            query.where("status", req.param("status"));
-        }
+            if (req.filled("status")) {
+                query.where("status", req.param("status"));
+            }
 
-        if (req.filled("lang")) {
-            query.where("lang", req.param("lang"));
-        }
+            if (req.filled("lang")) {
+                query.where("lang", req.param("lang"));
+            }
 
-        if (req.filled("role")) {
-            query.where("role", req.param("role"));
-        }
+            if (req.filled("role")) {
+                query.where("role", req.param("role"));
+            }
 
-        if (req.filled("q")) {
-            query.where({$text: {$search: req.param("q")}});
-        }
+            if (req.filled("q")) {
+                query.where({$text: {$search: req.param("q")}});
+            }
 
-        query.populate("role").populate("photo");
+            query.populate("role").populate("photo");
 
-        query.page(req.param("page"), req.param("limit"));
+            query.page(req.param("page"), req.param("limit"));
 
-        query.order(req.param("sort_field", "created_at"), req.param("sort_type", "desc"));
+            query.order(req.param("sort_field", "created_at"), req.param("sort_type", "desc"));
 
-        query.execWithCount((error, result) => {
-            if (error) return res.serverError(error);
+            let result = await query.execWithCount();
+
             return res.ok({
                 total: result.total,
                 docs: res.attachPolicies(result.docs, "user")
-            });
-        });
+            })
+
+        } catch (error) {
+            return res.serverError(error);
+        }
     }
 
     /**
@@ -57,17 +61,25 @@ export default class extends Controller {
      * @param req
      * @param res
      */
-    findOne(req, res) {
+    async findOne(req, res) {
 
-        if (!req.can("user.view")) return res.forbidden();
+        try {
 
-        let id = req.param("id");
+            if (!req.can("user.view")) return res.forbidden();
 
-        User.findById(id).populate("role").populate("photo").exec((error, user) => {
-            if (error) return res.serverError(error);
-            if (!user) return res.notFound(req.lang("user.errors.user_not_found"));
-            return res.ok(res.attachPolicies(user, "user"));
-        });
+            let id = req.param("id");
+
+            let user = await User.findById(id).populate("photo").populate("photo");
+
+            if (!user) {
+                return res.notFound(req.lang("user.errors.user_not_found"));
+            } else {
+                return res.ok(res.attachPolicies(user, "user"));
+            }
+
+        } catch (e) {
+            return res.serverError(e);
+        }
     }
 
     /**
@@ -76,42 +88,49 @@ export default class extends Controller {
      * @param res
      * @returns {*}
      */
-    create(req, res) {
+    async create(req, res) {
 
-        if (req.filled("status") && !req.can("user.status")) {
-            return res.forbidden();
-        }
+        try {
 
-        if (req.filled("role") && !req.can("user.role")) {
-            return res.forbidden();
-        }
-
-        let user = new User();
-
-        user.email = req.param("email", user.email);
-        user.password = req.param("password", user.password);
-        user.first_name = req.param("first_name", user.first_name);
-        user.last_name = req.param("last_name", user.last_name);
-        user.lang = req.param("lang", req.language);
-        user.photo = req.param("photo", user.photo);
-        user.role = req.param("role", user.role);
-        user.status = req.param("status", user.status);
-        user.photo_payload = req.param("photo_payload");
-
-        if(!req.user){
-            user.email_verification_code = Math.random().toString(36).slice(-8);
-            user.email_verification_code_expiration = Date.now() + 3600000;
-        }
-
-        user.save((error, user) => {
-            if (error) return res.serverError(error);
-
-            if(!req.user){
-                req.mail(user, "VerifyEmail");
+            if (req.filled("status") && !req.can("user.status")) {
+                return res.forbidden();
             }
 
-            return res.message(req.lang("user.events.created")).ok(user.id);
-        });
+            if (req.filled("role") && !req.can("user.role")) {
+                return res.forbidden();
+            }
+
+            let user = new User();
+
+            user.email = req.param("email", user.email);
+            user.password = req.param("password", user.password);
+            user.first_name = req.param("first_name", user.first_name);
+            user.last_name = req.param("last_name", user.last_name);
+            user.lang = req.param("lang", req.language);
+            user.photo = req.param("photo", user.photo);
+            user.role = req.param("role", user.role);
+            user.status = req.param("status", user.status);
+            user.photo_payload = req.param("photo_payload");
+
+            if (!req.user) {
+                user.email_verification_code = Math.random().toString(36).slice(-8);
+                user.email_verification_code_expiration = Date.now() + 3600000;
+            }
+
+            let saved = await user.save();
+
+            if (saved) {
+
+                if (!req.user) {
+                    req.mail(user, "VerifyEmail");
+                }
+
+                return res.message(req.lang("user.events.created")).ok(user.id);
+            }
+
+        } catch (e) {
+            return res.serverError(e);
+        }
     }
 
     /**
@@ -119,13 +138,17 @@ export default class extends Controller {
      * @param req
      * @param res
      */
-    update(req, res) {
+    async update(req, res) {
 
-        let id = req.param("id");
+        try {
 
-        User.findById(id, (error, user) => {
-            if (error) return res.serverError(error);
-            if (!user) return res.notFound(req.lang("user.errors.user_not_found"));
+            let id = req.param("id");
+
+            let user = await User.findById(id);
+
+            if (!user) {
+                return res.notFound(req.lang("user.errors.user_not_found"));
+            }
 
             if (!req.can("user.update", user)) {
                 return res.forbidden(req.lang("user.errors.update_denied", {user: user.first_name}));
@@ -152,11 +175,15 @@ export default class extends Controller {
                 user.password = req.param("password");
             }
 
-            user.save(error => {
-                if (error) return res.serverError(error);
+            let saved = await user.save();
+
+            if (saved) {
                 return res.message(req.lang("user.events.updated")).ok(id);
-            });
-        });
+            }
+
+        } catch (e) {
+            return res.serverError(e);
+        }
     }
 
     /**
@@ -164,13 +191,17 @@ export default class extends Controller {
      * @param req
      * @param res
      */
-    destroy(req, res) {
+    async destroy(req, res) {
 
-        let id = req.param("id");
+        try {
 
-        User.findById(id, (error, user) => {
-            if (error) return res.serverError(error);
-            if (!user) return res.notFound(req.lang("user.errors.user_not_found"));
+            let id = req.param("id");
+
+            let user = await User.findById(id);
+
+            if (!user) {
+                return res.notFound(req.lang("user.errors.user_not_found"));
+            }
 
             if (!req.can("user.delete", user)) {
                 return res.forbidden(req.lang("user.errors.delete_denied", {
@@ -178,11 +209,15 @@ export default class extends Controller {
                 }));
             }
 
-            user.remove(error => {
-                if (error) res.serverError(error);
+            let removed = await user.remove();
+
+            if (removed) {
                 return res.message(req.lang("user.events.deleted")).ok(id);
-            });
-        });
+            }
+
+        } catch (e) {
+            return res.serverError(error);
+        }
     }
 
     /**
