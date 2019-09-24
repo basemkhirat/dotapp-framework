@@ -84,11 +84,9 @@ export default class extends Controller {
             query.where("name.ar", new RegExp(req.param("q")));
         }
 
-        let p = await query.page(req.param("page"), req.param("limit"));
+        query.page(req.param("page"), req.param("limit"));
 
-        let x = query.populate({path: "parent", populate: {path: "parent"}});
-
-        return res.ok(p);
+        query.populate({path: "parent", populate: {path: "parent"}});
 
         query.execWithCount((error, result) => {
 

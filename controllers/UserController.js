@@ -49,7 +49,7 @@ export default class extends Controller {
             return res.ok({
                 total: result.total,
                 docs: res.attachPolicies(result.docs, "user")
-            })
+            });
 
         } catch (error) {
             return res.serverError(error);
