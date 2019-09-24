@@ -8,7 +8,7 @@
     },
     "dependencies": {
         "core-js": "^3.2.1",
-        "dotapp": "^1.0.16"
+        "dotapp": "^1.0.17"
     },
     "devDependencies": {
         "@babel/cli": "^7.5.5",
