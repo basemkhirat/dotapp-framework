@@ -16,10 +16,15 @@
     // color: #fff;
     height: auto;
     font-size: 14px;
+    text-transform: capitalize;
 }
 button{
     outline: 0;
     cursor: pointer;
+}
+.button:focus, .button.is-focused{
+    border-color: #dbdbdb;
+    color: #363636;
 }
 
 .button--circle{

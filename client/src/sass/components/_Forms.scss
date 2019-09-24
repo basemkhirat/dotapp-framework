@@ -98,6 +98,7 @@ label.label {
     font-size: 14px;
     height: 26px;
     border-radius: 15px;
+    text-transform: capitalize;
 }
 
 
@@ -171,6 +172,7 @@ label.label {
         border-bottom-left-radius: 5px;
         border-bottom-right-radius: 5px;
         padding: 0 !important;
+        text-transform: capitalize;
     }
 
     .dropdown-menu li,
