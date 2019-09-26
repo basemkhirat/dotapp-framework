@@ -40,8 +40,8 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-6 col-xl-1 table--item">
-                    <div class="item--text text-md-center">
+                <div class="col-12 col-sm-6 col-xl-1 table--item mw-10">
+                    <div class="item--text text-center">
                         <div class="field" v-if="item.policies.indexOf('post.update') > -1">
                             <b-switch @input="changeStatus" v-model="postStatus" :true-value="1" :false-value="0">
                                 {{$t('published')}}
