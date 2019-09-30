@@ -57,6 +57,10 @@ module.exports = {
                                 middleware: authenticate(),
                                 handler: "UserController.find"
                             },
+                            "GET /chart": {
+                                middleware: authenticate(),
+                                handler: "UserController.chart"
+                            },
                             "GET /:id": {
                                 handler: "UserController.findOne"
                             },
@@ -90,6 +94,7 @@ module.exports = {
 
                         group: {
                             "GET /": "MediaController.find",
+                            "GET /chart": "MediaController.chart",
                             "GET /thumbnails": "MediaController.findThumbnails",
                             "GET /types": "MediaController.findTypes",
                             "GET /extensions": "MediaController.findExtensions",
@@ -223,6 +228,7 @@ module.exports = {
                         group: {
 
                             "GET /": "AuthorController.find",
+                            "GET /chart": "AuthorController.chart",
                             "GET /:id": "AuthorController.findOne",
                             "GET /slug/:slug": "AuthorController.findBySlug",
 
@@ -281,6 +287,7 @@ module.exports = {
                         group: {
 
                             "GET /": "TagController.find",
+                            "GET /chart": "TagController.chart",
                             "GET /:id": "TagController.findOne",
                             "GET /name/:name": "TagController.findByName",
 
@@ -310,6 +317,7 @@ module.exports = {
                         group: {
 
                             "GET /": "PostController.find",
+                            "GET /chart": "PostController.chart",
                             "GET /formats": "PostController.findFormats",
                             "GET /:id": "PostController.findOne",
                             "GET /slug/:slug": "PostController.findBySlug",

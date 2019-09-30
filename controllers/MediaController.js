@@ -5,6 +5,7 @@ import async from "async";
 import path from 'path';
 import Storage from 'dotapp/services/storage';
 import Config from 'dotapp/services/config';
+import moment from 'moment';
 
 export default class extends Controller {
 
@@ -56,6 +57,63 @@ export default class extends Controller {
                 docs: res.attachPolicies(result.docs, "media")
             });
         });
+    }
+
+    /**
+     * Build a chart
+     * @param req
+     * @param res
+     * @returns {*}
+     */
+    chart(req, res) {
+
+        let duration = req.param("duration", 10);
+        let period = req.param("period", "days");
+        let start = req.param("start", moment().subtract(duration, period).format());
+        let end = req.param("end", moment().format());
+
+        let moment_start = moment(start);
+        let moment_end = moment(end);
+
+        let lists = [];
+        let started = moment_start;
+
+        while (true) {
+
+            started = started.add(1, period);
+
+            if (started <= moment_end) {
+                lists.push(started.format());
+            } else {
+                break;
+            }
+        }
+
+        return async.map(lists, (date, callback) => {
+
+            let query = Media.find();
+
+            query.where({
+                created_at: {
+                    '$gte': moment(date).startOf(period).format(),
+                    '$lte': moment(date).endOf(period).toDate()
+                }
+            });
+
+            query.countDocuments((error, total) => {
+                if (error) return callback(error);
+
+                callback(null, {
+                    date: moment(date).startOf(period).format(),
+                    total: total
+                })
+            });
+
+
+        }, (error, result = []) => {
+            return res.ok(result);
+        });
+
     }
 
     /**
