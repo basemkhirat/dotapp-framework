@@ -515,47 +515,38 @@ a,
 
 }
 
-.list--statistics{
-    display: flex;
-    align-items: center;
+.statistics{
+    margin-top: 25px;
     .statistics--content{
         display: flex;
+        flex-direction: row;
         align-items: center;
+        padding: 20px;
+        justify-content: space-between;
     }
-    .list-statistics-item{
-        margin-left: 30px;
-        &:first-child{
-            margin-left: 0;
-        }
-        @media #{$xs}{
-            margin-left: 20px;
-        }
+    path{
+        stroke-width: 2px;
     }
+    .card--block{
+        margin-top: 0 !important;
+        margin-bottom: 1rem;
+    }
+
     .statistics--icon{
-        width: 45px;
-        height: 45px;
-        line-height: 45px;
-        border-radius: 50%;
-        display: inline-block;
-        text-align: center;
-        margin-right: 8px;
-        font-size: 18px;
-        @media #{$xs}{
-            width: 40px;
-            height: 40px;
-            margin-right: 5px;
-        }
+        font-size: 36px;
+        background-color: transparent;
     }
     .statistics--number{
-        font-size: 15px;
+        font-size: 18px;
         color: #2d2f39;
         letter-spacing: .86px;
         font-weight: 900;
     }
     .statistics--title {
         color: $textColor;
-        font-size: 13px;
+        font-size: 16px;
         margin-bottom: 0;
+        text-transform: capitalize;
     }
 }
 

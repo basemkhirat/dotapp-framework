@@ -3,9 +3,11 @@ export default {
     statistics: {
         users: 'Users',
         posts: 'Posts',
-        events: 'events',
+        events: 'Events',
+        media: 'Media',
     },
     pageName: 'Dashboard',
     latestPosts: 'Latest Posts',
     latestEvents: 'Latest Events',
+    postsChart: 'Posts Chart',
 }

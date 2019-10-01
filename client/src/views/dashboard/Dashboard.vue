@@ -1,37 +1,36 @@
 <template>
     <div class="dashboard">
         <!-- Page Head -->
-        <div class="page--head">
+        <!-- <div class="page--head">
             <div class="wrap--content">
                 <div class="page--title">
                     <div>
                         <h1 class="title--text">
                             {{$t('dashboardPage.pageName')}}
                         </h1>
-
-                        <!-- Breadcrumb -->
                         <breadcrumb :links="breadcrumb" />
                     </div>
-
                     <div class="page--title--action ml-auto">
-                        <statistics />
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <div class="wrap--content">
-            <div class="row justify-content-center">
-                <!-- Start Widget -->
-                <div class="col-12 col-sm-12 col-md-8 ">
-
-
-                    <!-- Posts Card -->
+            <div class="row">
+                <div class="col-12 col-sm-12 col-lg-8">
+                    <DashboardChart/>
+                </div>
+                <div class="col-12 col-sm-12 col-lg-4">
+                    <statistics />
+                </div>
+                <!-- Posts Card -->
+                <div class="col-12 col-sm-12 col-xl-6">
                     <posts-card />
-
-                    <!-- Events Card -->
+                </div>
+                <!-- Events Card -->
+                <div class="col-12 col-sm-12 col-xl-6">
                     <events-card />
-
                 </div>
             </div>
         </div>
@@ -53,6 +52,7 @@
 import Statistics from '../../components/dashboard/Statistics'
 import PostsCard from '../../components/dashboard/PostsCard'
 import EventsCard from '../../components/dashboard/EventsCard'
+import DashboardChart from '../../components/dashboard/DashboardChart'
 
 export default {
     name: "dashboard",
@@ -70,6 +70,7 @@ export default {
         Statistics,
         PostsCard,
         EventsCard,
+        DashboardChart
     },
     methods: {
 

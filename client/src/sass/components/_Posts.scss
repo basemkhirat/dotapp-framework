@@ -196,12 +196,14 @@
         }
     }
     .thumbnail--post{
-        width: 100%;
-        height: 60px;
+        width: 55px;
+        height: 55px;
         background-color: #f7f7f7;
-        @media #{$mwsm}{
-            height: 120px;
-        }
+        border-radius: 50%;
+        overflow: hidden;
+        // @media #{$mwsm}{
+        //     height: 120px;
+        // }
         img{
             width: 100%;
             height: 100%;
@@ -250,14 +252,21 @@
         }
     }
 }
-
+// .mw-200{
+//     min-width: 200px;
+// }
+// .mw-100{
+//     min-width: 200px;
+// }
 .card--feed{
     .card-header{
-        background-color: #203054;
-        color: #fff;
+        // background-color: #203054;
+        color: #203054;
         border-radius: 5px 6px 0 0;
+        border: 0;
+        box-shadow: none;
         .card-header-title{
-            color: #fff;
+            color: $textColor;
             padding: 15px 15px;
             .icon{
                 font-size: 18px;

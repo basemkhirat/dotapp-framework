@@ -44,7 +44,7 @@
                             </div>
                         </b-table-column>
 
-                        <b-table-column>
+                        <b-table-column class="mw-200">
                             <div class="post--title">
                                 <router-link
                                     :to="'/eventForm/' + props.row.id"
@@ -71,14 +71,14 @@
                             </div>
                         </b-table-column>
 
-                        <b-table-column>
+                        <!-- <b-table-column>
                             <div class="item--text" v-if="props.row.place">
                                 <span class="icon">
                                     <i class="fas fa-map-marker-alt"></i>
                                 </span>
                                 {{props.row.place | address}}
                             </div>
-                        </b-table-column>
+                        </b-table-column> -->
                         <b-table-column centered>
                             <div
                                 class="block--item--title d-flex align-items-center justify-content-center item--text"

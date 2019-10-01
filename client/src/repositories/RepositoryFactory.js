@@ -10,6 +10,7 @@ import blocksRepository from "./blocksRepository";
 import authorsRepository from "./authorsRepository";
 import pagesRepository from "./pagesRepository";
 import placesRepository from "./placesRepository";
+import chartsRepository from "./chartsRepository";
 
 const repositories = {
     users: usersRepository,
@@ -24,6 +25,7 @@ const repositories = {
     authors: authorsRepository,
     pages: pagesRepository,
     places: placesRepository,
+    charts: chartsRepository,
 };
 
 export const RepositoryFactory = {
