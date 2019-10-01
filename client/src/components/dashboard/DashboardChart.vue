@@ -1,20 +1,27 @@
 
 <template>
     <!-- Editor Content -->
-    <div class="card--block card--feed">
-        <div class="card-header">
-            <p class="card-header-title">
-                <span class="icon">
-                    <i class="fas fa-chart-line"></i>
-                </span>
-                {{$t('dashboardPage.postsChart')}}
-            </p>
-        </div>
-
-        <div class="card--content p-0" v-if="dateList.length">
-            <e-charts :options="chartOptions" theme="chart-theme" ref="line" auto-resize />
-        </div>
+    <div>
+        <template v-if="dateList.length">
+             <div class="card--block card--feed">
+                <div class="card-header">
+                    <p class="card-header-title">
+                        <span class="icon">
+                            <i class="fas fa-chart-line"></i>
+                        </span>
+                        {{$t('dashboardPage.postsChart')}}
+                    </p>
+                </div>
+                <div class="card--content p-0 chartPosts">
+                    <e-charts :options="chartOptions" theme="chart-theme" ref="line" auto-resize />
+                </div>
+            </div>
+        </template>
+        <template v-else>
+            <loading-data></loading-data>
+        </template>
     </div>
+
 </template>
 
 <script>

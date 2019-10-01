@@ -3,97 +3,117 @@
         <div class="row">
             <div class="col-12 col-sm-6 col-md-3 col-lg-6 pr-2">
                 <div class="card--block">
-                    <div class="statistics--content">
-                        <span class="statistics--icon is-primary-light">
-                            <i class="far fa-user"></i>
-                        </span>
-                        <div class="text-center">
-                            <p class="statistics--title">{{$t('dashboardPage.statistics.users')}}</p>
-                            <p class="statistics--number">{{usersTotal}}</p>
+                    <template v-if="usersTotal">
+                        <div class="statistics--content">
+                            <span class="statistics--icon is-primary-light">
+                                <i class="far fa-user"></i>
+                            </span>
+                            <div class="text-center">
+                                <p class="statistics--title">{{$t('dashboardPage.statistics.users')}}</p>
+                                <p class="statistics--number">{{usersTotal}}</p>
+                            </div>
                         </div>
-                    </div>
-                    <template v-if="chartUsersData">
-                        <trend
-                            :data="chartUsersData"
-                            :gradient="['#89f7fe', '#66a6ff']"
-                            auto-draw
-                            smooth
-                            :height="68"
-                            :padding="0"
-                            >
-                        </trend>
+                        <template v-if="chartUsersData">
+                            <trend
+                                :data="chartUsersData"
+                                :gradient="['#89f7fe', '#66a6ff']"
+                                auto-draw
+                                smooth
+                                :height="68"
+                                :padding="0"
+                                >
+                            </trend>
+                        </template>
+                    </template>
+                    <template v-else>
+                        <loading-data></loading-data>
                     </template>
                 </div>
             </div>
             <div class="col-12 col-sm-6 col-md-3 col-lg-6 pl-2">
                 <div class="card--block">
-                    <div class="statistics--content">
-                        <span class="statistics--icon is-success-light">
-                            <i class="far fa-newspaper"></i>
-                        </span>
-                        <div class="text-center">
-                            <p class="statistics--title">{{$t('dashboardPage.statistics.posts')}}</p>
-                            <p class="statistics--number">{{postsTotal}}</p>
+                    <template v-if="postsTotal">
+                        <div class="statistics--content">
+                            <span class="statistics--icon is-success-light">
+                                <i class="far fa-newspaper"></i>
+                            </span>
+                            <div class="text-center">
+                                <p class="statistics--title">{{$t('dashboardPage.statistics.posts')}}</p>
+                                <p class="statistics--number">{{postsTotal}}</p>
+                            </div>
                         </div>
-                    </div>
-                    <template v-if="chartPostsData">
-                        <trend
-                            :data="chartPostsData"
-                            :gradient="['#84fab0', '#8fd3f4']"
-                            auto-draw
-                            smooth
-                            :height="68"
-                            :padding="0"
-                            >
-                        </trend>
+                        <template v-if="chartPostsData">
+                            <trend
+                                :data="chartPostsData"
+                                :gradient="['#84fab0', '#8fd3f4']"
+                                auto-draw
+                                smooth
+                                :height="68"
+                                :padding="0"
+                                >
+                            </trend>
+                        </template>
+                    </template>
+                    <template v-else>
+                        <loading-data></loading-data>
                     </template>
                 </div>
             </div>
             <div class="col-12 col-sm-6 col-md-3 col-lg-6 pr-2">
                 <div class="card--block">
-                    <div class="statistics--content">
-                        <span class="statistics--icon is-warning-light">
-                            <i class="far fa-clone"></i>
-                        </span>
-                        <div class="text-center">
-                            <p class="statistics--title">{{$t('dashboardPage.statistics.media')}}</p>
-                            <p class="statistics--number">{{mediaTotal}}</p>
+                    <template v-if="mediaTotal">
+                        <div class="statistics--content">
+                            <span class="statistics--icon is-warning-light">
+                                <i class="far fa-clone"></i>
+                            </span>
+                            <div class="text-center">
+                                <p class="statistics--title">{{$t('dashboardPage.statistics.media')}}</p>
+                                <p class="statistics--number">{{mediaTotal}}</p>
+                            </div>
                         </div>
-                    </div>
-                    <template v-if="chartMediaData">
-                        <trend
-                            :data="chartMediaData"
-                            :gradient="['#f6d365', '#fda085']"
-                            auto-draw
-                            smooth
-                            :height="68"
-                            :padding="0"
-                            >
-                        </trend>
+                        <template v-if="chartMediaData">
+                            <trend
+                                :data="chartMediaData"
+                                :gradient="['#f6d365', '#fda085']"
+                                auto-draw
+                                smooth
+                                :height="68"
+                                :padding="0"
+                                >
+                            </trend>
+                        </template>
+                    </template>
+                    <template v-else>
+                        <loading-data></loading-data>
                     </template>
                 </div>
             </div>
             <div class="col-12 col-sm-6 col-md-3 col-lg-6 pl-2">
                 <div class="card--block">
-                    <div class="statistics--content">
-                        <span class="statistics--icon is-purple-light">
-                            <i class="fas fa-tags"></i>
-                        </span>
-                        <div class="text-center">
-                            <p class="statistics--title">{{$t('tags')}}</p>
-                            <p class="statistics--number">{{tagsTotal}}</p>
+                    <template v-if="tagsTotal">
+                        <div class="statistics--content">
+                            <span class="statistics--icon is-purple-light">
+                                <i class="fas fa-tags"></i>
+                            </span>
+                            <div class="text-center">
+                                <p class="statistics--title">{{$t('tags')}}</p>
+                                <p class="statistics--number">{{tagsTotal}}</p>
+                            </div>
                         </div>
-                    </div>
-                    <template v-if="chartTagsData">
-                        <trend
-                            :data="chartTagsData"
-                            :gradient="['#6a11cb', '#2575fc']"
-                            auto-draw
-                            smooth
-                            :height="68"
-                            :padding="0"
-                            >
-                        </trend>
+                        <template v-if="chartTagsData">
+                            <trend
+                                :data="chartTagsData"
+                                :gradient="['#6a11cb', '#2575fc']"
+                                auto-draw
+                                smooth
+                                :height="68"
+                                :padding="0"
+                                >
+                            </trend>
+                        </template>
+                    </template>
+                    <template v-else>
+                        <loading-data></loading-data>
                     </template>
                 </div>
             </div>

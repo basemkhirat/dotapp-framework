@@ -530,6 +530,12 @@ a,
     .card--block{
         margin-top: 0 !important;
         margin-bottom: 1rem;
+        min-height: 168px;
+    }
+    .loading--data{
+        height: 100% !important;
+        border: 0 !important;
+        margin: 0 !important;
     }
 
     .statistics--icon{
@@ -547,6 +553,13 @@ a,
         font-size: 16px;
         margin-bottom: 0;
         text-transform: capitalize;
+    }
+}
+.chartPosts{
+    .loading--data{
+        height: 356px;
+        border: 0;
+        margin: 0;
     }
 }
 
