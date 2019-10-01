@@ -64,7 +64,7 @@
                     <template v-if="mediaTotal">
                         <div class="statistics--content">
                             <span class="statistics--icon is-warning-light">
-                                <i class="far fa-clone"></i>
+                                <i class="fa fa-images"></i>
                             </span>
                             <div class="text-center">
                                 <p class="statistics--title">{{$t('dashboardPage.statistics.media')}}</p>

@@ -101,7 +101,7 @@ export default {
             this.valueList = []
             // this.chartData = chartData.data.total;
             this.dateList = chartData.map(function(item) {
-                return  moment(item.date).format('YYYY/MM/DD');
+                return  moment(item.date).format('YYYY/MM');
             });
             this.valueList = chartData.map(function(item) {
                 return item.total;
