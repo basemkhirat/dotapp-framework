@@ -105,7 +105,7 @@ export default class extends Controller {
             started = started.add(1, period);
 
             if (started <= moment_end) {
-                lists.push(started.format());
+                lists.push(started.locale("en").format());
             } else {
                 break;
             }
@@ -117,8 +117,8 @@ export default class extends Controller {
 
             query.where({
                 created_at: {
-                    '$gte': moment(date).startOf(period).format(),
-                    '$lte': moment(date).endOf(period).toDate()
+                    '$gte': moment(date).locale("en").startOf(period).format(),
+                    '$lte': moment(date).locale("en").endOf(period).toDate()
                 }
             });
 
@@ -126,7 +126,7 @@ export default class extends Controller {
                 if (error) return callback(error);
 
                 callback(null, {
-                    date: moment(date).startOf(period).format(),
+                    date: moment(date).locale("en").startOf(period).format(),
                     total: total
                 })
             });
