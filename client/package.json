@@ -10,8 +10,9 @@
   "dependencies": {
     "@riophae/vue-treeselect": "0.0.38",
     "amcharts3": "github:amcharts/amcharts3",
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "buefy": "^0.7.5",
+    "cheerio": "^1.0.0-rc.3",
     "core-js": "^2.6.5",
     "dotenv": "^8.0.0",
     "dotenv-expand": "^5.1.0",

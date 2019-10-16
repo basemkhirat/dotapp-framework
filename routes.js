@@ -444,7 +444,8 @@ module.exports = {
                         }
                     },
 
-                    "GET /weather": "WeatherController.index"
+                    "GET /weather": "WeatherController.index",
+                    "GET /match": "MatchController.index"
                 }
             }
         }

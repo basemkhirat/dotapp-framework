@@ -8,7 +8,8 @@
     },
     "dependencies": {
         "core-js": "^3.2.1",
-        "dotapp": "^1.0.18"
+        "dotapp": "^1.0.18",
+        "cheerio": "latest"
     },
     "devDependencies": {
         "@babel/cli": "^7.5.5",
