@@ -3,12 +3,12 @@
     <div class="card--block">
       <div class="card--content">
         <!-- Status -->
-        <!-- <div class="post--info--item">
+        <div class="post--info--item">
           <b-field class="field-group align-items-center justify-content-between">
             <label class="label">Status</label>
             <b-switch v-model="postInfo.status" :true-value="1" :false-value="0">Published</b-switch>
           </b-field>
-        </div> -->
+        </div>
         <!-- Schedule Date -->
         <div class="post--info--item">
           <b-field class="field-group flex-column">
@@ -32,6 +32,7 @@
               label="name"
              :placeholder="$t('format')"
               class="select--with--icon w-100 v--select--scroll"
+              @input="changeSection"
             >
               <template slot="option" slot-scope="option">{{ option.name }}</template>
             </v-select>
@@ -106,15 +107,17 @@ export default {
     return {
       postInfo: {
         status: 0,
-        format: "",
+        format: {
+            value: "post",
+            name: "Post"
+        },
         tags: [],
         published_at: "",
         categories: [],
-        author: ""
+        author: "",
       },
       filteredTags: [],
       tagsFilterLoading: false,
-      allSections: ["News", "Media", "Sport", "Art"],
       allFormat,
       scheduleDate: "",
       page: 1,
@@ -248,6 +251,10 @@ export default {
         }
       });
     },
+
+    changeSection() {
+        this.postInfo.section = ''
+    }
 
   }
 };

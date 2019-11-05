@@ -4,6 +4,7 @@ import dashboardPage from './Dashboard'
 import usersPage from './Users'
 import groupsPage from './Groups'
 import pagesPage from './Pages'
+import menuPage from './Menu'
 import mediaPage from './Media'
 import postsPage from './Posts'
 import articlesPage from './Articles'
@@ -28,5 +29,6 @@ export const AR = {
     categoriesPage,
     tagsPage,
     authorsPage,
+    menuPage
 
 }

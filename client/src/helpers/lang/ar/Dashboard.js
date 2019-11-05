@@ -9,6 +9,7 @@ export default {
     pageName: 'لوحة التحكم',
     latestPosts: 'اخر المنشورات',
     latestEvents: 'اخر الفعاليات',
+    latestVideos: 'اخر الفيديوهات',
     postsChart: 'احصائية المنشورات',
 
 }

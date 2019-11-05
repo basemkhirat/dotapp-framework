@@ -118,12 +118,7 @@ export default {
                     icon: "fas fa-users",
                     role: true
                 },
-                {
-                    name: "Events",
-                    link: "/events",
-                    icon: "far fa-calendar-alt",
-                    role: true
-                }
+
                 // { name: 'Item Dropdown2', link: '/', icon: 'fas fa-columns', childLinks:[
                 //     { name: 'Item One a', link: '/a'},
                 //     { name: 'Item Two asds', link: '/sd'},
@@ -211,12 +206,6 @@ export default {
                     role: true
                 },
                 {
-                    name: this.lang.menuItems.events,
-                    link: "/events",
-                    icon: "far fa-calendar-alt",
-                    role: true
-                },
-                {
                     name: this.lang.menuItems.categories,
                     link: "/categories",
                     icon: "fas fa-puzzle-piece",
@@ -228,6 +217,12 @@ export default {
                     icon: "fas fa-tags",
                     role: true
                 },
+                // {
+                //     name: this.lang.menuItems.menu,
+                //     link: "/menu",
+                //     icon: "fas fa-bars",
+                //     role: true
+                // },
                 {
                     name: this.lang.menuItems.authors,
                     link: "/authors",

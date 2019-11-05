@@ -176,6 +176,7 @@
         .sub--item{
             .navbar-item{
                 padding: 12px 15px;
+                text-transform: capitalize;
                 &:hover{
                     color: $textColor;
                 }

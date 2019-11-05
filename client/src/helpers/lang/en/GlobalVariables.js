@@ -18,7 +18,8 @@ export default {
         articles: "articles",
         categories: "categories",
         tags: "tags",
-        authors: "authors"
+        authors: "authors",
+        menu: "menu"
     },
     themeSettings: {
         menu: "Menu",
@@ -126,6 +127,8 @@ export default {
 
     selectAll: "select all",
     unselectAll: "unselect all",
+    menu: "menu",
+    section: "Section",
 
     // Buttons
     banAllSelected: "Ban All Selected",

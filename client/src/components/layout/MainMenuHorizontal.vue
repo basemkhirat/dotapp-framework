@@ -161,12 +161,6 @@ export default {
                             role: true
                         },
                         {
-                            name: this.lang.menuItems.events,
-                            link: "/events",
-                            icon: "far fa-calendar-alt",
-                            role: true
-                        },
-                        {
                             name: this.lang.menuItems.categories,
                             link: "/categories",
                             icon: "fas fa-puzzle-piece",

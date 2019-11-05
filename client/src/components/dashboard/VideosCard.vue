@@ -1,12 +1,13 @@
+
 <template>
     <!-- Editor Content -->
     <div class="card--block card--feed">
         <div class="card-header">
             <p class="card-header-title">
                 <span class="icon">
-                    <i class="far fa-calendar-alt"></i>
+                    <i class="far fa-newspaper"></i>
                 </span>
-                {{$t('dashboardPage.latestEvents')}}
+                {{$t('dashboardPage.latestVideos')}}
             </p>
         </div>
 
@@ -16,17 +17,17 @@
             </template>
             <template v-else>
                 <b-table
-                    :data="events"
+                    :data="posts"
                     class="no--header table--feed"
                     :paginated="false"
-                    v-if="events.length"
+                    v-if="posts.length"
                 >
                     <template slot-scope="props">
                         <b-table-column width="100" class="thumbnail--post--content">
                             <div class="thumbnail--post" v-if="props.row.media">
                                 <router-link
-                                    :to="'/eventForm/' + props.row.id"
-                                    v-if="props.row.policies.indexOf('event.manage') > -1"
+                                    :to="'/postForm/' + props.row.id"
+                                    v-if="props.row.policies.indexOf('post.update') > -1"
                                 >
                                     <img
                                         :src="props.row.media.thumbnails.medium"
@@ -44,20 +45,20 @@
                             </div>
                         </b-table-column>
 
-                        <b-table-column class="mw-200">
+                        <b-table-column>
                             <div class="post--title">
                                 <router-link
-                                    :to="'/eventForm/' + props.row.id"
-                                    v-if="props.row.policies.indexOf('event.manage') > -1"
+                                    :to="'/postForm/' + props.row.id"
+                                    v-if="props.row.policies.indexOf('post.update') > -1"
                                 >{{props.row.title}}</router-link>
                                 <template v-else>{{props.row.title}}</template>
                             </div>
 
                             <div class="post--date">
                                 <span class="icon">
-                                    <i class="far fa-calendar-alt"></i>
+                                    <i class="fas fa-clock"></i>
                                 </span>
-                                {{props.row.scheduled}}
+                                {{props.row.created}}
                             </div>
                         </b-table-column>
                         <b-table-column centered>
@@ -68,29 +69,6 @@
                                 <b-tag type="is-danger" v-else>
                                     {{$t('notPublished')}}
                                 </b-tag>
-                            </div>
-                        </b-table-column>
-
-                        <!-- <b-table-column>
-                            <div class="item--text" v-if="props.row.place">
-                                <span class="icon">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                </span>
-                                {{props.row.place | address}}
-                            </div>
-                        </b-table-column> -->
-                        <b-table-column centered>
-                            <div
-                                class="block--item--title d-flex align-items-center justify-content-center item--text"
-                            >
-                                <div class="text--title">
-                                    <b-tag type="is-warning" v-if="props.row.type === 'free'">
-                                        {{$t('free')}}
-                                    </b-tag>
-                                    <b-tag type="is-info" v-else>
-                                        {{$t('paid')}}
-                                    </b-tag>
-                                </div>
                             </div>
                         </b-table-column>
                         <b-table-column centered>
@@ -108,7 +86,7 @@
                     </template>
                 </b-table>
                 <template v-else>
-                    <no-data text="No events have been created" />
+                    <no-data text="No posts have been created" />
                 </template>
             </template>
         </div>
@@ -118,14 +96,14 @@
 <script>
 // Repository Data
 import { RepositoryFactory } from "../../repositories/RepositoryFactory";
-const eventsRepository = RepositoryFactory.get("events");
+const postsRepository = RepositoryFactory.get("posts");
 
 export default {
     data() {
         return {
             page: 1,
             limit: 5,
-            events: [],
+            posts: [],
             dataLoading: false
         };
     },
@@ -133,14 +111,15 @@ export default {
         this.fetchAllItems();
     },
     methods: {
-        // Get Latest events
+        // Get Latest Posts
         async fetchAllItems() {
             this.dataLoading = true;
-            const events = await eventsRepository.getAllEvents(
+            const posts = await postsRepository.getAllPosts(
                 this.page,
-                this.limit
+                this.limit,{format: 'video'},
+                "post"
             );
-            this.events = events.data.docs;
+            this.posts = posts.data.docs;
             this.dataLoading = false;
         }
     }

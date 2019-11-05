@@ -28,30 +28,19 @@
                 <div class="col-12 col-sm-12 col-xl-6">
                     <posts-card />
                 </div>
-                <!-- Events Card -->
+                <!-- Videos Card -->
                 <div class="col-12 col-sm-12 col-xl-6">
-                    <events-card />
+                    <videos-card />
                 </div>
             </div>
         </div>
-
-        <!-- <div class="card--block">
-      <div class="card--hreader">
-        <div class="card--header--title">
-
-        </div>
-
-      </div>
-      <div class="card--content">
-      </div>
-        </div> -->
     </div>
 </template>
 
 <script>
 import Statistics from '../../components/dashboard/Statistics'
 import PostsCard from '../../components/dashboard/PostsCard'
-import EventsCard from '../../components/dashboard/EventsCard'
+import VideosCard from '../../components/dashboard/VideosCard'
 import DashboardChart from '../../components/dashboard/DashboardChart'
 
 export default {
@@ -69,7 +58,7 @@ export default {
     components: {
         Statistics,
         PostsCard,
-        EventsCard,
+        VideosCard,
         DashboardChart
     },
     methods: {
