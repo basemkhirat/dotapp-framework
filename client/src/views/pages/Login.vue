@@ -9,7 +9,7 @@
                 </template>
                 <form @submit.prevent="loginSubmit()">
                     <div class="logo--head">
-                        <h3>Dashboard</h3>
+                        <img src="../../assets/images/logo.png" alt="Elmodarrag">
                     </div>
                     <b-field class="field-group">
                         <b-input type="email" placeholder="Email" icon="email-outline" v-model="userLogin.email" />

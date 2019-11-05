@@ -5,7 +5,7 @@
                 <div class="row align-items-center h-100">
                     <div class="col-6 col-md-9 d-flex align-items-center">
                         <div class="nav--brand" v-if="menuTheme === 'horizontal'">
-                            {{$t('header.dashboardName')}}
+                            <img src="../../assets/images/logo-white.png" alt="Elmodarrag">
                         </div>
                         <template v-if="menuTheme === 'vertical'">
                             <div class="btn-open--sidebar" @click="navMenuOpen">

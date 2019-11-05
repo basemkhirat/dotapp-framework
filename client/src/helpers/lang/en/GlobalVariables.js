@@ -1,8 +1,8 @@
 // English Language
 export default {
-    dashboardName: "Dashboard",
+    dashboardName: "Elmodarrag",
     header: {
-        dashboardName: "Dashboard",
+        dashboardName: "Elmodarrag",
         profile: "Profile",
         logout: "Logout"
     },
@@ -19,7 +19,8 @@ export default {
         categories: "categories",
         tags: "tags",
         authors: "authors",
-        menu: "menu"
+        menu: "menu",
+        others: 'others'
     },
     themeSettings: {
         menu: "Menu",

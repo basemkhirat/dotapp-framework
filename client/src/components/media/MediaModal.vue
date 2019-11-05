@@ -2,7 +2,7 @@
     <div>
         <b-modal
             @close="closeMediaModal"
-            :canCancel="false"
+            :canCancel="['escape']"
             :has-modal-card="false"
             :active.sync="mediaModal"
             scroll="keep"

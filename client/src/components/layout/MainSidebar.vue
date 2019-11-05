@@ -5,7 +5,9 @@
                 <span class="icon" @click="toggleNavOpen">
                     <i class="mdi mdi-menu"></i>
                 </span>
-                <div class="head-logo">{{$t('header.dashboardName')}}</div>
+                <div class="head-logo">
+                    <img src="../../assets/images/logo-white.png" alt="Elmodarrag">
+                </div>
             </div>
             <perfect-scrollbar class="menu--scroll">
                 <ul class="menu-list">

@@ -5,8 +5,8 @@
         <!-- Status -->
         <div class="post--info--item">
           <b-field class="field-group align-items-center justify-content-between">
-            <label class="label">Status</label>
-            <b-switch v-model="postInfo.status" :true-value="1" :false-value="0">Published</b-switch>
+            <label class="label">{{$t('status')}}</label>
+            <b-switch v-model="postInfo.status" :true-value="1" :false-value="0">{{$t('published')}}</b-switch>
           </b-field>
         </div>
         <!-- Schedule Date -->

@@ -407,6 +407,8 @@ a,
 
         .text--title {
             margin-left: 5px;
+            color: $textColor;
+            font-weight: 400;
         }
     }
 
@@ -913,6 +915,8 @@ a,
     .login--form {
         max-width: 420px;
         width: 100%;
+        direction: ltr;
+        text-align: left;
 
         .card--block {
             border-radius: 10px;
@@ -926,12 +930,13 @@ a,
                 color: #a9a6af;
 
                 &:hover {
-                    color: #fff;
+                    color: $mainColor;
                 }
             }
         }
 
         .logo--head {
+            text-align: center;
             h3 {
                 text-align: center;
                 margin-bottom: 35px;
@@ -940,6 +945,10 @@ a,
                 color: $mainColor;
                 font-weight: 500;
                 letter-spacing: 2px;
+            }
+            img{
+                max-width: 200px;
+                margin: 10px auto 40px;
             }
         }
 

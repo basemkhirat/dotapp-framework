@@ -1,8 +1,8 @@
 // Arabic Language
 export default {
-    dashboardName: 'لوحة التحكم',
+    dashboardName: 'المدرج',
     header: {
-        dashboardName: 'لوحة التحكم',
+        dashboardName: 'المدرج',
         profile: 'حسابي',
         logout: 'تسجيل الخروج',
     },
@@ -19,7 +19,8 @@ export default {
         categories: 'الاقسام',
         tags: 'الكلمات الدلالية',
         authors: 'كتاب الرأي',
-        menu: "القوائم"
+        menu: "القوائم",
+        others: 'اخرى'
     },
     themeSettings:{
         menu: 'القائمة',
