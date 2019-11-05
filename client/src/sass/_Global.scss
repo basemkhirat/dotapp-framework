@@ -958,7 +958,9 @@ a,
         align-items: center;
     }
 }
-
+.btn--upload--media{
+    min-width: 150px;
+}
 // Loading
 .loading--data {
     width: 100%;

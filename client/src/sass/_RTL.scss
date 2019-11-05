@@ -412,6 +412,19 @@
             border-top-right-radius: 4px;
         }
     }
+    .lower--media--modal{
+        .ml-auto{
+            margin-left: 0 !important;
+            margin-right: auto;
+        }
+
+    }
+    .upper--media{
+        .ml-3{
+            margin-left: 0 !important;
+            margin-right: 15px !important;
+        }
+    }
 
 }
 

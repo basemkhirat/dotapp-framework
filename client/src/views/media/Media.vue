@@ -19,7 +19,7 @@
                     </div>
 
                     <div class="page--title--action ml-auto" v-if="isInUserPermissions('role.create')">
-                        <button class="button is-primary" @click="changeModalUploadFiles">
+                        <button class="button is-primary btn--upload--media" @click="changeModalUploadFiles">
                             {{$t('upload')}}
                             <i class="fas fa-cloud-upload-alt ml-2"></i>
                         </button>
