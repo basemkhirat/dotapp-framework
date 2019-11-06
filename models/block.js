@@ -43,7 +43,12 @@ schema.methods.getItems = function (callback) {
             .populate("media").populate("categories").populate("tags")
             .exec((error, items) => {
                 if (error) return callback(error);
-                callback(null, items);
+
+                let sorted_items = this.items.map(id => {
+                    return  items.find(item => item.id == id)
+                });
+
+                callback(null, sorted_items);
             });
 
 
@@ -59,7 +64,12 @@ schema.methods.getItems = function (callback) {
             })
             .exec((error, items) => {
                 if (error) return callback(error);
-                callback(null, items);
+
+                let sorted_items = this.items.map(id => {
+                    return  items.find(item => item.id == id)
+                });
+
+                callback(null, sorted_items);
             });
 
     } else if (this.type === "event") {
@@ -68,7 +78,12 @@ schema.methods.getItems = function (callback) {
             .populate("media").populate("categories").populate("tags")
             .exec((error, items) => {
                 if (error) return callback(error);
-                callback(null, items);
+
+                let sorted_items = this.items.map(id => {
+                    return  items.find(item => item.id == id)
+                });
+
+                callback(null, sorted_items);
             });
 
     } else {
