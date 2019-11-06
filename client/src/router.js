@@ -214,6 +214,7 @@ const router = new Router({
                     // },
                     beforeEnter: routerGuard
                 },
+
                 {
                     path: "/pageForm/:id?",
                     name: "pageForm",
@@ -223,25 +224,19 @@ const router = new Router({
                     },
                     beforeEnter: routerGuard
                 },
+                // {
+                //     path: "/menu",
+                //     name: "menu",
+                //     component: () => import("./views/menu/menu.vue"),
+                //     // meta: {
+                //     //     role: 'page.view'
+                //     // },
+                //     beforeEnter: routerGuard
+                // },
                 {
                     path: "/notAuthorized",
                     name: "notAuthorized",
                     component: () => import("./views/pages/NotAuthorized.vue")
-                },
-                {
-                    path: "/events",
-                    name: "events",
-                    component: () => import("./views/events/Events.vue"),
-                    beforeEnter: routerGuard
-                },
-                {
-                    path: "/eventForm/:id?",
-                    name: "eventForm",
-                    component: () => import("./views/events/Form.vue"),
-                    meta: {
-                        role: "event.manage"
-                    },
-                    beforeEnter: routerGuard
                 },
             ]
         }

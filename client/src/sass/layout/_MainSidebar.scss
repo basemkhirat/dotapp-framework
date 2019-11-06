@@ -54,9 +54,16 @@
             }
         }
         .head-logo{
-            font-size: 16px;
+            font-size: 1.3rem;
             color: #fff;
             margin-left: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            img{
+                max-width: 120px;
+                margin: 10px auto;
+            }
         }
      }
 

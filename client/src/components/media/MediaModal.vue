@@ -2,7 +2,7 @@
     <div>
         <b-modal
             @close="closeMediaModal"
-            :canCancel="false"
+            :canCancel="['escape']"
             :has-modal-card="false"
             :active.sync="mediaModal"
             scroll="keep"
@@ -15,10 +15,11 @@
                         <span class="badge--count" v-if="total">({{total}})</span>
                     </h2>
 
-                    <button class="button is-primary ml-auto" @click="changeModalUploadFiles">
+                    <button class="button is-primary ml-auto btn--upload--media" @click="changeModalUploadFiles">
                         {{$t('upload')}}
                         <i class="fas fa-cloud-upload-alt ml-2"></i>
                     </button>
+                    <button class="button is-dark ml-3" @click="closeMediaModal">{{$t('cancel')}}</button>
                 </div>
 
                 <!-- Filter Media -->
@@ -89,7 +90,6 @@
                                         Insert to post
                                         <i class="fas fa-share ml-2"></i>
                             </button>-->
-                            <button class="button is-light ml-3" @click="closeMediaModal">{{$t('cancel')}}</button>
                         </div>
                     </div>
                 </div>

@@ -1,8 +1,8 @@
 // Arabic Language
 export default {
-    dashboardName: 'لوحة التحكم',
+    dashboardName: 'المدرج',
     header: {
-        dashboardName: 'لوحة التحكم',
+        dashboardName: 'المدرج',
         profile: 'حسابي',
         logout: 'تسجيل الخروج',
     },
@@ -18,7 +18,9 @@ export default {
         articles: 'المقالات',
         categories: 'الاقسام',
         tags: 'الكلمات الدلالية',
-        authors: 'كتاب الرأي'
+        authors: 'كتاب الرأي',
+        menu: "القوائم",
+        others: 'اخرى'
     },
     themeSettings:{
         menu: 'القائمة',
@@ -125,6 +127,8 @@ export default {
     to: 'إلى',
     schedule: 'جدولة',
     format: 'نوع الخبر',
+    menu: "القوائم",
+    section: "القسم",
 
     // Buttons
     banAllSelected: 'حظر المحدد',

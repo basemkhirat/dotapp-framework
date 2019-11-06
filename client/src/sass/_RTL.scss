@@ -395,6 +395,37 @@
         }
     }
 
+    .addNewItem {
+        padding: 0 30px;
+        .control{
+            .button{
+                border-bottom-right-radius: 0;
+                border-top-right-radius: 0;
+                border-bottom-left-radius: 4px !important;
+                border-top-left-radius: 4px !important;
+            }
+        }
+        &.field.has-addons .control:first-child .control .input{
+            border-bottom-left-radius: 0;
+            border-top-left-radius: 0;
+            border-bottom-right-radius: 4px;
+            border-top-right-radius: 4px;
+        }
+    }
+    .lower--media--modal{
+        .ml-auto{
+            margin-left: 0 !important;
+            margin-right: auto;
+        }
+
+    }
+    .upper--media{
+        .ml-3{
+            margin-left: 0 !important;
+            margin-right: 15px !important;
+        }
+    }
+
 }
 
 

@@ -407,6 +407,8 @@ a,
 
         .text--title {
             margin-left: 5px;
+            color: $textColor;
+            font-weight: 400;
         }
     }
 
@@ -913,6 +915,8 @@ a,
     .login--form {
         max-width: 420px;
         width: 100%;
+        direction: ltr;
+        text-align: left;
 
         .card--block {
             border-radius: 10px;
@@ -926,12 +930,13 @@ a,
                 color: #a9a6af;
 
                 &:hover {
-                    color: #fff;
+                    color: $mainColor;
                 }
             }
         }
 
         .logo--head {
+            text-align: center;
             h3 {
                 text-align: center;
                 margin-bottom: 35px;
@@ -940,6 +945,10 @@ a,
                 color: $mainColor;
                 font-weight: 500;
                 letter-spacing: 2px;
+            }
+            img{
+                max-width: 200px;
+                margin: 10px auto 40px;
             }
         }
 
@@ -958,7 +967,9 @@ a,
         align-items: center;
     }
 }
-
+.btn--upload--media{
+    min-width: 150px;
+}
 // Loading
 .loading--data {
     width: 100%;
@@ -1153,23 +1164,6 @@ a,
 
     }
 
-    .addNewItem {
-        padding: 0 30px;
-        .control{
-            .button{
-                border-bottom-right-radius: 0;
-                border-top-right-radius: 0;
-                border-bottom-left-radius: 4px !important;
-                border-top-left-radius: 4px !important;
-            }
-        }
-        &.field.has-addons .control:first-child .control .input{
-            border-bottom-left-radius: 0;
-            border-top-left-radius: 0;
-            border-bottom-right-radius: 4px;
-            border-top-right-radius: 4px;
-        }
-    }
 }
 
 .wrap--block--items {
@@ -1191,5 +1185,47 @@ a,
         &:hover {
             box-shadow: none;
         }
+    }
+}
+
+.menus--blocks{
+    .content--items{
+        .menu {
+            margin-top: 15px;
+            li{
+                padding: 15px;
+                background-color: #F8F8F8;
+                margin-top: 8px;
+                border-radius: 5px;
+                color: #000;
+                cursor: pointer;
+                &:last-child{
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+}
+
+
+
+
+.accordion{
+    margin-bottom: 8px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    &:last-child{
+        margin-bottom: 0;
+    }
+    .card-header{
+        background-color: #F8F8F8;
+        border: 0;
+        box-shadow: none;
+    }
+    form {
+        margin-bottom: 10px;
+    }
+    .input{
+
     }
 }

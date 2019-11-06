@@ -176,7 +176,7 @@ export default {
   watch: {
     showChildren() {
       if (this.showChildren) {
-          let filters = {};
+          let filters = {status: 1};
         this.getBlock();
         this.showChildren = true;
         if (this.item.type === "event") {
@@ -283,7 +283,7 @@ export default {
     },
 
     getAsyncData: debounce(function(name) {
-      let filters = {};
+      let filters = {status: 1};
       filters.searchQuery = name;
       if (this.item.type === "event") {
         this.fetchAllEvents(filters);

@@ -119,16 +119,22 @@ export default {
                     role: true
                 },
                 {
-                    name: this.lang.menuItems.users,
-                    link: "/users",
-                    icon: "fas fa-user",
-                    role: "user.view"
+                    name: this.lang.menuItems.posts,
+                    link: "/posts",
+                    icon: "far fa-newspaper",
+                    role: true
                 },
                 {
-                    name: this.lang.menuItems.groups,
-                    link: "/groups",
-                    icon: "fas fa-users",
-                    role: "role.view"
+                    name: this.lang.menuItems.articles,
+                    link: "/articles",
+                    icon: "fas fa-newspaper",
+                    role: true
+                },
+                {
+                    name: this.lang.menuItems.categories,
+                    link: "/categories",
+                    icon: "fas fa-puzzle-piece",
+                    role: true
                 },
                 {
                     name: this.lang.menuItems.media,
@@ -137,47 +143,36 @@ export default {
                     role: true
                 },
                 {
-                    name: this.lang.menuItems.pages,
-                    link: "/pages",
-                    icon: "fas fa-flag",
-                    role: true
-                },
-                {
-                    name: this.lang.menuItems.content,
+                    name: this.lang.menuItems.others,
                     link: "/",
                     icon: "far fa-newspaper",
                     role: true,
                     childLinks: [
-                        {
-                            name: this.lang.menuItems.posts,
-                            link: "/posts",
-                            icon: "far fa-newspaper",
-                            role: true
-                        },
-                        {
-                            name: this.lang.menuItems.articles,
-                            link: "/articles",
-                            icon: "fas fa-newspaper",
-                            role: true
-                        },
-                        {
-                            name: this.lang.menuItems.events,
-                            link: "/events",
-                            icon: "far fa-calendar-alt",
-                            role: true
-                        },
-                        {
-                            name: this.lang.menuItems.categories,
-                            link: "/categories",
-                            icon: "fas fa-puzzle-piece",
-                            role: true
-                        },
                         {
                             name: this.lang.menuItems.tags,
                             link: "/tags",
                             icon: "fas fa-tags",
                             role: true
                         },
+                        {
+                            name: this.lang.menuItems.pages,
+                            link: "/pages",
+                            icon: "fas fa-flag",
+                            role: true
+                        },
+                        {
+                            name: this.lang.menuItems.users,
+                            link: "/users",
+                            icon: "fas fa-user",
+                            role: "user.view"
+                        },
+                        {
+                            name: this.lang.menuItems.groups,
+                            link: "/groups",
+                            icon: "fas fa-users",
+                            role: "role.view"
+                        },
+
                         {
                             name: this.lang.menuItems.authors,
                             link: "/authors",

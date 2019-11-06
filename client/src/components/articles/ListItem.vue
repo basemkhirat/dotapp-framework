@@ -7,7 +7,10 @@
                 </div>
                 <div class="col-12 col-sm-6 col-xl table--item-4">
                     <div class="block--item--title d-flex align-items-center item--text">
-                        <div class="text--title">
+                        <router-link :to="'/articleForm/' + item.id" v-if="item.policies.indexOf('post.update') > -1" class="text--title">
+                            {{item.title}}
+                        </router-link>
+                        <div class="text--title" v-else>
                             {{item.title}}
                         </div>
                     </div>

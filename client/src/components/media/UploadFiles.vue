@@ -122,6 +122,8 @@ export default {
             const items = await mediaRepository.newMediaItem(data);
 
             if (items.success) {
+                console.log('success :', items);
+
                 this.successMessage(items.message);
                 if (this.files.length > 1) {
                     this.files.splice(0, 1);
@@ -129,6 +131,9 @@ export default {
                 } else if (this.files.length === 1) {
                     this.files = [];
                     this.submitForm();
+                    this.closeModalUploadFile({ newItem: true });
+                    this.isLoading = false;
+                } else {
                     this.closeModalUploadFile({ newItem: true });
                     this.isLoading = false;
                 }

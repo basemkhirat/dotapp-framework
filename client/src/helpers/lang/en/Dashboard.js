@@ -9,5 +9,6 @@ export default {
     pageName: 'Dashboard',
     latestPosts: 'Latest Posts',
     latestEvents: 'Latest Events',
+    latestVideos: 'Latest Videos',
     postsChart: 'Posts Chart',
 }
