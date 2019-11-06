@@ -161,6 +161,10 @@ export default {
       if (this.postInfo.format) {
         data.format = this.postInfo.format.value;
       }
+    //   if (this.postInfo.blocks) {
+    //     // data.blocks = this.postInfo.format.value;
+    //     //console.log('blocks :', this.postInfo.blocks);
+    //   }
       data.published_at = this.postInfo.published_at;
       data.content = postCardContent;
       this.isLoading = true;

@@ -56,7 +56,7 @@
     },
     watch: {
       userLogin: {
-        handler(val){
+        handler(){
           if(this.userLogin.email&& this.userLogin.password){
             this.formValid = false
           } else {
