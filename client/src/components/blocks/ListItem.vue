@@ -61,7 +61,7 @@
 
 
         <Container @drop="onDrop" drag-handle-selector=".block--drop" v-if="block.items.length">
-            <Draggable v-for="(block, index) in block.items" :key="block.id">
+            <Draggable v-for="(block, index) in block.items" :key="block.id" v-if="block">
 
             <div
               class="block--item no--checkbox block--drop" >
@@ -222,9 +222,10 @@ export default {
       this.isLoading = true;
       let data = {};
       data.items = [];
-
       this.block.items.map(item => {
-        data.items.push(item.id);
+          if(item) {
+              data.items.push(item.id);
+          }
       });
       const block = await blocksRepository.updateBlock(this.item.id, data);
       this.isLoading = false;
@@ -331,6 +332,7 @@ export default {
     // Set Sort All Items After Drop
     onDrop(dropResult) {
         this.block.items = applyDrag(this.block.items, dropResult);
+
     },
   }
 };
