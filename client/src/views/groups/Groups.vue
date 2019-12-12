@@ -116,6 +116,7 @@
 
             // Filters
             featchByFilter(filters) {
+                this.page = 1
                 this.fetchAllItems(filters)
             }
 

@@ -90,7 +90,7 @@
             page() {
                 this.fetchAllItems()
             },
-            '$route'(to, from) {
+            '$route'() {
                 this.fetchAllItems()
             }
         },
@@ -119,6 +119,7 @@
             },
             // Filters
             featchByFilter(filters) {
+                this.page = 1
                 this.fetchAllItems(filters)
             }
 

@@ -109,8 +109,8 @@ export default {
     close: 'Close',
     blocks: 'Blocks',
     items: 'Items',
-    recent: 'Recent',
-    aecent: 'Aecent',
+    recent: 'Oldest to Latest',
+    aecent: 'Latest to Oldest',
 
     // Placeholder
     sorByGroup: "Sort By Group",

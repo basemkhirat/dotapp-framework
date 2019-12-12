@@ -60,7 +60,7 @@
     import {
         RepositoryFactory
     } from '../../repositories/RepositoryFactory'
-import { type } from 'os';
+// import { type } from 'os';
     const articlesRepository = RepositoryFactory.get('posts')
 
     export default {
@@ -115,6 +115,7 @@ import { type } from 'os';
             },
             // Filters
             featchByFilter(filters) {
+                this.page = 1
                 this.fetchAllItems(filters)
             }
 
