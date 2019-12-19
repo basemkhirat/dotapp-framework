@@ -29,6 +29,13 @@
     font-family: $mainFont;
 }
 
+.text-force-left{
+    text-align: left !important;
+    .input{
+        text-align: left !important;
+    }
+}
+
 .taginput .taginput-container .autocomplete .icon {
     height: 2.88em;
 }

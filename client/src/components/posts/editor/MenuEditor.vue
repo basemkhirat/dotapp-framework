@@ -13,6 +13,12 @@
                 </span>
                 {{$t('image')}}
             </li>
+            <li class="menu--item" @click="setEditorType('ads')">
+                <span class="icon">
+                    <i class="fas fa-ad"></i>
+                </span>
+                {{$t('ads')}}
+            </li>
             <li class="menu--item" @click="setEditorType('gallery')">
                 <span class="icon">
                     <i class="fas fa-images"></i>

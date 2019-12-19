@@ -10,6 +10,7 @@ const Media = {
         setContentCardImage: '',
         setContentCardGallery: '',
         setContentCardVideo: '',
+        setContentCardImageAds: '',
         selectedType: '',
         previewItemAction: true,
         galleryMode: false,
@@ -42,6 +43,14 @@ const Media = {
         },
         // Open Media And Preview All Images
         openMediaImageFromPosts(state, type = '') {
+            this.commit('resetType')
+            state.selectedType = type
+            state.stateMediaModal = !state.stateMediaModal
+            state.previewImages = true
+            state.previewItemAction = false
+        },
+        // Open Media And Preview All Images
+        openMediaAdsFromPosts(state, type = '') {
             this.commit('resetType')
             state.selectedType = type
             state.stateMediaModal = !state.stateMediaModal
@@ -89,6 +98,10 @@ const Media = {
             }
             else if (state.selectedType.type === 'cardImage'){
                 state.setContentCardImage = {item: item, index: state.selectedType.index}
+                state.imageSelected = item
+            }
+            else if (state.selectedType.type === 'cardAds'){
+                state.setContentCardImageAds = {item: item, index: state.selectedType.index}
                 state.imageSelected = item
             }
             else if (state.selectedType.type === 'cardGallery'){

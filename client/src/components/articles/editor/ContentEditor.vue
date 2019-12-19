@@ -11,7 +11,7 @@
                 <div class="card--block" v-if="card.type === 'paragraph'">
                     <div class="card-header">
                         <p class="card-header-title card-header-title-drop">
-                            Paragraph
+                            {{$t('paragraph')}}
                         </p>
                         <a class="card-header-icon" @click="deleteCard(index)">
                             <b-icon icon="close">
@@ -29,7 +29,7 @@
                 <div class="card--block" v-if="card.type === 'blockquote'">
                     <div class="card-header">
                         <p class="card-header-title card-header-title-drop">
-                            Blockquote
+                            {{$t('blockquote')}}
                         </p>
                         <a class="card-header-icon" @click="deleteCard(index)">
                             <b-icon icon="close">
@@ -45,7 +45,7 @@
                 <div class="card--block preview--iframe" v-if="card.type === 'embed'">
                     <div class="card-header">
                         <p class="card-header-title card-header-title-drop">
-                            Embed
+                             {{$t('embed')}}
                         </p>
                         <a class="card-header-icon" @click="deleteCard(index)">
                             <b-icon icon="close">
@@ -62,7 +62,7 @@
                 <div class="card--block" v-if="card.type === 'image'">
                     <div class="card-header">
                         <p class="card-header-title card-header-title-drop">
-                            Image
+                            {{$t('image')}}
                         </p>
                         <a class="card-header-icon" @click="deleteCard(index)">
                             <b-icon icon="close">
@@ -86,11 +86,41 @@
                     </div>
                 </div>
 
+                <!-- Card Ads -->
+                <div class="card--block" v-if="card.type === 'ads'">
+                    <div class="card-header">
+                        <p class="card-header-title card-header-title-drop">
+                            {{$t('ads')}}
+                        </p>
+                        <a class="card-header-icon" @click="deleteCard(index)">
+                            <b-icon icon="close">
+                            </b-icon>
+                        </a>
+                    </div>
+                    <div class="card--content">
+                        <!-- Ads Link -->
+                        <b-input placeholder="URL" type="url" v-model="card.link" class="mb-4 text-force-left"></b-input>
+                        <!-- Main Ads Image -->
+                        <template v-if="card.ads">
+                            <b-field class="field-group img--preview" v-if="card.ads.thumbnails">
+                                <img :src="card.ads.thumbnails.large">
+                                <div class="wrap--replace--media" @click="openModalMedia({type: 'cardAds', index: index})">
+                                    <div class="btn--replace--media">Replace</div>
+                                </div>
+                                <a class="delete is-large btn--delete--media" @click="card.ads = {}"></a>
+                            </b-field>
+                            <div @click="openModalMedia({type: 'cardAds', index: index})" v-else>
+                                <media-placeholder type="image" text="Browse Media" />
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
                 <!-- Card Gallery -->
                 <div class="card--block" v-if="card.type === 'gallery'">
                     <div class="card-header">
                         <p class="card-header-title card-header-title-drop">
-                            Gallery
+                            {{$t('gallery')}}
                         </p>
                         <a class="card-header-icon" @click="deleteCard(index)">
                             <b-icon icon="close">
@@ -123,7 +153,7 @@
                 <div class="card--block" v-if="card.type === 'video'">
                     <div class="card-header">
                         <p class="card-header-title card-header-title-drop">
-                            Video
+                            {{$t('video')}}
                         </p>
                         <a class="card-header-icon" @click="deleteCard(index)">
                             <b-icon icon="close">
@@ -214,10 +244,14 @@
             setContentCardVideo() {
                 this.cards[this.setContentCardVideo.index].video = this.setContentCardVideo.item
             },
+            setContentCardImageAds() {
+                this.cards[this.setContentCardImageAds.index].ads = this.setContentCardImageAds.item
+            },
             // Send Data To Parent
             cards: {
-                handler(val) {
+                handler() {
                     this.sentDataToParents()
+                    console.log('this.cards', this.cards)
                 },
                 deep: true
             },
@@ -232,6 +266,7 @@
                 setContentCardImage: state => state.media.setContentCardImage,
                 setContentCardGallery: state => state.media.setContentCardGallery,
                 setContentCardVideo: state => state.media.setContentCardVideo,
+                setContentCardImageAds: state => state.media.setContentCardImageAds,
             }),
             windowWidth(){
                 return window.innerWidth
@@ -264,6 +299,9 @@
                     case 'image':
                         card.image = {}
                         break;
+                    case 'ads':
+                        card.ads = {}
+                        break;
                     case 'video':
                         card.video = {}
                         break;
@@ -282,6 +320,8 @@
                     this.$store.commit('openMediaVideosFromPosts', type)
                 } else if (type.type === 'cardGallery'){
                     this.$store.commit('openMediaGalleryFromPosts', type)
+                } else if (type.type === 'cardAds'){
+                    this.$store.commit('openMediaAdsFromPosts', type)
                 } else {
                     this.$store.commit('openMediaImageFromPosts', type)
                 }

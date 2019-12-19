@@ -111,6 +111,7 @@ export default {
     items: 'Items',
     recent: 'Oldest to Latest',
     aecent: 'Latest to Oldest',
+    ads: 'Ads',
 
     // Placeholder
     sorByGroup: "Sort By Group",

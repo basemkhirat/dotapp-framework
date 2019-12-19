@@ -111,6 +111,7 @@ export default {
     items: 'العناصر',
     recent: 'من الاقدم إلى الاحدث',
     aecent: 'من الاحدث إلى الاقدم',
+    ads: 'اعلان',
 
     // Placeholder
     sorByGroup: 'رتب حسب المجموعة',
