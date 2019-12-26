@@ -63,7 +63,7 @@ export default class extends Controller {
                         ms.push(match);
                     });
 
-                    Cache.set(key, ms, "1h");
+                    Cache.set(key, ms, "1m");
                     return res.ok(ms);
                 }
 
