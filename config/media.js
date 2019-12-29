@@ -42,10 +42,10 @@ export default {
          */
 
         thumbnails: [
-            {name: "medium", width: 256, height: 256, mode: "scaleToFit", quality: 100},
-            {name: "small", width: 128, height: 128, mode: "scaleToFit", quality: 100},
-            {name: "large", width: 500, height: 400, mode: "scaleToFit", quality: 100},
-            {name: "max", width: 1000, height: 600, mode: "scaleToFit", quality: 100}
+            {name: "medium", width: 350, height: 256, mode: "scaleToFit", quality: 100},
+            {name: "small", width: 230, height: 150, mode: "scaleToFit", quality: 100},
+            {name: "large", width: 730, height: 460, mode: "scaleToFit", quality: 100},
+            {name: "max", width: 800, height: 600, mode: "scaleToFit", quality: 100}
         ]
     }
 }
