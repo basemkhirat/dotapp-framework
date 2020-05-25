@@ -117,8 +117,6 @@ export default class extends Controller {
         let access_token = req.param("access_token");
         let url = "https://www.googleapis.com/plus/v1/people/me?personfields=names,image&key=AIzaSyD9jk0l10St-qTgHex78671WMKc8m1UcK4&access_token=" + access_token;
 
-        console.log(url);
-
         request({url: url, json: true}, async (error, response, body) => {
 
             if (response.statusCode === 200) {
