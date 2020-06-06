@@ -1,106 +1,107 @@
-import {Model, Schema} from 'dotapp/model';
-import Bcrypt from 'bcrypt';
-import Config from 'dotapp/services/config';
-import Resource from 'dotapp/services/media';
+import { Model, Schema } from "dotapp/model";
+import Bcrypt from "bcrypt";
+import Config from "dotapp/services/config";
+import Resource from "dotapp/services/media";
 
-let schema = Schema({
-
+let schema = Schema(
+    {
         email: {
             type: String,
-            lowercase: true
+            lowercase: true,
         },
 
         password: {
             type: String,
-            hide: true
+            hide: true,
         },
 
         first_name: {
             type: String,
-            default: ""
+            default: "",
         },
 
         last_name: {
             type: String,
-            default: ""
+            default: "",
         },
 
         status: {
             type: Number,
-            default: 0
+            default: 1,
         },
 
         lang: {
             type: String,
-            default: Config.get("i18n.defaultLocale")
+            default: Config.get("i18n.defaultLocale"),
         },
 
         role: {
             type: Schema.Types.ObjectId,
-            ref: 'role',
-            autopopulate: {select: 'id name'}
+            ref: "role",
+            autopopulate: { select: "id name" },
         },
 
         photo: {
             type: Schema.Types.ObjectId,
-            ref: 'media'
+            ref: "media",
         },
 
         password_token: {
-            type: String
+            type: String,
         },
 
         password_token_expiration: {
-            type: Number
+            type: Number,
         },
 
         email_verification_code: {
-            type: String
+            type: String,
         },
 
         email_verification_code_expiration: {
-            type: Number
+            type: Number,
         },
 
         provider: {
             type: String,
-            default: "local"
+            default: "local",
         },
 
         provider_id: {
-            type: String
-        }
-
-
+            type: String,
+        },
     },
     {
         timestamps: {
             createdAt: "created_at",
-            updatedAt: "updated_at"
-        }
+            updatedAt: "updated_at",
+        },
     }
 );
 
-schema.index({status: 1});
-schema.index({photo: 1});
-schema.index({role: 1});
-schema.index({password_token: 1});
-schema.index({password_token_expiration: 1});
-schema.index({created_at: -1});
-schema.index({updated_at: -1});
+schema.index({ status: 1 });
+schema.index({ photo: 1 });
+schema.index({ role: 1 });
+schema.index({ password_token: 1 });
+schema.index({ password_token_expiration: 1 });
+schema.index({ created_at: -1 });
+schema.index({ updated_at: -1 });
 
 schema.index({
     email: "text",
     first_name: "text",
     last_name: "text",
-    lang: "text"
+    lang: "text",
 });
 
 /**
  * generate password salt
  */
-schema.pre('save', function (next) {
-    if (this.provider == "local" && (this.isModified("password") || this.isNew)) {
+schema.pre("save", function (next) {
+    if (
+        this.provider == "local" &&
+        (this.isModified("password") || this.isNew)
+    ) {
         Bcrypt.genSalt(10, (error, salt) => {
             if (error) return next(error);
             Bcrypt.hash(this.password, salt, (error, hash) => {
@@ -114,10 +115,8 @@ schema.pre('save', function (next) {
     }
 });
 
-schema.pre('save', function (next) {
-
+schema.pre("save", function (next) {
     if (this.photo_payload) {
-
         Resource.create(this.photo_payload, (error, media) => {
             if (error) return next(error);
             media.save((error, media) => {
@@ -127,8 +126,8 @@ schema.pre('save', function (next) {
                 next(null, this);
             });
         });
-
     } else {
+        this.photo = null;
         next(null, this);
     }
 });
@@ -136,16 +135,20 @@ schema.pre('save', function (next) {
 /**
  * Compare raw and encrypted password
  * @param password
- * @param callback
  */
-schema.methods.comparePassword = function (password, callback) {
-    Bcrypt.compare(String(password), this.password, function (error, match) {
-        if (error) return callback(error);
-        if (match) {
-            callback(null, true);
-        } else {
-            callback(error, false);
-        }
+schema.methods.comparePassword = function (password) {
+    return new Promise((resolve, reject) => {
+        Bcrypt.compare(String(password), this.password, function (
+            error,
+            match
+        ) {
+            if (error) return reject(error);
+            if (match) {
+                resolve(true);
+            } else {
+                resolve(false);
+            }
+        });
     });
 };
 
@@ -154,7 +157,6 @@ schema.virtual("name").get(function () {
 });
 
 schema.methods.getRole = function (attribute = null, callback) {
-
     let role = this.role;
 
     if (!role) {
@@ -162,20 +164,17 @@ schema.methods.getRole = function (attribute = null, callback) {
     }
 
     if (attribute) {
-
         if (attribute in role) {
             return role[attribute];
         } else {
             return null;
         }
-
     } else {
         return role;
     }
 };
 
 schema.methods.hasRole = function (name = false, callback) {
-
     if (!name) {
         return false;
     }
@@ -188,5 +187,3 @@ schema.methods.hasRole = function (name = false, callback) {
 };
 
 export default Model("user", schema, "user");
-
-

@@ -82,5 +82,11 @@ export default {
          */
 
         socketTimeoutMS: 30000,
+
+        /**
+         * Enables the new unified topology layer
+         */
+
+        useUnifiedTopology: true
     }
 };

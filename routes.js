@@ -3,6 +3,8 @@ import validate from 'dotapp/middlewares/validate';
 
 module.exports = {
 
+    "GET /test" : "ScriptController.index",
+
     "/": {
 
         name: "home",

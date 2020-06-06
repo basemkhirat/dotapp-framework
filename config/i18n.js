@@ -4,7 +4,7 @@ export default {
      * you may alter a site wide default locale
      */
 
-    defaultLocale: "ar",
+    defaultLocale: "en",
 
     /**
      * setup some locales - other locales default to en silently

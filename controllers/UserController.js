@@ -70,7 +70,7 @@ export default class extends Controller {
 
             let id = req.param("id");
 
-            let user = await User.findById(id).populate("photo").populate("photo");
+            let user = await User.findById(id).populate("photo");
 
             if (!user) {
                 return res.notFound(req.lang("user.errors.user_not_found"));
