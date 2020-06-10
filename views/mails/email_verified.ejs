@@ -1,3 +1,5 @@
+<% include partials/header %>
+
 <div><%= req.lang("auth.hi") %> <%= user.first_name %></div>
 <p>
 
@@ -8,11 +10,4 @@
     <%= req.lang("auth.login_nowـwith_verified_profile") %>
 </p>
 
-
-<style>
-
-    * {
-        direction: rtl;
-    }
-
-</style>
+<% include partials/footer %>

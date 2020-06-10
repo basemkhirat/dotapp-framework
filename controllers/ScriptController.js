@@ -1,24 +1,32 @@
 import Controller from "~/controllers/Controller";
-import User from "~/models/user";
+import Mail from "dotapp/services/mail";
 
 export default class extends Controller {
+
     async index(req, res) {
 
 
-        try {
-            let user = new User();
+        req.view("hello", { name: "basem" }, (error, html) => {
+            if(error) return res.serverError(error);
 
-            user.first_name = "Basem";
-            user.last_name = "Khirat";
-            user.email = "basemkhirat@gmail.com";
-            user.status = 1;
-            user.password = "qwerty";
+            return res.ok(html);
+        });
 
-            await user.save();
+        // try {
 
-            return res.ok(user);
-        } catch (error) {
-            return res.serverError(error);
-        }
+        // req.view("hello", { name: "basem" });
+
+        // let mail = await Mail.send({
+        //     to: "basemkhirat@gmail.com basemkhirat",
+        //     subject: "Test Subject",
+        //     html: html,
+        // });
+
+        // return res.ok("sent");
+
+
+        // }catch(error) {
+        //     return res.serverError(error);
+        // }
     }
 }

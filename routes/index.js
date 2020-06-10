@@ -24,6 +24,17 @@ module.exports = {
                                 middleware: validate("auth"),
                                 handler: "AuthController.token"
                             },
+                            "POST /register": {
+                                handler: "AuthController.register"
+                            },
+                            "POST /profile": {
+                                middleware: authenticate(),
+                                handler: "AuthController.profile"
+                            },
+                            "POST /repassword": {
+                                middleware: authenticate(),
+                                handler: "AuthController.repassword"
+                            },
                             "POST /facebook": {
                                 handler: "AuthController.facebook"
                             },
@@ -34,7 +45,6 @@ module.exports = {
                                 handler: "AuthController.forget"
                             },
                             "POST /reset": {
-                                middleware: validate("reset_password"),
                                 handler: "AuthController.reset"
                             },
                             "POST /verify": {

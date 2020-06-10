@@ -135,6 +135,7 @@ schema.pre("save", function (next) {
 /**
  * Compare raw and encrypted password
  * @param password
+ * @return Promise
  */
 schema.methods.comparePassword = function (password) {
     return new Promise((resolve, reject) => {

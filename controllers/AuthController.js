@@ -3,6 +3,8 @@ import Controller from "~/controllers/Controller";
 import User from "~/models/user";
 import Config from "dotapp/services/config";
 import request from "request";
+import Validator from "dotapp/services/validator";
+import Mail from "dotapp/services/mail";
 
 export default class extends Controller {
     /**
@@ -16,7 +18,9 @@ export default class extends Controller {
             let email = req.param("email");
             let password = req.param("password");
 
-            let user = await User.where("email", email).populate("photo").findOne();
+            let user = await User.where("email", email)
+                .populate("photo")
+                .findOne();
 
             if (!user) {
                 return res.validationError([
@@ -26,7 +30,6 @@ export default class extends Controller {
                     },
                 ]);
             }
-
 
             if (user.status !== 1) {
                 return res.forbidden();
@@ -52,6 +55,359 @@ export default class extends Controller {
             response.token_expiration = Config.get("jwt.expires");
 
             res.ok(response);
+        } catch (error) {
+            return res.serverError(error);
+        }
+    }
+
+    /**
+     * Register a new user
+     * @param req
+     * @param res
+     * @returns {*}
+     */
+    async register(req, res) {
+        try {
+            Validator.registerAsync(
+                "email_available",
+                async (email, id, x, passes) => {
+                    let user = await User.where("email", email).findOne();
+                    return user
+                        ? passes(false, req.lang("user.email_taken"))
+                        : passes();
+                }
+            );
+
+            let validation = new Validator(req.all(), {
+                first_name: "required|min:2",
+                last_name: "required|min:2",
+                email: "required|email|email_available",
+                password: "required|min:7",
+            });
+
+            if (await validation.validate()) {
+                return res.validationError(validation.errors.all());
+            }
+
+            let user = new User();
+
+            user.email = req.param("email", user.email);
+            user.password = req.param("password", user.password);
+            user.first_name = req.param("first_name", user.first_name);
+            user.last_name = req.param("last_name", user.last_name);
+            user.lang = req.param("lang", req.language);
+            user.photo = req.param("photo", user.photo);
+            user.role = req.param("role", user.role);
+            user.status = 0;
+            user.photo_payload = req.param("photo_payload");
+            user.email_verification_code = Math.random().toString(36).slice(-8);
+            user.email_verification_code_expiration = Date.now() + 3600000;
+
+            await user.save();
+
+            await Mail.send({
+                to: user.email,
+                subject: req.lang("auth.email_verification"),
+                html: await req.view("mails/verify_email", { user }),
+            });
+
+            return res.message(req.lang("user.events.created")).ok(user.id);
+        } catch (e) {
+            return res.serverError(e);
+        }
+    }
+
+    /**
+     * Update user personal information
+     * @param req
+     * @param res
+     * @returns {*}
+     */
+    async profile(req, res) {
+        try {
+
+            let validation = new Validator(req.all(), {
+                first_name: "min:2",
+                last_name: "min:2"
+            });
+
+            if (await validation.validate()) {
+                return res.validationError(validation.errors.all());
+            }
+
+            let user = await User.findById(req.user.id);
+
+            if(req.filled("first_name")){
+                user.first_name = req.param("first_name", user.first_name);
+            }
+
+            if(req.filled("last_name")){
+                user.last_name = req.param("last_name", user.last_name);
+            }
+
+            if(req.filled("lang")){
+                user.lang = req.param("lang", req.getLocale());
+            }
+
+            await user.save();
+
+            return res.message(req.lang("auth.events.profile_updated")).ok(user.id);
+        } catch (error) {
+            return res.serverError(error);
+        }
+    }
+
+    /**
+     * Update user password
+     * @param {*} req
+     * @param {*} res
+     */
+    async repassword(req, res) {
+        try {
+            let validation = new Validator(req.all(), {
+                old_password: "required",
+                new_password: "required|min:7",
+            });
+
+            validation.setAttributeNames({
+                old_password: req.lang("auth.old_password"),
+                new_password: req.lang("auth.new_password"),
+            });
+
+            if (validation.fails()) {
+                return res.validationError(validation.errors.all());
+            }
+
+            let user = await User.findById(req.user.id);
+            let old_password = req.param("old_password");
+            let new_password = req.param("new_password");
+
+            // compare with old password
+
+            let isEqualOldPassword = await user.comparePassword(old_password);
+
+            if (!isEqualOldPassword) {
+                return res.validationError(
+                    req.lang("auth.invalid_old_password")
+                );
+            }
+
+            // compare with new password
+
+            let isEqualNewPassword = await user.comparePassword(new_password);
+
+            if (isEqualNewPassword) {
+                return res.validationError(req.lang("auth.same_new_password"));
+            }
+
+            user.password = new_password;
+
+            await user.save();
+
+            return res
+                .message(req.lang("auth.events.password_changed"))
+                .ok(user.id);
+        } catch (error) {
+            return res.serverError(error);
+        }
+    }
+
+    /**
+     * Forget password
+     * @param req
+     * @param res
+     * @returns {*}
+     */
+    async forget(req, res) {
+        try {
+            const validation = new Validator(req.all(), {
+                email: "required|email",
+            });
+
+            if (validation.fails()) {
+                return res.validationError(validation.errors.all());
+            }
+
+            let email = req.param("email");
+            let password_reset_url = req.param("password_reset_url");
+
+            let user = await User.where("email", email).findOne();
+
+            if (!user) {
+                return res.validationError([
+                    {
+                        email: [req.lang("auth.email_not_found")],
+                    },
+                ]);
+            }
+
+            user.password_token = Math.random().toString(36).slice(-8);
+            user.password_token_expiration = Date.now() + 3600000;
+            user.password_reset_url = password_reset_url;
+
+            await user.save();
+
+            await Mail.send({
+                to: user.email,
+                subject: req.lang("auth.password_reset_verification"),
+                html: await req.view("mails/forget_password", { user }),
+            });
+
+            return res
+                .message(req.lang("auth.events.password_reset_code_sent"))
+                .ok();
+        } catch (error) {
+            return res.serverError(error);
+        }
+    }
+
+    /**
+     * Reset password
+     * @param req
+     * @param res
+     * @returns {*}
+     */
+    async reset(req, res) {
+        try {
+            const validation = new Validator(req.all(), {
+                code: "required",
+                password: "required|min:6",
+            });
+
+            validation.setAttributeNames({
+                code: req.lang("auth.verification_code"),
+            });
+
+            if (validation.fails()) {
+                return res.validationError(validation.errors.all());
+            }
+
+            let code = req.param("code");
+
+            let user = await User.where("password_token", code)
+                .where("password_token_expiration", { $gt: Date.now() })
+                .findOne();
+
+            if (!user) {
+                return res.validationError([
+                    {
+                        code: [
+                            req.lang("auth.invalid_password_verification_code"),
+                        ],
+                    },
+                ]);
+            }
+
+            let isEqual = await user.comparePassword(req.param("password"));
+
+            if (isEqual) {
+                return res.validationError([
+                    {
+                        password: [req.lang("auth.cannot_use_same_password")],
+                    },
+                ]);
+            }
+
+            user.password = req.param("password");
+
+            await user.save();
+
+            await Mail.send({
+                to: user.email,
+                subject: req.lang("auth.password_change"),
+                html: await req.view("mails/password_changed", { user }),
+            });
+
+            return res.message(req.lang("auth.events.password_changed")).ok();
+        } catch (error) {
+            return res.serverError(error);
+        }
+    }
+
+    /**
+     * Verify email
+     * @param req
+     * @param res
+     * @returns {*}
+     */
+    async verify(req, res) {
+        try {
+            const validation = new Validator(req.all(), {
+                code: "required",
+            });
+
+            validation.setAttributeNames({
+                code: req.lang("auth.verification_code"),
+            });
+
+            if (validation.fails()) {
+                return res.validationError(validation.errors.all());
+            }
+
+            let code = req.param("code");
+
+            let user = await User.where("email_verification_code", code)
+                .where("email_verification_code_expiration")
+                .gt(Date.now())
+                .findOne();
+
+            if (!user) {
+                return res.validationError([
+                    {
+                        code: [
+                            req.lang("auth.invalid_email_verification_code"),
+                        ],
+                    },
+                ]);
+            }
+
+            user.status = 1;
+
+            await user.save();
+
+            await Mail.send({
+                to: user.email,
+                subject: req.lang("auth.email_verification"),
+                html: await req.view("mails/email_verified", { user }),
+            });
+
+            return res.message(req.lang("auth.events.email_verified")).ok();
+        } catch (error) {
+            return res.serverError(error);
+        }
+    }
+
+    /**
+     * Request user by token
+     * @param req
+     * @param res
+     * @returns {*}
+     */
+    async user(req, res) {
+        try {
+            let user = await User.findById(req.user.id).populate("photo");
+
+            if (!user) {
+                return res.notFound(req.lang("user.errors.user_not_found"));
+            }
+
+            user = user.toObject();
+
+            let permissions = Config.get("permissions");
+
+            let myPermissions = [];
+
+            for (let module in permissions) {
+                permissions[module].forEach((action) => {
+                    if (req.hasPermission(module + "." + action)) {
+                        myPermissions.push(module + "." + action);
+                    }
+                });
+            }
+
+            user.permissions = myPermissions;
+
+            return res.ok(user);
         } catch (error) {
             return res.serverError(error);
         }
@@ -125,9 +481,6 @@ export default class extends Controller {
      */
     google(req, res) {
         let access_token = req.param("access_token");
-        // let url =
-        //     "https://www.googleapis.com/plus/v1/people/me?personfields=names,image&key=AIzaSyA111zEWbTLDGx8BjWYjPNPuv2CD0fBtVM&access_token=" +
-        //     access_token;
 
         let url =
             "https://www.googleapis.com/oauth2/v3/userinfo?key=AIzaSyA111zEWbTLDGx8BjWYjPNPuv2CD0fBtVM&access_token=" +
@@ -192,168 +545,5 @@ export default class extends Controller {
                 return res.serverError(body.error.message);
             }
         });
-    }
-
-    /**
-     * Forget password
-     * @param req
-     * @param res
-     * @returns {*}
-     */
-    async forget(req, res) {
-        let email = req.param("email");
-        let password_reset_url = req.param("password_reset_url");
-
-        try {
-            let user = await User.where("email", email).findOne();
-
-            if (!user) {
-                return res.validationError([
-                    {
-                        name: "email",
-                        errors: [req.lang("auth.email_not_found")],
-                    },
-                ]);
-            }
-
-            user.password_token = Math.random().toString(36).slice(-8);
-            user.password_token_expiration = Date.now() + 3600000;
-            user.password_reset_url = password_reset_url;
-
-            await user.save();
-
-            await new Promise((resolve, reject) => {
-                req.mail(user, "ForgetPassword", (error) => {
-                    if (error) return reject(error);
-                    resolve(null);
-                });
-            });
-
-            return res
-                .message(req.lang("auth.events.password_reset_code_sent"))
-                .ok();
-
-        } catch (error) {
-            return res.serverError(error);
-        }
-    }
-
-    /**
-     * Reset password
-     * @param req
-     * @param res
-     * @returns {*}
-     */
-    async reset(req, res) {
-        let code = req.param("code");
-
-        try {
-            let user = await User.where("password_token", code)
-                .where("password_token_expiration", { $gt: Date.now() })
-                .findOne();
-
-            if (!user) {
-                return res.validationError([
-                    {
-                        name: "form",
-                        errors: [
-                            req.lang("auth.invalid_password_verification_code"),
-                        ],
-                    },
-                ]);
-            }
-
-            let isEqual = await user.comparePassword(req.param("password"));
-
-            if (isEqual) {
-                return res.validationError([
-                    {
-                        name: "form",
-                        errors: [req.lang("auth.cannot_use_same_password")],
-                    },
-                ]);
-            }
-
-            user.password = req.param("password");
-
-            await user.save();
-
-            req.mail(user, "PasswordChanged");
-
-            return res.message(req.lang("auth.events.password_changed")).ok();
-
-        } catch (error) {
-            return res.serverError(error);
-        }
-    }
-
-    /**
-     * Verify email
-     * @param req
-     * @param res
-     * @returns {*}
-     */
-    verify(req, res) {
-        let code = req.param("code");
-
-        User.findOne(
-            {
-                email_verification_code: code,
-                email_verification_code_expiration: { $gt: Date.now() },
-            },
-            (error, user) => {
-                if (error) return res.serverError(error);
-                if (!user)
-                    return res.validationError(
-                        req.lang("auth.invalid_email_verification_code")
-                    );
-
-                user.status = 1;
-
-                user.save((error, user) => {
-                    if (error) return res.serverError(error);
-
-                    req.mail(user, "EmailVerified");
-
-                    return res
-                        .message(req.lang("auth.events.email_verified"))
-                        .ok();
-                });
-            }
-        );
-    }
-
-    /**
-     * Request user by token
-     * @param req
-     * @param res
-     * @returns {*}
-     */
-    user(req, res) {
-        User.findById(req.user.id)
-            .populate("photo")
-            .exec((error, user) => {
-                if (error) return res.serverError(error);
-                if (!user)
-                    return res.notFound(req.lang("user.errors.user_not_found"));
-
-                user = user.toObject();
-
-                let permissions = Config.get("permissions");
-
-                let myPermissions = [];
-
-                for (let module in permissions) {
-                    permissions[module].forEach((action) => {
-                        if (req.hasPermission(module + "." + action)) {
-                            myPermissions.push(module + "." + action);
-                        }
-                    });
-                }
-
-                user.permissions = myPermissions;
-
-                return res.ok(user);
-            });
     }
 }
