@@ -11,7 +11,7 @@ export default {
      * Sender mail
      */
 
-    from: "Sender <sender@example.com>",
+    from: "DOT APP <example@dotapp.com>",
 
     /**
      * Mail drivers
