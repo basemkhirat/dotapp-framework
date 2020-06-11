@@ -15,7 +15,7 @@ import place from "~/docs/modules/place";
 import post from "~/docs/modules/role";
 import tag from "~/docs/modules/tag";
 
-export default  {
+export default {
     swagger: "2.0",
     info: {
         title: "CMS",

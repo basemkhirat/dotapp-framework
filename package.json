@@ -7,9 +7,9 @@
         "test": "export APP_CONSOLE=true && ./node_modules/.bin/mocha tests/**/*.js --require @babel/register --exit"
     },
     "dependencies": {
+        "cheerio": "latest",
         "core-js": "^3.2.1",
-        "dotapp": "^2.0.0",
-        "cheerio": "latest"
+        "dotapp": "^2.0.4"
     },
     "devDependencies": {
         "@babel/cli": "^7.5.5",

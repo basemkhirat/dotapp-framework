@@ -15,6 +15,16 @@ export default class extends Controller {
      */
     async token(req, res) {
         try {
+
+            const validation = new Validator(req.all(), {
+                email: "required|email",
+                password: "required"
+            });
+
+            if (validation.fails()) {
+                return res.validationError(validation.errors.all());
+            }
+
             let email = req.param("email");
             let password = req.param("password");
 
@@ -25,8 +35,7 @@ export default class extends Controller {
             if (!user) {
                 return res.validationError([
                     {
-                        name: "email",
-                        errors: [req.lang("auth.email_not_found")],
+                        email: [req.lang("auth.email_not_found")],
                     },
                 ]);
             }
@@ -40,8 +49,7 @@ export default class extends Controller {
             if (!valid) {
                 return res.validationError([
                     {
-                        name: "password",
-                        errors: [req.lang("auth.invalid_password")],
+                        password: [req.lang("auth.invalid_password")],
                     },
                 ]);
             }
@@ -85,7 +93,7 @@ export default class extends Controller {
                 password: "required|min:7",
             });
 
-            if (await validation.validate()) {
+            if (!(await validation.validate())) {
                 return res.validationError(validation.errors.all());
             }
 
@@ -96,10 +104,7 @@ export default class extends Controller {
             user.first_name = req.param("first_name", user.first_name);
             user.last_name = req.param("last_name", user.last_name);
             user.lang = req.param("lang", req.language);
-            user.photo = req.param("photo", user.photo);
-            user.role = req.param("role", user.role);
             user.status = 0;
-            user.photo_payload = req.param("photo_payload");
             user.email_verification_code = Math.random().toString(36).slice(-8);
             user.email_verification_code_expiration = Date.now() + 3600000;
 
@@ -112,8 +117,8 @@ export default class extends Controller {
             });
 
             return res.message(req.lang("user.events.created")).ok(user.id);
-        } catch (e) {
-            return res.serverError(e);
+        } catch (error) {
+            return res.serverError(error);
         }
     }
 
@@ -125,10 +130,9 @@ export default class extends Controller {
      */
     async profile(req, res) {
         try {
-
             let validation = new Validator(req.all(), {
                 first_name: "min:2",
-                last_name: "min:2"
+                last_name: "min:2",
             });
 
             if (await validation.validate()) {
@@ -137,21 +141,23 @@ export default class extends Controller {
 
             let user = await User.findById(req.user.id);
 
-            if(req.filled("first_name")){
+            if (req.filled("first_name")) {
                 user.first_name = req.param("first_name", user.first_name);
             }
 
-            if(req.filled("last_name")){
+            if (req.filled("last_name")) {
                 user.last_name = req.param("last_name", user.last_name);
             }
 
-            if(req.filled("lang")){
+            if (req.filled("lang")) {
                 user.lang = req.param("lang", req.getLocale());
             }
 
             await user.save();
 
-            return res.message(req.lang("auth.events.profile_updated")).ok(user.id);
+            return res
+                .message(req.lang("auth.events.profile_updated"))
+                .ok(user.id);
         } catch (error) {
             return res.serverError(error);
         }
@@ -187,9 +193,9 @@ export default class extends Controller {
             let isEqualOldPassword = await user.comparePassword(old_password);
 
             if (!isEqualOldPassword) {
-                return res.validationError(
-                    req.lang("auth.invalid_old_password")
-                );
+                return res.validationError([
+                    { old_password: [req.lang("auth.invalid_old_password")] },
+                ]);
             }
 
             // compare with new password
@@ -197,7 +203,9 @@ export default class extends Controller {
             let isEqualNewPassword = await user.comparePassword(new_password);
 
             if (isEqualNewPassword) {
-                return res.validationError(req.lang("auth.same_new_password"));
+                return res.validationError([
+                    { new_password: [req.lang("auth.same_new_password")] },
+                ]);
             }
 
             user.password = new_password;
@@ -213,12 +221,12 @@ export default class extends Controller {
     }
 
     /**
-     * Forget password
+     * Forgot password
      * @param req
      * @param res
      * @returns {*}
      */
-    async forget(req, res) {
+    async forgot(req, res) {
         try {
             const validation = new Validator(req.all(), {
                 email: "required|email",

@@ -4,17 +4,15 @@ export default class {
 
     command = 'user';
 
-    description = "Listing all user";
+    description = "Listing all users";
 
-    action(args, done) {
+    async action(args, done) {
 
-        this.log("Listing all users");
+        let users = await User.find();
 
-        User.find().exec((error, users) => {
-            if(error) throw error
-            this.log(users);
-            done(error, users);
-        });
+        this.log(users);
+
+        this.log("Total: " + users.length);
     }
 
     cancel() {

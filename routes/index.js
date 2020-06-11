@@ -21,7 +21,6 @@ module.exports = {
 
                         group: {
                             "POST /token": {
-                                middleware: validate("auth"),
                                 handler: "AuthController.token"
                             },
                             "POST /register": {
@@ -41,8 +40,8 @@ module.exports = {
                             "POST /google": {
                                 handler: "AuthController.google"
                             },
-                            "POST /forget": {
-                                handler: "AuthController.forget"
+                            "POST /forgot": {
+                                handler: "AuthController.forgot"
                             },
                             "POST /reset": {
                                 handler: "AuthController.reset"
