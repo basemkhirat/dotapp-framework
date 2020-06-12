@@ -1,4 +1,4 @@
-# DOTAPP
+# <div style="text-align:center">DotApp</div>
 
 A Tiny, light-weight and full-featured framework built on express.js with minimum dependencies.
 
