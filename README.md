@@ -21,7 +21,7 @@ npm install
 ## Configuration
 
 - Rename the file `.env.example` to `.env`.
-- change app, database other conf according to your enviroment.
+- change app, database other configurations according to your environment.
 
 The `.env` file apears like this:
 
