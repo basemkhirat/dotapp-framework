@@ -78,6 +78,8 @@ export default class extends Controller {
     `payload` is an optional object to pass data to views.
 
 
+---
+
 Also you can access other `expressjs` request methods listed in expressjs docs.
 
 http://expressjs.com/en/5x/api.html#req.app
