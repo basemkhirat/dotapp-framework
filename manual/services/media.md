@@ -111,7 +111,7 @@ import {Media} from "dotapp/services";
         size: 1024  // size in in bytes
     }
 
-    let file = await Media.upload("https://file-examples.com/wp-content/uploads/2017/10/file_example_JPG_100kB.jpg",);
+    let file = await Media.upload("https://file-examples.com/wp-content/uploads/2017/10/file_example_JPG_100kB.jpg", options);
 
     return res.ok(file);
 

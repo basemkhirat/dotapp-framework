@@ -1,5 +1,5 @@
 import Controller from "~/controllers/Controller";
-import {Cache} from "dotapp/services";
+import {Storage} from "dotapp/services";
 
 export default class extends Controller {
 
@@ -9,15 +9,22 @@ export default class extends Controller {
 
         //await Cache.set("users", "hi these are users....", "80m");
 
-        setTimeout(async () => {
-            await Cache.delete("users")
-        }, 7000);
+        // return res.ok(Storage.exists("file.txt"));
 
-        let users = await Cache.get("users");
+
+
+         let file = await Storage.exists("files.txt");
+
+
+        // setTimeout(async () => {
+        //     await Storage.delete("snew_file.txt");
+        // }, 10000);
+
+        return res.ok(file ? "1": "0");
 
   //      console.log(users);
 
-        return res.ok(users);
+
 
         // try {
 

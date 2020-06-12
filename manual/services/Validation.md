@@ -22,7 +22,7 @@ if (!(await validation.validate())) {
 
 ```
 
-You can register an rule
+You can register a new validation rule.
 
 ``` javascript
 
