@@ -68,8 +68,8 @@ $ node run user:create
 
 First Name *: basem
 Last Name *: khirat
-Enter email *: basemkhirat@gmail.com
-Enter password *: ********
+Email *: basemkhirat@gmail.com
+Password *: ********
 
 User created successfully!
 ```
