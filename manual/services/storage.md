@@ -67,8 +67,11 @@ export default {
     }
 }
 ```
-
 You can define you private storage and use it.
+
+Note: The s3 driver requires to set the aws credentials in `config/services.js`.
+
+
 
 ## Usage
 
@@ -99,45 +102,5 @@ let path = Storage.path("file.txt");
 // To deleted the saved file
 await Storage.delete("file.txt");
 
-
-```
-
-
-## Validation
-
-You can add some validation on upload.
-
-
-``` javascript
-
-import {Media} from "dotapp/services";
-
- try {
-
-    let options = {
-        types: ["jpg", "png"], // a list of file extenstions
-        size: 1024  // size in in bytes
-    }
-
-    let file = await Media.upload("https://file-examples.com/wp-content/uploads/2017/10/file_example_JPG_100kB.jpg", options);
-
-    return res.ok(file);
-
-}catch(error) {
-
-    if(error instanceof Media.FileTypeException){
-        return res.validationError([
-            {image: ["invalid file type"]}
-        ]);
-    }
-
-    if(error instanceof Media.FileSizeException){
-        return res.validationError([
-            {image: ["file size exceeded"]}
-        ]);
-    }
-
-    return res.serverError(error);
-}
 
 ```
