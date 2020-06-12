@@ -1,6 +1,6 @@
 # Commands
 
-Commands are classes created in `commands` directory to some nodejs scripts.
+Commands are classes created in `commands` directory to execute nodejs scripts.
 
 Let's create users command to list all database users.
 Create a file `commands/users.js`.

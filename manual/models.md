@@ -1,6 +1,6 @@
 # Models
 
-Models are data handlers file created in `models` directory.
+Models are data handler files created in `models` directory.
 
 Our models are built on `mongoose ORM` and use mongodb.
 
