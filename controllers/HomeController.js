@@ -11,7 +11,7 @@ export default class extends Controller {
 
 
 
-            res.message("Book not found").notFound();
+            res.notFound("sdfsdfs");
 
 
     }

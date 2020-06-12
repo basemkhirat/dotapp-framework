@@ -56,7 +56,7 @@ The result will be:
     }
     ```
 
-- `res.notFound()`
+- `res.notFound(error)`
 
     It returns a 404 error.
 
@@ -64,14 +64,14 @@ The result will be:
     {
         message: "Page Not Found",
         errors: [
-            "Page Not Found"
+            <error>
         ],
         status: 404,
         success: false
     }
     ```
 
-- `res.serverError()`
+- `res.serverError(error)`
 
     It returns a server error.
 
@@ -79,14 +79,14 @@ The result will be:
     {
         message: "Internal Server Error",
         errors: [
-            "Internal Server Error"
+            <error>
         ],
         status: 500,
         success: false
     }
     ```
 
-- `res.notAuthenticated()`
+- `res.notAuthenticated(error)`
 
     It returns an unauthenticated error.
 
@@ -94,14 +94,14 @@ The result will be:
     {
         message: "Not Authenticated",
         errors: [
-            "Not Authenticated"
+            <error>
         ],
         status: 401,
         success: false
     }
     ```
 
-- `res.forbidden()`
+- `res.forbidden(error)`
 
     It returns an unauthorized error.
 
@@ -109,7 +109,7 @@ The result will be:
     {
         message: "Access Denied",
         errors: [
-            "Access Denied"
+            <error>
         ],
         status: 403,
         success: false
@@ -117,7 +117,7 @@ The result will be:
     ```
 
 
-- `res.badRequest()`
+- `res.badRequest(error)`
 
     It returns a bad request error.
 
@@ -125,7 +125,7 @@ The result will be:
     {
         message: "Bad Request",
         errors: [
-            "Bad Request"
+           <error>
         ],
         status: 400,
         success: false
