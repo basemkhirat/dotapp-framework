@@ -37,12 +37,12 @@ export default class {
                 {
                     type: "input",
                     name: "email",
-                    message: "Enter email: ",
+                    message: "Email: ",
                 },
                 {
                     type: "password",
                     name: "password",
-                    message: "Enter password: ",
+                    message: "Password: ",
                 },
             ];
 
