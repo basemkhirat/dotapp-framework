@@ -10,6 +10,13 @@ It was shipped with modules which save your time and effort to build it from scr
 - git
 - mongodb
 
+## Installation
+
+```bash
+git clone https://github.com/basemkhirat/dotapp
+npm install
+```
+
 ## Configuration
 
 - Rename the file `.env.example` to `.env`.
@@ -53,13 +60,22 @@ YOUTUBE_KEY=
 SOUNDCLOUD_KEY=
 ```
 
+## Environments
 
-## Installation
+### Development
 
-```bash
-git clone https://github.com/basemkhirat/dotapp
-npm install
+- For developement: set the `NODE_ENV=development` and
+`APP_DEBUG=true` in `.env` file and run the `dev` command.
+
+``` bash
 npm run dev
+```
+
+- For production: set the `NODE_ENV=production` and
+`APP_DEBUG=false` in `.env` file and run the `start` command.
+
+``` bash
+npm start
 ```
 
 Server will be created at port 3000 by default. you can change the port later from app configurations.

@@ -4,6 +4,7 @@
     "main": "app.js",
     "scripts": {
         "dev": "nodemon",
+        "start": "babel-node server.js",
         "test": "export APP_CONSOLE=true && ./node_modules/.bin/mocha tests/**/*.js --require @babel/register --exit"
     },
     "dependencies": {
