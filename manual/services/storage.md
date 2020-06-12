@@ -93,6 +93,9 @@ let is_exists = await Storage.exist("file.txt"); // return boolean
 // To read the saved file
 let buffer = await Storage.read("file.txt"); // return a buffer
 
+// To read the saved file with enconding
+let buffer = await Storage.read("file.txt", "utf8"); // return a buffer
+
 // To get the url of saved file
 let url = Storage.url("file.txt");
 
