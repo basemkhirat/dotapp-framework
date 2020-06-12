@@ -1,5 +1,6 @@
 {
-    "description": "CMS JS",
+    "name": "dotapp",
+    "description": "A light-weight, thin and full-featured framework built on express.js",
     "author": "basem khirat",
     "main": "app.js",
     "scripts": {
@@ -8,11 +9,10 @@
         "test": "export APP_CONSOLE=true && ./node_modules/.bin/mocha tests/**/*.js --require @babel/register --exit"
     },
     "dependencies": {
-        "cheerio": "latest",
-        "core-js": "^3.2.1",
-        "dotapp": "^2.0.4"
+        "dotapp": "^2.0.10"
     },
     "devDependencies": {
+        "core-js": "^3.2.1",
         "@babel/cli": "^7.5.5",
         "@babel/core": "^7.5.5",
         "@babel/node": "^7.5.5",
