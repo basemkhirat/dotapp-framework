@@ -80,7 +80,7 @@ export default class {
             await user.save();
 
             this.log("\n");
-            this.log("Root user created!");
+            this.log("User created successfully!");
 
         } catch (error) {
             throw error;
