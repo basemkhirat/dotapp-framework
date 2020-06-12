@@ -14,8 +14,9 @@ DOTAPP was shipped with built-in modules which save the development time and eff
 ## Installation
 
 ```bash
-git clone https://github.com/basemkhirat/dotapp
-npm install
+$ git clone https://github.com/basemkhirat/dotapp-framework
+$ cd dotapp-framework
+$ npm install
 ```
 
 ## Configuration
@@ -82,14 +83,14 @@ User created successfully!
 `APP_DEBUG=true` in `.env` file and run the `dev` command.
 
 ``` bash
-npm run dev
+$ npm run dev
 ```
 
 - For production: set the `NODE_ENV=production` and
 `APP_DEBUG=false` in `.env` file and run the `start` command.
 
 ``` bash
-npm start
+$ npm start
 ```
 
 Server will be created at port 3000 by default. you can change the port later from app configurations.
@@ -107,6 +108,10 @@ Here you can browse your API Documentation `http://localhost:3000/docs`
 - [Controllers](https://github.com/basemkhirat/dotapp-framework/blob/master/manual/controllers.md)
 
 - [Middlewares](https://github.com/basemkhirat/dotapp-framework/blob/master/manual/middlewares.md)
+
+- [Request](https://github.com/basemkhirat/dotapp-framework/blob/master/manual/request.md)
+
+- [Response](https://github.com/basemkhirat/dotapp-framework/blob/master/manual/response.md)
 
 - [models](https://github.com/basemkhirat/dotapp-framework/blob/master/manual/models.md)
 
