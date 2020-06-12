@@ -1,10 +1,8 @@
 import jwt from "jsonwebtoken";
 import Controller from "~/controllers/Controller";
 import User from "~/models/user";
-import Config from "dotapp/services/config";
 import request from "request";
-import Validator from "dotapp/services/validator";
-import Mail from "dotapp/services/mail";
+import { Config, Media, Validator, Mail } from "dotapp/services";
 
 export default class extends Controller {
     /**
@@ -15,10 +13,9 @@ export default class extends Controller {
      */
     async token(req, res) {
         try {
-
             const validation = new Validator(req.all(), {
                 email: "required|email",
-                password: "required"
+                password: "required",
             });
 
             if (validation.fails()) {
@@ -135,11 +132,20 @@ export default class extends Controller {
                 last_name: "min:2",
             });
 
-            if (await validation.validate()) {
+            if (!(await validation.validate())) {
                 return res.validationError(validation.errors.all());
             }
 
             let user = await User.findById(req.user.id);
+
+            if (!user) {
+                return res.notFound(req.lang("user.errors.user_not_found"));
+            }
+
+            if (req.filled("photo")) {
+                let photo = await Media.upload(req.param("photo"));
+                user.photo = photo.id;
+            }
 
             if (req.filled("first_name")) {
                 user.first_name = req.param("first_name", user.first_name);
@@ -159,6 +165,18 @@ export default class extends Controller {
                 .message(req.lang("auth.events.profile_updated"))
                 .ok(user.id);
         } catch (error) {
+            if (error instanceof Media.FileTypeException) {
+                return res.validationError([
+                    { image: [req.lang("auth.invalid_photo_type")] },
+                ]);
+            }
+
+            if (error instanceof Media.FileSizeException) {
+                return res.validationError([
+                    { image: [req.lang("auth.invalid_photo_size")] },
+                ]);
+            }
+
             return res.serverError(error);
         }
     }
@@ -185,6 +203,11 @@ export default class extends Controller {
             }
 
             let user = await User.findById(req.user.id);
+
+            if (!user) {
+                return res.notFound(req.lang("user.errors.user_not_found"));
+            }
+
             let old_password = req.param("old_password");
             let new_password = req.param("new_password");
 

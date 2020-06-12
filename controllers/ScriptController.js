@@ -1,36 +1,49 @@
 import Controller from "~/controllers/Controller";
-import Media from "dotapp/services/media";
+import {Cache} from "dotapp/services";
 
 export default class extends Controller {
 
     async index(req, res) {
 
+     //  Config.set("app.url", "dsfdsfsd");
 
-        try {
+        //await Cache.set("users", "hi these are users....", "80m");
 
-            let file = await Media.upload("http://www.lancsngfl.ac.uk/cmsmanual/download/file/Arrow_1R.cur");
+        setTimeout(async () => {
+            await Cache.delete("users")
+        }, 7000);
 
-            return res.ok(file ? "uploaded": "not");
+        let users = await Cache.get("users");
 
-        }catch(error) {
+  //      console.log(users);
 
-            if(error instanceof Media.FileTypeException){
-                return res.validationError([
-                    {image: ["invalid file type"]}
-                ]);
-            }
+        return res.ok(users);
 
-            if(error instanceof Media.FileSizeException){
-                return res.validationError([
-                    {image: ["file size exceeded"]}
-                ]);
-            }
+        // try {
 
-            return res.serverError(error);
-        }
-        // https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3
-        // https://soundcloud.com/alafasy/orvyfzgv7lbt
-        // https://www.youtube.com/watch?v=WP2Qz1p2ZB8
+        //     let file = await Media.upload("http://www.lancsngfl.ac.uk/cmsmanual/download/file/Arrow_1R.cur");
+
+        //     return res.ok(file ? "uploaded": "not");
+
+        // }catch(error) {
+
+        //     if(error instanceof Media.FileTypeException){
+        //         return res.validationError([
+        //             {image: ["invalid file type"]}
+        //         ]);
+        //     }
+
+        //     if(error instanceof Media.FileSizeException){
+        //         return res.validationError([
+        //             {image: ["file size exceeded"]}
+        //         ]);
+        //     }
+
+        //     return res.serverError(error);
+        // }
+        // // https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3
+        // // https://soundcloud.com/alafasy/orvyfzgv7lbt
+        // // https://www.youtube.com/watch?v=WP2Qz1p2ZB8
 
 
 

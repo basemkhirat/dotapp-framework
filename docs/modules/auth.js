@@ -85,6 +85,12 @@ export default {
                     type: "string",
                 },
                 {
+                    name: "photo",
+                    in: "query",
+                    description: "Photo: Base64, http, https",
+                    type: "string",
+                },
+                {
                     name: "lang",
                     in: "query",
                     description: "Lang",

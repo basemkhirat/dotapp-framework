@@ -1,6 +1,6 @@
 import App from 'dotapp';
 import Docs from 'dotapp/middlewares/docs';
-import Router from 'dotapp/services/router';
+import {Router} from 'dotapp/services';
 import routes from "~/routes";
 
 const app = App();

@@ -1,108 +1,97 @@
-import authenticate from 'dotapp/middlewares/authenticate';
-import validate from 'dotapp/middlewares/validate';
+import { authenticate, validate } from "dotapp/middlewares";
 
-module.exports = {
+export default {
 
-    "GET /test" : "ScriptController.index",
+    "GET /test": "ScriptController.index",
 
     "/": {
-
         name: "home",
 
         handler: "HomeController.index",
 
         group: {
-
-            "api": {
-
+            api: {
                 group: {
-
                     "/auth": {
-
                         group: {
                             "POST /token": {
-                                handler: "AuthController.token"
+                                handler: "AuthController.token",
                             },
                             "POST /register": {
-                                handler: "AuthController.register"
+                                handler: "AuthController.register",
                             },
                             "POST /profile": {
                                 middleware: authenticate(),
-                                handler: "AuthController.profile"
+                                handler: "AuthController.profile",
                             },
                             "POST /repassword": {
                                 middleware: authenticate(),
-                                handler: "AuthController.repassword"
+                                handler: "AuthController.repassword",
                             },
                             "POST /facebook": {
-                                handler: "AuthController.facebook"
+                                handler: "AuthController.facebook",
                             },
                             "POST /google": {
-                                handler: "AuthController.google"
+                                handler: "AuthController.google",
                             },
                             "POST /forgot": {
-                                handler: "AuthController.forgot"
+                                handler: "AuthController.forgot",
                             },
                             "POST /reset": {
-                                handler: "AuthController.reset"
+                                handler: "AuthController.reset",
                             },
                             "POST /verify": {
-                                handler: "AuthController.verify"
+                                handler: "AuthController.verify",
                             },
                             "GET /user": {
                                 middleware: authenticate(),
-                                handler: "AuthController.user"
-                            }
-                        }
+                                handler: "AuthController.user",
+                            },
+                        },
                     },
 
                     "/user": {
-
                         group: {
-
                             "POST /": {
                                 middleware: validate("user"),
-                                handler: "UserController.create"
+                                handler: "UserController.create",
                             },
                             "GET /": {
                                 middleware: authenticate(),
-                                handler: "UserController.find"
+                                handler: "UserController.find",
                             },
                             "GET /chart": {
                                 middleware: authenticate(),
-                                handler: "UserController.chart"
+                                handler: "UserController.chart",
                             },
                             "GET /:id": {
-                                handler: "UserController.findOne"
+                                handler: "UserController.findOne",
                             },
                             "PUT /:id": {
                                 middleware: [authenticate(), validate("user")],
-                                handler: "UserController.update"
+                                handler: "UserController.update",
                             },
                             "DELETE /:id": {
                                 middleware: authenticate(),
-                                handler: "UserController.destroy"
+                                handler: "UserController.destroy",
                             },
                             "PATCH /": {
                                 middleware: authenticate(),
-                                handler: "UserController.bulk"
-                            }
-                        }
-
+                                handler: "UserController.bulk",
+                            },
+                        },
                     },
 
                     "/permission": {
-
                         middleware: authenticate(),
 
                         group: {
                             "GET /": "PermissionController.find",
                             "GET /me": "PermissionController.me",
-                        }
+                        },
                     },
 
                     "/media": {
-
                         group: {
                             "GET /": "MediaController.find",
                             "GET /chart": "MediaController.chart",
@@ -112,30 +101,28 @@ module.exports = {
                             "GET /:id": "MediaController.findOne",
                             "POST /": {
                                 middleware: authenticate(),
-                                handler: "MediaController.create"
+                                handler: "MediaController.create",
                             },
                             "PUT /thumbnail/:id": {
                                 middleware: authenticate(),
-                                handler: "MediaController.updateThumbnail"
+                                handler: "MediaController.updateThumbnail",
                             },
                             "PUT /:id": {
                                 middleware: authenticate(),
-                                handler: "MediaController.update"
+                                handler: "MediaController.update",
                             },
                             "DELETE /:id": {
                                 middleware: authenticate(),
-                                handler: "MediaController.destroy"
+                                handler: "MediaController.destroy",
                             },
                             "PATCH /": {
                                 middleware: authenticate(),
-                                handler: "MediaController.bulk"
-                            }
-
-                        }
+                                handler: "MediaController.bulk",
+                            },
+                        },
                     },
 
                     "/role": {
-
                         middleware: authenticate(),
 
                         group: {
@@ -143,71 +130,79 @@ module.exports = {
                             "GET /:id": "RoleController.findOne",
                             "POST /": {
                                 middleware: validate("role"),
-                                handler: "RoleController.create"
+                                handler: "RoleController.create",
                             },
                             "PUT /:id": {
                                 middleware: validate("role"),
-                                handler: "RoleController.update"
+                                handler: "RoleController.update",
                             },
                             "DELETE /:id": "RoleController.destroy",
-                            "PATCH /": "RoleController.bulk"
-                        }
+                            "PATCH /": "RoleController.bulk",
+                        },
                     },
 
                     "/category": {
-
                         group: {
-
                             "GET /": "CategoryController.find",
                             "GET /:id": "CategoryController.findOne",
                             "GET /slug/:slug": "CategoryController.findBySlug",
 
                             "POST /": {
-                                middleware: [authenticate(), validate("category")],
-                                handler: "CategoryController.create"
+                                middleware: [
+                                    authenticate(),
+                                    validate("category"),
+                                ],
+                                handler: "CategoryController.create",
                             },
 
                             "PUT /:id": {
-                                middleware: [authenticate(), validate("category")],
-                                handler: "CategoryController.update"
+                                middleware: [
+                                    authenticate(),
+                                    validate("category"),
+                                ],
+                                handler: "CategoryController.update",
                             },
                             "DELETE /:id": {
                                 middleware: authenticate(),
-                                handler: "CategoryController.destroy"
+                                handler: "CategoryController.destroy",
                             },
                             "PATCH /": {
                                 middleware: authenticate(),
-                                handler: "CategoryController.bulk"
-                            }
-                        }
+                                handler: "CategoryController.bulk",
+                            },
+                        },
                     },
 
                     "/device": {
-
                         group: {
                             "GET /": "DeviceController.find",
                             "GET /:id": "DeviceController.findOne",
                             "POST /": {
-                                middleware: [authenticate(), validate("device")],
-                                handler: "DeviceController.create"
+                                middleware: [
+                                    authenticate(),
+                                    validate("device"),
+                                ],
+                                handler: "DeviceController.create",
                             },
                             "PUT /:id": {
-                                middleware: [authenticate(), validate("device")],
-                                handler: "DeviceController.update"
+                                middleware: [
+                                    authenticate(),
+                                    validate("device"),
+                                ],
+                                handler: "DeviceController.update",
                             },
                             "DELETE /:id": {
                                 middleware: authenticate(),
-                                handler: "DeviceController.destroy"
+                                handler: "DeviceController.destroy",
                             },
                             "PATCH /": {
                                 middleware: authenticate(),
-                                handler: "DeviceController.bulk"
-                            }
-                        }
+                                handler: "DeviceController.bulk",
+                            },
+                        },
                     },
 
                     "/place": {
-
                         group: {
                             "GET /": "PlaceController.find",
                             "GET /search": "PlaceController.search",
@@ -216,87 +211,86 @@ module.exports = {
 
                             "POST /": {
                                 middleware: [authenticate(), validate("place")],
-                                handler: "PlaceController.create"
+                                handler: "PlaceController.create",
                             },
 
                             "PUT /:id": {
                                 middleware: [authenticate(), validate("place")],
-                                handler: "PlaceController.update"
+                                handler: "PlaceController.update",
                             },
                             "DELETE /:id": {
                                 middleware: authenticate(),
-                                handler: "PlaceController.destroy"
+                                handler: "PlaceController.destroy",
                             },
                             "PATCH /": {
                                 middleware: authenticate(),
-                                handler: "PlaceController.bulk"
-                            }
-                        }
+                                handler: "PlaceController.bulk",
+                            },
+                        },
                     },
 
                     "/author": {
-
                         group: {
-
                             "GET /": "AuthorController.find",
                             "GET /chart": "AuthorController.chart",
                             "GET /:id": "AuthorController.findOne",
                             "GET /slug/:slug": "AuthorController.findBySlug",
 
                             "POST /": {
-                                middleware: [authenticate(), validate("author")],
-                                handler: "AuthorController.create"
+                                middleware: [
+                                    authenticate(),
+                                    validate("author"),
+                                ],
+                                handler: "AuthorController.create",
                             },
 
                             "PUT /:id": {
-                                middleware: [authenticate(), validate("author")],
-                                handler: "AuthorController.update"
+                                middleware: [
+                                    authenticate(),
+                                    validate("author"),
+                                ],
+                                handler: "AuthorController.update",
                             },
                             "DELETE /:id": {
                                 middleware: authenticate(),
-                                handler: "AuthorController.destroy"
+                                handler: "AuthorController.destroy",
                             },
                             "PATCH /": {
                                 middleware: authenticate(),
-                                handler: "AuthorController.bulk"
-                            }
-                        }
+                                handler: "AuthorController.bulk",
+                            },
+                        },
                     },
 
                     "/block": {
-
                         group: {
-
                             "GET /": "BlockController.find",
                             "GET /:id": "BlockController.findOne",
                             "GET /slug/:slug": "BlockController.findBySlug",
 
                             "POST /": {
                                 middleware: [authenticate(), validate("block")],
-                                handler: "BlockController.create"
+                                handler: "BlockController.create",
                             },
 
                             "PUT /:id": {
                                 middleware: [authenticate(), validate("block")],
-                                handler: "BlockController.update"
+                                handler: "BlockController.update",
                             },
 
                             "DELETE /:id": {
                                 middleware: authenticate(),
-                                handler: "BlockController.destroy"
+                                handler: "BlockController.destroy",
                             },
                             "PATCH /": {
                                 middleware: authenticate(),
-                                handler: "BlockController.bulk"
-                            }
-                        }
-
+                                handler: "BlockController.bulk",
+                            },
+                        },
                     },
 
                     "/tag": {
-
                         group: {
-
                             "GET /": "TagController.find",
                             "GET /chart": "TagController.chart",
                             "GET /:id": "TagController.findOne",
@@ -304,29 +298,27 @@ module.exports = {
 
                             "POST /": {
                                 middleware: [authenticate(), validate("tag")],
-                                handler: "TagController.create"
+                                handler: "TagController.create",
                             },
 
                             "PUT /:id": {
                                 middleware: [authenticate(), validate("tag")],
-                                handler: "TagController.update"
+                                handler: "TagController.update",
                             },
 
                             "DELETE /:id": {
                                 middleware: authenticate(),
-                                handler: "TagController.destroy"
+                                handler: "TagController.destroy",
                             },
                             "PATCH /": {
                                 middleware: authenticate(),
-                                handler: "TagController.bulk"
-                            }
-                        }
+                                handler: "TagController.bulk",
+                            },
+                        },
                     },
 
                     "/post": {
-
                         group: {
-
                             "GET /": "PostController.find",
                             "GET /chart": "PostController.chart",
                             "GET /formats": "PostController.findFormats",
@@ -335,11 +327,11 @@ module.exports = {
 
                             "POST /": {
                                 middleware: [authenticate(), validate("post")],
-                                handler: "PostController.create"
+                                handler: "PostController.create",
                             },
                             "PUT /:id": {
                                 middleware: [authenticate(), validate("post")],
-                                handler: "PostController.update"
+                                handler: "PostController.update",
                             },
                             "DELETE /:id": {
                                 middleware: authenticate(),
@@ -347,39 +339,36 @@ module.exports = {
                             },
                             "PATCH /": {
                                 middleware: authenticate(),
-                                handler: "PostController.bulk"
+                                handler: "PostController.bulk",
                             },
                             "PUT /like/:id": {
                                 middleware: authenticate(),
-                                handler: "PostController.like"
+                                handler: "PostController.like",
                             },
                             "PUT /follow/:id": {
                                 middleware: authenticate(),
-                                handler: "PostController.follow"
+                                handler: "PostController.follow",
                             },
                             "PUT /comment/:id": {
                                 middleware: authenticate(),
-                                handler: "PostController.comment"
-                            }
-
-                        }
+                                handler: "PostController.comment",
+                            },
+                        },
                     },
 
                     "/page": {
-
                         group: {
-
                             "GET /": "PageController.find",
                             "GET /:id": "PageController.findOne",
                             "GET /slug/:slug": "PageController.findBySlug",
 
                             "POST /": {
                                 middleware: [authenticate(), validate("page")],
-                                handler: "PageController.create"
+                                handler: "PageController.create",
                             },
                             "PUT /:id": {
                                 middleware: [authenticate(), validate("page")],
-                                handler: "PageController.update"
+                                handler: "PageController.update",
                             },
                             "DELETE /:id": {
                                 middleware: authenticate(),
@@ -387,25 +376,23 @@ module.exports = {
                             },
                             "PATCH /": {
                                 middleware: authenticate(),
-                                handler: "PageController.bulk"
-                            }
-                        }
+                                handler: "PageController.bulk",
+                            },
+                        },
                     },
 
                     "/event": {
-
                         group: {
-
                             "GET /": "EventController.find",
 
                             "GET /likes/me": {
                                 middleware: authenticate(),
-                                handler: "EventController.my_likes"
+                                handler: "EventController.my_likes",
                             },
 
                             "GET /registrations/me": {
                                 middleware: authenticate(),
-                                handler: "EventController.my_registrations"
+                                handler: "EventController.my_registrations",
                             },
 
                             "GET /:id": "EventController.findOne",
@@ -413,52 +400,53 @@ module.exports = {
 
                             "POST /": {
                                 middleware: [authenticate(), validate("event")],
-                                handler: "EventController.create"
+                                handler: "EventController.create",
                             },
                             "PUT /:id": {
                                 middleware: [authenticate(), validate("event")],
-                                handler: "EventController.update"
+                                handler: "EventController.update",
                             },
                             "DELETE /:id": {
                                 middleware: authenticate(),
-                                handler: "EventController.destroy"
+                                handler: "EventController.destroy",
                             },
                             "PATCH /": {
                                 middleware: authenticate(),
-                                handler: "EventController.bulk"
+                                handler: "EventController.bulk",
                             },
                             "PUT like/:id": {
                                 middleware: authenticate(),
-                                handler: "EventController.like"
+                                handler: "EventController.like",
                             },
                             "PUT follow/:id": {
                                 middleware: authenticate(),
-                                handler: "EventController.follow"
+                                handler: "EventController.follow",
                             },
                             "PUT register/:id": {
                                 middleware: validate("registeration"),
-                                handler: "EventController.register"
-                            }
-                        }
+                                handler: "EventController.register",
+                            },
+                        },
                     },
 
                     "/meta": {
                         group: {
                             "GET /:type?/:id?": "MetaController.find",
-                        }
+                        },
                     },
 
                     "/newsletter": {
                         group: {
                             "POST /subscribe": "NewsletterController.subscribe",
-                            "POST /unsubscribe": "NewsletterController.unsubscribe",
-                        }
+                            "POST /unsubscribe":
+                                "NewsletterController.unsubscribe",
+                        },
                     },
 
                     "GET /weather": "WeatherController.index",
-                    "GET /match": "MatchController.index"
-                }
-            }
-        }
-    }
-}
+                    "GET /match": "MatchController.index",
+                },
+            },
+        },
+    },
+};
