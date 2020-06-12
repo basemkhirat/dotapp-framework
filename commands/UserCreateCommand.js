@@ -76,6 +76,7 @@ export default class {
             user.email = values.email;
             user.password = values.password;
             user.role = superadmin_role.id;
+            user.status = 1;
 
             await user.save();
 
