@@ -1,7 +1,8 @@
 # DOTAPP
 
-A light-weight, thin and full-featured framework built on express framework with minimum dependencies.
-It was shipped with modules which save your time and effort to build it from scratch like users, roles an media
+A Tiny, light-weight and full-featured framework built on express.js with minimum dependencies.
+
+DOTAPP was shipped with built-in modules which save the development time and efforts like users, roles an media.
 
 ## Requirements
 
@@ -80,11 +81,12 @@ npm start
 
 Server will be created at port 3000 by default. you can change the port later from app configurations.
 
-Browse `http://localhost:3000` and have fun.
 
+Here you can browse you API Documentation `http://localhost:3000/docs`
 
-## Documentations
+![Test Image 7](/manual/images/docs.png)
 
+## Documentation
 
 
 - [Routes](https://github.com/basemkhirat/dotapp-framework/blob/master/manual/routes.md)
