@@ -2,7 +2,9 @@ import { authenticate, validate } from "dotapp/middlewares";
 
 export default {
 
-    "GET /test": "ScriptController.index",
+    "GET /test": {
+        handler: "ScriptController.index"
+    },
 
     "/": {
         name: "home",
@@ -10,6 +12,7 @@ export default {
         handler: "HomeController.index",
 
         group: {
+
             api: {
                 group: {
                     "/auth": {

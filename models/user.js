@@ -2,7 +2,6 @@ import { Model, Schema } from "dotapp/model";
 import Bcrypt from "bcrypt";
 import {Config} from "dotapp/services";
 
-
 let schema = Schema(
     {
         email: {
@@ -113,23 +112,6 @@ schema.pre("save", function (next) {
         next(null, this);
     }
 });
-
-// schema.pre("save", function (next) {
-//     if (this.photo_payload) {
-//         Resource.create(this.photo_payload, (error, media) => {
-//             if (error) return next(error);
-//             media.save((error, media) => {
-//                 if (error) next(error);
-//                 this.photo = media.id;
-//                 this.photo_payload = undefined;
-//                 next(null, this);
-//             });
-//         });
-//     } else {
-//         this.photo = null;
-//         next(null, this);
-//     }
-// });
 
 /**
  * Compare raw and encrypted password
