@@ -9,8 +9,11 @@ export default class extends Controller {
     async index(req, res) {
 
 
-            return res.ok("Hello World");
+
+
+            res.message("Book not found").notFound();
 
 
     }
 }
+
