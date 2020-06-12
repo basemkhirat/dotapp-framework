@@ -61,7 +61,7 @@ YOUTUBE_KEY=
 SOUNDCLOUD_KEY=
 ```
 
-Create the administrator user throw the this comamnd.
+Create the administrator user using this comamnd.
 
 ``` bash
 $ node run user:create
