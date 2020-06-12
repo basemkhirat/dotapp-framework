@@ -82,7 +82,7 @@ npm start
 Server will be created at port 3000 by default. you can change the port later from app configurations.
 
 
-Here you can browse you API Documentation `http://localhost:3000/docs`
+Here you can browse your API Documentation `http://localhost:3000/docs`
 
 ![Test Image 7](/manual/images/docs.png)
 
