@@ -14,7 +14,6 @@ describe("Media", function () {
 
         media.payload = "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png";
 
-        console.log("-----------------------------" + token);
         server.post("/api/media")
             .set('Authorization', 'Bearer ' + token)
             .send(media)
