@@ -19,29 +19,31 @@ describe("Authentication", function () {
             });
     });
 
-    it("send a forget/reset password request", function (done) {
+    // it("send a forgot/reset password request", function (done) {
 
-        server.post('/api/auth/forget')
-            .send({
-                email: user.email
-            })
-            .expect(200)
-            .end(function (error) {
-                if (error) return done(error);
+    //     server.post('/api/auth/forgot')
+    //         .send({
+    //             email: user.email
+    //         })
+    //         .expect(200)
+    //         .end(function (error) {
+    //             if (error) return done(error);
 
-                server.get("/api/user/" + user.id)
-                    .set('Authorization', 'Bearer ' + token)
-                    .expect(200)
-                    .end(function (error, response) {
-                        if (error) return done(error);
+    //             server.get("/api/user/" + user.id)
+    //                 .set('Authorization', 'Bearer ' + token)
+    //                 .expect(200)
+    //                 .end(function (error, response) {
+    //                     if (error) return done(error);
 
-                        server.post('/api/auth/reset')
-                            .send({
-                                code: response.body.data.password_token,
-                                password: "QRE@#$@!$fo3424F43dse3"
-                            })
-                            .expect(200, done);
-                    });
-            });
-    });
+    //                     server.post('/api/auth/reset')
+    //                         .send({
+    //                             code: response.body.data.password_token,
+    //                             password: "QRE@#$@!$fo3424F43dse3"
+    //                         })
+    //                         .expect(200, done);
+
+    //                         done();
+    //                 });
+    //         });
+    // });
 });

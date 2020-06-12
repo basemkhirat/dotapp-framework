@@ -36,7 +36,8 @@ let schema = Schema(
 
         role: {
             type: Schema.Types.ObjectId,
-            ref: "role"
+            ref: "role",
+            ds:"3"
         },
 
         photo: {

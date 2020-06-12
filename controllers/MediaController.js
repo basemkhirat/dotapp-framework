@@ -1,10 +1,8 @@
-import Controller from "~/controllers/Controller";
+import Controller from "dotapp/controller";
 import Media from '~/models/media';
-import Resource from 'dotapp/services/media';
 import async from "async";
 import path from 'path';
-import Storage from 'dotapp/services/storage';
-import Config from 'dotapp/services/config';
+import {Storage, Config, Media as Resource} from 'dotapp/services';
 import moment from 'moment';
 
 export default class extends Controller {

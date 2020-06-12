@@ -1,18 +1,22 @@
-import Controller from './Controller';
-// import {google} from 'googleapis';
-import cheerio from 'cheerio';
-import request from "request";
-import moment from 'moment';
+import Controller from "dotapp/controller";
+import {Storage} from 'dotapp/services';
 
 export default class extends Controller {
-
     /**
-     * Show homepage
+     * Show Hello
      * @param req
      * @param res
-     * @param next
      */
-    index(req, res, next) {
-        return res.ok("Success")
+    async index(req, res) {
+
+        try {
+
+            await Storage.disk("publics").save("ss.json", "hhhhhh");
+
+            return res.ok("Hello World");
+
+        }catch(error ){
+            return res.serverError();
+        }
     }
-};
+}

@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import Controller from "~/controllers/Controller";
+import Controller from "dotapp/controller";
 import User from "~/models/user";
 import request from "request";
 import { Config, Media, Validator, Mail } from "dotapp/services";

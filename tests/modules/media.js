@@ -14,6 +14,7 @@ describe("Media", function () {
 
         media.payload = "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png";
 
+        console.log("-----------------------------" + token);
         server.post("/api/media")
             .set('Authorization', 'Bearer ' + token)
             .send(media)
@@ -47,7 +48,7 @@ describe("Media", function () {
 
         this.timeout(120000);
 
-        media.payload = "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4";
+        media.payload = "https://file-examples.com/wp-content/uploads/2017/04/file_example_MP4_480_1_5MG.mp4";
 
         server.post("/api/media")
             .set('Authorization', 'Bearer ' + token)
@@ -65,7 +66,7 @@ describe("Media", function () {
 
         this.timeout(120000);
 
-        media.payload = "https://sample-videos.com/video123/flv/720/big_buck_bunny_720p_1mb.flv";
+        media.payload = "file:///Users/basem/Downloads/sample_640x360.flv";
 
         server.post("/api/media")
             .set('Authorization', 'Bearer ' + token)

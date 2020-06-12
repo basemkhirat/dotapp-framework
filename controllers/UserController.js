@@ -1,4 +1,4 @@
-import Controller from "~/controllers/Controller";
+import Controller from "dotapp/controller";
 import User from '~/models/user';
 import Role from '~/models/role';
 import async from 'async';

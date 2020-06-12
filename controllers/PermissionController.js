@@ -1,23 +1,20 @@
-import Controller from "~/controllers/Controller";
-import Config from 'dotapp/services/config';
+import Controller from "dotapp/controller";
+import { Config } from "dotapp/services";
 
 export default class extends Controller {
-
     /**
      * Find all system permissions
      * @param req
      * @param res
      */
     find(req, res) {
-
         let permissions = Config.get("permissions");
 
         let allPermissions = {};
 
         for (let module in permissions) {
-            permissions[module].forEach(action => {
-
-                if(module === "role"){
+            permissions[module].forEach((action) => {
+                if (module === "role") {
                     return;
                 }
 
@@ -25,7 +22,9 @@ export default class extends Controller {
                     allPermissions[module] = {};
                 }
 
-                allPermissions[module][module + "." + action] = req.lang(module + ".permissions." + action);
+                allPermissions[module][module + "." + action] = req.lang(
+                    module + ".permissions." + action
+                );
             });
         }
 
@@ -38,18 +37,16 @@ export default class extends Controller {
      * @param res
      */
     me(req, res) {
-
         let permissions = Config.get("permissions");
 
         let myPermissions = [];
 
         for (let module in permissions) {
-
-            if(module === "role"){
+            if (module === "role") {
                 continue;
             }
 
-            permissions[module].forEach(action => {
+            permissions[module].forEach((action) => {
                 if (req.hasPermission(module + "." + action)) {
                     myPermissions.push(module + "." + action);
                 }
@@ -58,5 +55,4 @@ export default class extends Controller {
 
         return res.ok(myPermissions);
     }
-};
-
+}
