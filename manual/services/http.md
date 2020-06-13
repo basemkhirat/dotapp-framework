@@ -39,12 +39,12 @@ import {HTTP} from "dotapp/services";
 
 ```
 
-The allowed methods are
-- HTTP.get(uri, options)
-- HTTP.post(uri, options)
-- HTTP.put(uri, options)
-- HTTP.patch(uri, options)
-- HTTP.delete(uri, options)
+### Methods:
+#### `HTTP.get(uri, options)`
+#### `HTTP.post(uri, options)`
+#### `HTTP.put(uri, options)`
+#### `HTTP.patch(uri, options)`
+#### `HTTP.delete(uri, options)`
 
 `options` is object of `request` arguments such as form data and headers.
 
