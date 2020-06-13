@@ -2,7 +2,7 @@
 
 A tiny, light-weight and full-featured nodejs framework built on express.js with minimum dependencies.
 
-DOTAPP shipped with combination of open sources libraries which are fully integrated to save the development time and efforts like users, roles an media.
+DOTAPP is shipped with combination of open sources libraries which are fully integrated to save the development time and efforts like users, roles an media.
 
 ## Requirements
 
