@@ -96,7 +96,7 @@ Server will listen at port 3000 by default. you can change the port later from a
 
 Here you can browse your API Documentation `http://localhost:3000/docs`
 
-![Test Image 7](/manual/images/docs.png)
+![docs](/manual/images/docs.png)
 
 ## Documentation
 
@@ -111,7 +111,9 @@ Here you can browse your API Documentation `http://localhost:3000/docs`
 
 - [Response](https://github.com/basemkhirat/dotapp-framework/blob/master/manual/response.md)
 
-- [models](https://github.com/basemkhirat/dotapp-framework/blob/master/manual/models.md)
+- [Models](https://github.com/basemkhirat/dotapp-framework/blob/master/manual/models.md)
+
+- [Public Assets](https://github.com/basemkhirat/dotapp-framework/blob/master/manual/public.md)
 
 - [Commands](https://github.com/basemkhirat/dotapp-framework/blob/master/manual/commands.md)
 
@@ -133,6 +135,7 @@ Here you can browse your API Documentation `http://localhost:3000/docs`
 
     - [Validation](https://github.com/basemkhirat/dotapp-framework/blob/master/manual/services/validation.md)
 
+- [Restful API Documentation](https://github.com/basemkhirat/dotapp-framework/blob/master/manual/docs.md)
 
 ## Author
 [Basem Khirat](http://basemkhirat.com) - [basemkhirat@gmail.com](mailto:basemkhirat@gmail.com)
