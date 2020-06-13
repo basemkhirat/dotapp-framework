@@ -63,7 +63,6 @@ export default class extends Controller {
         }
         
         return res.ok("All inputs valid");
-        
     }
 }
 ```
