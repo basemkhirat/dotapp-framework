@@ -7,7 +7,7 @@ A service provides an easy way to validate inputs. It was built on the `validato
 You can use this service using this way.
 
 ``` javascript
-controllers/HomeController.js
+// controllers/HomeController.js
 
 import Controller from "dotapp/controller";
 import {Validator} from "dotapp/services";
@@ -32,7 +32,7 @@ export default class extends Controller {
 You can register a new validation rule.
 
 ``` javascript
-controllers/HomeController.js
+// controllers/HomeController.js
 
 import Controller from "dotapp/controller";
 import {Validator} from "dotapp/services";
