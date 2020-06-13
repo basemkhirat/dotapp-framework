@@ -77,16 +77,14 @@ User created successfully!
 
 ## Environments
 
-### Development
-
-- For developement: set the `NODE_ENV=development` and
+- For `developement`: set the `NODE_ENV=development` and
 `APP_DEBUG=true` in `.env` file and run the `dev` command.
 
 ``` bash
 $ npm run dev
 ```
 
-- For production: set the `NODE_ENV=production` and
+- For `production`: set the `NODE_ENV=production` and
 `APP_DEBUG=false` in `.env` file and run the `start` command.
 
 ``` bash
