@@ -1,8 +1,8 @@
 # <div style="text-align:center">DotApp</div>
 
-A tiny, light-weight and full-featured framework built on express.js with minimum dependencies.
+A tiny, light-weight and full-featured nodejs framework built on express.js with minimum dependencies.
 
-DOTAPP was shipped with built-in modules which save the development time and efforts like users, roles an media.
+DOTAPP shipped with combination of open sources libraries which are fully integrated to save the development time and efforts like users, roles an media.
 
 ## Requirements
 
@@ -21,7 +21,7 @@ $ npm install
 
 ## Configuration
 
-- Rename the file `.env.example` to `.env`.
+- rename the file `.env.example` to `.env`.
 - change app, database other configurations according to your environment.
 
 The `.env` file apears like this:
@@ -141,6 +141,7 @@ Here you can browse your API Documentation `http://localhost:3000/docs`
     - [Validation](https://github.com/basemkhirat/dotapp-framework/blob/master/manual/services/validation.md)
 
 - [Restful API Documentation](https://github.com/basemkhirat/dotapp-framework/blob/master/manual/docs.md)
+
 
 ## Author
 [Basem Khirat](http://basemkhirat.com) - [basemkhirat@gmail.com](mailto:basemkhirat@gmail.com)
