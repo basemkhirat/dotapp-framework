@@ -123,7 +123,7 @@ The result will be:
 
     ``` bash
     {
-        message: <error>,
+        message: <message>,
         status: 500,
         success: false
     }
