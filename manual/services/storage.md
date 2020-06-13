@@ -4,7 +4,7 @@ A rich service provides an easy way to save files to filesystem or CDN like S3.
 
 ## Configuration
 
-`config/storage.js` is the configuration file where you can modify drivers
+`config/storage.js` is the configuration file where you can modify drivers.
 
 
 ``` javascript
@@ -104,6 +104,20 @@ let path = Storage.path("file.txt");
 
 // To deleted the saved file
 await Storage.delete("file.txt");
+```
 
+### Saving to other disks
+
+you can use the `disk()` method to set the disk name.
+
+``` javascript
+
+import {Storage} from "dotapp/services";
+
+// Save a file to the default driver
+let file = await Storage.disk("s3").save("file.txt", "This is the file content");
+
+// To get the url of saved file
+let url = Storage.disk("s3").url("file.txt");
 
 ```
