@@ -10,8 +10,7 @@ export default class extends Controller {
 
 
 
-
-            res.notFound("sdfsdfs");
+            return res.ok();
 
 
     }
