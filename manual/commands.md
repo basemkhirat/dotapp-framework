@@ -30,7 +30,7 @@ export default class {
 
     // method that fired on command cancellation
     cancel() {
-        this.log("Listing user canceled");
+        this.log("Listing users canceled");
     }
 }
 
