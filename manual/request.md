@@ -25,7 +25,7 @@ export default class extends Controller {
 
     @return string
 
-    It search for the name in express `req.params`, `req.body` and `req.query` and return the value.
+    Get a param name in express from `req.params`, `req.body` and `req.query` and return the value.
 
     If param name doesn't exist, default_value will be returned.
 
@@ -33,7 +33,7 @@ export default class extends Controller {
 
     @return boolean
 
-    It checks if param name in `req.params`, `req.body` and `req.query` and return `true` if exist and `false` if not.
+   check if param name in `req.params`, `req.body` and `req.query` and return `true` if exist and `false` if not.
 
 #### `req.filled("name")`
 
@@ -45,141 +45,140 @@ export default class extends Controller {
 
     @return object
 
-    It returns an object with all params in `req.params`, `req.body` and `req.query`.
-
-
-#### `req.lang(key, variables = {})`
-
-    @return string
-
-    It returns the value of the a localized key stored in `lang` directory depending on the current app locale.
-
-    `variables` are optional object passed to replace variables in the localized string.
+    Return an object with all params in `req.params`, `req.body` and `req.query`.
 
 #### `req.getLocale()`
 
     @return string
 
-    It returns the current lang by default `en`
+    Returns the current lang by default `en`
+    
+#### `req.lang(key, variables = {})`
+
+    @return string
+
+    Returns the value of the a localized key stored in `lang` directory depending on the current app locale.
+
+    `variables` are optional object passed to replace variables in the localized string.
 
 #### `req.ipAddress()`
 
     @return string
 
-    It returns the client IP address.
+    Returns the client IP address.
 
 
 #### `req.view(view_file, payload = {})`
 
     @return promise
 
-    It returns the HTML of view after rendering
+    Returns the HTML of view after rendering
 
     `payload` is an optional object to pass data to views.
 
 #### `req.can(<permission>, <param?>, <done?>)`
 
-Check if the current user can do specific permission.
+    Check if the current user can do specific permission.
 
-@return boolean
+    @return boolean
 
-```javascript
-// controllers/HomeController.js
+    ```javascript
+    // controllers/HomeController.js
 
-import Controller from "dotapp/controller";
+    import Controller from "dotapp/controller";
 
-export default class extends Controller {
-    index(req, res) {
-        if (req.hasPermission("book.view")) {
-            return res.ok("I have access to view book store");
+    export default class extends Controller {
+        index(req, res) {
+            if (req.hasPermission("book.view")) {
+                return res.ok("I have access to view book store");
+            }
         }
     }
-}
-```
+    ```
 
 #### `req.hasPermission(<permission>)`
 
-Check if the current user have a specific permission.
+    Check if the current user have a specific permission.
 
-`hasPermission` checks if permission is assigned to user only using his role
+    `hasPermission` checks if permission is assigned to user only using his role
 
-@return boolean
+    @return boolean
 
-```javascript
-// controllers/HomeController.js
+    ```javascript
+    // controllers/HomeController.js
 
-import Controller from "dotapp/controller";
+    import Controller from "dotapp/controller";
 
-export default class extends Controller {
-    index(req, res) {
-        if (req.can("book.view")) {
-            return res.ok("I have access to view book store");
+    export default class extends Controller {
+        index(req, res) {
+            if (req.can("book.view")) {
+                return res.ok("I have access to view book store");
+            }
+
+            return res.forbidden();
         }
-
-        return res.forbidden();
     }
-}
-```
+    ```
 
 #### `req.hasRole(<role>)`
 
-Check if the current user have a specific role.
+    Check if the current user have a specific role.
 
-@return boolean
+    @return boolean
 
-```javascript
-// controllers/HomeController.js
+    ```javascript
+    // controllers/HomeController.js
 
-import Controller from "dotapp/controller";
+    import Controller from "dotapp/controller";
 
-export default class extends Controller {
-    index(req, res) {
-        if (req.hasRole("editor")) {
-            return res.ok("I have the editor role");
+    export default class extends Controller {
+        index(req, res) {
+            if (req.hasRole("editor")) {
+                return res.ok("I have the editor role");
+            }
+
+            return res.forbidden();
         }
-
-        return res.forbidden();
     }
-}
-```
+    ```
 
 #### `req.getUser(<field>)`
 
-return current logged user.
+    return current logged user.
 
-@return boolean
+    @return boolean
 
-```javascript
-// controllers/HomeController.js
+    ```javascript
+    // controllers/HomeController.js
 
-import Controller from "dotapp/controller";
+    import Controller from "dotapp/controller";
 
-export default class extends Controller {
-    index(req, res) {
-        const user = req.getUser(); // return the full user object
-        const email = req.getUser("email"); // return only the email address
+    export default class extends Controller {
+        index(req, res) {
+            const user = req.getUser(); // return the full user object
+            const email = req.getUser("email"); // return only the email address
+        }
     }
-}
-```
+    ```
 
 #### `req.getRole(<field>)`
 
-return current logged user role.
+    return current logged user role.
 
-@return boolean
+    @return boolean
 
-```javascript
-// controllers/HomeController.js
+    ```javascript
+    // controllers/HomeController.js
 
-import Controller from "dotapp/controller";
+    import Controller from "dotapp/controller";
 
-export default class extends Controller {
-    index(req, res) {
-        const user = req.getRole(); // return the full role object
-        const role_name = req.getRole("name"); // return only the role_name
+    export default class extends Controller {
+        index(req, res) {
+            const user = req.getRole(); // return the full role object
+            const role_name = req.getRole("name"); // return only the role_name
+        }
     }
-}
-```
+    ```
 
 
 ---
