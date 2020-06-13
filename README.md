@@ -91,7 +91,7 @@ $ npm run dev
 $ npm start
 ```
 
-Server will be created at port 3000 by default. you can change the port later from app configurations.
+Server will listen at port 3000 by default. you can change the port later from app configurations.
 
 
 Here you can browse your API Documentation `http://localhost:3000/docs`
