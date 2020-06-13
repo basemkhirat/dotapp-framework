@@ -113,7 +113,7 @@ export default class extends Controller {
                 html: await req.view("mails/verify_email", { user }),
             });
 
-            return res.message(req.lang("user.events.created")).ok(user.id);
+            return res.ok(user.id, req.lang("user.events.created"));
         } catch (error) {
             return res.serverError(error);
         }
@@ -161,9 +161,8 @@ export default class extends Controller {
 
             await user.save();
 
-            return res
-                .message(req.lang("auth.events.profile_updated"))
-                .ok(user.id);
+            return res.ok(user.id, req.lang("auth.events.profile_updated"));
+
         } catch (error) {
             if (error instanceof Media.FileTypeException) {
                 return res.validationError([
@@ -235,9 +234,7 @@ export default class extends Controller {
 
             await user.save();
 
-            return res
-                .message(req.lang("auth.events.password_changed"))
-                .ok(user.id);
+            return res.ok(user.id, req.lang("auth.events.password_changed"));
         } catch (error) {
             return res.serverError(error);
         }
@@ -284,9 +281,7 @@ export default class extends Controller {
                 html: await req.view("mails/forget_password", { user }),
             });
 
-            return res
-                .message(req.lang("auth.events.password_reset_code_sent"))
-                .ok();
+            return res.ok(user.id, req.lang("auth.events.password_reset_code_sent"));
         } catch (error) {
             return res.serverError(error);
         }
@@ -349,7 +344,7 @@ export default class extends Controller {
                 html: await req.view("mails/password_changed", { user }),
             });
 
-            return res.message(req.lang("auth.events.password_changed")).ok();
+            return res.ok(user.id, req.lang("auth.events.password_changed"));
         } catch (error) {
             return res.serverError(error);
         }
@@ -402,7 +397,7 @@ export default class extends Controller {
                 html: await req.view("mails/email_verified", { user }),
             });
 
-            return res.message(req.lang("auth.events.email_verified")).ok();
+            return res.ok(user.id, req.lang("auth.events.email_verified"));
         } catch (error) {
             return res.serverError(error);
         }
@@ -496,9 +491,7 @@ export default class extends Controller {
 
                 response.token_expiration = Config.get("jwt.expires");
 
-                return res
-                    .message(req.lang("user.events.created"))
-                    .ok(response);
+                return res.ok(response, req.lang("user.events.created"));
             } else {
                 return res.serverError(body.error.message);
             }
@@ -569,9 +562,7 @@ export default class extends Controller {
 
                 response.token_expiration = Config.get("jwt.expires");
 
-                return res
-                    .message(req.lang("user.events.created"))
-                    .ok(response);
+                return res.ok(response, req.lang("user.events.created"));
             } else {
                 return res.serverError(body.error.message);
             }

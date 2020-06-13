@@ -183,7 +183,7 @@ export default class extends Controller {
                     req.mail(user, "VerifyEmail");
                 }
 
-                return res.message(req.lang("user.events.created")).ok(user.id);
+                return res.ok(user.id, req.lang("user.events.created"));
             }
 
         } catch (e) {
@@ -236,7 +236,7 @@ export default class extends Controller {
             let saved = await user.save();
 
             if (saved) {
-                return res.message(req.lang("user.events.updated")).ok(id);
+                return res.ok(id, req.lang("user.events.updated"));
             }
 
         } catch (e) {
@@ -270,7 +270,7 @@ export default class extends Controller {
             let removed = await user.remove();
 
             if (removed) {
-                return res.message(req.lang("user.events.deleted")).ok(id);
+                return res.ok(id, req.lang("user.events.deleted"));
             }
 
         } catch (e) {
@@ -355,11 +355,11 @@ export default class extends Controller {
             (error, result = []) => {
 
                 if (operation === "update") {
-                    return res.message(req.lang("user.events.updated")).ok(result);
+                    return res.ok(result, req.lang("user.events.updated"));
                 }
 
                 if (operation === "delete") {
-                    return res.message(req.lang("user.events.deleted")).ok(result);
+                    return res.ok(result, req.lang("user.events.deleted"));
                 }
             }
         );

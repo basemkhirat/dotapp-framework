@@ -30,13 +30,13 @@ The result will be:
 
 ## Response Methods:
 
-- `res.ok(data)`
+- `res.ok(data, message = 'Success')`
 
     It returns a success response with data key.
 
     ``` bash
     {
-        message: "Success",
+        message: <message>,
         status: 200,
         success: true,
         data: <data>

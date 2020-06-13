@@ -178,7 +178,7 @@ export default class extends Controller {
 
             media.save((error, media) => {
                 if (error) return res.serverError(error);
-                if (media) return res.message(req.lang("media.events.created")).ok(media.id);
+                if (media) return res.ok(media.id, req.lang("media.events.created"));
             });
         });
     }
@@ -207,7 +207,7 @@ export default class extends Controller {
 
             media.save(error => {
                 if (error) return res.serverError(error);
-                return res.message(req.lang("media.events.updated")).ok(id);
+                return res.ok(id, req.lang("media.events.updated"));
             });
         });
     }
@@ -264,7 +264,7 @@ export default class extends Controller {
                 .save(thumbnail_path, Buffer.from(data, 'base64'), 'binary', error => {
                     if (error) return res.serverError(error);
 
-                    return res.message(req.lang("media.events.updated")).ok(id);
+                    return res.ok(id, req.lang("media.events.updated"));
                 });
         });
     }
@@ -290,7 +290,7 @@ export default class extends Controller {
 
             media.remove(error => {
                 if (error) res.serverError(error);
-                return res.message(req.lang("media.events.deleted")).ok(id);
+                return res.ok(id, req.lang("media.events.deleted"));
             });
         });
     }
@@ -364,11 +364,11 @@ export default class extends Controller {
             (error, result = []) => {
 
                 if (operation === "update") {
-                    return res.message(req.lang("media.events.updated")).ok(result);
+                    return res.ok(result, req.lang("media.events.updated"));
                 }
 
                 if (operation === "delete") {
-                    return res.message(req.lang("media.events.deleted")).ok(result);
+                    return res.ok(result, req.lang("media.events.deleted"));
                 }
             }
         );

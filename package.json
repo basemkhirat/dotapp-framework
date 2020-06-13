@@ -9,7 +9,7 @@
         "test": "export APP_CONSOLE=true && ./node_modules/.bin/mocha tests/**/*.js --require @babel/register --exit"
     },
     "dependencies": {
-        "dotapp": "^2.0.10"
+        "dotapp": "^2.0.12"
     },
     "devDependencies": {
         "core-js": "^3.2.1",

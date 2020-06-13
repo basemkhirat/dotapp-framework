@@ -1,6 +1,6 @@
 # <div style="text-align:center">DotApp</div>
 
-A Tiny, light-weight and full-featured framework built on express.js with minimum dependencies.
+A tiny, light-weight and full-featured framework built on express.js with minimum dependencies.
 
 DOTAPP was shipped with built-in modules which save the development time and efforts like users, roles an media.
 

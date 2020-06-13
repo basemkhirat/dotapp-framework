@@ -79,7 +79,7 @@ export default class extends Controller {
 
         role.save((error, role) => {
             if (error) return res.serverError(error);
-            return res.message(req.lang("role.events.created")).ok(role.id);
+            return res.ok(role.id, req.lang("role.events.created"));
         });
     }
 
@@ -109,7 +109,7 @@ export default class extends Controller {
 
             role.save((error, role) => {
                 if (error) return res.serverError(error);
-                return res.message(req.lang("role.events.updated")).ok(id);
+                return res.ok(id, req.lang("role.events.updated"));
             });
         });
     }
@@ -136,7 +136,7 @@ export default class extends Controller {
 
             role.remove(error => {
                 if (error) res.serverError(error);
-                return res.message(req.lang("role.events.deleted")).ok(id);
+                return res.ok(id, req.lang("role.events.deleted"));
             });
         });
     }
@@ -210,11 +210,11 @@ export default class extends Controller {
             (error, result = []) => {
 
                 if (operation === "update") {
-                    return res.message(req.lang("role.events.updated")).ok(result);
+                    return res.ok(result, req.lang("role.events.updated"));
                 }
 
                 if (operation === "delete") {
-                    return res.message(req.lang("role.events.deleted")).ok(result);
+                    return res.ok(result, req.lang("role.events.deleted"));
                 }
             }
         );
