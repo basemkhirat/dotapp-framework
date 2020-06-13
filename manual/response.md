@@ -30,7 +30,7 @@ The result will be:
 
 ## Response Methods:
 
-#### `res.ok(data, message = 'Success')`
+#### res.ok(data, message = 'Success')
 
     Return a success response with data key.
 
@@ -43,7 +43,7 @@ The result will be:
 }
 ```
 
-#### `res.validationError(errors, message = "Validation Error")`
+#### res.validationError(errors, message = "Validation Error")
 
     Return a validation error response with data key.
 
@@ -56,7 +56,7 @@ The result will be:
 }
 ```
 
-#### `res.notFound(message = "Page Not Found")`
+#### res.notFound(message = "Page Not Found")
 
     Return a 404 error.
 
@@ -68,7 +68,7 @@ The result will be:
 }
 ```
 
-#### `res.serverError(message = "Internal Server Error")`
+#### res.serverError(message = "Internal Server Error")
 
     Return a server error.
 
@@ -80,7 +80,7 @@ The result will be:
 }
 ```
 
-#### `res.notAuthenticated(message = "Not Authenticated")`
+#### res.notAuthenticated(message = "Not Authenticated")
 
     Return an unauthenticated error.
 
@@ -92,7 +92,7 @@ The result will be:
 }
 ```
 
-#### `res.forbidden(message = "Access Denied")`
+#### res.forbidden(message = "Access Denied")
 
     Return an unauthorized error.
 
@@ -105,7 +105,7 @@ The result will be:
 ```
 
 
-#### `res.badRequest(message = "Bad Request")`
+#### res.badRequest(message = "Bad Request")
 
     Return a bad request error.
 
@@ -117,7 +117,7 @@ The result will be:
 }
 ```
 
-#### `res.error(message, code = 500)`
+#### res.error(message, code = 500)
 
     Return a custom error with a custom status code.
 
