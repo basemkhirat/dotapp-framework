@@ -7,11 +7,6 @@ export default class extends Controller {
      * @param res
      */
     async index(req, res) {
-
-        let user = await req.can("media.view");
-
-        return res.ok(JSON.stringify(user));
-
-
+        return res.render("hello");
     }
 }
