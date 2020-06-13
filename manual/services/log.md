@@ -1,6 +1,6 @@
 # Log Service
 
-A service provides an easy way to log information, warning and errors based on `winston` package
+A service provides an easy way to log information, warning and errors based on `winston` package.
 
 ## Usage
 
