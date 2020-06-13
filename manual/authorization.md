@@ -148,11 +148,13 @@ export default class extends Controller {
 
 Then, you can now check if user permissions using the request object.
 
+### Methods:
+
 #### `req.can(<permission>, <param?>, <done?>)`
 
-Check if the current user can do specific permission.
+    Check if the current user can do specific permission.
 
-@return boolean
+    @return boolean
 
 ```javascript
 // controllers/HomeController.js
@@ -168,13 +170,32 @@ export default class extends Controller {
 }
 ```
 
+#### `req.canAsync(<permission>, <param?>, <done?>)`
+
+    Check if the current user can do specific permission of async policy.
+
+    @return promise
+
+```javascript
+// controllers/HomeController.js
+
+import Controller from "dotapp/controller";
+
+export default class extends Controller {
+    async index(req, res) {
+        const is_allowed = await req.canAsync("book.view");
+        return res.ok(is_allowed);
+    }
+}
+```
+
 #### `req.hasPermission(<permission>)`
 
-Check if the current user have a specific permission.
+    Check if the current user have a specific permission.
 
-`hasPermission` checks if permission is assigned to user only using his role
+    `hasPermission` checks if permission is assigned to user only using his role
 
-@return boolean
+    @return boolean
 
 ```javascript
 // controllers/HomeController.js
@@ -194,9 +215,9 @@ export default class extends Controller {
 
 #### `req.hasRole(<role>)`
 
-Check if the current user have a specific role.
+    Check if the current user have a specific role.
 
-@return boolean
+    @return boolean
 
 ```javascript
 // controllers/HomeController.js
@@ -216,9 +237,9 @@ export default class extends Controller {
 
 #### `req.getUser(<field>)`
 
-return current logged user.
+    return current logged user.
 
-@return boolean
+    @return boolean
 
 ```javascript
 // controllers/HomeController.js
@@ -235,11 +256,11 @@ export default class extends Controller {
 
 #### `req.getRole(<field>)`
 
-return current logged user role.
+    return current logged user role.
 
-@return boolean
+    @return boolean
 
-```javascript
+``` javascript
 // controllers/HomeController.js
 
 import Controller from "dotapp/controller";
