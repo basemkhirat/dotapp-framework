@@ -1,6 +1,6 @@
 # Routes
 
-Flexible routes built on express routes to be simplifed.
+Flexible routes developed on express routes written in an object format.
 
 In `routes/index.js`, you can define your application routes with a javascript object.
 
