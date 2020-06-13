@@ -63,7 +63,9 @@ export default class extends Controller {
         }
         
         return res.ok("All inputs valid");
-
+        
+    }
+}
 ```
 ---
 Reference: https://github.com/skaterdav85/validatorjs
