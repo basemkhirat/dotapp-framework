@@ -7,6 +7,6 @@ export default class extends Controller {
      * @param res
      */
     async index(req, res) {
-            return res.ok("Hello world!");
+        return res.render("hello");
     }
 }
