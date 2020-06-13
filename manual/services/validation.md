@@ -20,7 +20,7 @@ export default class extends Controller {
             password: "required|min:7",
         });
 
-        if (!(await validation.validate())) {
+        if (validation.fails()) {
             return res.validationError(validation.errors.all());
         }
         
@@ -55,6 +55,9 @@ export default class extends Controller {
             email: "required|email|email_available"
         });
 
+        // you must the .validate() method as we add Async operation
+        // validate() method return a promise that resolve a boolean value
+        
         if (!(await validation.validate())) {
             return res.validationError(validation.errors.all());
         }
