@@ -43,13 +43,13 @@ The result will be:
     }
     ```
 
-- `res.validationError(errors)`
+- `res.validationError(errors, message = "Validation Error")`
 
     It returns a validation error response with data key.
 
     ``` bash
     {
-        message: "Validation Error",
+        message: <message>,
         errors: <errors>,
         status: 422,
         success: false
