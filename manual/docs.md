@@ -1,6 +1,6 @@
 # Restfull API Documentation
 
-DotApp provides an easy way to write your API endpoing using the swagger tool
+DotApp provides an easy way to write your API endpoints using the swagger tool.
 
 ## Configuration
 
