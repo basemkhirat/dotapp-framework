@@ -88,7 +88,7 @@ let file = await Storage.save("file.txt", "This is the file content");
 let file = await Storage.save("file.txt", "This is the file content", "utf8");
 
 // To check file if already exists
-let is_exists = await Storage.exist("file.txt"); // return boolean
+let is_exists = await Storage.exists("file.txt"); // return boolean
 
 // To read the saved file
 let buffer = await Storage.read("file.txt"); // return a buffer
