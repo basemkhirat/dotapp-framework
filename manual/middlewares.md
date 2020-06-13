@@ -1,8 +1,8 @@
 # Middlewares
 
-You can build your own middleware.
+Middleware is a layer to provide some authentication and authorization before the controller layer.
 
-In `middlewares` directory, create a file exports the function that returns the `express` middleware function.
+In `middlewares` directory, create a file exports a function that returns the `express` middleware function.
 
 As example we want to retrict user to specific permission `posts_manage`.
 
@@ -25,7 +25,7 @@ export default (permission) => {
 
 Middleware is now created but is not loaded yet.
 
-You load middleware globally or in specific route.
+You can load middleware globally or in specific route.
 
 ## Global Middleware
 
@@ -51,7 +51,6 @@ app.use(app.errorHandler());
 export default app;
 
 ```
-
 
 ## Route Middleware
 
