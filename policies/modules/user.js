@@ -1,5 +1,8 @@
 export default {
+
     view: true,
+
+    create: true,
 
     /**
      * users allowed to update:

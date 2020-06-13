@@ -1,19 +1,9 @@
 import user from "~/policies/modules/user";
 import role from "~/policies/modules/role";
+import media from "~/policies/modules/media";
 
 export default {
     user,
     role,
-    book: {
-
-         view: (req, done) => {
-
-
-                setTimeout(() => {
-                    done(true);
-                }, 8000);
-
-
-        }
-    }
+    media,
 };
