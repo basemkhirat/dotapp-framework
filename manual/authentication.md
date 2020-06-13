@@ -19,6 +19,7 @@ The generated token should be sent to any protected endpoints using the `authori
 
 ``` javascript
 // config/jwt.js
+
 export default {
 
     /**
@@ -41,7 +42,7 @@ export default {
 
 ```
 
-Then, you can now check if user using the request object.
+Then, you can now get user and role using the request object.
 
 
 ### `req.getUser(<field>)`
