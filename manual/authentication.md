@@ -45,74 +45,127 @@ export default {
 Then, you can now get user and role using the request object.
 
 
-### `req.getUser(<field>)`
+### Methods:
 
-return current logged user.
+#### `req.can(<permission>, <param?>, <done?>)`
 
-@return boolean
+    Check if the current user can do specific permission.
 
+    @return boolean
 
-``` javascript
+```javascript
 // controllers/HomeController.js
 
-import Controller from 'dotapp/controller';
+import Controller from "dotapp/controller";
 
 export default class extends Controller {
     index(req, res) {
-
-        const user = req.getUser(); // return the full user object
-        const email = req.getUser("email"); // return only the email address
-
+        if (req.hasPermission("book.view")) {
+            return res.ok("I have access to view book store");
+        }
     }
 }
 ```
 
-### `req.getRole(<field>)`
+#### `req.canAsync(<permission>, <param?>, <done?>)`
 
-return current logged user role.
+    Check if the current user can do specific permission of async policy.
 
-@return boolean
+    @return promise
 
-
-``` javascript
+```javascript
 // controllers/HomeController.js
 
-import Controller from 'dotapp/controller';
+import Controller from "dotapp/controller";
 
 export default class extends Controller {
-    index(req, res) {
-
-        const user = req.getRole(); // return the full role object
-        const role_name = req.getRole("name"); // return only the role_name
-
+    async index(req, res) {
+        const is_allowed = await req.canAsync("book.view");
+        return res.ok(is_allowed);
     }
 }
 ```
 
-### `req.hasRole(<role>)`
+#### `req.hasPermission(<permission>)`
 
-Check if the current user have a specific role.
+    Check if the current user have a specific permission.
 
-@return boolean
+    `hasPermission` checks if permission is assigned to user only using his role
 
+    @return boolean
 
-``` javascript
+```javascript
 // controllers/HomeController.js
 
-import Controller from 'dotapp/controller';
+import Controller from "dotapp/controller";
 
 export default class extends Controller {
     index(req, res) {
+        if (req.can("book.view")) {
+            return res.ok("I have access to view book store");
+        }
 
-        if(req.hasRole("editor")){
+        return res.forbidden();
+    }
+}
+```
+
+#### `req.hasRole(<role>)`
+
+    Check if the current user have a specific role.
+
+    @return boolean
+
+```javascript
+// controllers/HomeController.js
+
+import Controller from "dotapp/controller";
+
+export default class extends Controller {
+    index(req, res) {
+        if (req.hasRole("editor")) {
             return res.ok("I have the editor role");
         }
 
+        return res.forbidden();
     }
 }
 ```
 
+#### `req.getUser(<field>)`
 
+    return current logged user.
 
+    @return boolean
 
+```javascript
+// controllers/HomeController.js
 
+import Controller from "dotapp/controller";
+
+export default class extends Controller {
+    index(req, res) {
+        const user = req.getUser(); // return the full user object
+        const email = req.getUser("email"); // return only the email address
+    }
+}
+```
+
+#### `req.getRole(<field>)`
+
+    return current logged user role.
+
+    @return boolean
+
+``` javascript
+// controllers/HomeController.js
+
+import Controller from "dotapp/controller";
+
+export default class extends Controller {
+    index(req, res) {
+        const user = req.getRole(); // return the full role object
+        const role_name = req.getRole("name"); // return only the role_name
+    }
+}
+```
