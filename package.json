@@ -1,6 +1,6 @@
 {
     "name": "dotapp",
-    "description": "A light-weight, thin and full-featured framework built on express.js",
+    "description": "A light-weight, thin and full-featured nodejs framework built on express.js",
     "author": "basem khirat",
     "main": "app.js",
     "scripts": {
