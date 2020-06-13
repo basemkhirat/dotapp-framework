@@ -31,6 +31,7 @@ export default class extends Controller {
 
 You can register a new validation rule.
 
+``` javascript
 controllers/HomeController.js
 
 import Controller from "dotapp/controller";
@@ -61,5 +62,5 @@ export default class extends Controller {
         return res.ok("All inputs valid");
 
 ```
-
+---
 Reference: https://github.com/skaterdav85/validatorjs
