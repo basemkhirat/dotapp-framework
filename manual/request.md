@@ -96,7 +96,7 @@ export default class extends Controller {
 }
 ```
 
-#### `req.canAsync(<permission>, <param?>, <done?>)`
+#### `req.canAsync(<permission>, <param?>)`
 
     Check if the current user can do specific permission of async policy.
 
