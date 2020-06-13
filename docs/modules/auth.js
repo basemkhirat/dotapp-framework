@@ -9,7 +9,7 @@ export default {
                     in: "query",
                     description: "Email",
                     type: "string",
-                    value: "rady@gmail.com",
+                    value: "basemkhirat@gmail.com",
                 },
                 {
                     name: "password",

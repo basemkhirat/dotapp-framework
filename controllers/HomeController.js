@@ -7,6 +7,11 @@ export default class extends Controller {
      * @param res
      */
     async index(req, res) {
-        return res.render("hello");
+
+        let user = await req.canAsync("book.view");
+
+        return res.ok(JSON.stringify(user));
+
+
     }
 }

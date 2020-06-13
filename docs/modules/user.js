@@ -244,6 +244,11 @@ export default {
             responses: {
                 $ref: "#/responses",
             },
+            security: [
+                {
+                    "bearer token": [],
+                },
+            ],
         },
         patch: {
             tags: ["Users"],

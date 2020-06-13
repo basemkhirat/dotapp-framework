@@ -23,35 +23,7 @@ export default {
         "delete"
     ],
 
-    category: [
-        "create",
-        "update",
-        "delete"
-    ],
-
-    tag: [
-        "create",
-        "update",
-        "delete"
-    ],
-
-    post: [
-        "create",
-        "update",
-        "delete"
-    ],
-
-    page: [
-        "create",
-        "update",
-        "delete"
-    ],
-
-    event: [
-        "manage"
-    ],
-
-    author: [
-        "manage"
+    book: [
+        "view"
     ]
 }

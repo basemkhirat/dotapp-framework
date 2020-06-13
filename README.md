@@ -113,6 +113,8 @@ Here you can browse your API Documentation `http://localhost:3000/docs`
 
 - [Models](https://github.com/basemkhirat/dotapp-framework/blob/master/manual/models.md)
 
+- [Authorization](https://github.com/basemkhirat/dotapp-framework/blob/master/manual/authorization.md)
+
 - [Public Assets](https://github.com/basemkhirat/dotapp-framework/blob/master/manual/public.md)
 
 - [Commands](https://github.com/basemkhirat/dotapp-framework/blob/master/manual/commands.md)
