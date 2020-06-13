@@ -96,6 +96,25 @@ export default class extends Controller {
 }
 ```
 
+#### `req.canAsync(<permission>, <param?>, <done?>)`
+
+    Check if the current user can do specific permission of async policy.
+
+    @return promise
+
+```javascript
+// controllers/HomeController.js
+
+import Controller from "dotapp/controller";
+
+export default class extends Controller {
+    async index(req, res) {
+        const is_allowed = await req.canAsync("book.view");
+        return res.ok(is_allowed);
+    }
+}
+```
+
 #### `req.hasPermission(<permission>)`
 
     Check if the current user have a specific permission.
