@@ -82,19 +82,19 @@ export default class extends Controller {
 
     @return boolean
 
-    ```javascript
-    // controllers/HomeController.js
+```javascript
+// controllers/HomeController.js
 
-    import Controller from "dotapp/controller";
+import Controller from "dotapp/controller";
 
-    export default class extends Controller {
-        index(req, res) {
-            if (req.hasPermission("book.view")) {
-                return res.ok("I have access to view book store");
-            }
+export default class extends Controller {
+    index(req, res) {
+        if (req.hasPermission("book.view")) {
+            return res.ok("I have access to view book store");
         }
     }
-    ```
+}
+```
 
 #### `req.hasPermission(<permission>)`
 
@@ -104,21 +104,21 @@ export default class extends Controller {
 
     @return boolean
 
-    ```javascript
-    // controllers/HomeController.js
+```javascript
+// controllers/HomeController.js
 
-    import Controller from "dotapp/controller";
+import Controller from "dotapp/controller";
 
-    export default class extends Controller {
-        index(req, res) {
-            if (req.can("book.view")) {
-                return res.ok("I have access to view book store");
-            }
-
-            return res.forbidden();
+export default class extends Controller {
+    index(req, res) {
+        if (req.can("book.view")) {
+            return res.ok("I have access to view book store");
         }
+
+        return res.forbidden();
     }
-    ```
+}
+```
 
 #### `req.hasRole(<role>)`
 
@@ -126,21 +126,21 @@ export default class extends Controller {
 
     @return boolean
 
-    ```javascript
-    // controllers/HomeController.js
+```javascript
+// controllers/HomeController.js
 
-    import Controller from "dotapp/controller";
+import Controller from "dotapp/controller";
 
-    export default class extends Controller {
-        index(req, res) {
-            if (req.hasRole("editor")) {
-                return res.ok("I have the editor role");
-            }
-
-            return res.forbidden();
+export default class extends Controller {
+    index(req, res) {
+        if (req.hasRole("editor")) {
+            return res.ok("I have the editor role");
         }
+
+        return res.forbidden();
     }
-    ```
+}
+```
 
 #### `req.getUser(<field>)`
 
@@ -148,18 +148,18 @@ export default class extends Controller {
 
     @return boolean
 
-    ```javascript
-    // controllers/HomeController.js
+```javascript
+// controllers/HomeController.js
 
-    import Controller from "dotapp/controller";
+import Controller from "dotapp/controller";
 
-    export default class extends Controller {
-        index(req, res) {
-            const user = req.getUser(); // return the full user object
-            const email = req.getUser("email"); // return only the email address
-        }
+export default class extends Controller {
+    index(req, res) {
+        const user = req.getUser(); // return the full user object
+        const email = req.getUser("email"); // return only the email address
     }
-    ```
+}
+```
 
 #### `req.getRole(<field>)`
 
@@ -167,18 +167,18 @@ export default class extends Controller {
 
     @return boolean
 
-    ```javascript
-    // controllers/HomeController.js
+``` javascript
+// controllers/HomeController.js
 
-    import Controller from "dotapp/controller";
+import Controller from "dotapp/controller";
 
-    export default class extends Controller {
-        index(req, res) {
-            const user = req.getRole(); // return the full role object
-            const role_name = req.getRole("name"); // return only the role_name
-        }
+export default class extends Controller {
+    index(req, res) {
+        const user = req.getRole(); // return the full role object
+        const role_name = req.getRole("name"); // return only the role_name
     }
-    ```
+}
+```
 
 
 ---
