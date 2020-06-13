@@ -124,7 +124,7 @@ The result will be:
     ``` bash
     {
         message: <message>,
-        status: 500,
+        status: <code>,
         success: false
     }
     ```
