@@ -1,6 +1,6 @@
 # Response
 
-DotApp response object is the express response object with adding some methods to simplify code usage.
+DotApp response object is the express response object with adding more functions.
 
 Assume we have a controller `controllers/HomeController.js` where we can access the response object.
 
@@ -12,7 +12,7 @@ import Controller from 'dotapp/controller';
 export default class extends Controller {
     index(req, res) {
 
-       // Here we can access the response parameter and return a response
+       // Here we can access the response object to return a response
 
        return res.ok("Hello World");
     }
@@ -30,104 +30,104 @@ The result will be:
 
 ## Response Methods:
 
-- `res.ok(data, message = 'Success')`
+#### `res.ok(data, message = 'Success')`
 
-    It returns a success response with data key.
+    Return a success response with data key.
 
-    ``` bash
-    {
-        message: <message>,
-        status: 200,
-        success: true,
-        data: <data>
-    }
-    ```
+``` javascript
+{
+    message: <message>,
+    status: 200,
+    success: true,
+    data: <data>
+}
+```
 
-- `res.validationError(errors, message = "Validation Error")`
+#### `res.validationError(errors, message = "Validation Error")`
 
-    It returns a validation error response with data key.
+    Return a validation error response with data key.
 
-    ``` bash
-    {
-        message: <message>,
-        errors: <errors>,
-        status: 422,
-        success: false
-    }
-    ```
+``` javascript
+{
+    message: <message>,
+    errors: <errors>,
+    status: 422,
+    success: false
+}
+```
 
-- `res.notFound(message = "Page Not Found")`
+#### `res.notFound(message = "Page Not Found")`
 
-    It returns a 404 error.
+    Return a 404 error.
 
-    ``` bash
-    {
-        message: <message>,
-        status: 404,
-        success: false
-    }
-    ```
+``` javascript
+{
+    message: <message>,
+    status: 404,
+    success: false
+}
+```
 
-- `res.serverError(message = "Internal Server Error")`
+#### `res.serverError(message = "Internal Server Error")`
 
-    It returns a server error.
+    Return a server error.
 
-    ``` bash
-    {
-        message: <message>,
-        status: 500,
-        success: false
-    }
-    ```
+``` javascript
+{
+    message: <message>,
+    status: 500,
+    success: false
+}
+```
 
-- `res.notAuthenticated(message = "Not Authenticated")`
+#### `res.notAuthenticated(message = "Not Authenticated")`
 
-    It returns an unauthenticated error.
+    Return an unauthenticated error.
 
-    ``` bash
-    {
-        message: <message>,
-        status: 401,
-        success: false
-    }
-    ```
+``` javascript
+{
+    message: <message>,
+    status: 401,
+    success: false
+}
+```
 
-- `res.forbidden(message = "Access Denied")`
+#### `res.forbidden(message = "Access Denied")`
 
-    It returns an unauthorized error.
+    Return an unauthorized error.
 
-    ``` bash
-    {
-        message: <message>,
-        status: 403,
-        success: false
-    }
-    ```
+``` javascript
+{
+    message: <message>,
+    status: 403,
+    success: false
+}
+```
 
 
-- `res.badRequest(message = "Bad Request")`
+#### `res.badRequest(message = "Bad Request")`
 
-    It returns a bad request error.
+    Return a bad request error.
 
-    ``` bash
-    {
-        message: <message>,
-        status: 400,
-        success: false
-    }
-    ```
+``` javascript
+{
+    message: <message>,
+    status: 400,
+    success: false
+}
+```
 
-- `res.error(message, code = 500)`
+#### `res.error(message, code = 500)`
 
-    It returns a custom error with a custom status code.
+    Return a custom error with a custom status code.
 
-    ``` bash
-    {
-        message: <message>,
-        status: <code>,
-        success: false
-    }
-    ```
+``` javascript
+{
+    message: <message>,
+    status: <code>,
+    success: false
+}
+```
 
 ---
 
