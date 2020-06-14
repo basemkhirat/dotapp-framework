@@ -135,7 +135,7 @@ import Controller from "dotapp/controller";
 
 export default class extends Controller {
     async index(req, res) {
-        let is_allowed = await req.can("book.manage");
+        let is_allowed = await req.canAsync("book.manage");
 
         if (is_allowed) {
             return res.ok("I can manage books");
