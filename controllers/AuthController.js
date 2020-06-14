@@ -1,8 +1,7 @@
-import jwt from "jsonwebtoken";
 import Controller from "dotapp/controller";
 import User from "~/models/user";
 import request from "request";
-import { Config, Media, Validator, Mail } from "dotapp/services";
+import { Config, Media, Validator, Mail, Auth } from "dotapp/services";
 
 export default class extends Controller {
     /**
@@ -41,9 +40,9 @@ export default class extends Controller {
                 return res.forbidden();
             }
 
-            let valid = await user.comparePassword(password);
+            let same = await Auth.comparePasswords(password, user.password);
 
-            if (!valid) {
+            if (!same) {
                 return res.validationError([
                     {
                         password: [req.lang("auth.invalid_password")],
@@ -53,11 +52,8 @@ export default class extends Controller {
 
             let response = user.toObject();
 
-            response.token = jwt.sign(user.toJSON(), Config.get("jwt.secret"), {
-                expiresIn: Config.get("jwt.expires"),
-            });
-
-            response.token_expiration = Config.get("jwt.expires");
+            response.token = Auth.generateToken(user.toJSON());
+            response.token_expiration = Auth.getTokenExpiration();
 
             res.ok(response);
         } catch (error) {

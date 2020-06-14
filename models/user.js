@@ -1,6 +1,5 @@
 import { Model, Schema } from "dotapp/model";
-import Bcrypt from "bcrypt";
-import {Config} from "dotapp/services";
+import { Config, Auth } from "dotapp/services";
 
 let schema = Schema(
     {
@@ -37,7 +36,7 @@ let schema = Schema(
         role: {
             type: Schema.Types.ObjectId,
             ref: "role",
-            ds:"3"
+            ds: "3",
         },
 
         photo: {
@@ -94,46 +93,20 @@ schema.index({
 });
 
 /**
- * generate password salt
+ * replace the raw password with encrypted one.
  */
-schema.pre("save", function (next) {
+schema.pre("save", async function (next) {
     if (
         this.provider == "local" &&
         (this.isModified("password") || this.isNew)
     ) {
-        Bcrypt.genSalt(10, (error, salt) => {
-            if (error) return next(error);
-            Bcrypt.hash(this.password, salt, (error, hash) => {
-                if (error) return next(error);
-                this.password = hash;
-                next(null, this);
-            });
-        });
+        const hash = await Auth.generateHash(this.password);
+        this.password = hash;
+        next(null, this);
     } else {
         next(null, this);
     }
 });
-
-/**
- * Compare raw and encrypted password
- * @param password
- * @return Promise
- */
-schema.methods.comparePassword = function (password) {
-    return new Promise((resolve, reject) => {
-        Bcrypt.compare(String(password), this.password, function (
-            error,
-            match
-        ) {
-            if (error) return reject(error);
-            if (match) {
-                resolve(true);
-            } else {
-                resolve(false);
-            }
-        });
-    });
-};
 
 schema.virtual("name").get(function () {
     return this.first_name + " " + this.last_name;
