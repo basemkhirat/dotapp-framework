@@ -4,7 +4,7 @@ Flexible module provides an easy way to authenticate users.
 
 ## Life Cycle
 
-Users are saved with an encrypted password in `user` collection. So on user creation DotApp calls `Auth.generateHash(<raw_password>)` to encrypt the raw password to save the user with encrypted password.
+Users are saved with an encrypted password in `user` collection. So on user creation, DotApp calls `Auth.generateHash(<raw_password>)` to encrypt the raw password to save the user with encrypted password.
 
 Also when verifing a valid user with email/password, DotApp calls `Auth.comparePasswords(<raw_password>, <encrypted_password>)` which return `true` if they are the same values.
 
@@ -47,11 +47,11 @@ export default {
 
 ## Methods:
 
-#### `Auth.generateHash(<raw_password>, <done?>)`
+#### `Auth.generateHash(<raw_password>, <callback?>)`
 
     Encrypt the raw password.
 
-    @return string
+    @return promise
 
 ```javascript
 // controllers/HomeController.js
@@ -62,14 +62,14 @@ import { Auth } from "dotapp/services";
 export default class extends Controller {
     async index(req, res) {
 
-        let encrypted_password = Auth.generateHash("123456789");
+        let encrypted_password = await Auth.generateHash("123456789");
 
         // "$2b$10$TgKO72FmwBOXzqzcKIvIzuOZmaRK5JkvCCwrMiXqdo6d90Vff2m0q
     }
 }
 ```
 
-#### `Auth.comparePasswords(<raw_password>, <encrypted_password>)`
+#### `Auth.comparePasswords(<raw_password>, <encrypted_password>, <callback?>)`
 
     Check if the raw password and encrypted password are the same.
 
