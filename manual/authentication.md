@@ -121,6 +121,12 @@ export default class extends Controller {
 }
 ```
 
+#### `Auth.getTokenExpiration()`
+
+    Return the token expiration time.
+
+    @return string
+
 ```javascript
 // controllers/HomeController.js
 
