@@ -21,7 +21,7 @@ export default class extends Controller {
 
 ## Request Methods:
 
-#### `req.param(name, default_value = null)`
+#### `req.param(<name>, <default_value?> = null)`
 
     @return string
 
@@ -29,13 +29,13 @@ export default class extends Controller {
 
     If param name doesn't exist, default_value will be returned.
 
-#### `req.has("name")`
+#### `req.has(<name>)`
 
     @return boolean
 
    check if param name in `req.params`, `req.body` and `req.query` and return `true` if exist and `false` if not.
 
-#### `req.filled("name")`
+#### `req.filled(<name>)`
 
     @return boolean
 
@@ -52,8 +52,8 @@ export default class extends Controller {
     @return string
 
     Returns the current lang by default `en`
-    
-#### `req.lang(key, variables = {})`
+
+#### `req.lang(<key>, <variables?> = {})`
 
     @return string
 
@@ -68,13 +68,74 @@ export default class extends Controller {
     Returns the client IP address.
 
 
-#### `req.view(view_file, payload = {})`
+#### `req.view(<view_file>, <payload?> = {})`
 
     @return promise
 
     Returns the HTML of view after rendering
 
     `payload` is an optional object to pass data to views.
+
+
+#### `req.getUser(<field?>)`
+
+    return current logged user.
+
+    @return boolean
+
+```javascript
+// controllers/HomeController.js
+
+import Controller from "dotapp/controller";
+
+export default class extends Controller {
+    index(req, res) {
+        const user = req.getUser(); // return the full user object
+        const email = req.getUser("email"); // return only the email address
+    }
+}
+```
+
+#### `req.hasRole(<role>)`
+
+    Check if the current user have a specific role.
+
+    @return boolean
+
+```javascript
+// controllers/HomeController.js
+
+import Controller from "dotapp/controller";
+
+export default class extends Controller {
+    index(req, res) {
+        if (req.hasRole("editor")) {
+            return res.ok("I have the editor role");
+        }
+
+        return res.forbidden();
+    }
+}
+```
+
+#### `req.getRole(<field?>)`
+
+    return current logged user role.
+
+    @return boolean
+
+``` javascript
+// controllers/HomeController.js
+
+import Controller from "dotapp/controller";
+
+export default class extends Controller {
+    index(req, res) {
+        const user = req.getRole(); // return the full role object
+        const role_name = req.getRole("name"); // return only the role_name
+    }
+}
+```
 
 #### `req.can(<permission>, <param?>, <done?>)`
 
@@ -135,66 +196,6 @@ export default class extends Controller {
         }
 
         return res.forbidden();
-    }
-}
-```
-
-#### `req.hasRole(<role>)`
-
-    Check if the current user have a specific role.
-
-    @return boolean
-
-```javascript
-// controllers/HomeController.js
-
-import Controller from "dotapp/controller";
-
-export default class extends Controller {
-    index(req, res) {
-        if (req.hasRole("editor")) {
-            return res.ok("I have the editor role");
-        }
-
-        return res.forbidden();
-    }
-}
-```
-
-#### `req.getUser(<field>)`
-
-    return current logged user.
-
-    @return boolean
-
-```javascript
-// controllers/HomeController.js
-
-import Controller from "dotapp/controller";
-
-export default class extends Controller {
-    index(req, res) {
-        const user = req.getUser(); // return the full user object
-        const email = req.getUser("email"); // return only the email address
-    }
-}
-```
-
-#### `req.getRole(<field>)`
-
-    return current logged user role.
-
-    @return boolean
-
-``` javascript
-// controllers/HomeController.js
-
-import Controller from "dotapp/controller";
-
-export default class extends Controller {
-    index(req, res) {
-        const user = req.getRole(); // return the full role object
-        const role_name = req.getRole("name"); // return only the role_name
     }
 }
 ```

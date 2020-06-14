@@ -142,9 +142,6 @@ export default class extends Controller {
 
 ## Request Authentication
 
-Then, you can now get user and role using the request object.
-
-
 #### `req.getUser(<field>)`
 
     return current logged user.

@@ -235,7 +235,7 @@ export default class extends Controller {
 }
 ```
 
-#### `req.getUser(<field>)`
+#### `req.getUser(<field?>)`
 
     return current logged user.
 
@@ -254,7 +254,7 @@ export default class extends Controller {
 }
 ```
 
-#### `req.getRole(<field>)`
+#### `req.getRole(<field?>)`
 
     return current logged user role.
 
