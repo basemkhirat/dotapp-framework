@@ -1,6 +1,5 @@
 import Controller from "dotapp/controller";
 import User from "~/models/user";
-import request from "request";
 import { Config, Media, Validator, Mail, Auth, HTTP } from "dotapp/services";
 
 export default class extends Controller {
@@ -442,58 +441,56 @@ export default class extends Controller {
      * @param req
      * @param res
      */
-    facebook(req, res) {
-        let access_token = req.param("access_token");
-        let url =
-            "https://graph.facebook.com/me?fields=email,name&access_token=" +
-            access_token;
+    async facebook(req, res) {
+        try {
+            let access_token = req.param("access_token");
 
-        request({ url: url, json: true }, async (error, response, body) => {
-            if (response.statusCode === 200) {
-                let user = await User.where("provider", "facebook")
-                    .where("provider_id", body.id)
-                    .findOne();
+            let url =
+                "https://graph.facebook.com/me?fields=email,name&access_token=" +
+                access_token;
 
-                if (!user) {
-                    let email_exists = await User.where(
-                        "email",
-                        body.email
-                    ).countDocuments();
+            let api = await HTTP.get(url);
 
-                    if (!email_exists) {
-                        let user = new User();
+            let body = JSON.parse(api.body);
 
-                        user.email = body.email;
-                        user.first_name = body.name;
-                        user.last_name = "";
-                        user.lang = req.language;
-                        user.photo_payload =
-                            "https://graph.facebook.com/" +
-                            body.id +
-                            "/picture";
-                        user.status = 1;
-                        user.provider = "facebook";
-                        user.provider_id = body.id;
-
-                        user = await user.save();
-                    }
-                }
-
-                let response = user.toObject();
-
-                response.token = jwt.sign(
-                    user.toJSON(),
-                    Config.get("jwt.secret"),
-                    { expiresIn: Config.get("jwt.expires") }
-                );
-
-                response.token_expiration = Config.get("jwt.expires");
-
-                return res.ok(response, req.lang("user.events.created"));
-            } else {
-                return res.serverError(body.error.message);
+            if (api.statusCode !== 200) {
+                return res.notAuthenticated(body.error.message);
             }
-        });
+
+            let user = await User.where("provider", "facebook")
+                .where("provider_id", body.id)
+                .findOne();
+
+            if (!user) {
+                let email_exists = await User.where(
+                    "email",
+                    body.email
+                ).countDocuments();
+
+                if (!email_exists) {
+                    let user = new User();
+
+                    user.email = body.email;
+                    user.first_name = body.name;
+                    user.last_name = "";
+                    user.lang = req.language;
+                    user.photo_payload =
+                        "https://graph.facebook.com/" + body.id + "/picture";
+                    user.status = 1;
+                    user.provider = "facebook";
+                    user.provider_id = body.id;
+
+                    user = await user.save();
+                }
+            }
+
+            let response = user.toObject();
+            response.token = Auth.generateToken(user.toJSON());
+            response.token_expiration = Auth.getTokenExpiration();
+            return res.ok(response, req.lang("user.events.created"));
+        } catch (error) {
+            return res.serverError(error);
+        }
     }
 
     /**
@@ -511,10 +508,10 @@ export default class extends Controller {
 
             let api = await HTTP.get(url);
 
-            api = api.toJSON();
+            let body = JSON.parse(api.body);
 
             if (api.statusCode !== 200) {
-                return res.notAuthenticated(req.lang("auth.invalid_access_token"));
+                return res.notAuthenticated(body.error_description);
             }
 
             let user = await User.where("provider", "google")
@@ -548,14 +545,11 @@ export default class extends Controller {
                 new_user.provider_id = body.sub;
 
                 user = await new_user.save();
-
             }
 
             let response = user.toObject();
-
             response.token = Auth.generateToken(user.toJSON());
             response.token_expiration = Auth.getTokenExpiration();
-
             return res.ok(response, req.lang("user.events.created"));
         } catch (error) {
             return res.serverError(error);
