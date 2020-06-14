@@ -1,7 +1,7 @@
 import Controller from "dotapp/controller";
 import User from "~/models/user";
 import request from "request";
-import { Config, Media, Validator, Mail, Auth } from "dotapp/services";
+import { Config, Media, Validator, Mail, Auth, HTTP } from "dotapp/services";
 
 export default class extends Controller {
     /**
@@ -158,7 +158,6 @@ export default class extends Controller {
             await user.save();
 
             return res.ok(user.id, req.lang("auth.events.profile_updated"));
-
         } catch (error) {
             if (error instanceof Media.FileTypeException) {
                 return res.validationError([
@@ -277,7 +276,10 @@ export default class extends Controller {
                 html: await req.view("mails/forget_password", { user }),
             });
 
-            return res.ok(user.id, req.lang("auth.events.password_reset_code_sent"));
+            return res.ok(
+                user.id,
+                req.lang("auth.events.password_reset_code_sent")
+            );
         } catch (error) {
             return res.serverError(error);
         }
@@ -499,69 +501,64 @@ export default class extends Controller {
      * @param req
      * @param res
      */
-    google(req, res) {
-        let access_token = req.param("access_token");
+    async google(req, res) {
+        try {
+            let access_token = req.param("access_token");
 
-        let url =
-            "https://www.googleapis.com/oauth2/v3/userinfo?key=AIzaSyA111zEWbTLDGx8BjWYjPNPuv2CD0fBtVM&access_token=" +
-            access_token;
+            let url =
+                "https://www.googleapis.com/oauth2/v3/userinfo?key=AIzaSyA111zEWbTLDGx8BjWYjPNPuv2CD0fBtVM&access_token=" +
+                access_token;
 
-        request({ url: url, json: true }, async (error, response, body) => {
-            if (error) return res.serverError(error);
+            let api = await HTTP.get(url);
 
-            if (response.statusCode === 200) {
-                let user = await User.where("provider", "google")
-                    .where("provider_id", body.sub)
-                    .findOne();
+            api = api.toJSON();
 
-                let member;
-                if (!user) {
-                    let email_exists = await User.where(
-                        "email",
-                        body.email
-                    ).countDocuments();
+            if (api.statusCode !== 200) {
+                return res.notAuthenticated(req.lang("auth.invalid_access_token"));
+            }
 
-                    if (email_exists) {
-                        return res.validationError([
-                            {
-                                name: "email",
-                                errors: [req.lang("user.email_taken")],
-                            },
-                        ]);
-                    }
+            let user = await User.where("provider", "google")
+                .where("provider_id", body.sub)
+                .findOne();
 
-                    try {
-                        let new_user = new User();
+            if (!user) {
+                let email_exists = await User.where(
+                    "email",
+                    body.email
+                ).countDocuments();
 
-                        new_user.email = body.email;
-                        new_user.first_name = body.given_name;
-                        new_user.last_name = body.family_name;
-                        new_user.lang = req.locale;
-                        new_user.photo = null;
-                        new_user.status = 1;
-                        new_user.provider = "google";
-                        new_user.provider_id = body.sub;
-
-                        user = await new_user.save();
-                    } catch (error) {
-                        return res.serverError(error);
-                    }
+                if (email_exists) {
+                    return res.validationError([
+                        {
+                            name: "email",
+                            errors: [req.lang("user.email_taken")],
+                        },
+                    ]);
                 }
 
-                let response = user.toObject();
+                let new_user = new User();
 
-                response.token = jwt.sign(
-                    user.toJSON(),
-                    Config.get("jwt.secret"),
-                    { expiresIn: Config.get("jwt.expires") }
-                );
+                new_user.email = body.email;
+                new_user.first_name = body.given_name;
+                new_user.last_name = body.family_name;
+                new_user.lang = req.locale;
+                new_user.photo = null;
+                new_user.status = 1;
+                new_user.provider = "google";
+                new_user.provider_id = body.sub;
 
-                response.token_expiration = Config.get("jwt.expires");
+                user = await new_user.save();
 
-                return res.ok(response, req.lang("user.events.created"));
-            } else {
-                return res.serverError(body.error.message);
             }
-        });
+
+            let response = user.toObject();
+
+            response.token = Auth.generateToken(user.toJSON());
+            response.token_expiration = Auth.getTokenExpiration();
+
+            return res.ok(response, req.lang("user.events.created"));
+        } catch (error) {
+            return res.serverError(error);
+        }
     }
 }

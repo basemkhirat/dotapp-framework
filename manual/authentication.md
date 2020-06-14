@@ -106,12 +106,7 @@ import { Auth } from "dotapp/services";
 export default class extends Controller {
     async index(req, res) {
 
-        let token = Auth.generateToken({
-            id:"5ee60aae993592da01e74a35",
-            email: "john.doe@gmail.com",
-            first_name: "John",
-            last_name: "Doe
-        });
+        let token = Auth.generateToken("{id:'5ee60aae993592da01e74a35',email: 'john.doe@gmail.com'}");
 
         // "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiIiwibGFzdF9uYW1lIjoiIiwic3RhdHVzIjoxLCJsYW5nIjoiZW4iLCJwcm92aWRlciI6ImxvY2FsIiwiX2lkIjoiNWVlNjBhYWU5OTM1OTJkYTAxZTc0YTM1IiwiZW1haWwiOiJzb3NvQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJFRnS083MkZtd0JPWHpxemNLSXZJenVPWm1hUks1Smt2Q0N3ck1pWHFkbzZkOTBWZmYybTBxIiwiY3JlYXRlZF9hdCI6IjIwMjAtMDYtMTRUMTE6MzE6NTguMzcxWiIsInVwZGF0ZWRfYXQiOiIyMDIwLTA2LTE0VDExOjMxOjU4LjM3MVoiLCJuYW1lIjoiICIsImNyZWF0ZWQiOiLZhdmG2LAg2K_ZgtmK2YLYqtmK2YYiLCJ1cGRhdGVkIjoi2YXZhtiwINiv2YLZitmC2KrZitmGIiwiaWQiOiI1ZWU2MGFhZTk5MzU5MmRhMDFlNzRhMzUiLCJpYXQiOjE1OTIxMzQ0MzAsImV4cCI6MTU5MjczOTIzMH0.Wm3ngwFXx8uwYi8xREmu4dY_IBsNN8U6dZASzcKlYWA"
     }
@@ -142,7 +137,7 @@ export default class extends Controller {
 
 ## Request Authentication
 
-#### `req.getUser(<field>)`
+#### `req.getUser(<field?>)`
 
     return current logged user.
 
@@ -161,7 +156,7 @@ export default class extends Controller {
 }
 ```
 
-#### `req.getRole(<field>)`
+#### `req.getRole(<field?>)`
 
     return current logged user role.
 
