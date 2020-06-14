@@ -1,4 +1,4 @@
-    # Authentication
+# Authentication
 
 Flexible module provides an easy way to authenticate users.
 
