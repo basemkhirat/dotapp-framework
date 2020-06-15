@@ -7,6 +7,8 @@ In `routes/index.js`, you can define your application routes with a javascript o
 You can use an express function in middleware.
 
 ``` javascript
+// routes/index.js
+
 export default {
     "GET /": (req, res) => {
         return res.ok("Hello world");
@@ -17,6 +19,8 @@ export default {
 OR you can pass a controller method directly.
 
 ``` javascript
+// routes/index.js
+
 export default {
     "GET /": "PostsController.index",
     "POST /": "PostsController.create",
@@ -33,6 +37,8 @@ export default {
 You can also define infinite nested routes using `group`.
 
 ``` javascript
+// routes/index.js
+
 export default {
     "GET /pages": {
         group: {
@@ -60,6 +66,8 @@ DotApp is shipped with 3 built-in middlewares which you use them with routes.
 
 
 ``` javascript
+// routes/index.js
+
 import {authenticate} from '~/dotapp/middlewares';
 
 export default {
@@ -80,6 +88,8 @@ export default {
 
 
 ``` javascript
+// routes/index.js
+
 import {authorize} from '~/dotapp/middlewares';
 
 export default {
@@ -100,6 +110,8 @@ export default {
 
 
 ``` javascript
+// routes/index.js
+
 import {setMaxHits} from '~/dotapp/middlewares';
 
 export default {
@@ -113,6 +125,8 @@ export default {
 You are can give a handler function that fires on limit exceeded.
 
 ``` javascript
+// routes/index.js
+
 import {setMaxHits} from '~/dotapp/middlewares';
 
 export default {
@@ -127,12 +141,12 @@ export default {
 
 ## Custom Middlewares
 
-You can write you own middleware in the `middleware` directory and use it easily with route
+You can write you own middleware in the `middleware` directory and use it easily with route.
 
-As example we want to deny users where first name equal 'john'
+As example we want to deny users where first name equal 'john'.
 
 ``` javascript
-// middlewares/restrictName
+// middlewares/restrictName.js
 
 export default (first_name) => {
 
@@ -148,6 +162,8 @@ export default (first_name) => {
 ```
 Then Add it to your route.
 ``` javascript
+// routes/index.js
+
 import restrictName from '~/middlewares/restrictName';
 
 export default {
