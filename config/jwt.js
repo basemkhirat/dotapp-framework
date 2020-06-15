@@ -8,7 +8,7 @@ export default {
      * in this case be sure you pass the algorithm option
      */
 
-    secret: process.env.TOKEN_SECRET || "Q%!$^I4lkj31r$231rkvmmdks231@!$!RFsaf",
+    secret: process.env.TOKEN_SECRET,
 
     /**
      * expressed in seconds.

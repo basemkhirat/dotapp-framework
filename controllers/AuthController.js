@@ -206,7 +206,7 @@ export default class extends Controller {
 
             // compare with old password
 
-            let isEqualOldPassword = await user.comparePassword(old_password);
+            let isEqualOldPassword = await Auth.comparePasswords(old_password, user.password);
 
             if (!isEqualOldPassword) {
                 return res.validationError([
@@ -216,7 +216,7 @@ export default class extends Controller {
 
             // compare with new password
 
-            let isEqualNewPassword = await user.comparePassword(new_password);
+            let isEqualNewPassword = await Auth.comparePasswords(new_password, user.password);
 
             if (isEqualNewPassword) {
                 return res.validationError([
@@ -306,6 +306,7 @@ export default class extends Controller {
             }
 
             let code = req.param("code");
+            let password = req.param("password");
 
             let user = await User.where("password_token", code)
                 .where("password_token_expiration", { $gt: Date.now() })
@@ -321,7 +322,7 @@ export default class extends Controller {
                 ]);
             }
 
-            let isEqual = await user.comparePassword(req.param("password"));
+            let isEqual = await Auth.comparePasswords(password, user.password);
 
             if (isEqual) {
                 return res.validationError([
@@ -331,7 +332,7 @@ export default class extends Controller {
                 ]);
             }
 
-            user.password = req.param("password");
+            user.password = password;
 
             await user.save();
 
