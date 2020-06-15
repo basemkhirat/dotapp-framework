@@ -102,6 +102,7 @@ export default {
 
 #### `setMaxHits(rate, <handler?>)`
 
+- In case of you want to use this middleware, you should set the config of `rates.global` to false to disable it globally.
 - setMaxHits sets max number of user requests for any user to use this route.
 - `rate` is given in this format `number_of_requests:period`.
 
