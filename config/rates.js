@@ -1,6 +1,13 @@
 export default {
 
     /**
+     * Enable rate limiter ti by globally
+     * if global is enabled, rates will be applied on all endpoints.
+     */
+
+    global: false,
+
+    /**
      * Max number of connections during windowMs milliseconds before sending a 429 response.
      * May be a number, or a function that returns a number or a promise
      * Defaults to 5. Set to 0 to disable.
@@ -31,7 +38,7 @@ export default {
      */
 
     keyGenerator:function (req /*, res*/) {
-        return req.ip;
+        return req.ipAddress();
     },
 
     /**

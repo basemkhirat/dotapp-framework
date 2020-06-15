@@ -1,14 +1,14 @@
-import { authenticate } from "dotapp/middlewares";
+import { authenticate, setMaxHits } from "dotapp/middlewares";
 
 export default {
-    "GET /test": {
-        handler: "ScriptController.index",
-    },
-
     "/": {
         name: "home",
 
         handler: "HomeController.index",
+
+        middleware: setMaxHits("3:10000", (req, res) => {
+            res.ok("f");
+        }),
 
         group: {
             api: {
