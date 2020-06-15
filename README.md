@@ -21,59 +21,44 @@ $ npm install
 
 ## Configuration
 
-- rename the file `.env.example` to `.env`.
-- change app, database other configurations according to your environment.
-
+1. Rename the file `.env.example` to `.env`.
+2. Change configurations in `.env` according to your environment.
 The `.env` file apears like this:
 
-``` bash
-NODE_ENV=development
-APP_DEBUG=true
-APP_URL=http://localhost:3000
-APP_PORT=3000
-APP_PROXY=true
+    ``` bash
+    NODE_ENV=development
+    APP_DEBUG=true
+    APP_URL=http://localhost:3000
+    APP_PORT=3000
 
-TOKEN_SECRET=k%!$^I4lkj31r$231rkvmmdks231@!$!RFsaf
-TOKEN_EXPIRES=604800
+    TOKEN_SECRET=
+    TOKEN_EXPIRES=604800
 
-DB_URL=mongodb://localhost/mydatabase
-DB_USER=
-DB_PASS=
+    DB_URL=mongodb://localhost/mydatabase
+    DB_USER=
+    DB_PASS=
+    ```
 
-CACHE_DRIVER=file
-CACHE_TTL=88
+3. Generate a new TOKEN_SECRET using this command:
 
-REDIS_HOST=127.0.0.1
-REDIS_PORT=6379
-REDIS_DB=0
-REDIS_PREFIX=
-REDIS_PASS=
+    ``` bash
+    $ node run secret:generate
 
-MAIL_DRIVER=stream
-MAIL_HOST=smtp.gmail.com
-MAIL_PORT=465
-MAIL_SECURE=true
-MAIL_USER=
-MAIL_PASSWORD=
+    Secret key updated successfully!
+    ```
+4. Create the administrator user using this comamnd:
 
-AWS_KEY=
-AWS_SECRET=
-YOUTUBE_KEY=
-SOUNDCLOUD_KEY=
-```
+    ``` bash
+    $ node run user:create
 
-Create the administrator user using this comamnd.
+    First Name *: basem
+    Last Name *: khirat
+    Email *: basemkhirat@gmail.com
+    Password *: ********
 
-``` bash
-$ node run user:create
+    User created successfully!
+    ```
 
-First Name *: basem
-Last Name *: khirat
-Email *: basemkhirat@gmail.com
-Password *: ********
-
-User created successfully!
-```
 
 ## Environments
 
