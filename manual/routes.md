@@ -60,7 +60,7 @@ DotApp is shipped with 3 built-in middlewares which you use them with routes.
 
 
 ``` javascript
-import {authenticate} from '~/middlewares';
+import {authenticate} from '~/dotapp/middlewares';
 
 export default {
     "GET /posts/manage": {
@@ -80,7 +80,7 @@ export default {
 
 
 ``` javascript
-import {authorize} from '~/middlewares';
+import {authorize} from '~/dotapp/middlewares';
 
 export default {
     "GET /posts/manage": {
@@ -100,7 +100,7 @@ export default {
 
 
 ``` javascript
-import {setMaxHits} from '~/middlewares';
+import {setMaxHits} from '~/dotapp/middlewares';
 
 export default {
     "GET /posts/manage": {
@@ -113,17 +113,49 @@ export default {
 You are can give a handler function that fires on limit exceeded.
 
 ``` javascript
-import {setMaxHits} from '~/middlewares';
+import {setMaxHits} from '~/dotapp/middlewares';
 
 export default {
     "GET /posts/manage": {
         handler: "PostsController.index",
         middleware: setMaxHits("100:60000", (req, res) => {
-            return res.error("You have consumed you rate limit", 429);
+            return res.error("You have consumed your rate limit", 429);
         })
     }
 }
 ```
 
+## Custom Middlewares
+
+You can write you own middleware in the `middleware` directory and use it easily with route
+
+As example we want to deny users where first name equal 'john'
+
+``` javascript
+// middlewares/restrictName
+
+export default (first_name) => {
+
+    return (req, res, next) => {
+
+        if(req.getUser("first_name") === first_name){
+            return res.forbidden();
+        }
+
+        return next();
+    }
+}
+```
+Then Add it to your route.
+``` javascript
+import restrictName from '~/middlewares/restrictName';
+
+export default {
+    "GET /posts/manage": {
+        handler: "PostsController.index",
+        middleware: restrictName("john")
+    }
+}
+```
 
 
