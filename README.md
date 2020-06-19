@@ -86,46 +86,46 @@ Here you can browse your API Documentation `http://localhost:3000/docs`
 ## Documentation
 
 
-- [Routes](https://github.com/basemkhirat/dotapp-framework/blob/master/manual/routes.md)
+- [Routes](https://github.com/basemkhirat/dotapp-core/blob/master/manual/routes.md)
 
-- [Controllers](https://github.com/basemkhirat/dotapp-framework/blob/master/manual/controllers.md)
+- [Controllers](https://github.com/basemkhirat/dotapp-core/blob/master/manual/controllers.md)
 
-- [Middlewares](https://github.com/basemkhirat/dotapp-framework/blob/master/manual/middlewares.md)
+- [Middlewares](https://github.com/basemkhirat/dotapp-core/blob/master/manual/middlewares.md)
 
-- [Request](https://github.com/basemkhirat/dotapp-framework/blob/master/manual/request.md)
+- [Request](https://github.com/basemkhirat/dotapp-core/blob/master/manual/request.md)
 
-- [Response](https://github.com/basemkhirat/dotapp-framework/blob/master/manual/response.md)
+- [Response](https://github.com/basemkhirat/dotapp-core/blob/master/manual/response.md)
 
-- [Models](https://github.com/basemkhirat/dotapp-framework/blob/master/manual/models.md)
+- [Models](https://github.com/basemkhirat/dotapp-core/blob/master/manual/models.md)
 
-- [Authentication](https://github.com/basemkhirat/dotapp-framework/blob/master/manual/authentication.md)
+- [Authentication](https://github.com/basemkhirat/dotapp-core/blob/master/manual/authentication.md)
 
-- [Authorization](https://github.com/basemkhirat/dotapp-framework/blob/master/manual/authorization.md)
+- [Authorization](https://github.com/basemkhirat/dotapp-core/blob/master/manual/authorization.md)
 
-- [Public Assets](https://github.com/basemkhirat/dotapp-framework/blob/master/manual/public.md)
+- [Public Assets](https://github.com/basemkhirat/dotapp-core/blob/master/manual/public.md)
 
-- [Commands](https://github.com/basemkhirat/dotapp-framework/blob/master/manual/commands.md)
+- [Commands](https://github.com/basemkhirat/dotapp-core/blob/master/manual/commands.md)
 
 
 - Services:
 
-    - [Cache](https://github.com/basemkhirat/dotapp-framework/blob/master/manual/services/cache.md)
+    - [Cache](https://github.com/basemkhirat/dotapp-core/blob/master/manual/services/cache.md)
 
-    - [Config](https://github.com/basemkhirat/dotapp-framework/blob/master/manual/services/config.md)
+    - [Config](https://github.com/basemkhirat/dotapp-core/blob/master/manual/services/config.md)
 
-    - [HTTP](https://github.com/basemkhirat/dotapp-framework/blob/master/manual/services/http.md)
+    - [HTTP](https://github.com/basemkhirat/dotapp-core/blob/master/manual/services/http.md)
 
-    - [Log](https://github.com/basemkhirat/dotapp-framework/blob/master/manual/services/log.md)
+    - [Log](https://github.com/basemkhirat/dotapp-core/blob/master/manual/services/log.md)
 
-    - [Mail](https://github.com/basemkhirat/dotapp-framework/blob/master/manual/services/mail.md)
+    - [Mail](https://github.com/basemkhirat/dotapp-core/blob/master/manual/services/mail.md)
 
-    - [Media](https://github.com/basemkhirat/dotapp-framework/blob/master/manual/services/media.md)
+    - [Media](https://github.com/basemkhirat/dotapp-core/blob/master/manual/services/media.md)
 
-    - [Storage](https://github.com/basemkhirat/dotapp-framework/blob/master/manual/services/storage.md)
+    - [Storage](https://github.com/basemkhirat/dotapp-core/blob/master/manual/services/storage.md)
 
-    - [Validation](https://github.com/basemkhirat/dotapp-framework/blob/master/manual/services/validation.md)
+    - [Validation](https://github.com/basemkhirat/dotapp-core/blob/master/manual/services/validation.md)
 
-- [Restful API Documentation](https://github.com/basemkhirat/dotapp-framework/blob/master/manual/docs.md)
+- [Restful API Documentation](https://github.com/basemkhirat/dotapp-core/blob/master/manual/docs.md)
 
 
 ## Author
