@@ -138,7 +138,7 @@ export default class extends Controller {
             }
 
             if (req.filled("photo")) {
-                let photo = await Media.upload(req.param("photo"));
+                let photo = await Media.save(req.param("photo"));
                 user.photo = photo.id;
             }
 
