@@ -81,8 +81,6 @@ Server will listen at port 3000 by default. you can change the port later from a
 
 Here you can browse your API Documentation `http://localhost:3000/docs`
 
-![docs](/manual/images/docs.png)
-
 ## Documentation
 
 
