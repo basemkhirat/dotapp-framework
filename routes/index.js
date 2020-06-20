@@ -7,7 +7,7 @@ export default {
         handler: "HomeController.index",
 
         group: {
-            api: {
+            "/api": {
                 group: {
                     "/auth": {
                         group: {
@@ -56,10 +56,6 @@ export default {
                                 middleware: authenticate(),
                                 handler: "UserController.find",
                             },
-                            "GET /chart": {
-                                middleware: authenticate(),
-                                handler: "UserController.chart",
-                            },
                             "GET /:id": {
                                 handler: "UserController.findOne",
                             },
@@ -70,10 +66,6 @@ export default {
                             "DELETE /:id": {
                                 middleware: authenticate(),
                                 handler: "UserController.destroy",
-                            },
-                            "PATCH /": {
-                                middleware: authenticate(),
-                                handler: "UserController.bulk",
                             },
                         },
                     },
@@ -90,7 +82,6 @@ export default {
                     "/media": {
                         group: {
                             "GET /": "MediaController.find",
-                            "GET /chart": "MediaController.chart",
                             "GET /thumbnails": "MediaController.findThumbnails",
                             "GET /types": "MediaController.findTypes",
                             "GET /extensions": "MediaController.findExtensions",
@@ -111,10 +102,6 @@ export default {
                                 middleware: authenticate(),
                                 handler: "MediaController.destroy",
                             },
-                            "PATCH /": {
-                                middleware: authenticate(),
-                                handler: "MediaController.bulk",
-                            },
                         },
                     },
 
@@ -131,7 +118,6 @@ export default {
                                 handler: "RoleController.update",
                             },
                             "DELETE /:id": "RoleController.destroy",
-                            "PATCH /": "RoleController.bulk",
                         },
                     },
                 },

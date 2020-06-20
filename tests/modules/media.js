@@ -171,46 +171,4 @@ describe("Media", function () {
             .set('Authorization', 'Bearer ' + token)
             .expect(200, done);
     });
-
-    it("perform bulk delete/update operations", function (done) {
-
-        this.timeout(6000);
-
-        let media = {
-            payload: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg=="
-        };
-
-        server.post("/api/media")
-            .set('Authorization', 'Bearer ' + token)
-            .send(media)
-            .expect(200)
-            .end(function (error, response) {
-                if (error) return done(error);
-
-                media.id = response.body.data;
-
-                server.patch("/api/media")
-                    .set('Authorization', 'Bearer ' + token)
-                    .send({
-                        operation: "update",
-                        ids: [media.id],
-                        data: {
-                            title: "new title",
-                            description: "new description"
-                        }
-                    })
-                    .expect(200)
-                    .end(function (error, response) {
-                        if (error) return done(error);
-
-                        server.patch("/api/media")
-                            .set('Authorization', 'Bearer ' + token)
-                            .send({
-                                operation: "delete",
-                                ids: [media.id]
-                            })
-                            .expect(200, done);
-                    })
-            });
-    });
 });

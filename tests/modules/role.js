@@ -45,49 +45,4 @@ describe("Role", function () {
             .set('Authorization', 'Bearer ' + token)
             .expect(200, done);
     });
-
-    it("perform bulk delete/update operations", function (done) {
-
-        let role = {
-            name: faker.company.companyName(),
-            status: 0,
-            permissions: ["category.destroy", "category.read"]
-        };
-
-        server.post("/api/role")
-            .set('Authorization', 'Bearer ' + token)
-            .send(role)
-            .expect(200)
-            .end(function (error, response) {
-                if (error) return done(error);
-
-                role.id = response.body.data;
-
-                server.patch("/api/role")
-                    .set('Authorization', 'Bearer ' + token)
-                    .send({
-                        operation: "update",
-                        ids: [role.id],
-                        data: {
-                            status: 1,
-                            permissions: ["category.create", "category.delete"]
-                        }
-                    })
-                    .expect(200)
-                    .end(function (error, response) {
-                        if (error) return done(error);
-
-                        server.patch("/api/role")
-                            .set('Authorization', 'Bearer ' + token)
-                            .send({
-                                operation: "delete",
-                                ids: [role.id]
-                            })
-                            .expect(200, done);
-                    })
-
-            });
-
-
-    });
 });

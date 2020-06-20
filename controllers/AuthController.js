@@ -206,7 +206,10 @@ export default class extends Controller {
 
             // compare with old password
 
-            let isEqualOldPassword = await Auth.comparePasswords(old_password, user.password);
+            let isEqualOldPassword = await Auth.comparePasswords(
+                old_password,
+                user.password
+            );
 
             if (!isEqualOldPassword) {
                 return res.validationError([
@@ -216,7 +219,10 @@ export default class extends Controller {
 
             // compare with new password
 
-            let isEqualNewPassword = await Auth.comparePasswords(new_password, user.password);
+            let isEqualNewPassword = await Auth.comparePasswords(
+                new_password,
+                user.password
+            );
 
             if (isEqualNewPassword) {
                 return res.validationError([
