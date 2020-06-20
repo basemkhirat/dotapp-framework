@@ -1,14 +1,10 @@
-import { authenticate, setMaxHits } from "dotapp/middlewares";
+import { authenticate } from "dotapp/middlewares";
 
 export default {
     "/": {
         name: "home",
 
         handler: "HomeController.index",
-
-        middleware: setMaxHits("3:10000", (req, res) => {
-            res.ok("f");
-        }),
 
         group: {
             api: {
