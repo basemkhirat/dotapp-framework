@@ -9,14 +9,14 @@ export default {
                     in: "query",
                     description: "Email",
                     type: "string",
-                    value: "basemkhirat@gmail.com",
+                    value: "",
                 },
                 {
                     name: "password",
                     in: "query",
                     description: "Password",
                     type: "string",
-                    value: "qwertyui",
+                    value: "",
                 },
             ],
             responses: {
