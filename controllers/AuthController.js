@@ -11,7 +11,7 @@ export default class extends Controller {
      */
     async token(req, res) {
         try {
-            const validation = new Validator(req.all(), {
+            const validation = Validator.make(req.all(), {
                 email: "required|email",
                 password: "required",
             });
@@ -78,14 +78,14 @@ export default class extends Controller {
                 }
             );
 
-            let validation = new Validator(req.all(), {
+            let validation = Validator.make(req.all(), {
                 first_name: "required|min:2",
                 last_name: "required|min:2",
                 email: "required|email|email_available",
                 password: "required|min:7",
             });
 
-            if (!(await validation.validate())) {
+            if (await validation.failsAsync()) {
                 return res.validationError(validation.errors.all());
             }
 
@@ -122,12 +122,12 @@ export default class extends Controller {
      */
     async profile(req, res) {
         try {
-            let validation = new Validator(req.all(), {
+            let validation = Validator.make(req.all(), {
                 first_name: "min:2",
                 last_name: "min:2",
             });
 
-            if (!(await validation.validate())) {
+            if (await validation.failsAsync()) {
                 return res.validationError(validation.errors.all());
             }
 
@@ -181,7 +181,7 @@ export default class extends Controller {
      */
     async repassword(req, res) {
         try {
-            let validation = new Validator(req.all(), {
+            let validation = Validator.make(req.all(), {
                 old_password: "required",
                 new_password: "required|min:7",
             });
@@ -248,7 +248,7 @@ export default class extends Controller {
      */
     async forgot(req, res) {
         try {
-            const validation = new Validator(req.all(), {
+            const validation = Validator.make(req.all(), {
                 email: "required|email",
             });
 
@@ -298,7 +298,7 @@ export default class extends Controller {
      */
     async reset(req, res) {
         try {
-            const validation = new Validator(req.all(), {
+            const validation = Validator.make(req.all(), {
                 code: "required",
                 password: "required|min:6",
             });
@@ -362,7 +362,7 @@ export default class extends Controller {
      */
     async verify(req, res) {
         try {
-            const validation = new Validator(req.all(), {
+            const validation = Validator.make(req.all(), {
                 code: "required",
             });
 

@@ -19,6 +19,7 @@
         "role_not_found": "Role not found",
         "update_denied": "You don't have a policy to update :role",
         "delete_denied": "You don't have a policy to delete :role",
-        "operation_not_allowed": "Operation is not allowed"
+        "operation_not_allowed": "Operation is not allowed",
+        "role_taken": "Role is already taken"
     }
 }

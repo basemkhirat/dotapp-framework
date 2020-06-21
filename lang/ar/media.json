@@ -27,6 +27,7 @@
         "not_image": "الميديا ليست صورة",
         "invalid_base64": "الصورة المدخلة غير صحيحة",
         "invalid_size": "حجم خاطئ",
-        "base64_required": "لا توجد صورة مدخلة"
+        "base64_required": "لا توجد صورة مدخلة",
+        "payload_required": "لا يوجد ملف"
     }
 }

@@ -18,6 +18,7 @@
         "role_not_found": "المجموعة غير موجودة",
         "update_denied": "غير مسموح بتحديث المجموعة :role",
         "delete_denied": "غير مسموح بحذف المجموعة :role",
-        "operation_not_allowed": "العملية غير مسموح بها"
+        "operation_not_allowed": "العملية غير مسموح بها",
+        "role_taken": "الصلاحية موجودة بالفعل"
     }
 }

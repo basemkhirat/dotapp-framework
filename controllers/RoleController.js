@@ -1,6 +1,6 @@
 import Controller from "dotapp/controller";
 import Role from "~/models/role";
-import async from "async";
+import {Validator} from 'dotapp/services';
 
 export default class extends Controller {
     /**
@@ -79,6 +79,34 @@ export default class extends Controller {
         try {
             if (!req.can("role.create")) return res.forbidden();
 
+            Validator.registerAsync(
+                "role_name_available",
+                async (name, id, x, passes) => {
+
+                    let query = Role.findOne();
+
+                    if(id) {
+                        query.where("_id").ne(id);
+                    }
+
+                    query.where("name", name);
+
+                    let role = await query.exec();
+
+                    return role
+                        ? passes(false, req.lang("role.errors.role_taken"))
+                        : passes();
+                }
+            );
+
+            let validation = Validator.make(req.all(), {
+                name: "required|role_name_available"
+            });
+
+            if (await validation.failsAsync()) {
+                return res.validationError(validation.errors.all());
+            }
+
             let role = new Role();
 
             role.name = req.param("name", role.name);
@@ -101,6 +129,34 @@ export default class extends Controller {
     async update(req, res) {
         try {
             let id = req.param("id");
+
+            Validator.registerAsync(
+                "role_name_available",
+                async (name, id, x, passes) => {
+
+                    let query = Role.findOne();
+
+                    if(id) {
+                        query.where("_id").ne(id);
+                    }
+
+                    query.where("name", name);
+
+                    let role = await query.exec();
+
+                    return role
+                        ? passes(false, req.lang("role.errors.role_taken"))
+                        : passes();
+                }
+            );
+
+            let validation = Validator.make(req.all(), {
+                name: "required|role_name_available:" + id
+            });
+
+            if (await validation.failsAsync()) {
+                return res.validationError(validation.errors.all());
+            }
 
             let role = await Role.findById(id);
 

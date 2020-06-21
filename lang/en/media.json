@@ -27,6 +27,7 @@
         "not_image": "It's not an image",
         "invalid_base64": "Invalid base64 data",
         "invalid_size": "Invalid size",
-        "base64_required": "base64 image required"
+        "base64_required": "base64 image required",
+        "payload_required": "Payload required"
     }
 }
