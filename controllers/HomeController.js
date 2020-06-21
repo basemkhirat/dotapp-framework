@@ -7,6 +7,6 @@ export default class extends Controller {
      * @param res
      */
     index(req, res) {
-        return res.ok(req.lang("app.name"));
+        return res.render("hello");
     }
 }

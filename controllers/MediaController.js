@@ -116,11 +116,9 @@ export default class extends Controller {
         try {
             if (!req.can("media.create")) return res.forbidden();
 
-            if(!req.filled(payload)){
-                return res.validationError("media.payload_required");
+            if(!req.filled("payload")){
+                return res.validationError(req.lang("media.errors.payload_required"));
             }
-
-            let payload = req.param("payload");
 
             let file = await Resource.save(req.param("payload"));
 
