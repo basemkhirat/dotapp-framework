@@ -14,8 +14,9 @@ DOTAPP is shipped with combination of open sources libraries which are fully int
 ## Installation
 
 ```bash
-$ git clone https://github.com/basemkhirat/dotapp-framework
-$ cd dotapp-framework
+$ npm install -g dotapp-cli
+$ dotapp new blog
+$ cd blog
 $ npm install
 ```
 
