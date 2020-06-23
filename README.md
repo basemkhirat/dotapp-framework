@@ -24,7 +24,7 @@ $ npm install
 
 1. Rename the file `.env.example` to `.env`.
 2. Change configurations in `.env` according to your environment.
-The `.env` file apears like this:
+The `.env` file appears like this:
 
     ``` bash
     NODE_ENV=development
@@ -47,7 +47,7 @@ The `.env` file apears like this:
 
     Secret key updated successfully!
     ```
-4. Create the administrator user using this comamnd:
+4. Create the administrator user using this command:
 
     ``` bash
     $ node run user:create
