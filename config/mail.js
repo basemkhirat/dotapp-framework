@@ -1,5 +1,4 @@
 export default {
-
     /**
      * Default mail driver
      * Supported: stream, sendmail, smtp, ses.
@@ -18,16 +17,15 @@ export default {
      */
 
     drivers: {
-
         /**
          * write email to console
          * for development
          */
 
         stream: {
-            newline: 'unix',
+            newline: "unix",
             buffer: true,
-            jsonTransport: true
+            jsonTransport: true,
         },
 
         /**
@@ -36,8 +34,8 @@ export default {
 
         sendmail: {
             sendmail: true,
-            newline: 'unix',
-            path: process.env.MAIL_SENDMAIL_PATH || '/usr/sbin/sendmail'
+            newline: "unix",
+            path: process.env.MAIL_SENDMAIL_PATH || "/usr/sbin/sendmail",
         },
 
         /**
@@ -45,14 +43,14 @@ export default {
          */
 
         smtp: {
-            host: process.env.MAIL_HOST || '127.0.0.1',
+            host: process.env.MAIL_HOST || "127.0.0.1",
             port: process.env.MAIL_PORT || 25,
             secure: process.env.MAIL_SECURE || true,
             auth: {
                 user: process.env.MAIL_USER,
-                pass: process.env.MAIL_PASSWORD
+                pass: process.env.MAIL_PASSWORD,
             },
-            pool: true
+            pool: true,
         },
 
         /**
@@ -60,7 +58,7 @@ export default {
          */
 
         ses: {
-            sendingRate: 1
-        }
-    }
-}
+            sendingRate: 1,
+        },
+    },
+};

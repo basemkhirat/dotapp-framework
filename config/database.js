@@ -1,13 +1,11 @@
 export default {
-
     /**
      * The database connection string
      */
 
-    url: process.env.DB_URL || 'mongodb://localhost/db_name',
+    url: process.env.DB_URL || "mongodb://localhost/db_name",
 
     options: {
-
         /**
          * The underlying MongoDB driver has deprecated their current connection string parser.
          * Because this is a major change, they added the useNewUrlParser flag to allow users to
@@ -24,13 +22,13 @@ export default {
          * DB user
          */
 
-        user: process.env.DB_USER || '',
+        user: process.env.DB_USER || "",
 
         /**
          * DB password
          */
 
-        pass: process.env.DB_PASS || '',
+        pass: process.env.DB_PASS || "",
 
         /**
          * By default, mongoose will automatically build indexes defined in your schema
@@ -87,6 +85,6 @@ export default {
          * Enables the new unified topology layer
          */
 
-        useUnifiedTopology: true
-    }
+        useUnifiedTopology: true,
+    },
 };

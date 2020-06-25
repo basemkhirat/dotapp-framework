@@ -1,5 +1,4 @@
 export default {
-
     /**
      * Enable hits limiter by default using below max and windowMs values.
      * if global is enabled, rates will be applied on all endpoints.
@@ -37,21 +36,21 @@ export default {
      * @returns {*}
      */
 
-    keyGenerator:function (req /*, res*/) {
+    keyGenerator: function (req /*, res*/) {
         return req.ipAddress();
     },
 
     /**
      * The function to handle requests once the max limit is exceeded.
      * It receives the request and the response objects.
-     * The "next" param is available if you need to pass to the next middleware.
+     * The 'next' param is available if you need to pass to the next middleware.
      * The req.rateLimit object has limit, current, and remaining number of requests and,
      * if the store provides it, a resetTime Date object.
      * @param req
      * @param res
      */
 
-    handler: function (req, res, /*next*/) {
+    handler: function (req, res /*next*/) {
         res.error(req.lang("messages.rate_limit_exceeded"), 429);
     },
 
@@ -72,5 +71,5 @@ export default {
 
     skip: function (/*req, res*/) {
         return false;
-    }
+    },
 };

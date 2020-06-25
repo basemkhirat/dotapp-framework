@@ -1,8 +1,7 @@
 export default {
-
     /**
      * The extended option allows to choose between parsing the URL-encoded data with the querystring library
-     * (when false) or the qs library (when true). The "extended" syntax allows for rich objects and arrays
+     * (when false) or the qs library (when true). The 'extended' syntax allows for rich objects and arrays
      * to be encoded into the URL-encoded format, allowing for a JSON-like experience with URL-encoded.
      */
 
@@ -20,7 +19,7 @@ export default {
      * if it is a string, the value is passed to the bytes library for parsing. Defaults to '100kb'.
      */
 
-    limit: '100mb',
+    limit: "100mb",
 
     /**
      * The parameterLimit option controls the maximum number of parameters that are allowed in the URL-encoded data.
@@ -39,5 +38,5 @@ export default {
      * Defaults to application/x-www-form-urlencoded.
      */
 
-    type: 'application/x-www-form-urlencoded'
+    type: "application/x-www-form-urlencoded",
 };

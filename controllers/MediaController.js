@@ -116,8 +116,10 @@ export default class extends Controller {
         try {
             if (!req.can("media.create")) return res.forbidden();
 
-            if(!req.filled("payload")){
-                return res.validationError(req.lang("media.errors.payload_required"));
+            if (!req.filled("payload")) {
+                return res.validationError(
+                    req.lang("media.errors.payload_required")
+                );
             }
 
             let file = await Resource.save(req.param("payload"));
@@ -184,7 +186,6 @@ export default class extends Controller {
      */
     async updateThumbnail(req, res) {
         try {
-
             let id = req.param("id");
             let size = req.param("size");
             let data = req.param("data");

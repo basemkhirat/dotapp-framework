@@ -1,8 +1,15 @@
 export default {
-
+    /**
+     * allow all users to show all users
+     */
     view: true,
 
-    create: true,
+    /**
+     * allow only superadmins to create users
+     */
+    create(req) {
+        return req.hasRole("superadmin");
+    },
 
     /**
      * users allowed to update:
@@ -68,7 +75,8 @@ export default {
         }
 
         return (
-            (req.getRole("name") === "superadmin" || req.hasPermission("user.role")) &&
+            (req.getRole("name") === "superadmin" ||
+                req.hasPermission("user.role")) &&
             req.getUser("id") !== user.id
         );
     },

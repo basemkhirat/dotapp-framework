@@ -1,9 +1,11 @@
-import App from 'dotapp';
-import Docs from 'dotapp/middlewares/docs';
+import App from "dotapp";
+import { docs, notFound, serverError } from "dotapp/middlewares";
 
 const app = App();
 
-app.use('/docs', Docs());
-app.use(app.errorHandler());
+app.use("/docs", docs());
+app.use("/xxx", docs());
+app.use(notFound());
+app.use(serverError());
 
 export default app;

@@ -17,7 +17,7 @@ export default {
         ...media,
         ...user,
         ...role,
-        ...permission
+        ...permission,
     },
     securityDefinitions: {
         "bearer token": {

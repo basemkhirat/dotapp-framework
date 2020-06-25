@@ -1,5 +1,4 @@
 export default {
-
     view: true,
 
     create(req) {

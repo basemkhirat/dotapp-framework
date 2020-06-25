@@ -1,5 +1,4 @@
 export default {
-
     /**
      * When set to true, then deflated (compressed) bodies will be inflated; when false,
      * deflated bodies are rejected. Defaults to true.
@@ -13,7 +12,7 @@ export default {
      * the value is passed to the bytes library for parsing. Defaults to '100kb'.
      */
 
-    limit: '100mb',
+    limit: "100mb",
 
     /**
      * When set to true, will only accept arrays and objects;
@@ -32,5 +31,5 @@ export default {
      * if it returns a truthy value. Defaults to application/json.
      */
 
-    type: 'application/json'
-}
+    type: "application/json",
+};

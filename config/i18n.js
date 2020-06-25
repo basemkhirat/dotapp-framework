@@ -1,50 +1,49 @@
-import path from 'path';
+import path from "path";
 
 export default {
-
     /**
      * you may alter a site wide default locale
      */
 
-    defaultLocale: 'en',
+    defaultLocale: "en",
 
     /**
      * setup some locales - other locales default to en silently
      */
 
-    locales: ['en', 'ar'],
+    locales: ["en", "ar"],
 
     /**
      * fall back from ar to en
      */
 
     fallbacks: {
-        'ar': 'en'
+        ar: "en",
     },
 
     /**
      * where to store json files - defaults to './locales' relative to modules directory
      */
 
-    directory: path.join(process.cwd(), '/lang'),
+    directory: path.join(process.cwd(), "/lang"),
 
     /**
      * sets a custom cookie name to parse locale settings from  - defaults to NULL
      */
 
-    cookie: 'lang',
+    cookie: "lang",
 
     /**
      * query parameter to switch locale (ie. /home?lang=ch) - defaults to NULL
      */
 
-    queryParameter: 'lang',
+    queryParameter: "lang",
 
     /**
      * control mode on directory creation - defaults to NULL which defaults to umask of process user. Setting has no effect on win.
      */
 
-    directoryPermissions: '755',
+    directoryPermissions: "755",
 
     /**
      * watch for changes in json files to reload locale on updates - defaults to false
@@ -68,19 +67,19 @@ export default {
      * what to use as the indentation unit - defaults to '\t'
      */
 
-    indent: '\t',
+    indent: "\t",
 
     /**
      * setting extension of json files - defaults to '.json' (you might want to set this to '.js' according to webtranslateit)
      */
 
-    extension: '.json',
+    extension: ".json",
 
     /**
      * setting prefix of json files name - default to none '' (in case you use different locale files naming scheme (webapp-en.json), rather then just en.json)
      */
 
-    prefix: '',
+    prefix: "",
 
     /**
      * enable object notation
@@ -126,5 +125,5 @@ export default {
      * e.g. lang=en-US remains en-US.
      */
 
-    preserveLegacyCase: true
+    preserveLegacyCase: true,
 };

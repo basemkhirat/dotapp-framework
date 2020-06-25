@@ -1,6 +1,6 @@
 import Controller from "dotapp/controller";
 import Role from "~/models/role";
-import {Validator} from 'dotapp/services';
+import { Validator } from "dotapp/services";
 
 export default class extends Controller {
     /**
@@ -82,10 +82,9 @@ export default class extends Controller {
             Validator.registerAsync(
                 "role_name_available",
                 async (name, id, x, passes) => {
-
                     let query = Role.findOne();
 
-                    if(id) {
+                    if (id) {
                         query.where("_id").ne(id);
                     }
 
@@ -100,7 +99,7 @@ export default class extends Controller {
             );
 
             let validation = Validator.make(req.all(), {
-                name: "required|role_name_available"
+                name: "required|role_name_available",
             });
 
             if (await validation.failsAsync()) {
@@ -133,10 +132,9 @@ export default class extends Controller {
             Validator.registerAsync(
                 "role_name_available",
                 async (name, id, x, passes) => {
-
                     let query = Role.findOne();
 
-                    if(id) {
+                    if (id) {
                         query.where("_id").ne(id);
                     }
 
@@ -151,7 +149,7 @@ export default class extends Controller {
             );
 
             let validation = Validator.make(req.all(), {
-                name: "required|role_name_available:" + id
+                name: "required|role_name_available:" + id,
             });
 
             if (await validation.failsAsync()) {

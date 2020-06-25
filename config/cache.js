@@ -1,7 +1,6 @@
-import path from 'path';
+import path from "path";
 
 export default {
-
     /**
      * this option controls the default cache connection that gets used while
      * using this caching library. This connection is used when another is
@@ -9,7 +8,7 @@ export default {
      * Available engines: memory, file and redis
      */
 
-    default: process.env.CACHE_DRIVER || 'memory',
+    default: process.env.CACHE_DRIVER || "memory",
 
     /**
      * default 'Time To Live' in seconds
@@ -22,17 +21,16 @@ export default {
      */
 
     engines: {
-
         file: {
-            path: path.join(process.cwd(), 'storage/cache')
+            path: path.join(process.cwd(), "storage/cache"),
         },
 
         redis: {
-            host: process.env.REDIS_HOST || '127.0.0.1',
+            host: process.env.REDIS_HOST || "127.0.0.1",
             port: process.env.REDIS_PORT || 6379,
             database: process.env.REDIS_DB || 0,
             prefix: process.env.REDIS_PREFIX || "store",
-            password: process.env.REDIS_PASS || undefined
-        }
-    }
-}
+            password: process.env.REDIS_PASS || undefined,
+        },
+    },
+};

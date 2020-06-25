@@ -1,10 +1,11 @@
-export default {
+import path from "path";
 
+export default {
     /**
      * The application base url
      */
 
-    url: process.env.APP_URL || 'http://localhost',
+    url: process.env.APP_URL || "http://localhost",
 
     /**
      * The application base url
@@ -34,15 +35,8 @@ export default {
     trust_proxy: process.env.APP_PROXY || false,
 
     /**
-     * View engine to use for your app's server-side views
-     */
-
-    view_engine: "ejs",
-
-    /**
      * The views directory path
      */
 
-    views: "views",
+    views: path.join(process.cwd(), "views"),
 };
-

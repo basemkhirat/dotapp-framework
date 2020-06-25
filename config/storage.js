@@ -1,25 +1,23 @@
-import path from 'path';
+import path from "path";
 
 export default {
-
     /**
      * Here you may specify the default filesystem disk that should be used.
-     * The "local" storage is enabled by default.
+     * The 'local' storage is enabled by default.
      */
 
     default: "uploads",
 
     /**
-     * Here you may configure as many filesystem "disks" as you wish, and you
+     * Here you may configure as many filesystem 'disks' as you wish, and you
      * may even configure multiple disks of the same driver.
      */
 
     disks: {
-
         public: {
             driver: "local",
             path: path.join(process.cwd(), "public"),
-            url: process.env.APP_URL
+            url: process.env.APP_URL,
         },
 
         /**
@@ -30,7 +28,7 @@ export default {
         uploads: {
             driver: "local",
             path: path.join(process.cwd(), "public/uploads"),
-            url: process.env.APP_URL + "/uploads"
+            url: process.env.APP_URL + "/uploads",
         },
 
         /**
@@ -41,7 +39,7 @@ export default {
         temp: {
             driver: "local",
             path: path.join(process.cwd(), "storage/temp"),
-            url: false
+            url: false,
         },
 
         /**
@@ -51,7 +49,7 @@ export default {
         s3: {
             driver: "s3",
             bucket: "cms-js",
-            region: "eu-west-1"
-        }
-    }
-}
+            region: "eu-west-1",
+        },
+    },
+};
