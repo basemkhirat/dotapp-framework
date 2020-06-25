@@ -1,7 +1,7 @@
 export default {
 
     /**
-     * Enable rate limiter ti by globally
+     * Enable hits limiter by default using below max and windowMs values.
      * if global is enabled, rates will be applied on all endpoints.
      */
 
