@@ -1,4 +1,4 @@
-import path from "path";
+import path from 'path';
 
 export default {
 
@@ -6,7 +6,7 @@ export default {
      * you may alter a site wide default locale
      */
 
-    defaultLocale: "en",
+    defaultLocale: 'en',
 
     /**
      * setup some locales - other locales default to en silently
@@ -65,10 +65,10 @@ export default {
     syncFiles: false,
 
     /**
-     * what to use as the indentation unit - defaults to "\t"
+     * what to use as the indentation unit - defaults to '\t'
      */
 
-    indent: "\t",
+    indent: '\t',
 
     /**
      * setting extension of json files - defaults to '.json' (you might want to set this to '.js' according to webtranslateit)
