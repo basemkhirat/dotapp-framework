@@ -80,7 +80,7 @@ $ npm start
 Server will listen at port 3000 by default. you can change the port later from app configurations.
 
 
-Here you can browse your API Documentation `http://localhost:3000/docs`
+Here you can browse your API Documentation `http://localhost:3000/api/v1/docs`
 
 ## Documentation
 

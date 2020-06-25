@@ -8,7 +8,7 @@ let role = {
 describe("Role", function () {
 
     it("create a new role", function (done) {
-        server.post("/api/role")
+        server.post("/api/v1/role")
             .set('Authorization', 'Bearer ' + token)
             .send(role)
             .expect(200)
@@ -20,13 +20,13 @@ describe("Role", function () {
     });
 
     it("find role by id", function (done) {
-        server.get("/api/role/" + role.id)
+        server.get("/api/v1/role/" + role.id)
             .set('Authorization', 'Bearer ' + token)
             .expect(200, done);
     });
 
     it("update role by id", function (done) {
-        server.put("/api/role/" + role.id)
+        server.put("/api/v1/role/" + role.id)
             .set('Authorization', 'Bearer ' + token)
             .send({
                 name: faker.company.companyName()
@@ -35,13 +35,13 @@ describe("Role", function () {
     });
 
     it("list all roles", function (done) {
-        server.get('/api/role')
+        server.get('/api/v1/role')
             .set('Authorization', 'Bearer ' + token)
             .expect(200, done);
     });
 
     it("delete role by id", function (done) {
-        server.delete("/api/role/" + role.id)
+        server.delete("/api/v1/role/" + role.id)
             .set('Authorization', 'Bearer ' + token)
             .expect(200, done);
     });

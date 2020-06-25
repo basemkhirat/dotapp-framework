@@ -1,8 +1,8 @@
-import auth from "~/docs/modules/auth";
-import media from "~/docs/modules/media";
-import user from "~/docs/modules/user";
-import role from "~/docs/modules/role";
-import permission from "~/docs/modules/permission";
+import auth from "~/docs/v1/modules/auth";
+import media from "~/docs/v1/modules/media";
+import user from "~/docs/v1/modules/user";
+import role from "~/docs/v1/modules/role";
+import permission from "~/docs/v1/modules/permission";
 
 export default {
     swagger: "2.0",
@@ -11,7 +11,7 @@ export default {
         description: "The API documentation",
         version: "1.0.0",
     },
-    basePath: "/api",
+    basePath: "/api/v1",
     paths: {
         ...auth,
         ...media,

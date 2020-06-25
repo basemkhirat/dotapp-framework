@@ -14,7 +14,7 @@ describe("Media", function () {
 
         media.payload = "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png";
 
-        server.post("/api/media")
+        server.post("/api/v1/media")
             .set('Authorization', 'Bearer ' + token)
             .send(media)
             .expect(200)
@@ -31,13 +31,13 @@ describe("Media", function () {
 
         media.payload = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg==";
 
-        server.post("/api/media")
+        server.post("/api/v1/media")
             .set('Authorization', 'Bearer ' + token)
             .send(media)
             .expect(200)
             .end(function (error, response) {
                 if (error) return done(error);
-                server.delete("/api/media/" + response.body.data)
+                server.delete("/api/v1/media/" + response.body.data)
                     .set('Authorization', 'Bearer ' + token)
                     .expect(200, done);
             });
@@ -49,13 +49,13 @@ describe("Media", function () {
 
         media.payload = "https://file-examples.com/wp-content/uploads/2017/04/file_example_MP4_480_1_5MG.mp4";
 
-        server.post("/api/media")
+        server.post("/api/v1/media")
             .set('Authorization', 'Bearer ' + token)
             .send(media)
             .expect(200)
             .end(function (error, response) {
                 if (error) return done(error);
-                server.delete("/api/media/" + response.body.data)
+                server.delete("/api/v1/media/" + response.body.data)
                     .set('Authorization', 'Bearer ' + token)
                     .expect(200, done);
             });
@@ -67,13 +67,13 @@ describe("Media", function () {
 
         media.payload = "file:///Users/basem/Downloads/sample_640x360.flv";
 
-        server.post("/api/media")
+        server.post("/api/v1/media")
             .set('Authorization', 'Bearer ' + token)
             .send(media)
             .expect(200)
             .end(function (error, response) {
                 if (error) return done(error);
-                server.delete("/api/media/" + response.body.data)
+                server.delete("/api/v1/media/" + response.body.data)
                     .set('Authorization', 'Bearer ' + token)
                     .expect(200, done);
             });
@@ -86,13 +86,13 @@ describe("Media", function () {
 
         media.payload = "https://www.youtube.com/watch?v=L6_CoHNSbwc";
 
-        server.post("/api/media")
+        server.post("/api/v1/media")
             .set('Authorization', 'Bearer ' + token)
             .send(media)
             .expect(200)
             .end(function (error, response) {
                 if (error) return done(error);
-                server.delete("/api/media/" + response.body.data)
+                server.delete("/api/v1/media/" + response.body.data)
                     .set('Authorization', 'Bearer ' + token)
                     .expect(200, done);
             });
@@ -104,26 +104,26 @@ describe("Media", function () {
 
             media.payload = "https://soundcloud.com/user9175165/deep-shamanic-meditation-relaxing-powerful-meditation-music-for-deep-relaxation-sleep-music-030";
 
-        server.post("/api/media")
+        server.post("/api/v1/media")
             .set('Authorization', 'Bearer ' + token)
             .send(media)
             .expect(200)
             .end(function (error, response) {
                 if (error) return done(error);
-                server.delete("/api/media/" + response.body.data)
+                server.delete("/api/v1/media/" + response.body.data)
                     .set('Authorization', 'Bearer ' + token)
                     .expect(200, done);
             });
     });
 
     it("find media by id", function (done) {
-        server.get("/api/media/" + media.id)
+        server.get("/api/v1/media/" + media.id)
             .set('Authorization', 'Bearer ' + token)
             .expect(200, done);
     });
 
     it("update media by id", function (done) {
-        server.put("/api/media/" + media.id)
+        server.put("/api/v1/media/" + media.id)
             .set('Authorization', 'Bearer ' + token)
             .send({
                 title: faker.company.companyName(),
@@ -133,7 +133,7 @@ describe("Media", function () {
     });
 
     it("update media thumbnail by id", function (done) {
-        server.put("/api/media/thumbnail/" + media.id)
+        server.put("/api/v1/media/thumbnail/" + media.id)
             .set('Authorization', 'Bearer ' + token)
             .send({
                 size: "medium",
@@ -143,31 +143,31 @@ describe("Media", function () {
     });
 
     it("list all media", function (done) {
-        server.get('/api/media')
+        server.get('/api/v1/media')
             .set('Authorization', 'Bearer ' + token)
             .expect(200, done);
     });
 
     it("list all media thumbnails", function (done) {
-        server.get('/api/media/thumbnails')
+        server.get('/api/v1/media/thumbnails')
             .set('Authorization', 'Bearer ' + token)
             .expect(200, done);
     });
 
     it("list all media types", function (done) {
-        server.get('/api/media/types')
+        server.get('/api/v1/media/types')
             .set('Authorization', 'Bearer ' + token)
             .expect(200, done);
     });
 
     it("list all media extensions", function (done) {
-        server.get('/api/media/extensions')
+        server.get('/api/v1/media/extensions')
             .set('Authorization', 'Bearer ' + token)
             .expect(200, done);
     });
 
     it("delete media by id", function (done) {
-        server.delete("/api/media/" + media.id)
+        server.delete("/api/v1/media/" + media.id)
             .set('Authorization', 'Bearer ' + token)
             .expect(200, done);
     });

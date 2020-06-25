@@ -14,7 +14,7 @@ let user = {
 describe("User", function () {
 
     it("create a new user", function (done) {
-        server.post("/api/user")
+        server.post("/api/v1/user")
             .set('Authorization', 'Bearer ' + token)
             .send(user)
             .expect(200)
@@ -26,13 +26,13 @@ describe("User", function () {
     });
 
     it("find user by id", function (done) {
-        server.get("/api/user/" + user.id)
+        server.get("/api/v1/user/" + user.id)
             .set('Authorization', 'Bearer ' + token)
             .expect(200, done);
     });
 
     it("update user by id", function (done) {
-        server.put("/api/user/" + user.id)
+        server.put("/api/v1/user/" + user.id)
             .set('Authorization', 'Bearer ' + token)
             .send({
                 email: faker.internet.email(),
@@ -43,13 +43,13 @@ describe("User", function () {
     });
 
     it("list all users", function (done) {
-        server.get('/api/user')
+        server.get('/api/v1/user')
             .set('Authorization', 'Bearer ' + token)
             .expect(200, done);
     });
 
     it("delete user by id", function (done) {
-        server.delete("/api/user/" + user.id)
+        server.delete("/api/v1/user/" + user.id)
             .set('Authorization', 'Bearer ' + token)
             .expect(200, done);
     });

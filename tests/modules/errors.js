@@ -9,7 +9,7 @@ describe("Errors", function () {
     });
 
     it("test not authenticated", function (done) {
-        server.post("/api/role")
+        server.post("/api/v1/role")
             .expect(401, done);
     });
 });

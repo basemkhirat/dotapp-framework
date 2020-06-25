@@ -32,7 +32,7 @@ before(function (done) {
 
         user.save(error => {
             if (error) return done(error);
-            server.post('/api/auth/token')
+            server.post('/api/v1/auth/token')
                 .send({email: fakeUser.email, password: fakeUser.password})
                 .expect(200)
                 .end((error, response) => {
