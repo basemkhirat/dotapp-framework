@@ -24,7 +24,7 @@ export default {
     engines: {
 
         file: {
-            path: path.join(process.cwd(), '/storage/cache')
+            path: path.join(process.cwd(), 'storage/cache')
         },
 
         redis: {
