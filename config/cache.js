@@ -1,3 +1,5 @@
+import path from "path";
+
 export default {
 
     /**
@@ -22,11 +24,11 @@ export default {
     engines: {
 
         file: {
-            path: process.cwd() + "/storage/cache"
+            path: path.join(process.cwd(), "/storage/cache")
         },
 
         redis: {
-            host: process.env.REDIS_HOST || '127.0.0.1',
+            host: process.env.REDIS_HOST || "127.0.0.1",
             port: process.env.REDIS_PORT || 6379,
             database: process.env.REDIS_DB || 0,
             prefix: process.env.REDIS_PREFIX || "store",
