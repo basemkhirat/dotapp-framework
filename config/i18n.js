@@ -1,3 +1,5 @@
+import path from "path";
+
 export default {
 
     /**
@@ -24,7 +26,7 @@ export default {
      * where to store json files - defaults to './locales' relative to modules directory
      */
 
-    directory: process.cwd() + '/lang',
+    directory: path.join(process.cwd(), '/lang'),
 
     /**
      * sets a custom cookie name to parse locale settings from  - defaults to NULL
