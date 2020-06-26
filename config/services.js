@@ -1,4 +1,8 @@
 export default {
+    google: {
+        key: process.env.GOOGLE_KEY,
+    },
+
     aws: {
         /**
          * your AWS access key ID
@@ -19,15 +23,7 @@ export default {
         region: process.env.AWS_REGION || "eu-west-1",
     },
 
-    youtube: {
-        key: process.env.YOUTUBE_KEY,
-    },
-
     soundcloud: {
         key: process.env.SOUNDCLOUD_KEY,
-    },
-
-    google: {
-        key: process.env.GOOGLE_KEY,
     },
 };

@@ -510,7 +510,9 @@ export default class extends Controller {
             let access_token = req.param("access_token");
 
             let url =
-                "https://www.googleapis.com/oauth2/v3/userinfo?key=AIzaSyA111zEWbTLDGx8BjWYjPNPuv2CD0fBtVM&access_token=" +
+                "https://www.googleapis.com/oauth2/v3/userinfo?key=" +
+                Config.get("services.google.key") +
+                "&access_token=" +
                 access_token;
 
             let api = await HTTP.get(url);
