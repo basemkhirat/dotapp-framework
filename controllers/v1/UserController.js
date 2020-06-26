@@ -48,7 +48,7 @@ export default class extends Controller {
 
             return res.ok({
                 total: result.total,
-                docs: res.attachPolicies(result.docs, "user"),
+                docs: result.docs,
             });
         } catch (error) {
             return res.serverError(error);
@@ -71,7 +71,7 @@ export default class extends Controller {
             if (!user) {
                 return res.notFound(req.lang("user.errors.user_not_found"));
             } else {
-                return res.ok(res.attachPolicies(user, "user"));
+                return res.ok(user);
             }
         } catch (e) {
             return res.serverError(e);
