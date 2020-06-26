@@ -68,7 +68,7 @@ export default {
     },
 
     "/auth/profile": {
-        post: {
+        put: {
             tags: ["Authentication"],
             summary: "Update user personal information",
             parameters: [
@@ -110,7 +110,7 @@ export default {
     },
 
     "/auth/repassword": {
-        post: {
+        put: {
             tags: ["Authentication"],
             summary: "Change user password",
             parameters: [

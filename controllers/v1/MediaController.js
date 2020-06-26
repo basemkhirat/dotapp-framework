@@ -117,9 +117,7 @@ export default class extends Controller {
             if (!req.can("media.create")) return res.forbidden();
 
             if (!req.filled("payload")) {
-                return res.validationError(
-                    req.lang("media.errors.payload_required")
-                );
+                return res.validationError({payload:  req.lang("media.errors.payload_required")});
             }
 
             let file = await Resource.save(req.param("payload"));
@@ -135,11 +133,11 @@ export default class extends Controller {
             return res.ok(file.id, req.lang("media.events.created"));
         } catch (error) {
             if (error instanceof Resource.FileTypeException) {
-                return res.validationError([{ image: ["invalid file type"] }]);
+                return res.validationError({ image: ["invalid file type"] });
             }
 
             if (error instanceof Resource.FileSizeException) {
-                return res.validationError([{ image: ["file size exceeded"] }]);
+                return res.validationError({ image: ["file size exceeded"] });
             }
 
             return res.serverError(error);
@@ -197,24 +195,18 @@ export default class extends Controller {
                 });
 
             if (sizes.indexOf(size) < 0) {
-                return res.validationError(
-                    req.lang("media.errors.invalid_size")
-                );
+                return res.validationError({data: req.lang("media.errors.invalid_size")});
             }
 
             if (!req.filled("data"))
-                return res.validationError(
-                    req.lang("media.errors.base64_required")
-                );
+                return res.validationError({data: req.lang("media.errors.base64_required")});
 
             let matches = data.match(
                 /^data:([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+);base64,(.+)$/
             );
 
             if (!matches || matches.length !== 3) {
-                return res.validationError(
-                    req.lang("media.errors.invalid_base64")
-                );
+                return res.validationError({data: req.lang("media.errors.invalid_base64")});
             }
 
             data = matches[2];
@@ -234,7 +226,7 @@ export default class extends Controller {
             }
 
             if (media.type !== "image") {
-                return res.validationError(req.lang("media.errors.not_image"));
+                return res.validationError({data: req.lang("media.errors.not_image")});
             }
 
             let image_path = media.image.path;

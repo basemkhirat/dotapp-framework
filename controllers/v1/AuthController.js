@@ -1,5 +1,6 @@
 import Controller from "dotapp/controller";
 import User from "~/models/user";
+import MediaModel from "~/models/media";
 import { Config, Media, Validator, Mail, Auth, HTTP } from "dotapp/services";
 
 export default class extends Controller {
@@ -28,11 +29,9 @@ export default class extends Controller {
                 .findOne();
 
             if (!user) {
-                return res.validationError([
-                    {
-                        email: [req.lang("auth.email_not_found")],
-                    },
-                ]);
+                return res.validationError({
+                    email: [req.lang("auth.email_not_found")],
+                });
             }
 
             if (user.status !== 1) {
@@ -42,11 +41,9 @@ export default class extends Controller {
             let same = await Auth.comparePasswords(password, user.password);
 
             if (!same) {
-                return res.validationError([
-                    {
-                        password: [req.lang("auth.invalid_password")],
-                    },
-                ]);
+                return res.validationError({
+                    password: [req.lang("auth.invalid_password")],
+                });
             }
 
             let response = user.toObject();
@@ -138,8 +135,17 @@ export default class extends Controller {
             }
 
             if (req.filled("photo")) {
-                let photo = await Media.save(req.param("photo"));
-                user.photo = photo.id;
+                let file = await Media.save(req.param("photo"));
+
+                let media = new MediaModel(file);
+
+                media.user = req.getUser("id");
+                media.title =
+                    req.getUser("first_name") + " " + req.getUser("last_name");
+
+                file = await media.save();
+
+                user.photo = file.id;
             }
 
             if (req.filled("first_name")) {
@@ -159,15 +165,15 @@ export default class extends Controller {
             return res.ok(user.id, req.lang("auth.events.profile_updated"));
         } catch (error) {
             if (error instanceof Media.FileTypeException) {
-                return res.validationError([
-                    { image: [req.lang("auth.invalid_photo_type")] },
-                ]);
+                return res.validationError({
+                    image: [req.lang("auth.invalid_photo_type")],
+                });
             }
 
             if (error instanceof Media.FileSizeException) {
-                return res.validationError([
-                    { image: [req.lang("auth.invalid_photo_size")] },
-                ]);
+                return res.validationError({
+                    image: [req.lang("auth.invalid_photo_size")],
+                });
             }
 
             return res.serverError(error);
@@ -212,9 +218,9 @@ export default class extends Controller {
             );
 
             if (!isEqualOldPassword) {
-                return res.validationError([
-                    { old_password: [req.lang("auth.invalid_old_password")] },
-                ]);
+                return res.validationError({
+                    old_password: [req.lang("auth.invalid_old_password")],
+                });
             }
 
             // compare with new password
@@ -225,9 +231,9 @@ export default class extends Controller {
             );
 
             if (isEqualNewPassword) {
-                return res.validationError([
-                    { new_password: [req.lang("auth.same_new_password")] },
-                ]);
+                return res.validationError({
+                    new_password: [req.lang("auth.same_new_password")],
+                });
             }
 
             user.password = new_password;
@@ -262,11 +268,9 @@ export default class extends Controller {
             let user = await User.where("email", email).findOne();
 
             if (!user) {
-                return res.validationError([
-                    {
-                        email: [req.lang("auth.email_not_found")],
-                    },
-                ]);
+                return res.validationError({
+                    email: [req.lang("auth.email_not_found")],
+                });
             }
 
             user.password_token = Math.random().toString(36).slice(-8);
@@ -319,23 +323,17 @@ export default class extends Controller {
                 .findOne();
 
             if (!user) {
-                return res.validationError([
-                    {
-                        code: [
-                            req.lang("auth.invalid_password_verification_code"),
-                        ],
-                    },
-                ]);
+                return res.validationError({
+                    code: [req.lang("auth.invalid_password_verification_code")],
+                });
             }
 
             let isEqual = await Auth.comparePasswords(password, user.password);
 
             if (isEqual) {
-                return res.validationError([
-                    {
-                        password: [req.lang("auth.cannot_use_same_password")],
-                    },
-                ]);
+                return res.validationError({
+                    password: [req.lang("auth.cannot_use_same_password")],
+                });
             }
 
             user.password = password;
@@ -382,13 +380,9 @@ export default class extends Controller {
                 .findOne();
 
             if (!user) {
-                return res.validationError([
-                    {
-                        code: [
-                            req.lang("auth.invalid_email_verification_code"),
-                        ],
-                    },
-                ]);
+                return res.validationError({
+                    code: [req.lang("auth.invalid_email_verification_code")],
+                });
             }
 
             user.status = 1;
@@ -421,23 +415,7 @@ export default class extends Controller {
                 return res.notFound(req.lang("user.errors.user_not_found"));
             }
 
-            user = user.toObject();
-
-            let permissions = Config.get("permissions");
-
-            let myPermissions = [];
-
-            for (let module in permissions) {
-                permissions[module].forEach((action) => {
-                    if (req.hasPermission(module + "." + action)) {
-                        myPermissions.push(module + "." + action);
-                    }
-                });
-            }
-
-            user.permissions = myPermissions;
-
-            return res.ok(user);
+            return res.ok(user.toObject());
         } catch (error) {
             return res.serverError(error);
         }
@@ -534,12 +512,9 @@ export default class extends Controller {
                 ).countDocuments();
 
                 if (email_exists) {
-                    return res.validationError([
-                        {
-                            name: "email",
-                            errors: [req.lang("user.email_taken")],
-                        },
-                    ]);
+                    return res.validationError({
+                        email: [req.lang("user.email_taken")],
+                    });
                 }
 
                 let new_user = new User();

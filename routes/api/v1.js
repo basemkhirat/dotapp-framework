@@ -10,14 +10,6 @@ export default {
                 "POST /register": {
                     handler: "v1/AuthController.register",
                 },
-                "POST /profile": {
-                    middleware: authenticate(),
-                    handler: "v1/AuthController.profile",
-                },
-                "POST /repassword": {
-                    middleware: authenticate(),
-                    handler: "v1/AuthController.repassword",
-                },
                 "POST /facebook": {
                     handler: "v1/AuthController.facebook",
                 },
@@ -36,6 +28,14 @@ export default {
                 "GET /user": {
                     middleware: authenticate(),
                     handler: "v1/AuthController.user",
+                },
+                "PUT /profile": {
+                    middleware: authenticate(),
+                    handler: "v1/AuthController.profile",
+                },
+                "PUT /repassword": {
+                    middleware: authenticate(),
+                    handler: "v1/AuthController.repassword",
                 },
             },
         },
