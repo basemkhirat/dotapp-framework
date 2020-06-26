@@ -7,9 +7,7 @@ export default {
         group: {
             "/api": {
                 group: {
-                    "/v1": {
-                        group: v1,
-                    },
+                    "/v1": v1,
                 },
             },
         },
