@@ -89,45 +89,6 @@ export default {
                 },
             ],
         },
-        patch: {
-            tags: ["Media"],
-            summary: "Bulk media delete/update",
-            parameters: [
-                {
-                    name: "operation",
-                    in: "query",
-                    description: "operation",
-                    required: true,
-                    type: "string",
-                    enum: ["delete", "update"],
-                },
-                {
-                    name: "ids",
-                    in: "query",
-                    description: "IDs",
-                    required: true,
-                    type: "array",
-                    items: {
-                        type: "string",
-                    },
-                },
-                {
-                    name: "data",
-                    in: "query",
-                    description: "Data for update",
-                    type: "object",
-                    default: {},
-                },
-            ],
-            responses: {
-                $ref: "#/responses",
-            },
-            security: [
-                {
-                    "bearer token": [],
-                },
-            ],
-        },
     },
     "/media/thumbnails": {
         get: {
