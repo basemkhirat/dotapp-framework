@@ -6,8 +6,7 @@ DOTAPP is shipped with a combination of open-source libraries that are fully int
 
 ## Requirements
 
-- nodejs >= 8.0.0
-- npm >= 3.0.0
+- nodejs >= 12.0.0
 - git
 - mongodb
 
