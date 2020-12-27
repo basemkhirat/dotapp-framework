@@ -64,7 +64,8 @@ export default {
         },
 
         "/permission": {
-            middleware: authenticate(),
+            //middleware: authenticate(),
+
 
             group: {
                 "GET /": "v1/PermissionController.find",

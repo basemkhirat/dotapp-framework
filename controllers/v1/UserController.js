@@ -188,7 +188,7 @@ export default class extends Controller {
             let validation = Validator.make(req.all(), {
                 first_name: "min:2",
                 last_name: "min:2",
-                email: "email|email_available",
+                email: "email|email_available:" + id,
                 password: "min:7",
             });
 

@@ -1,5 +1,6 @@
 import Controller from "dotapp/controller";
 import { Config } from "dotapp/services";
+import policies from "~/policies";
 
 export default class extends Controller {
     /**
@@ -8,51 +9,21 @@ export default class extends Controller {
      * @param res
      */
     find(req, res) {
-        let permissions = Config.get("permissions");
+        let permissions = policies;
 
-        let allPermissions = {};
+        let allPermissions = [];
 
         for (let module in permissions) {
-            permissions[module].forEach((action) => {
-                if (module === "role") {
-                    return;
-                }
 
-                if (!(module in allPermissions)) {
-                    allPermissions[module] = {};
-                }
+            let permissions_list = [];
 
-                allPermissions[module][module + "." + action] = req.lang(
-                    module + ".permissions." + action
-                );
-            });
+            for (let action in permissions[module]) {
+                permissions_list.push(action);
+            }
+
+            allPermissions.push({ name: module, actions: permissions_list });
         }
 
         return res.ok(allPermissions);
-    }
-
-    /**
-     * Find current user permissions
-     * @param req
-     * @param res
-     */
-    me(req, res) {
-        let permissions = Config.get("permissions");
-
-        let myPermissions = [];
-
-        for (let module in permissions) {
-            if (module === "role") {
-                continue;
-            }
-
-            permissions[module].forEach((action) => {
-                if (req.hasPermission(module + "." + action)) {
-                    myPermissions.push(module + "." + action);
-                }
-            });
-        }
-
-        return res.ok(myPermissions);
     }
 }
