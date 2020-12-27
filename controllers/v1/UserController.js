@@ -275,7 +275,7 @@ export default class extends Controller {
             await user.remove();
 
             return res.ok(id, req.lang("user.events.deleted"));
-        } catch (e) {
+        } catch (error) {
             return res.serverError(error);
         }
     }
