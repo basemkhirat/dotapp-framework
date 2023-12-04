@@ -1,9 +1,10 @@
 import App from "dotapp";
-import { routes, docs, notFound, serverError } from "dotapp/middlewares";
+import { docs, notFound, serverError } from "dotapp/middlewares";
 
 const app = App();
 
-app.use(routes());
+// You can safely add express middleware here.
+
 app.use("/api/v1/docs", docs("v1"));
 app.use(notFound());
 app.use(serverError());
